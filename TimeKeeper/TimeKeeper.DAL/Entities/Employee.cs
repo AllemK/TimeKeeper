@@ -25,6 +25,6 @@ namespace TimeKeeper.DAL.Entities
         public DateTime? EndDate { get; set; }
         public Status Status { get; set; }
 
-        public virtual ICollection<Role> Roles { get; set; }
+        public virtual Role Role { get; set; }
     }
 }
