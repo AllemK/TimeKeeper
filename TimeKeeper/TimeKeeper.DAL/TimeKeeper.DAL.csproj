@@ -47,9 +47,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Entities\Address.cs" />
     <Compile Include="Entities\BaseClass.cs" />
     <Compile Include="Entities\Calendar.cs" />
+    <Compile Include="Entities\Customers.cs" />
     <Compile Include="Entities\Employee.cs" />
+    <Compile Include="Entities\Projects.cs" />
     <Compile Include="Entities\Role.cs" />
     <Compile Include="Entities\Task.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
