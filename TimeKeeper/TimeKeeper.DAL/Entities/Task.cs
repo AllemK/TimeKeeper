@@ -10,5 +10,8 @@ namespace TimeKeeper.DAL.Entities
     { 
         public string Description { get; set; }
         public decimal Hours { get; set; }
+
+        public virtual Project Project { get; set; }
+        public virtual Calendar DayId { get; set; }
     }
 }

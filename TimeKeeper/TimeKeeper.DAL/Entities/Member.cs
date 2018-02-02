@@ -8,6 +8,10 @@ namespace TimeKeeper.DAL.Entities
 {
     public class Member : BaseClass<int>
     {
-        public int Hours { get; set; }
+        public decimal Hours { get; set; }
+
+        public virtual Team Team { get; set; }
+        public virtual Employee Employee { get; set; }
+        public virtual Role Role { get; set; }
     }
 }

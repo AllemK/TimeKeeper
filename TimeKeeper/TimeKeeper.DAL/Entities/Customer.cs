@@ -9,10 +9,10 @@ namespace TimeKeeper.DAL.Entities
 	public enum CustomerStatus
 	{
 		Prospect = 1,
-		Active
+		Client
 	}
 
-	public class Customers : BaseClass<int>
+	public class Customer : BaseClass<int>
 	{
 		public string Name { get; set; }
 		public string Image { get; set; }
@@ -22,6 +22,5 @@ namespace TimeKeeper.DAL.Entities
 		public string Phone { get; set; }
 		public Address Address { get; set; }
 		public CustomerStatus Status { get; set; }
-
 	}
 }

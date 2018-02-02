@@ -12,7 +12,6 @@ namespace TimeKeeper.DAL.Entities
 		PerCapitaRate,
 		FixedPrice,
 		NotBillable
-
 	}
 	public enum ProjectStatus
 	{
@@ -20,10 +19,8 @@ namespace TimeKeeper.DAL.Entities
 		OnHold,
 		Finished,
 		Canceled
-
-
 	}
-	public class Projects : BaseClass<int>
+	public class Project : BaseClass<int>
 	{
 		public string Name { get; set; }
 		public string Description { get; set; }
@@ -32,5 +29,7 @@ namespace TimeKeeper.DAL.Entities
 		public Pricing Pricing { get; set; }
 		public ProjectStatus ProjectStatus { get; set; }
 
-	}
+        public virtual Team Team { get; set; }
+        public virtual Customer Customer { get; set; }
+    }
 }
