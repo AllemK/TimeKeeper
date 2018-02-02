@@ -51,7 +51,7 @@ namespace TimeKeeper.DAL
             string tableName = GetTableName(entryEntityType);
             string sql = string.Format("UPDATE {0} SET Deleted = 1 WHERE id = @id", tableName);
             Database.ExecuteSqlCommand(sql, new SqlParameter("@id", entry.OriginalValues["Id"]));
-            entry.State = EntityState.Detached;
+            entry.State = EntityState.Unchanged;
         }
 
         private static Dictionary<Type, EntitySetBase> _mappingCache = new Dictionary<Type, EntitySetBase>();
