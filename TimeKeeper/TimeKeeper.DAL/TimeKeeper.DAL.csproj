@@ -50,7 +50,9 @@
     <Compile Include="Entities\BaseClass.cs" />
     <Compile Include="Entities\Calendar.cs" />
     <Compile Include="Entities\Employee.cs" />
+    <Compile Include="Entities\Member.cs" />
     <Compile Include="Entities\Role.cs" />
+    <Compile Include="Entities\Team.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
