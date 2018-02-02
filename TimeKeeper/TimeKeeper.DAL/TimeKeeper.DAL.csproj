@@ -52,6 +52,9 @@
     <Compile Include="Models\BaseClass.cs" />
     <Compile Include="Models\Employee.cs" />
     <Compile Include="Models\Role.cs" />
+    <Compile Include="Models\Access.cs" />
+    <Compile Include="Models\Address.cs" />
+    <Compile Include="Models\Customers.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
