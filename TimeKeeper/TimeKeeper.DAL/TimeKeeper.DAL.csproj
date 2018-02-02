@@ -47,6 +47,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="TimeKeeperContext.cs" />
     <Compile Include="Entities\Address.cs" />
     <Compile Include="Entities\BaseClass.cs" />
     <Compile Include="Entities\Calendar.cs" />
