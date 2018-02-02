@@ -4,15 +4,16 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{70B8FD2B-BDF2-41F9-B0C2-CE752AB1129E}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>TimeKeeper.DAL</RootNamespace>
-    <AssemblyName>TimeKeeper.DAL</AssemblyName>
+    <ProjectGuid>{118DC0B1-FAE8-43C9-B278-074A074B11A8}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <RootNamespace>TimeKeeper.ConApp</RootNamespace>
+    <AssemblyName>TimeKeeper.ConApp</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -22,6 +23,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -47,27 +49,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Migrations\Configuration.cs" />
-    <Compile Include="Repository\IRepository.cs" />
-    <Compile Include="Repository\Repository.cs" />
-    <Compile Include="Repository\UnitOfWork.cs" />
-    <Compile Include="TimeKeeperContext.cs" />
-    <Compile Include="Entities\Address.cs" />
-    <Compile Include="Entities\BaseClass.cs" />
-    <Compile Include="Entities\Calendar.cs" />
-    <Compile Include="Entities\Customer.cs" />
-    <Compile Include="Entities\Employee.cs" />
-    <Compile Include="Entities\Member.cs" />
-    <Compile Include="Entities\Role.cs" />
-    <Compile Include="Entities\Team.cs" />
-    <Compile Include="Entities\Project.cs" />
-    <Compile Include="Entities\Task.cs" />
+    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\TimeKeeper.DAL\TimeKeeper.DAL.csproj">
+      <Project>{70b8fd2b-bdf2-41f9-b0c2-ce752ab1129e}</Project>
+      <Name>TimeKeeper.DAL</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
