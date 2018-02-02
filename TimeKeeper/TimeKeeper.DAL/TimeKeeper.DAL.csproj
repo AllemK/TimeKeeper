@@ -51,6 +51,7 @@
     <Compile Include="Entities\Calendar.cs" />
     <Compile Include="Entities\Employee.cs" />
     <Compile Include="Entities\Role.cs" />
+    <Compile Include="Entities\Task.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
