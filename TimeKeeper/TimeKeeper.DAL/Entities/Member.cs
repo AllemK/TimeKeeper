@@ -11,7 +11,10 @@ namespace TimeKeeper.DAL.Entities
         public decimal Hours { get; set; }
 
         public virtual Team Team { get; set; }
+        public string TeamId { get; set; }
         public virtual Employee Employee { get; set; }
+        public int EmployeeId { get; set; }
         public virtual Role Role { get; set; }
+        public string RoleId { get; set; }
     }
 }
