@@ -16,22 +16,22 @@ namespace TimeKeeper.DAL
     {
         public TimeKeeperContext() : base("TimeKeeper") { }
         
-        public DbSet<Calendar> Calendar { get; set; }
-        public DbSet<Customer> Customer { get; set; }
-        public DbSet<Employee> Employee { get; set; }
-        public DbSet<Member> Member { get; set; }
-        public DbSet<Project> Project { get; set; }
-        public DbSet<Role> Role { get; set; }
-        public DbSet<Detail> Detail { get; set; }
-        public DbSet<Team> Team { get; set; }
+        public DbSet<Day> Calendar { get; set; }
+        public DbSet<Customer> Customers { get; set; }
+        public DbSet<Employee> Employees { get; set; }
+        public DbSet<Engagement> Engagement { get; set; }
+        public DbSet<Project> Projects { get; set; }
+        public DbSet<Role> Roles { get; set; }
+        public DbSet<Detail> Details { get; set; }
+        public DbSet<Team> Teams { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-            modelBuilder.Entity<Calendar>().Map<Calendar>(x => { x.Requires("Deleted").HasValue(false); }).Ignore(x => x.Deleted);
+            modelBuilder.Entity<Day>().Map<Day>(x => { x.Requires("Deleted").HasValue(false); }).Ignore(x => x.Deleted);
             modelBuilder.Entity<Customer>().Map<Customer>(x => { x.Requires("Deleted").HasValue(false); }).Ignore(x => x.Deleted);
             modelBuilder.Entity<Employee>().Map<Employee>(x => { x.Requires("Deleted").HasValue(false); }).Ignore(x => x.Deleted);
-            modelBuilder.Entity<Member>().Map<Member>(x => { x.Requires("Deleted").HasValue(false); }).Ignore(x => x.Deleted);
+            modelBuilder.Entity<Engagement>().Map<Engagement>(x => { x.Requires("Deleted").HasValue(false); }).Ignore(x => x.Deleted);
             modelBuilder.Entity<Project>().Map<Project>(x => { x.Requires("Deleted").HasValue(false); }).Ignore(x => x.Deleted);
             modelBuilder.Entity<Role>().Map<Role>(x => { x.Requires("Deleted").HasValue(false); }).Ignore(x => x.Deleted);
             modelBuilder.Entity<Detail>().Map<Detail>(x => { x.Requires("Deleted").HasValue(false); }).Ignore(x => x.Deleted);

@@ -54,10 +54,10 @@
     <Compile Include="TimeKeeperContext.cs" />
     <Compile Include="Entities\Address.cs" />
     <Compile Include="Entities\BaseClass.cs" />
-    <Compile Include="Entities\Calendar.cs" />
+    <Compile Include="Entities\Day.cs" />
     <Compile Include="Entities\Customer.cs" />
     <Compile Include="Entities\Employee.cs" />
-    <Compile Include="Entities\Member.cs" />
+    <Compile Include="Entities\Engagement.cs" />
     <Compile Include="Entities\Role.cs" />
     <Compile Include="Entities\Team.cs" />
     <Compile Include="Entities\Project.cs" />

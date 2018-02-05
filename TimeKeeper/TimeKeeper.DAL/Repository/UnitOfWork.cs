@@ -12,10 +12,10 @@ namespace TimeKeeper.DAL.Repository
         private readonly TimeKeeperContext context = new TimeKeeperContext();
 
         private IRepository<Address, int> _addresses;
-        private IRepository<Calendar, int> _calendars;
+        private IRepository<Day, int> _calendars;
         private IRepository<Customer, int> _customers;
         private IRepository<Employee, int> _employees;
-        private IRepository<Member, int> _members;
+        private IRepository<Engagement, int> _engagements;
         private IRepository<Project, int> _projects;
         private IRepository<Role, string> _roles;
         private IRepository<Detail, int> _details;
@@ -30,11 +30,11 @@ namespace TimeKeeper.DAL.Repository
             }
         }
 
-        public IRepository<Calendar, int> Calendars
+        public IRepository<Day, int> Calendars
         {
             get
             {
-                if (_calendars == null) _calendars = new Repository<Calendar, int>(context);
+                if (_calendars == null) _calendars = new Repository<Day, int>(context);
                 return _calendars;
             }
         }
@@ -57,12 +57,12 @@ namespace TimeKeeper.DAL.Repository
             }
         }
 
-        public IRepository<Member, int> Members
+        public IRepository<Engagement, int> Engagements
         {
             get
             {
-                if (_members == null) _members = new Repository<Member, int>(context);
-                return _members;
+                if (_engagements == null) _engagements = new Repository<Engagement, int>(context);
+                return _engagements;
             }
         }
 

@@ -12,6 +12,6 @@ namespace TimeKeeper.DAL.Entities
         public decimal Hours { get; set; }
 
         public virtual Project Project { get; set; }
-        public virtual Calendar Calendar { get; set; }
+        public virtual Day Day { get; set; }
     }
 }

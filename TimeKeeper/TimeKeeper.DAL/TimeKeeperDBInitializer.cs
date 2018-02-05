@@ -4,17 +4,19 @@ using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TimeKeeper.DAL.Entities;
 using TimeKeeper.DAL.Repository;
 
 namespace TimeKeeper.DAL
 {
-    internal class TimeKeeperDBInitializer<T>:DropCreateDatabaseAlways<TimeKeeperContext>
+    internal class TimeKeeperDBInitializer<T> : DropCreateDatabaseAlways<TimeKeeperContext>
     {
         public override void InitializeDatabase(TimeKeeperContext context)
         {
             try
             {
-                context.Database.ExecuteSqlCommand(TransactionalBehavior.DoNotEnsureTransaction, $"ALTER DATABASE {context.Database.Connection.Database} SET SINGLE_USER WITH ROLLBACK IMMEDIATE");
+                context.Database.ExecuteSqlCommand(TransactionalBehavior.DoNotEnsureTransaction,
+                    $"ALTER DATABASE {context.Database.Connection.Database} SET SINGLE_USER WITH ROLLBACK IMMEDIATE");
             }
             catch
             {
@@ -26,10 +28,10 @@ namespace TimeKeeper.DAL
 
                 using (UnitOfWork unit = new UnitOfWork())
                 {
-                    addRoles(unit);
-                    addTeams(unit);
+                    //addRoles(unit);
+                    //addTeams(unit);
 
-                    //AddCustomer(unit);
+                    AddCustomer(unit);
                 }
             }
 
@@ -56,7 +58,11 @@ namespace TimeKeeper.DAL
 
         private void AddCustomer(UnitOfWork unit)
         {
-            throw new NotImplementedException();
+            unit.Customers.Insert(new Customer()
+            {
+
+
+            });
         }
     }
 }

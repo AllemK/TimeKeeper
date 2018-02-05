@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TimeKeeper.DAL.Entities
 {
-    public enum CategoryDay
+    public enum DayType
     {
         WorkingDay = 1,
         Holiday,
@@ -18,11 +18,11 @@ namespace TimeKeeper.DAL.Entities
 
     }
 
-    public class Calendar : BaseClass<int>
+    public class Day : BaseClass<int>
     {
         public DateTime Date { get; set; }
         public decimal Hours { get; set; }
-        public CategoryDay TypeOfDay { get; set; }
+        public DayType Type { get; set; }
 
         public virtual Employee Employee { get; set; }
 

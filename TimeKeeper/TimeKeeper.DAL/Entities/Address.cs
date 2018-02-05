@@ -9,7 +9,7 @@ namespace TimeKeeper.DAL.Entities
 	public class Address
 	{
 		public string Road { get; set; }
-		public int Zip { get; set; }
+		public string ZipCode { get; set; }
 		public string City { get; set; }
 	}
 }

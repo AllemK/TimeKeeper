@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TimeKeeper.DAL.Entities
 {
-    public class Member : BaseClass<int>
+    public class Engagement : BaseClass<int>
     {
         public decimal Hours { get; set; }
 
