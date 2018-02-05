@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace TimeKeeper.DAL.Repository
 {
-    public class Repository<T> : IRepository<T> where T : class
+    public class Repository<T, I> : IRepository<T, I> where T : class
     {
         protected TimeKeeperContext context;
         protected DbSet<T> dbSet;
@@ -33,7 +33,7 @@ namespace TimeKeeper.DAL.Repository
             return dbSet.Where(where).ToList();
         }
 
-        public T Get (int id)
+        public T Get (I id)
         {
             return dbSet.Find(id);
         }
@@ -43,7 +43,7 @@ namespace TimeKeeper.DAL.Repository
             dbSet.Add(entity);
         }
 
-        public virtual void Update(T entity, int id)
+        public virtual void Update(T entity, I id)
         {
             T old = Get(id);
             if (old != null)

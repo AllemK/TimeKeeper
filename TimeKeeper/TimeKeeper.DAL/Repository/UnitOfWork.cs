@@ -11,93 +11,93 @@ namespace TimeKeeper.DAL.Repository
     {
         private readonly TimeKeeperContext context = new TimeKeeperContext();
 
-        private IRepository<Address> _addresses;
-        private IRepository<Calendar> _calendars;
-        private IRepository<Customer> _customers;
-        private IRepository<Employee> _employees;
-        private IRepository<Member> _members;
-        private IRepository<Project> _projects;
-        private IRepository<Role> _roles;
-        private IRepository<Entities.Task> _tasks;
-        private IRepository<Team> _teams;
+        private IRepository<Address, int> _addresses;
+        private IRepository<Calendar, int> _calendars;
+        private IRepository<Customer, int> _customers;
+        private IRepository<Employee, int> _employees;
+        private IRepository<Member, int> _members;
+        private IRepository<Project, int> _projects;
+        private IRepository<Role, string> _roles;
+        private IRepository<Entities.Task, int> _tasks;
+        private IRepository<Team, string> _teams;
 
-        public IRepository<Address> Adressess
+        public IRepository<Address, int> Adressess
         {
             get
             {
-                if (_addresses == null) _addresses = new Repository<Address>(context);
+                if (_addresses == null) _addresses = new Repository<Address, int>(context);
                 return _addresses;
             }
         }
 
-        public IRepository<Calendar> Calendars
+        public IRepository<Calendar, int> Calendars
         {
             get
             {
-                if (_calendars == null) _calendars = new Repository<Calendar>(context);
+                if (_calendars == null) _calendars = new Repository<Calendar, int>(context);
                 return _calendars;
             }
         }
 
-        public IRepository<Customer> Customers
+        public IRepository<Customer, int> Customers
         {
             get
             {
-                if (_customers == null) _customers = new Repository<Customer>(context);
+                if (_customers == null) _customers = new Repository<Customer, int>(context);
                 return _customers;
             }
         }
 
-        public IRepository<Employee> Employees
+        public IRepository<Employee, int> Employees
         {
             get
             {
-                if (_employees == null) _employees = new Repository<Employee>(context);
+                if (_employees == null) _employees = new Repository<Employee, int>(context);
                 return _employees;
             }
         }
 
-        public IRepository<Member> Members
+        public IRepository<Member, int> Members
         {
             get
             {
-                if (_members == null) _members = new Repository<Member>(context);
+                if (_members == null) _members = new Repository<Member, int>(context);
                 return _members;
             }
         }
 
-        public IRepository<Project> Projects
+        public IRepository<Project, int> Projects
         {
             get
             {
-                if (_projects == null) _projects = new Repository<Project>(context);
+                if (_projects == null) _projects = new Repository<Project, int>(context);
                 return _projects;
             }
         }
 
-        public IRepository<Role> Roles
+        public IRepository<Role, string> Roles
         {
             get
             {
-                if (_roles == null) _roles = new Repository<Role>(context);
+                if (_roles == null) _roles = new Repository<Role, string>(context);
                 return _roles;
             }
         }
 
-        public IRepository<Entities.Task> Tasks
+        public IRepository<Entities.Task, int> Tasks
         {
             get
             {
-                if (_tasks == null) _tasks = new Repository<Entities.Task>(context);
+                if (_tasks == null) _tasks = new Repository<Entities.Task, int>(context);
                 return _tasks;
             }
         }
 
-        public IRepository<Team> Teams
+        public IRepository<Team, string> Teams
         {
             get
             {
-                if (_teams == null) _teams = new Repository<Team>(context);
+                if (_teams == null) _teams = new Repository<Team, string>(context);
                 return _teams;
             }
         }
