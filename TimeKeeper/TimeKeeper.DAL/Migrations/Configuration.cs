@@ -21,7 +21,7 @@ namespace TimeKeeper.DAL.Migrations
             //  You can use the DbSet<T>.AddOrUpdate() helper extension method 
             //  to avoid creating duplicate seed data.
 
-            
+            /*
             var customers = new List<Customer>();
             var teams = new List<Team>();
             var roles = new List<Role>();
