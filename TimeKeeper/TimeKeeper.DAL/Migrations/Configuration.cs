@@ -119,7 +119,7 @@ namespace TimeKeeper.DAL.Migrations
                     counter = 0;
                 }
             }
-            employees.ForEach(e => context.Employee.AddOrUpdate(x => x.Id, e));
+            employees.ForEach(e => context.Employee.AddOrUpdate(x => x.FirstName, e));
             context.SaveChanges();
 
             for (int i = 1; i <= 100; i++)
