@@ -21,7 +21,7 @@ namespace TimeKeeper.DAL.Migrations
             //  You can use the DbSet<T>.AddOrUpdate() helper extension method 
             //  to avoid creating duplicate seed data.
 
-
+            
             var customers = new List<Customer>();
             var teams = new List<Team>();
             var roles = new List<Role>();
@@ -54,7 +54,7 @@ namespace TimeKeeper.DAL.Migrations
             }
             customers.ForEach(c => context.Customer.AddOrUpdate(x => x.Id, c));
             context.SaveChanges();
-
+            
             for (int i = 1; i <= 5; i++)
             {
                 teams.Add(new Team()
@@ -66,7 +66,7 @@ namespace TimeKeeper.DAL.Migrations
             }
             teams.ForEach(t => context.Team.AddOrUpdate(x => x.Id, t));
             context.SaveChanges();
-
+            
             int counter = 0;
             foreach (Customer c in context.Customer.Where(x => x.Status == CustomerStatus.Client))
             {
@@ -84,7 +84,7 @@ namespace TimeKeeper.DAL.Migrations
                 context.Project.AddOrUpdate(x => x.Id, p);
             }
             context.SaveChanges();
-
+            
             for (int i = 1; i <= 6; i++)
             {
                 roles.Add(new Role()
@@ -97,13 +97,12 @@ namespace TimeKeeper.DAL.Migrations
             }
             roles.ForEach(r => context.Role.AddOrUpdate(x => x.Id, r));
             context.SaveChanges();
-
+            
             counter = 0;
             for (int i = 1; i <= 30; i++)
             {
                 employees.Add(new Employee()
                 {
-                    Id=i,
                     FirstName = "Emp" + i.ToString(),
                     LastName = "Loy" + i.ToString(),
                     Image = "ImgEmp" + i.ToString(),
@@ -112,7 +111,8 @@ namespace TimeKeeper.DAL.Migrations
                     Birthday = new DateTime(1960+i,(i%12)+1,(i%30)+1),
                     BeginDate = DateTime.UtcNow,
                     Status = i % 3 == 0 ? Status.Trial : Status.Active,
-                    RoleId = roles[counter++].Id
+                   // RoleId = roles[counter].Id,
+                    Role = roles[counter++]
                 });
                 if (counter == roles.Count)
                 {
@@ -121,7 +121,7 @@ namespace TimeKeeper.DAL.Migrations
             }
             employees.ForEach(e => context.Employee.AddOrUpdate(x => x.FirstName, e));
             context.SaveChanges();
-
+            /*
             for (int i = 1; i <= 100; i++)
             {
                 days.Add(new Calendar()
@@ -166,6 +166,7 @@ namespace TimeKeeper.DAL.Migrations
             context.SaveChanges();
 
             base.Seed(context);
+            */
         }
     }
 }

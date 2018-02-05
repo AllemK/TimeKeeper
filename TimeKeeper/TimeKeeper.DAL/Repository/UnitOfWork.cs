@@ -11,76 +11,76 @@ namespace TimeKeeper.DAL.Repository
     {
         private readonly TimeKeeperContext timeKeeperContext = new TimeKeeperContext();
 
-        private IRepository<Calendar> calendars { get; set; }
-        private IRepository<Customer> customers { get; set; }
-        private IRepository<Employee> employees { get; set; }
-        private IRepository<Member> members { get; set; }
-        private IRepository<Project> projects { get; set; }
-        private IRepository<Role> roles { get; set; }
-        private IRepository<Entities.Task> tasks { get; set; }
-        private IRepository<Team> teams { get; set; }
+        private IRepository<Calendar, int> calendars { get; set; }
+        private IRepository<Customer, int> customers { get; set; }
+        private IRepository<Employee, int> employees { get; set; }
+        private IRepository<Member, int> members { get; set; }
+        private IRepository<Project, int> projects { get; set; }
+        private IRepository<Role, string> roles { get; set; }
+        private IRepository<Entities.Task, int> tasks { get; set; }
+        private IRepository<Team, string> teams { get; set; }
 
-        public IRepository<Calendar> Calendars
+        public IRepository<Calendar, int> Calendars
         {
             get
             {
-                return calendars ?? (calendars = new Repository<Calendar>(timeKeeperContext));
+                return calendars ?? (calendars = new Repository<Calendar, int>(timeKeeperContext));
             }
         }
 
-        public IRepository<Customer> Customers
+        public IRepository<Customer, int> Customers
         {
             get
             {
-                return customers ?? (customers = new Repository<Customer>(timeKeeperContext));
+                return customers ?? (customers = new Repository<Customer, int>(timeKeeperContext));
             }
         }
 
-        public IRepository<Employee> Employees
+        public IRepository<Employee, int> Employees
         {
             get
             {
-                return employees ?? (employees = new Repository<Employee>(timeKeeperContext));
+                return employees ?? (employees = new Repository<Employee, int>(timeKeeperContext));
             }
         }
 
-        public IRepository<Member> Members
+        public IRepository<Member, int> Members
         {
             get
             {
-                return members ?? (members = new Repository<Member>(timeKeeperContext));
+                return members ?? (members = new Repository<Member, int>(timeKeeperContext));
             }
         }
 
-        public IRepository<Project> Projects
+        public IRepository<Project, int> Projects
         {
             get
             {
-                return projects ?? (projects = new Repository<Project>(timeKeeperContext));
+                return projects ?? (projects = new Repository<Project, int>(timeKeeperContext));
             }
         }
 
-        public IRepository<Role> Roles
+        public IRepository<Role, string> Roles
         {
             get
             {
-                return roles ?? (roles = new Repository<Role>(timeKeeperContext));
+                return roles ?? (roles = new Repository<Role, string>(timeKeeperContext));
             }
         }
 
-        public IRepository<Entities.Task> Tasks
+        public IRepository<Entities.Task, int> Tasks
         {
             get
             {
-                return tasks ?? (tasks = new Repository<Entities.Task>(timeKeeperContext));
+                return tasks ?? (tasks = new Repository<Entities.Task, int>(timeKeeperContext));
             }
         }
 
-        public IRepository<Team> Teams
+        public IRepository<Team, string> Teams
         {
             get
             {
-                return teams ?? (teams = new Repository<Team>(timeKeeperContext));
+                return teams ?? (teams = new Repository<Team, string>(timeKeeperContext));
             }
         }
 

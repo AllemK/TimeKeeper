@@ -19,6 +19,7 @@ namespace TimeKeeper.ConApp
                 {
                     Console.WriteLine($"{employee.FirstName}, {employee.LastName} is {employee.Status}");
                 }
+                Console.WriteLine($"{unit.Roles.Get("Role1").Name}");
                 //unit.Employees.Delete(employees.ElementAt((employees.Count - 2)));
                 //unit.Save();
             }
