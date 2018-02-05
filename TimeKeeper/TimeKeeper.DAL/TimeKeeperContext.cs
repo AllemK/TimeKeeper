@@ -22,7 +22,7 @@ namespace TimeKeeper.DAL
         public DbSet<Member> Member { get; set; }
         public DbSet<Project> Project { get; set; }
         public DbSet<Role> Role { get; set; }
-        public DbSet<Entities.Task> Task { get; set; }
+        public DbSet<Entities.Detail> Task { get; set; }
         public DbSet<Team> Team { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
@@ -34,7 +34,7 @@ namespace TimeKeeper.DAL
             modelBuilder.Entity<Member>().Map<Member>(x => { x.Requires("Deleted").HasValue(false); }).Ignore(x => x.Deleted);
             modelBuilder.Entity<Project>().Map<Project>(x => { x.Requires("Deleted").HasValue(false); }).Ignore(x => x.Deleted);
             modelBuilder.Entity<Role>().Map<Role>(x => { x.Requires("Deleted").HasValue(false); }).Ignore(x => x.Deleted);
-            modelBuilder.Entity<Entities.Task>().Map<Entities.Task>(x => { x.Requires("Deleted").HasValue(false); }).Ignore(x => x.Deleted);
+            modelBuilder.Entity<Entities.Detail>().Map<Entities.Detail>(x => { x.Requires("Deleted").HasValue(false); }).Ignore(x => x.Deleted);
             modelBuilder.Entity<Team>().Map<Team>(x => { x.Requires("Deleted").HasValue(false); }).Ignore(x => x.Deleted);
         }
 

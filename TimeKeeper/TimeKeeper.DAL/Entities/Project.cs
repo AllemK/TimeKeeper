@@ -32,8 +32,6 @@ namespace TimeKeeper.DAL.Entities
         public virtual Team Team { get; set; }
         public virtual Customer Customer { get; set; }
 
-        public string TeamId { get; set; }
-        public int CustomerId { get; set; }
-        public virtual ICollection<Task> Tasks { get; set; }
+        public virtual ICollection<Detail> Details { get; set; }
     }
 }
