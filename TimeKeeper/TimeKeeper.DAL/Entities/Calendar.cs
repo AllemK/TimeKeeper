@@ -25,5 +25,8 @@ namespace TimeKeeper.DAL.Entities
         public CategoryDay TypeOfDay { get; set; }
 
         public virtual Employee Employee { get; set; }
+        public int EmployeeId { get; set; }
+
+        public virtual ICollection<Task> Tasks { get; set; }
     }
 }

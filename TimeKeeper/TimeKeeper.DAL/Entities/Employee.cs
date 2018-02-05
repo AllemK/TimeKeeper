@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -26,5 +27,8 @@ namespace TimeKeeper.DAL.Entities
         public Status Status { get; set; }
 
         public virtual Role Role { get; set; }
+
+        public string RoleId { get; set; }
+        public virtual ICollection<Calendar> Days { get; set; }
     }
 }

@@ -11,5 +11,8 @@ namespace TimeKeeper.DAL.Entities
         public string Name { get; set; }
         public decimal HourlyPrice { get; set; }
         public decimal MonthlyPrice { get; set; }
+
+        public int ProjectId { get; set; }
+        public int CalendarId { get; set; }
     }
 }
