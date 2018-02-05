@@ -11,20 +11,20 @@ namespace TimeKeeper.DAL.Repository
     {
         private readonly TimeKeeperContext timeKeeperContext = new TimeKeeperContext();
 
-        private IRepository<Calendar, int> calendars { get; set; }
+        private IRepository<Day, int> calendar { get; set; }
         private IRepository<Customer, int> customers { get; set; }
         private IRepository<Employee, int> employees { get; set; }
-        private IRepository<Member, int> members { get; set; }
+        private IRepository<Engagement, int> engagement { get; set; }
         private IRepository<Project, int> projects { get; set; }
         private IRepository<Role, string> roles { get; set; }
         private IRepository<Detail, int> details { get; set; }
         private IRepository<Team, string> teams { get; set; }
 
-        public IRepository<Calendar, int> Calendars
+        public IRepository<Day, int> Calendar
         {
             get
             {
-                return calendars ?? (calendars = new Repository<Calendar, int>(timeKeeperContext));
+                return calendar ?? (calendar = new Repository<Day, int>(timeKeeperContext));
             }
         }
 
@@ -44,11 +44,11 @@ namespace TimeKeeper.DAL.Repository
             }
         }
 
-        public IRepository<Member, int> Members
+        public IRepository<Engagement, int> Engagement
         {
             get
             {
-                return members ?? (members = new Repository<Member, int>(timeKeeperContext));
+                return engagement ?? (engagement = new Repository<Engagement, int>(timeKeeperContext));
             }
         }
 
@@ -68,7 +68,7 @@ namespace TimeKeeper.DAL.Repository
             }
         }
 
-        public IRepository<Detail, int> Tasks
+        public IRepository<Detail, int> Details
         {
             get
             {

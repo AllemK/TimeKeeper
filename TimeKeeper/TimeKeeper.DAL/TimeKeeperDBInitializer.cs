@@ -4,11 +4,12 @@ using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TimeKeeper.DAL.Entities;
 using TimeKeeper.DAL.Repository;
 
 namespace TimeKeeper.DAL
 {
-    internal class TimeKeeperDBInitializer<T>:DropCreateDatabaseAlways<TimeKeeperContext>
+    internal class TimeKeeperDBInitializer<T> : DropCreateDatabaseAlways<TimeKeeperContext>
     {
         public override void InitializeDatabase(TimeKeeperContext context)
         {
@@ -24,18 +25,21 @@ namespace TimeKeeper.DAL
             finally
             {
                 base.InitializeDatabase(context);
-                
-                using(UnitOfWork unit = new UnitOfWork())
+
+                using (UnitOfWork unit = new UnitOfWork())
                 {
                     AddCustomer(unit);
+
                 }
-            }            
+            }
         }
 
         void AddCustomer(UnitOfWork unit)
         {
-            
-            unit.Customers.Insert(new Customer)
+            unit.Customers.Insert(new Customer()
+            {
+                
+            });
         }
     }
 }
