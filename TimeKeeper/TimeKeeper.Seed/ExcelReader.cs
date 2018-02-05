@@ -10,14 +10,11 @@ namespace TimeKeeper.Seed
 
         public static DataTable Open(this DataTable table, string sheet)
         {
-            string connectionString = $"Provider=Microsoft.ACE.OLEDB.12.0;Data Source={DataSource};Extended Properties=Excel 12.0";
-            OleDbConnection conn = new OleDbConnection(connectionString);
+            OleDbConnection conn = new OleDbConnection($"Provider=Microsoft.ACE.OLEDB.12.0;Data Source={DataSource};Extended Properties=Excel 12.0");
             conn.Open();
 
-            OleDbDataAdapter da = new OleDbDataAdapter()
-            {
-                SelectCommand = new OleDbCommand("SELECT * FROM [" + sheet + "$]", conn)
-            };
+            OleDbCommand cmd = new OleDbCommand("SELECT * FROM [" + sheet + "$]", conn);
+            OleDbDataAdapter da = new OleDbDataAdapter() { SelectCommand = cmd };
 
             table = new DataTable();
             da.Fill(table);

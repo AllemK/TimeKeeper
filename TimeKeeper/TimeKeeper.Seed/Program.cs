@@ -19,7 +19,7 @@ namespace TimeKeeper.Seed
 
         static void Main(string[] args)
         {
-            ExcelReader.DataSource = @"C:\Users\muhamedbr\Documents\Dakota Git Repository\Timer.xlsx";
+            ExcelReader.DataSource = @"C:\Users\muhamedbr\Downloads\Timer.xls";
 
             using (context)
             {
@@ -139,7 +139,7 @@ namespace TimeKeeper.Seed
                     Contact = (string)row.Read(3, typeof(string)),
                     Email = (string)row.Read(4, typeof(string)),
                     Phone = (string)row.Read(5, typeof(string)),
-                    Address =
+                    Address = new Address()
                     {
                         Road = (string)row.Read(6, typeof(string)),
                         ZipCode=(string)row.Read(7, typeof(string)),
