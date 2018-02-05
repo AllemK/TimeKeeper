@@ -4,10 +4,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{B083A1A8-7B41-4D05-B35B-B23E813C49A3}</ProjectGuid>
+    <ProjectGuid>{C4CB2113-9C9D-41C6-B16E-5B1A5BFB078D}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>TimeKeeper.APP</RootNamespace>
-    <AssemblyName>TimeKeeper.APP</AssemblyName>
+    <RootNamespace>TimeKeeper.SEED</RootNamespace>
+    <AssemblyName>TimeKeeper.SEED</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
