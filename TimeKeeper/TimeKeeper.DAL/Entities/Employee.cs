@@ -27,7 +27,7 @@ namespace TimeKeeper.DAL.Entities
         public Status Status { get; set; }
 
         public virtual Role Role { get; set; }
-        public string RoleId { get; set; }
         public virtual ICollection<Calendar> Days { get; set; }
+        public virtual ICollection<Member> Members { get; set; }
     }
 }

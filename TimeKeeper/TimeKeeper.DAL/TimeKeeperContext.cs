@@ -25,7 +25,7 @@ namespace TimeKeeper.DAL
         public DbSet<Member> Member { get; set; }
         public DbSet<Project> Project { get; set; }
         public DbSet<Role> Role { get; set; }
-        public DbSet<Entities.Task> Task { get; set; }
+        public DbSet<Detail> Detail { get; set; }
         public DbSet<Team> Team { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
@@ -37,45 +37,38 @@ namespace TimeKeeper.DAL
             modelBuilder.Entity<Member>().Map<Member>(x => { x.Requires("Deleted").HasValue(false); }).Ignore(x => x.Deleted);
             modelBuilder.Entity<Project>().Map<Project>(x => { x.Requires("Deleted").HasValue(false); }).Ignore(x => x.Deleted);
             modelBuilder.Entity<Role>().Map<Role>(x => { x.Requires("Deleted").HasValue(false); }).Ignore(x => x.Deleted);
-            modelBuilder.Entity<Entities.Task>().Map<Entities.Task>(x => { x.Requires("Deleted").HasValue(false); }).Ignore(x => x.Deleted);
+            modelBuilder.Entity<Detail>().Map<Entities.Detail>(x => { x.Requires("Deleted").HasValue(false); }).Ignore(x => x.Deleted);
             modelBuilder.Entity<Team>().Map<Team>(x => { x.Requires("Deleted").HasValue(false); }).Ignore(x => x.Deleted);
         }
 
 
         public override int SaveChanges()
         {
-            foreach (var entry in ChangeTracker.Entries().Where(p => p.State == EntityState.Deleted)) SoftDelete(entry);
+            EntitySetBase setBase;
+            string tableName, primaryKeyName;
+
+            foreach (var entry in ChangeTracker.Entries().Where(p => p.State == EntityState.Deleted))
+            {
+                setBase = GetEntitySet(entry.Entity.GetType());
+                tableName = (string)setBase.MetadataProperties["Table"].Value;
+                primaryKeyName = setBase.ElementType.KeyMembers[0].Name;
+                Database.ExecuteSqlCommand($"UPDATE {tableName} SET Deleted=1 " +
+                    $"WHERE {primaryKeyName}='{entry.OriginalValues[primaryKeyName]}'");
+                entry.State = EntityState.Unchanged;
+            }
             return base.SaveChanges();
-        }
-
-        private void SoftDelete(DbEntityEntry entry)
-        {
-            Type entryEntityType = entry.Entity.GetType();
-            string tableName = GetTableName(entryEntityType);
-            string sql = string.Format("UPDATE {0} SET Deleted = 1 WHERE id = @id", tableName);
-            Database.ExecuteSqlCommand(sql, new SqlParameter("@id", entry.OriginalValues["Id"]));
-            entry.State = EntityState.Unchanged;
-        }
-
-        private static Dictionary<Type, EntitySetBase> _mappingCache = new Dictionary<Type, EntitySetBase>();
-
-        private string GetTableName(Type type)
-        {
-            EntitySetBase es = GetEntitySet(type);
-            return string.Format("[{0}].[{1}]", es.MetadataProperties["Schema"].Value, es.MetadataProperties["Table"].Value);
         }
 
         private EntitySetBase GetEntitySet(Type type)
         {
-            if (!_mappingCache.ContainsKey(type))
-            {
-                ObjectContext octx = ((IObjectContextAdapter)this).ObjectContext;
-                string typeName = ObjectContext.GetObjectType(type).Name;
-                var es = octx.MetadataWorkspace.GetItemCollection(DataSpace.SSpace).GetItems<EntityContainer>().SelectMany(c => c.BaseEntitySets.Where(e => e.Name == typeName)).FirstOrDefault();
-                if (es == null) throw new ArgumentException("Entity type not found in GetTableName", typeName);
-                _mappingCache.Add(type, es);
-            }
-            return _mappingCache[type];
+            ObjectContext octx = ((IObjectContextAdapter)this).ObjectContext;
+            string typeName = ObjectContext.GetObjectType(type).Name;
+            var es = octx.MetadataWorkspace.GetItemCollection(DataSpace.SSpace)
+                         .GetItems<EntityContainer>()
+                         .SelectMany(c => c.BaseEntitySets.Where(e => e.Name == typeName))
+                         .FirstOrDefault();
+            if (es == null) throw new ArgumentException("Entity type not found in GetTableName", typeName);
+            return es;
         }
     }
 }

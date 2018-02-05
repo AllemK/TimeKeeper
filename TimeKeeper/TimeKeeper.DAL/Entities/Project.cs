@@ -30,9 +30,7 @@ namespace TimeKeeper.DAL.Entities
 		public ProjectStatus ProjectStatus { get; set; }
 
         public virtual Team Team { get; set; }
-        public string TeamId { get; set; }
         public virtual Customer Customer { get; set; }
-        public int CustomerId { get; set; }
-        public virtual ICollection<Task> Tasks { get; set; }
+        public virtual ICollection<Detail> Details { get; set; }
     }
 }
