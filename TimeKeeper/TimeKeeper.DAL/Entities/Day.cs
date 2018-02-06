@@ -10,11 +10,13 @@ namespace TimeKeeper.DAL.Entities
     {
         WorkingDay = 1,
         Holiday,
-        Vacation,
-        SickDay,
-        BusinessAbsence,
+        Other,
         ReligiousDay,
-        Other
+        SickDay,
+        Vacation,
+        BusinessAbsence
+        
+        
 
     }
 
