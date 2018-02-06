@@ -147,6 +147,7 @@ namespace TimeKeeper.ConApp
                     }
                 }
             }
+            //testiram merge
             Console.Write("--- press any key ---");
             Console.ReadKey();
         }
