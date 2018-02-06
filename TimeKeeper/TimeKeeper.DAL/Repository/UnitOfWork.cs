@@ -9,33 +9,22 @@ namespace TimeKeeper.DAL.Repository
 {
     public class UnitOfWork : IDisposable
     {
-        private readonly TimeKeeperContext context = new TimeKeeperContext();
+        private readonly TimeKeeperContext timeKeeperContext = new TimeKeeperContext();
 
-        private IRepository<Address, int> _addresses;
-        private IRepository<Day, int> _calendars;
-        private IRepository<Customer, int> _customers;
-        private IRepository<Employee, int> _employees;
-        private IRepository<Engagement, int> _engagements;
-        private IRepository<Project, int> _projects;
-        private IRepository<Role, string> _roles;
-        private IRepository<Detail, int> _details;
-        private IRepository<Team, string> _teams;
+        private IRepository<Day, int> calendar { get; set; }
+        private IRepository<Customer, int> customers { get; set; }
+        private IRepository<Employee, int> employees { get; set; }
+        private IRepository<Engagement, int> engagement { get; set; }
+        private IRepository<Project, int> projects { get; set; }
+        private IRepository<Role, string> roles { get; set; }
+        private IRepository<Detail, int> details { get; set; }
+        private IRepository<Team, string> teams { get; set; }
 
-        public IRepository<Address, int> Adressess
+        public IRepository<Day, int> Calendar
         {
             get
             {
-                if (_addresses == null) _addresses = new Repository<Address, int>(context);
-                return _addresses;
-            }
-        }
-
-        public IRepository<Day, int> Calendars
-        {
-            get
-            {
-                if (_calendars == null) _calendars = new Repository<Day, int>(context);
-                return _calendars;
+                return calendar ?? (calendar = new Repository<Day, int>(timeKeeperContext));
             }
         }
 
@@ -43,8 +32,7 @@ namespace TimeKeeper.DAL.Repository
         {
             get
             {
-                if (_customers == null) _customers = new Repository<Customer, int>(context);
-                return _customers;
+                return customers ?? (customers = new Repository<Customer, int>(timeKeeperContext));
             }
         }
 
@@ -52,17 +40,15 @@ namespace TimeKeeper.DAL.Repository
         {
             get
             {
-                if (_employees == null) _employees = new Repository<Employee, int>(context);
-                return _employees;
+                return employees ?? (employees = new Repository<Employee, int>(timeKeeperContext));
             }
         }
 
-        public IRepository<Engagement, int> Engagements
+        public IRepository<Engagement, int> Engagement
         {
             get
             {
-                if (_engagements == null) _engagements = new Repository<Engagement, int>(context);
-                return _engagements;
+                return engagement ?? (engagement = new Repository<Engagement, int>(timeKeeperContext));
             }
         }
 
@@ -70,8 +56,7 @@ namespace TimeKeeper.DAL.Repository
         {
             get
             {
-                if (_projects == null) _projects = new Repository<Project, int>(context);
-                return _projects;
+                return projects ?? (projects = new Repository<Project, int>(timeKeeperContext));
             }
         }
 
@@ -79,8 +64,7 @@ namespace TimeKeeper.DAL.Repository
         {
             get
             {
-                if (_roles == null) _roles = new Repository<Role, string>(context);
-                return _roles;
+                return roles ?? (roles = new Repository<Role, string>(timeKeeperContext));
             }
         }
 
@@ -88,8 +72,7 @@ namespace TimeKeeper.DAL.Repository
         {
             get
             {
-                if (_details == null) _details = new Repository<Entities.Detail, int>(context);
-                return _details;
+                return details ?? (details = new Repository<Detail, int>(timeKeeperContext));
             }
         }
 
@@ -97,19 +80,18 @@ namespace TimeKeeper.DAL.Repository
         {
             get
             {
-                if (_teams == null) _teams = new Repository<Team, string>(context);
-                return _teams;
+                return teams ?? (teams = new Repository<Team, string>(timeKeeperContext));
             }
         }
 
         public void Dispose()
         {
-            context.Dispose();
+            timeKeeperContext.Dispose();
         }
 
         public bool Save()
         {
-            return (context.SaveChanges() > 0);
+            return (timeKeeperContext.SaveChanges() > 0);
         }
     }
 }

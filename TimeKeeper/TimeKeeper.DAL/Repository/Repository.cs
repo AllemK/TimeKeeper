@@ -9,12 +9,12 @@ namespace TimeKeeper.DAL.Repository
 {
     public class Repository<T, I> : IRepository<T, I> where T : class
     {
-        protected TimeKeeperContext context;
+        protected TimeKeeperContext timeKeeperContext;
         protected DbSet<T> dbSet;
 
-        public Repository(TimeKeeperContext _context)
+        public Repository(TimeKeeperContext context)
         {
-            context = _context;
+            timeKeeperContext = context;
             dbSet = context.Set<T>();
         }
 
@@ -23,33 +23,33 @@ namespace TimeKeeper.DAL.Repository
             return dbSet;
         }
 
-        public void Delete (T entity)
-        {
-            dbSet.Remove(entity);
-        }
-
         public List<T> Get(Func<T, bool> where)
         {
             return dbSet.Where(where).ToList();
         }
 
-        public T Get (I id)
+        public T Get(I id)
         {
             return dbSet.Find(id);
         }
 
-        public virtual void Insert(T entity)
+        public void Insert(T entity)
         {
             dbSet.Add(entity);
         }
 
-        public virtual void Update(T entity, I id)
+        public void Update(T entity, I id)
         {
             T old = Get(id);
             if (old != null)
             {
-                context.Entry(old).CurrentValues.SetValues(entity);
+                timeKeeperContext.Entry(old).CurrentValues.SetValues(entity);
             }
+        }
+
+        public void Delete(T entity)
+        {
+            dbSet.Remove(entity);
         }
     }
 }

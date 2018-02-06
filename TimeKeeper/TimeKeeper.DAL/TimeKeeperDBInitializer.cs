@@ -20,7 +20,7 @@ namespace TimeKeeper.DAL
             }
             catch
             {
-                // database does not exsists , great :)
+                //database does not exist, excellent!
             }
             finally
             {
@@ -28,46 +28,52 @@ namespace TimeKeeper.DAL
 
                 using (UnitOfWork unit = new UnitOfWork())
                 {
-                    //addRoles(unit);
-                    //addTeams(unit);
+                    addRoles(unit);
+                    addTeams(unit);
 
-                    AddCustomer(unit);
                 }
             }
-
-            
         }
 
-        private void addTeams(UnitOfWork unit)
+        void addRoles(UnitOfWork unit)
         {
-            throw new NotImplementedException();
-        }
-
-        private void addRoles(UnitOfWork unit)
-        {
-            //unit.Roles.Insert(new Entities.Role()
-            //{
-            //    Id = "SD",
-            //    Name = "Software Developer",
-            //    Type = RoleType.TeamRole,
-            //    HourlyRate = 30,
-            //    MonthlyRate = 4500
-            //});
-        }
-
-
-        private void AddCustomer(UnitOfWork unit)
-        {
-            unit.Customers.Insert(new Customer()
+            unit.Roles.Insert(new Role()
             {
-
-
+                Id = "SD",
+                Name = "Software Developer",
+                Type = RoleType.TeamRole,
+                HourlyRate = 30,
+                MonthlyRate = 4500
             });
+            unit.Roles.Insert(new Role()
+            {
+                Id = "UX",
+                Name = "UI/UX Designer",
+                Type = RoleType.TeamRole,
+                HourlyRate = 45,
+                MonthlyRate = 6500
+            });
+            unit.Save();
+        }
+
+        void addTeams(UnitOfWork unit)
+        {
+            unit.Teams.Insert(new Team()
+            {
+                Name = "Alpha",
+                Id = "A",
+                Image = "A",
+                Description = "Alpha Team"
+            });
+            unit.Teams.Insert(new Team()
+            {
+                Name = "Bravo",
+                Id = "B",
+                Image = "B",
+                Description = "Bravo Team"
+            });
+            unit.Save();
         }
     }
 }
 
-//Database.SetInitializer<TimeContext>(new CreateDatabaseIfNotExists<TimeContext>());
-//Database.SetInitializer<TimeContext>(new DropCreateDatabaseIfModelChanges<TimeContext>());
-//base.Database.ExecuteSqlCommand("USE master; ALTER DATABASE Testera SET SINGLE_USER WITH ROLLBACK IMMEDIATE;");
-//Database.SetInitializer<TimeContext>(new DropCreateDatabaseAlways<TimeContext>());

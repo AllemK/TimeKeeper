@@ -33,7 +33,6 @@ namespace TimeKeeper.DAL.Entities
 
         public virtual Team Team { get; set; }
         public virtual Customer Customer { get; set; }
-
         public virtual ICollection<Detail> Details { get; set; }
     }
 }

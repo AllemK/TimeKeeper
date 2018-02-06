@@ -9,8 +9,8 @@ namespace TimeKeeper.DAL.Entities
 {
     public enum EmployeeStatus
     {
-        Active=1,
         Trial,
+        Active,
         Leaver
     }
 
@@ -21,8 +21,8 @@ namespace TimeKeeper.DAL.Entities
         public string Image { get; set; }
         public string Email { get; set; }
         public string Phone { get; set; }
-        public DateTime BirthDate { get; set; }
         public decimal Salary { get; set; }
+        public DateTime BirthDate { get; set; }
         public DateTime BeginDate { get; set; }
         public DateTime? EndDate { get; set; }
         public EmployeeStatus Status { get; set; }

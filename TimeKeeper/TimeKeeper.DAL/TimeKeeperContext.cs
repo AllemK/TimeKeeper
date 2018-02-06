@@ -14,8 +14,14 @@ namespace TimeKeeper.DAL
 {
     public class TimeKeeperContext : DbContext
     {
-        public TimeKeeperContext() : base("name=TimeKeeper") { }
-        
+        public TimeKeeperContext() : base("name=TimeKeeper")
+        {
+            if(Database.Connection.Database == "Testera")
+            {
+                Database.SetInitializer(new TimeKeeperDBInitializer<TimeKeeperContext>());
+            }
+        }
+
         public DbSet<Day> Calendar { get; set; }
         public DbSet<Customer> Customers { get; set; }
         public DbSet<Employee> Employees { get; set; }
@@ -34,7 +40,7 @@ namespace TimeKeeper.DAL
             modelBuilder.Entity<Engagement>().Map<Engagement>(x => { x.Requires("Deleted").HasValue(false); }).Ignore(x => x.Deleted);
             modelBuilder.Entity<Project>().Map<Project>(x => { x.Requires("Deleted").HasValue(false); }).Ignore(x => x.Deleted);
             modelBuilder.Entity<Role>().Map<Role>(x => { x.Requires("Deleted").HasValue(false); }).Ignore(x => x.Deleted);
-            modelBuilder.Entity<Detail>().Map<Detail>(x => { x.Requires("Deleted").HasValue(false); }).Ignore(x => x.Deleted);
+            modelBuilder.Entity<Detail>().Map<Entities.Detail>(x => { x.Requires("Deleted").HasValue(false); }).Ignore(x => x.Deleted);
             modelBuilder.Entity<Team>().Map<Team>(x => { x.Requires("Deleted").HasValue(false); }).Ignore(x => x.Deleted);
         }
 
@@ -50,16 +56,10 @@ namespace TimeKeeper.DAL
                 tableName = (string)setBase.MetadataProperties["Table"].Value;
                 primaryKeyName = setBase.ElementType.KeyMembers[0].Name;
                 Database.ExecuteSqlCommand($"UPDATE {tableName} SET Deleted=1 " +
-                        $"WHERE {primaryKeyName}='{entry.OriginalValues[primaryKeyName]}'");
+                    $"WHERE {primaryKeyName}='{entry.OriginalValues[primaryKeyName]}'");
                 entry.State = EntityState.Unchanged;
             }
             return base.SaveChanges();
-        }
-
-        private string GetTableName(Type type)
-        {
-            EntitySetBase es = GetEntitySet(type);
-            return string.Format("[{0}].[{1}]", es.MetadataProperties["Schema"].Value, es.MetadataProperties["Table"].Value);
         }
 
         private EntitySetBase GetEntitySet(Type type)
@@ -67,9 +67,9 @@ namespace TimeKeeper.DAL
             ObjectContext octx = ((IObjectContextAdapter)this).ObjectContext;
             string typeName = ObjectContext.GetObjectType(type).Name;
             var es = octx.MetadataWorkspace.GetItemCollection(DataSpace.SSpace)
-                        .GetItems<EntityContainer>()
-                        .SelectMany(c => c.BaseEntitySets.Where(e => e.Name == typeName))
-                        .FirstOrDefault();
+                         .GetItems<EntityContainer>()
+                         .SelectMany(c => c.BaseEntitySets.Where(e => e.Name == typeName))
+                         .FirstOrDefault();
             if (es == null) throw new ArgumentException("Entity type not found in GetTableName", typeName);
             return es;
         }

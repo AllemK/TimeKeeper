@@ -10,8 +10,7 @@ namespace TimeKeeper.DAL.Repository
     {
         IQueryable<T> Get();
         List<T> Get(Func<T, bool> where);
-        T Get(I  id);
-
+        T Get(I id);
         void Insert(T entity);
         void Update(T entity, I id);
         void Delete(T entity);
