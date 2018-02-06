@@ -22,5 +22,7 @@ namespace TimeKeeper.DAL.Entities
 		public string Phone { get; set; }
 		public Address Address { get; set; }
 		public CustomerStatus Status { get; set; }
-	}
+
+        public virtual ICollection<Project> Projects { get; set; }
+    }
 }

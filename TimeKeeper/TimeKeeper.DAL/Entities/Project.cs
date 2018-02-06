@@ -24,12 +24,15 @@ namespace TimeKeeper.DAL.Entities
 	{
 		public string Name { get; set; }
 		public string Description { get; set; }
-		public DateTime StartDate { get; set; }
+        public string Monogram { get; set; }
+        public decimal Amount { get; set; }
+        public DateTime StartDate { get; set; }
 		public DateTime? EndDate { get; set; }
 		public Pricing Pricing { get; set; }
-		public ProjectStatus ProjectStatus { get; set; }
+		public ProjectStatus Status { get; set; }
 
         public virtual Team Team { get; set; }
         public virtual Customer Customer { get; set; }
+        public virtual ICollection<Detail> Details { get; set; }
     }
 }
