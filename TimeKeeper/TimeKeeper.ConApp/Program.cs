@@ -65,35 +65,86 @@ namespace TimeKeeper.ConApp
                 //    .OrderBy(x=>x.projectName)
                 //    .ToList();
 
-                string year = "";
-                string month;
+                //    string year = "";
+                //    string month;
+                //    //bool missing = false;
+                //    while (true)
+                //    {
+                //        Console.WriteLine("Enter year: ");
+                //        year = Console.ReadLine();
+                //        if (year.Equals("quit"))
+                //        {
+                //            break;
+                //        }
+                //        Console.WriteLine("Enter month: ");
+                //        month = Console.ReadLine();
+                //        int y = Convert.ToInt32(year);
+                //        int m = Convert.ToInt32(month);
+
+                //        //List<int> daysMissing = new List<int>();
+
+                //        var list = unit.Calendar.Get()
+                //            .GroupBy(x => x.Employee)
+                //            .OrderBy(x => x.Key.LastName)
+                //            .Select(x => new
+                //            {
+                //                Employee = x.Key,
+                //                Day = x.Key.Days.Where(w => w.Date.Year == y && w.Date.Month == m)
+                //            })
+                //            .ToList();
+
+                //        foreach (var day in list)
+                //        {
+                //            Console.Write($"{day.Employee.FirstName}, {day.Employee.LastName}: missing ");
+                //            var list1 = list.AsQueryable().Except(day.Day);
+                //            for (int i = 1; i <= DateTime.DaysInMonth(y, m); i++)
+                //            {
+                //                if (day.Day.Where(x => x.Date.Day == i).Count()==0)
+                //                {
+                //                    Console.Write($"{i}, ");
+                //                }
+                //            }
+                //            Console.WriteLine();
+                //        }
+                //        Console.WriteLine();
+                //    }       
                 while (true)
                 {
-                    Console.WriteLine("Enter year: ");
-                    year = Console.ReadLine();
-                    if (year.Equals("quit"))
+                    Console.Write("Year: ");
+                    int year = Convert.ToInt32(Console.ReadLine());
+                    if (year == 0) break;
+                    Console.Write("Month: ");
+                    int month = Convert.ToInt32(Console.ReadLine());
+                    if (month >= 1 && month <= 12)
                     {
-                        break;
-                    }
-                    Console.WriteLine("Enter month: ");
-                    month = Console.ReadLine();
-                    int y = Convert.ToInt32(year);
-                    int m = Convert.ToInt32(month);
-                    Console.Write("Testo testic: missing");
-                    List<int> daysMissing = new List<int>();
-
-                    foreach (var day in unit.Calendar.Get(x => x.Date.Year == y && x.Date.Month == m))
-                    {
-                        for (int i = 1; i <= DateTime.DaysInMonth(y, m); i++)
+                        int daysInMonth = DateTime.DaysInMonth(year, month);
+                        DateTime days;
+                        for(int i = 1; i <= DateTime.DaysInMonth(year, month); i++)
                         {
-                            if (day.Date.Day != i)
+                            days = new DateTime(year, month, i);
+                            if (days.DayOfWeek == DayOfWeek.Saturday || days.DayOfWeek == DayOfWeek.Sunday)
                             {
-                                daysMissing.Add(i);
+                                daysInMonth--;
                             }
                         }
+                        var query = unit.Employees.Get()
+                            .SelectMany(x => x.Days)
+                            .Where(x => x.Date.Month == month &&
+                                    x.Date.Year == year &&
+                                    x.Type == DAL.Entities.DayType.WorkingDay)
+                            .GroupBy(x => x.Employee)
+                            .Select(x => new
+                            {
+                                x.Key,
+                                wd = x.Count()
+                            }).ToList();
+                        
+                        foreach(var emp in query)
+                        {
+                            Console.WriteLine($"{emp.Key.FirstName} {emp.Key.LastName}: {Math.Round(100f * (float)emp.wd / daysInMonth, 2)}%");
+                        }
+
                     }
-                    daysMissing.ForEach()
-                    Console.Write(daysMs", ")
                 }
             }
             Console.Write("--- press any key ---");
