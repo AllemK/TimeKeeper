@@ -14,7 +14,7 @@ namespace TimeKeeper.DAL
 {
     public class TimeKeeperContext : DbContext
     {
-        public TimeKeeperContext() : base("TimeKeeper") { }
+        public TimeKeeperContext() : base("name=TimeKeeper") { }
         
         public DbSet<Day> Calendar { get; set; }
         public DbSet<Customer> Customers { get; set; }
