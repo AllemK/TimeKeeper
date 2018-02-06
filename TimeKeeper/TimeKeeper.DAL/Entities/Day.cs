@@ -9,12 +9,12 @@ namespace TimeKeeper.DAL.Entities
     public enum DayType
     {
         WorkingDay = 1,
-        Holiday,
-        Vacation,
-        SickDay,
-        BusinessAbsence,
+        PublicHoliday,
+        OtherAbsence,
         ReligiousDay,
-        Other
+        SickLeave,
+        Vacation,
+        BusinessAbsence
     }
 
     public class Day : BaseClass<int>

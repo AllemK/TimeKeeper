@@ -9,8 +9,8 @@ namespace TimeKeeper.DAL.Entities
 {
     public enum EmployeeStatus
     {
-        Active=1,
         Trial,
+        Active,
         Leaver
     }
 

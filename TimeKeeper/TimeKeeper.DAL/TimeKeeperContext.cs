@@ -16,7 +16,10 @@ namespace TimeKeeper.DAL
     {
         public TimeKeeperContext() : base("name=TimeKeeper")
         {
-
+            if(Database.Connection.Database == "Testera")
+            {
+                Database.SetInitializer(new TimeKeeperDBInitializer<TimeKeeperContext>());
+            }
         }
 
         public DbSet<Day> Calendar { get; set; }
