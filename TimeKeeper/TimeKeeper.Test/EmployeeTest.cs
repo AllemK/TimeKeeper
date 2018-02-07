@@ -12,8 +12,8 @@ namespace TimeKeeper.Test
         public void AddEmployee()
         {
             TimeKeeperContext context = new TimeKeeperContext();
-
             string expected = "John Doe";
+
             Employee emp = new Employee()
             {
                 FirstName = "John",
@@ -26,7 +26,7 @@ namespace TimeKeeper.Test
             context.Employees.Add(emp);
             context.SaveChanges();
 
-            Assert.AreEqual(10, emp.Id);
+            Assert.AreEqual(1, emp.Id);
             Assert.AreEqual(expected, emp.FirstName + " " + emp.LastName);
         }
     }

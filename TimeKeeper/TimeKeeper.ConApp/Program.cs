@@ -148,6 +148,7 @@ namespace TimeKeeper.ConApp
                 }
             }
             //testiram merge
+            //testiram TeamCity git konekciju
             Console.Write("--- press any key ---");
             Console.ReadKey();
         }
