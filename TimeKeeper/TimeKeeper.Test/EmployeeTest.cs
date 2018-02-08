@@ -30,6 +30,10 @@ namespace TimeKeeper.Test
             context.Employees.Add(emp);
             context.SaveChanges();
 
+            Employee e = context.Employees.Find(1);
+            e.FirstName = "Srle";
+            context.SaveChanges();
+
             Assert.AreEqual(1, emp.Id);
             Assert.AreEqual(expected, emp.FirstName + " " + emp.LastName);
         }
