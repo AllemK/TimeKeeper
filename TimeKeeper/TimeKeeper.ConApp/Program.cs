@@ -108,47 +108,46 @@ namespace TimeKeeper.ConApp
                 //        }
                 //        Console.WriteLine();
                 //    }       
-                while (true)
-                {
-                    Console.Write("Year: ");
-                    int year = Convert.ToInt32(Console.ReadLine());
-                    if (year == 0) break;
-                    Console.Write("Month: ");
-                    int month = Convert.ToInt32(Console.ReadLine());
-                    if (month >= 1 && month <= 12)
-                    {
-                        int daysInMonth = DateTime.DaysInMonth(year, month);
-                        DateTime days;
-                        for(int i = 1; i <= DateTime.DaysInMonth(year, month); i++)
-                        {
-                            days = new DateTime(year, month, i);
-                            if (days.DayOfWeek == DayOfWeek.Saturday || days.DayOfWeek == DayOfWeek.Sunday)
-                            {
-                                daysInMonth--;
-                            }
-                        }
-                        var query = unit.Employees.Get()
-                            .SelectMany(x => x.Days)
-                            .Where(x => x.Date.Month == month &&
-                                    x.Date.Year == year &&
-                                    x.Type == DAL.Entities.DayType.WorkingDay)
-                            .GroupBy(x => x.Employee)
-                            .Select(x => new
-                            {
-                                x.Key,
-                                wd = x.Count()
-                            }).ToList();
-                        
-                        foreach(var emp in query)
-                        {
-                            Console.WriteLine($"{emp.Key.FirstName} {emp.Key.LastName}: {Math.Round(100f * (float)emp.wd / daysInMonth, 2)}%");
-                        }
+                //while (true)
+                //{
+                //    Console.Write("Year: ");
+                //    int year = Convert.ToInt32(Console.ReadLine());
+                //    if (year == 0) break;
+                //    Console.Write("Month: ");
+                //    int month = Convert.ToInt32(Console.ReadLine());
+                //    if (month >= 1 && month <= 12)
+                //    {
+                //        int daysInMonth = DateTime.DaysInMonth(year, month);
+                //        DateTime days;
+                //        for(int i = 1; i <= DateTime.DaysInMonth(year, month); i++)
+                //        {
+                //            days = new DateTime(year, month, i);
+                //            if (days.DayOfWeek == DayOfWeek.Saturday || days.DayOfWeek == DayOfWeek.Sunday)
+                //            {
+                //                daysInMonth--;
+                //            }
+                //        }
+                //        var query = unit.Employees.Get()
+                //            .SelectMany(x => x.Days)
+                //            .Where(x => x.Date.Month == month &&
+                //                    x.Date.Year == year &&
+                //                    x.Type == DAL.Entities.DayType.WorkingDay)
+                //            .GroupBy(x => x.Employee)
+                //            .Select(x => new
+                //            {
+                //                x.Key,
+                //                wd = x.Count()
+                //            }).ToList();
 
-                    }
-                }
+                //        foreach(var emp in query)
+                //        {
+                //            Console.WriteLine($"{emp.Key.FirstName} {emp.Key.LastName}: {Math.Round(100f * (float)emp.wd / daysInMonth, 2)}%");
+                //        }
+
+                //}
+                // }
+                Console.WriteLine(unit.Customers.Get(x => x.Id == 1).FirstOrDefault().Address.ZipCode);
             }
-            //testiram merge
-            //testiram TeamCity git konekciju opet
             Console.Write("--- press any key ---");
             Console.ReadKey();
         }

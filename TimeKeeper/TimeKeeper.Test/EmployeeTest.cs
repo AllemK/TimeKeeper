@@ -19,6 +19,10 @@ namespace TimeKeeper.Test
                 FirstName = "John",
                 LastName = "Doe",
                 Position = context.Roles.Find("DEV"),
+                Email = "johndo@mistral.ba",
+                Phone = "061-555-111",
+                Salary = 1000m,
+                Status = EmployeeStatus.Active,
                 BirthDate = DateTime.Now,
                 BeginDate = DateTime.Now
             };
