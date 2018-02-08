@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using TimeKeeper.DAL.Entities;
 using TimeKeeper.DAL.Repository;
+using TimeKeeper.DAL.Helper;
 
 namespace TimeKeeper.ConApp
 {
@@ -55,7 +56,7 @@ namespace TimeKeeper.ConApp
                 unit.Employees.Update(e, 1);
                 unit.Save();
                 Console.WriteLine("Update first employee to be Srle! :*");
-                Console.WriteLine($"{e.FirstName} {e.LastName}");
+                e.WriteEmployee();
             }
             Console.Write("--- press any key ---");
             Console.ReadKey();
