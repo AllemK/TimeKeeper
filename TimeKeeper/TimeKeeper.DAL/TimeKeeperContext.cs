@@ -49,17 +49,20 @@ namespace TimeKeeper.DAL
         {
             EntitySetBase setBase;
             string tableName, primaryKeyName;
-
-            foreach (var entry in ChangeTracker.Entries().Where(p => p.State == EntityState.Deleted))
+            try
             {
-                setBase = GetEntitySet(entry.Entity.GetType());
-                tableName = (string)setBase.MetadataProperties["Table"].Value;
-                primaryKeyName = setBase.ElementType.KeyMembers[0].Name;
-                Database.ExecuteSqlCommand($"UPDATE {tableName} SET Deleted=1 " +
-                    $"WHERE {primaryKeyName}='{entry.OriginalValues[primaryKeyName]}'");
-                entry.State = EntityState.Unchanged;
+                foreach (var entry in ChangeTracker.Entries().Where(p => p.State == EntityState.Deleted))
+                {
+                    setBase = GetEntitySet(entry.Entity.GetType());
+                    tableName = (string)setBase.MetadataProperties["Table"].Value;
+                    primaryKeyName = setBase.ElementType.KeyMembers[0].Name;
+                    Database.ExecuteSqlCommand($"UPDATE {tableName} SET Deleted=1 " +
+                        $"WHERE {primaryKeyName}='{entry.OriginalValues[primaryKeyName]}'");
+                    entry.State = EntityState.Detached;
+                }
+                return base.SaveChanges();
             }
-            return base.SaveChanges();
+            catch { return 0; }
         }
 
         private EntitySetBase GetEntitySet(Type type)
