@@ -25,7 +25,7 @@ namespace TimeKeeper.DAL
         public DbSet<Day> Calendar { get; set; }
         public DbSet<Customer> Customers { get; set; }
         public DbSet<Employee> Employees { get; set; }
-        public DbSet<Engagement> Engagement { get; set; }
+        public DbSet<Engagement> Engagements { get; set; }
         public DbSet<Project> Projects { get; set; }
         public DbSet<Role> Roles { get; set; }
         public DbSet<Detail> Details { get; set; }

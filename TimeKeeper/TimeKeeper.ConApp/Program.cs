@@ -6,59 +6,53 @@ using System.Threading.Tasks;
 using TimeKeeper.DAL.Entities;
 using TimeKeeper.DAL.Repository;
 using TimeKeeper.DAL.Helper;
+using TimeKeeper.DAL;
 
 namespace TimeKeeper.ConApp
 {
     class Program
     {
-        public class Rezultat
-        {
-            public DAL.Entities.Employee Emp { get; set; }
-            public decimal TotalHours { get; set; }
-            public decimal AverageHours { get; set; }
-        }
         static void Main(string[] args)
         {
-            using (UnitOfWork unit = new UnitOfWork())
+            double time;
+            //int count, result;
+            using (TimeKeeperContext context = new TimeKeeperContext())
             {
-                Console.WriteLine("Welcome to Dakota's demo show (simple console app)");
-                while (true)
-                {
-                    Console.WriteLine("Type quit to quit :)");
-                    Console.Write("Please enter employee first name: ");
-                    string firstName = Console.ReadLine();
-                    if (firstName == "quit")
-                    {
-                        break;
-                    }
-                    var employees = unit.Employees.Get(x => x.FirstName == firstName);
+                Console.WriteLine("Enter team name to search: ");
+                string teamName = Console.ReadLine();
+                //count = 0;
+                //result = 0;
+                DateTime srcStart = DateTime.Now;
+                //var details = context.Details
+                //    .Where(x => x.Hours == taskTime)
+                //    .Select(x => new
+                //    {
+                //        DetailId = x.Id,
+                //        ProjectName = x.Project.Name,
+                //        Desc = x.Description
+                //    });
 
-                    if (employees == null)
+                var teams = context.Teams
+                    .Where(x => x.Name.Contains(teamName))
+                    .SelectMany(x=>x.Engagements);
+                foreach (var team in teams)
+                {
+                    //count++;
+                    //result++;
+                    Console.WriteLine($"\nTeam {team.Name} ");
+                    var engs = team.Engagements;
+                    foreach (var eng in engs)
                     {
-                        Console.WriteLine("Employee not found!");
-                    }
-                    else
-                    {
-                        foreach (var e in employees)
-                        {
-                            Console.WriteLine($"Employee: {e.FirstName} {e.LastName}");
-                        }
+                        Console.WriteLine($"{eng.Role.Id}: {eng.Employee.FirstName} | {eng.Hours}");
                     }
                 }
-                //}
-                //var e = unit.Employees.Get(1);
-                //e.Email = "srle@srle.srle";
-                //e.FirstName = "Srle";
-                //e.LastName = "Srle";
-                //e.Phone = "060 0303 213";
-                //e.Salary = 25m;
-                //e.Status = EmployeeStatus.Active;
-                //unit.Employees.Update(e, 1);
-                //unit.Save();
-                //Console.WriteLine("Update first employee to be Srle! :*");
-                //e.WriteEmployee();
+                time = Math.Round((DateTime.Now - srcStart).TotalSeconds, 3);
             }
-            Console.Write("--- press any key ---");
+            Console.WriteLine($"\n-----------------------------");
+            //Console.WriteLine($"\n{count} records retrieved.");
+            //Console.WriteLine($"\n{result} records found.");
+            Console.WriteLine($"\ntook {time} to get it done.");
+            Console.Write($"\n--- press any key ---");
             Console.ReadKey();
         }
     }

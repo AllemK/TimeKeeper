@@ -26,6 +26,6 @@ namespace TimeKeeper.DAL.Entities
         public RoleType Type { get; set; }
 
         public virtual ICollection<Employee> Employees { get; set; }
-        public virtual ICollection<Engagement> Members { get; set; }
+        public virtual ICollection<Engagement> Engagements { get; set; }
     }
 }

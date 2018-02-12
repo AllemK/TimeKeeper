@@ -38,6 +38,6 @@ namespace TimeKeeper.DAL.Entities
         public virtual Role Position { get; set; }
 
         public virtual ICollection<Day> Days { get; set; }
-        public virtual ICollection<Engagement> Members { get; set; }
+        public virtual ICollection<Engagement> Engagements { get; set; }
     }
 }

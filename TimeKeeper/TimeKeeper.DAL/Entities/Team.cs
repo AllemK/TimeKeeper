@@ -15,7 +15,7 @@ namespace TimeKeeper.DAL.Entities
         public string Description { get; set; }
         public string Image { get; set; }
 
-        public virtual ICollection<Engagement> Members { get; set; }
+        public virtual ICollection<Engagement> Engagements { get; set; }
         public virtual ICollection<Project> Projects { get; set; }
     }
 }
