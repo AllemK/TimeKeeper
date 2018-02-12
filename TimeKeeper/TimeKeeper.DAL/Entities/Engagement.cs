@@ -12,7 +12,7 @@ namespace TimeKeeper.DAL.Entities
     {
         [Required]
         [Range(0,40)]
-        [Precision(2,1)]
+        [Precision(3,1)]
         public decimal Hours { get; set; }
 
         [Required]

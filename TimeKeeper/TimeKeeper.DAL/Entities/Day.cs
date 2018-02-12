@@ -25,7 +25,7 @@ namespace TimeKeeper.DAL.Entities
         public DateTime Date { get; set; }
         [Required]
         [Range(0,12)]
-        [Precision(2,1)]
+        [Precision(3,1)]
         public decimal Hours { get; set; }
         [Required]
         public DayType Type { get; set; }

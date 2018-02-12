@@ -22,7 +22,7 @@ namespace TimeKeeper.DAL.Entities
         public string Name { get; set; }
         [Required]
         [Range(0,100)]
-        [Precision(3,2)]
+        [Precision(5,2)]
         public decimal HourlyRate { get; set; }
         [Required]
         [Range(0,99999)]
