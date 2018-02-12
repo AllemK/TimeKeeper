@@ -67,7 +67,8 @@ namespace TimeKeeper.Test
 
             r.HourlyRate = -30m;
             unit.Save();
-
+            unit.Dispose();
+            unit = new UnitOfWork();
             Assert.AreEqual(-30m, unit.Roles.Get("ADM").HourlyRate);
         }
     }

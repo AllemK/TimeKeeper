@@ -23,6 +23,7 @@ namespace TimeKeeper.DAL.Entities
         [Required]
         [MaxLength(35)]
         public string LastName { get; set; }
+        public string FullName { get { return FirstName + " " + LastName; } }
         public string Image { get; set; }
         [Required]
         public string Email { get; set; }
@@ -30,7 +31,6 @@ namespace TimeKeeper.DAL.Entities
         [MaxLength(20)]
         public string Phone { get; set; }
         [Required]
-        [Range(0,10000.00)]
         [Precision(8,2)]
         public decimal Salary { get; set; }
         [Required]

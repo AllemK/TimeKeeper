@@ -21,11 +21,9 @@ namespace TimeKeeper.DAL.Entities
         [MaxLength(30)]
         public string Name { get; set; }
         [Required]
-        [Range(0,100)]
         [Precision(5,2)]
         public decimal HourlyRate { get; set; }
         [Required]
-        [Range(0,99999)]
         [Precision(7,2)]
         public decimal MonthlyRate { get; set; }
         [Required]

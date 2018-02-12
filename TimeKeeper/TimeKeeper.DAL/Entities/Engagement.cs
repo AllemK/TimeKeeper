@@ -11,7 +11,6 @@ namespace TimeKeeper.DAL.Entities
     public class Engagement : BaseClass<int>
     {
         [Required]
-        [Range(0,40)]
         [Precision(3,1)]
         public decimal Hours { get; set; }
 

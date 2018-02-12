@@ -33,7 +33,6 @@ namespace TimeKeeper.DAL.Entities
         [MaxLength(3)]
         public string Monogram { get; set; }
         [Required]
-        [Range(0,9999999)]
         [Precision(9,2)]
         public decimal Amount { get; set; }
         [Required]
