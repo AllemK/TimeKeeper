@@ -13,7 +13,7 @@ namespace TimeKeeper.ConApp
     class Program
     {
         static void Main(string[] args)
-        {
+        {/*
             double time;
             //int count, result;
             using (TimeKeeperContext context = new TimeKeeperContext())
@@ -47,7 +47,13 @@ namespace TimeKeeper.ConApp
             Console.WriteLine($"\n-----------------------------");
             //Console.WriteLine($"\n{count} records retrieved.");
             //Console.WriteLine($"\n{result} records found.");
-            Console.WriteLine($"\ntook {time} to get it done.");
+            Console.WriteLine($"\ntook {time} to get it done.");*/
+            using(UnitOfWork unit = new UnitOfWork())
+            {
+                Employee e = unit.Employees.Get(1);
+                Console.WriteLine(e.FullName);
+            }
+
             Console.Write($"\n--- press any key ---");
             Console.ReadKey();
         }
