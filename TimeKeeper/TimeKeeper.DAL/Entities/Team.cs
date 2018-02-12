@@ -10,12 +10,13 @@ namespace TimeKeeper.DAL.Entities
     public class Team : BaseClass<string>
     {
         [Required]
+        [MaxLength(20)]
         public string Name { get; set; }
         [Required]
         public string Description { get; set; }
         public string Image { get; set; }
 
-        public virtual ICollection<Engagement> Members { get; set; }
+        public virtual ICollection<Engagement> Engagements { get; set; }
         public virtual ICollection<Project> Projects { get; set; }
     }
 }
