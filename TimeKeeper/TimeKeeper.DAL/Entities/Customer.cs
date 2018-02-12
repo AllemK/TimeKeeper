@@ -16,14 +16,18 @@ namespace TimeKeeper.DAL.Entities
     public class Customer : BaseClass<int>
     {
         [Required]
+        [MaxLength(50)]
         public string Name { get; set; }
         public string Image { get; set; }
+        [MaxLength(3)]
         public string Monogram { get; set; }
         [Required]
+        [MaxLength(50)]
         public string Contact { get; set; }
         [Required]
         public string Email { get; set; }
         [Required]
+        [MaxLength(20)]
         public string Phone { get; set; }
         public Address Address { get; set; }
         [Required]

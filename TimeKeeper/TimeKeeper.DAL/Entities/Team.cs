@@ -10,6 +10,7 @@ namespace TimeKeeper.DAL.Entities
     public class Team : BaseClass<string>
     {
         [Required]
+        [MaxLength(20)]
         public string Name { get; set; }
         [Required]
         public string Description { get; set; }

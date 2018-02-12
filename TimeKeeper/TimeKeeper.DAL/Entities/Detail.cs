@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TimeKeeper.DAL.Helper;
 
 namespace TimeKeeper.DAL.Entities
 {
@@ -12,6 +13,8 @@ namespace TimeKeeper.DAL.Entities
         [Required]
         public string Description { get; set; }
         [Required]
+        [Range(0,8)]
+        [Precision(2,1)]
         public decimal Hours { get; set; }
 
         [Required]

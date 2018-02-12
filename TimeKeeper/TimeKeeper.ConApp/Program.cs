@@ -34,17 +34,13 @@ namespace TimeKeeper.ConApp
 
                 var teams = context.Teams
                     .Where(x => x.Name.Contains(teamName))
-                    .SelectMany(x=>x.Engagements);
-                foreach (var team in teams)
+                    .SelectMany(x => x.Engagements);
+                foreach (var item in teams)
                 {
                     //count++;
                     //result++;
-                    Console.WriteLine($"\nTeam {team.Name} ");
-                    var engs = team.Engagements;
-                    foreach (var eng in engs)
-                    {
-                        Console.WriteLine($"{eng.Role.Id}: {eng.Employee.FirstName} | {eng.Hours}");
-                    }
+                    Console.WriteLine($"\nTeam {item.Team.Name} ");
+                    Console.WriteLine($"{item.Role.Id}: {item.Employee.FirstName} | {item.Hours}");
                 }
                 time = Math.Round((DateTime.Now - srcStart).TotalSeconds, 3);
             }
