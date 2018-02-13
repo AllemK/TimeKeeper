@@ -8,6 +8,8 @@ namespace TimeKeeper.DAL.Entities
 {
     public class Team : BaseClass<string>
     {
+        //public object engagements;
+
         public string Name { get; set; }
         public string Description { get; set; }
         public string Image { get; set; }
