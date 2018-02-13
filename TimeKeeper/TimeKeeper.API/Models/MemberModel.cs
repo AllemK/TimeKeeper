@@ -7,7 +7,7 @@ namespace TimeKeeper.API.Models
 {
     public class MemberModel
     {
-        public string Rola { get; set; }
+        public string Role { get; set; }
         public string Employee { get; set; }
         public decimal Hours { get; set; }
     }

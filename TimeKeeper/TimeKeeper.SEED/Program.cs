@@ -113,7 +113,7 @@ namespace TimeKeeper.Seed
             rawData = rawData.Open("Engagement");
             foreach (DataRow row in rawData.Rows)
             {
-                context.Engagement.Add(new Engagement()
+                context.Engagements.Add(new Engagement()
                 {
                     Employee = context.Employees.Find(employeesDictionary[(int)row.Read(0, typeof(int))]),
                     Team = context.Teams.Find((string)row.Read(1, typeof(string))),
@@ -122,7 +122,7 @@ namespace TimeKeeper.Seed
                 });
             }
             context.SaveChanges();
-            Console.WriteLine(context.Engagement.Count());
+            Console.WriteLine(context.Engagements.Count());
         }
 
         private static void SeedCustomers()

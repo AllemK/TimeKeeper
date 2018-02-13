@@ -47,6 +47,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Helper\Precision.cs" />
+    <Compile Include="Helper\WriteOnConsole.cs" />
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Repository\IRepository.cs" />
     <Compile Include="Repository\Repository.cs" />

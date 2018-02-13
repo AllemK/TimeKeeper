@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TimeKeeper.DAL.Helper;
 
 namespace TimeKeeper.DAL.Entities
 {
@@ -19,10 +21,15 @@ namespace TimeKeeper.DAL.Entities
 
     public class Day : BaseClass<int>
     {
+        [Required]
         public DateTime Date { get; set; }
+        [Required]
+        [Precision(3,1)]
         public decimal Hours { get; set; }
+        [Required]
         public DayType Type { get; set; }
 
+        [Required]
         public virtual Employee Employee { get; set; }
         public virtual ICollection<Detail> Details { get; set; }
     }

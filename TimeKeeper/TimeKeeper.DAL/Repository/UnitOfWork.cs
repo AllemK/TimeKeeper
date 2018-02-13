@@ -14,7 +14,7 @@ namespace TimeKeeper.DAL.Repository
         private IRepository<Day, int> calendar { get; set; }
         private IRepository<Customer, int> customers { get; set; }
         private IRepository<Employee, int> employees { get; set; }
-        private IRepository<Engagement, int> engagement { get; set; }
+        private IRepository<Engagement, int> engagements { get; set; }
         private IRepository<Project, int> projects { get; set; }
         private IRepository<Role, string> roles { get; set; }
         private IRepository<Detail, int> details { get; set; }
@@ -44,11 +44,11 @@ namespace TimeKeeper.DAL.Repository
             }
         }
 
-        public IRepository<Engagement, int> Engagement
+        public IRepository<Engagement, int> Engagements
         {
             get
             {
-                return engagement ?? (engagement = new Repository<Engagement, int>(timeKeeperContext));
+                return engagements ?? (engagements = new Repository<Engagement, int>(timeKeeperContext));
             }
         }
 

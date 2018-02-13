@@ -9,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TimeKeeper.DAL.Entities;
+using TimeKeeper.DAL.Helper;
 
 namespace TimeKeeper.DAL
 {
@@ -16,7 +17,7 @@ namespace TimeKeeper.DAL
     {
         public TimeKeeperContext() : base("name=TimeKeeper")
         {
-            if(Database.Connection.Database == "Testera")
+            if (Database.Connection.Database == "Testera")
             {
                 Database.SetInitializer(new TimeKeeperDBInitializer<TimeKeeperContext>());
             }
@@ -25,7 +26,7 @@ namespace TimeKeeper.DAL
         public DbSet<Day> Calendar { get; set; }
         public DbSet<Customer> Customers { get; set; }
         public DbSet<Employee> Employees { get; set; }
-        public DbSet<Engagement> Engagement { get; set; }
+        public DbSet<Engagement> Engagements { get; set; }
         public DbSet<Project> Projects { get; set; }
         public DbSet<Role> Roles { get; set; }
         public DbSet<Detail> Details { get; set; }
@@ -42,6 +43,9 @@ namespace TimeKeeper.DAL
             modelBuilder.Entity<Role>().Map<Role>(x => { x.Requires("Deleted").HasValue(false); }).Ignore(x => x.Deleted);
             modelBuilder.Entity<Detail>().Map<Entities.Detail>(x => { x.Requires("Deleted").HasValue(false); }).Ignore(x => x.Deleted);
             modelBuilder.Entity<Team>().Map<Team>(x => { x.Requires("Deleted").HasValue(false); }).Ignore(x => x.Deleted);
+            modelBuilder.Properties().Where(x => x.GetCustomAttributes(false).OfType<Precision>().Any())
+                .Configure(c => c.HasPrecision(c.ClrPropertyInfo.GetCustomAttributes(false).OfType<Precision>().First()
+                .precision, c.ClrPropertyInfo.GetCustomAttributes(false).OfType<Precision>().First().scale));
         }
 
 
@@ -49,17 +53,20 @@ namespace TimeKeeper.DAL
         {
             EntitySetBase setBase;
             string tableName, primaryKeyName;
-
-            foreach (var entry in ChangeTracker.Entries().Where(p => p.State == EntityState.Deleted))
+            try
             {
-                setBase = GetEntitySet(entry.Entity.GetType());
-                tableName = (string)setBase.MetadataProperties["Table"].Value;
-                primaryKeyName = setBase.ElementType.KeyMembers[0].Name;
-                Database.ExecuteSqlCommand($"UPDATE {tableName} SET Deleted=1 " +
-                    $"WHERE {primaryKeyName}='{entry.OriginalValues[primaryKeyName]}'");
-                entry.State = EntityState.Unchanged;
+                foreach (var entry in ChangeTracker.Entries().Where(p => p.State == EntityState.Deleted))
+                {
+                    setBase = GetEntitySet(entry.Entity.GetType());
+                    tableName = (string)setBase.MetadataProperties["Table"].Value;
+                    primaryKeyName = setBase.ElementType.KeyMembers[0].Name;
+                    Database.ExecuteSqlCommand($"UPDATE {tableName} SET Deleted=1 " +
+                        $"WHERE {primaryKeyName}='{entry.OriginalValues[primaryKeyName]}'");
+                    entry.State = EntityState.Detached;
+                }
+                return base.SaveChanges();
             }
-            return base.SaveChanges();
+            catch { return 0; }
         }
 
         private EntitySetBase GetEntitySet(Type type)

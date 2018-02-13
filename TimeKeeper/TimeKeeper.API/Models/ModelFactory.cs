@@ -10,23 +10,21 @@ namespace TimeKeeper.API.Models
     {
         public TeamModel Create(Team t)
         {
-            return new TeamModel()
+            return new TeamModel
             {
-                Id = t.Id,
-                Name = t.Name,
-                Image = t.Image,
-                Members = t.Members.Select(e => Create(e)).ToList()
-
+                TeamId = t.Id,
+                TeamName = t.Name,
+                TeamImage = t.Image,
+                Members = t.Engagements.Select(e=>Create(e)).ToList()
             };
         }
 
-
         public MemberModel Create(Engagement e)
         {
-            return new MemberModel()
+            return new MemberModel
             {
-                Rola = e.Role.Name,
-                Employee = e.Employee.FirstName,
+                Role = e.Role.Name,
+                Employee = e.Employee.FirstName+" "+e.Employee.LastName,
                 Hours = e.Hours
             };
         }
