@@ -95,11 +95,16 @@
   <ItemGroup>
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Controllers\EmployeesController.cs" />
     <Compile Include="Controllers\RolesController.cs" />
     <Compile Include="Controllers\TeamsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\CalendarModel.cs" />
+    <Compile Include="Models\CustomerModel.cs" />
+    <Compile Include="Models\DetailModel.cs" />
+    <Compile Include="Models\EmployeeModel.cs" />
     <Compile Include="Models\MemberModel.cs" />
     <Compile Include="Models\ModelFactory.cs" />
     <Compile Include="Models\ProjectModel.cs" />
