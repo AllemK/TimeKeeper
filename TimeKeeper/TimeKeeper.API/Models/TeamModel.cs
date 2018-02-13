@@ -11,5 +11,6 @@ namespace TimeKeeper.API.Models
         public string TeamName { get; set; }
         public string TeamImage { get; set; }
         public ICollection<MemberModel> Members { get; set; }
+        public ICollection<ProjectModel> Projects { get; set; }
     }
 }
