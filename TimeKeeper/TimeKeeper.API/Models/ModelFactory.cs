@@ -60,5 +60,16 @@ namespace TimeKeeper.API.Models
                 Team = p.Team.Name
             };
         }
+
+        public TaskModel Create (Detail t)
+        {
+            return new TaskModel()
+            {
+                Description = t.Description,
+                Hours = t.Hours,
+                Project = t.Project.Name,
+                Day = t.Day.Date.ToString()
+            };
+        }
     }
 }
