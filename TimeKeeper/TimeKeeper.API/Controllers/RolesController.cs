@@ -4,38 +4,34 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
-using TimeKeeper.API.Models;
 using TimeKeeper.DAL.Entities;
-using TimeKeeper.DAL.Repository;
 
 namespace TimeKeeper.API.Controllers
 {
-    public class TeamsController : BaseController
+    public class RolesController : BaseController
     {
         public IHttpActionResult Get()
         {
-            var list = TimeUnit.Teams.Get().ToList()
-                           .Select(t => TimeFactory.Create(t))
-                           .ToList();
-            return Ok(list); //Ok - status 200
+            var list = TimeUnit.Roles.Get().ToList().Select(r => TimeFactory.Create(r)).ToList();
+            return Ok(list);
         }
 
         public IHttpActionResult Get(string id)
         {
-            Team team = TimeUnit.Teams.Get(id);
-            if (team == null)
+            Role role = TimeUnit.Roles.Get(id);
+            if (role == null)
                 return NotFound();
             else
-                return Ok(TimeFactory.Create(team));
+                return Ok(TimeFactory.Create(role));
         }
 
-        public IHttpActionResult Post([FromBody] Team team)
+        public IHttpActionResult Post([FromBody] Role role)
         {
             try
             {
-                TimeUnit.Teams.Insert(team);
+                TimeUnit.Roles.Insert(role);
                 TimeUnit.Save();
-                return Ok(team);
+                return Ok(role);
             }
             catch (Exception ex)
             {
@@ -43,14 +39,14 @@ namespace TimeKeeper.API.Controllers
             }
         }
 
-        public IHttpActionResult Put([FromBody] Team team, string id)
+        public IHttpActionResult Put([FromBody] Role role, string id)
         {
             try
             {
-                if (TimeUnit.Teams.Get(id) == null) return NotFound();
-                TimeUnit.Teams.Update(team, id);
+                if (TimeUnit.Roles.Get(id) == null) return NotFound();
+                TimeUnit.Roles.Update(role, id);
                 TimeUnit.Save();
-                return Ok(team);
+                return Ok(role);
             }
             catch (Exception ex)
             {
@@ -62,9 +58,9 @@ namespace TimeKeeper.API.Controllers
         {
             try
             {
-                Team team = TimeUnit.Teams.Get(id);
-                if (team == null) return NotFound();
-                TimeUnit.Teams.Delete(team);
+                Role role = TimeUnit.Roles.Get(id);
+                if (role == null) return NotFound();
+                TimeUnit.Roles.Delete(role);
                 TimeUnit.Save();
                 return Ok();
             }
@@ -74,5 +70,4 @@ namespace TimeKeeper.API.Controllers
             }
         }
     }
-
 }
