@@ -13,9 +13,11 @@ namespace TimeKeeper.API.Models
         public string Contact { get; set; }
         public string Email { get; set; }
         public string Phone { get; set; }
-        public Address Address { get; set; }
-        public CustomerStatus Status { get; set; }
+        public string Address_Road { get; set; }
+        public string Address_ZipCode { get; set; }
+        public string Address_City { get; set; }
+        public string Status { get; set; }
 
-        public virtual ICollection<Project> Projects { get; set; }
+        public ICollection<ProjectModel> Projects { get; set; }
     }
 }

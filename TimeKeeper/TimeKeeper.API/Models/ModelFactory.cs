@@ -102,5 +102,23 @@ namespace TimeKeeper.API.Models
                 Details = d.Details.Select(de => Create(de)).ToList()
             };
         }
+
+        public CustomerModel Create(Customer c)
+        {
+            return new CustomerModel()
+            {
+                Name = c.Name,
+                Image = c.Image,
+                Monogram = c.Monogram,
+                Contact = c.Contact,
+                Email = c.Email,
+                Phone = c.Phone,
+                Address_Road = c.Address.Road,
+                Address_ZipCode = c.Address.ZipCode,
+                Address_City = c.Address.City,
+                Status = c.Status.ToString(),
+                Projects = c.Projects.Select(x=>Create(x)).ToList()
+            };
+        }
     }
 }

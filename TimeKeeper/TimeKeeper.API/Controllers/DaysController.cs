@@ -8,34 +8,35 @@ using TimeKeeper.DAL.Entities;
 
 namespace TimeKeeper.API.Controllers
 {
-    public class EmployeesController : BaseController
+    public class DaysController : BaseController
     {
+
         public IHttpActionResult Get()
         {
-            var list = TimeUnit.Employees.Get().ToList().Select(x => TimeFactory.Create(x)).ToList();
+            var list = TimeUnit.Calendar.Get().ToList().Select(x => TimeFactory.Create(x)).ToList();
             return Ok(list);
         }
 
         public IHttpActionResult Get(int id)
         {
-            Employee emp = TimeUnit.Employees.Get(id);
-            if (emp == null)
+            Day day = TimeUnit.Calendar.Get(id);
+            if (day == null)
             {
                 return NotFound();
             }
             else
             {
-                return Ok(TimeFactory.Create(emp));
+                return Ok(TimeFactory.Create(day));
             }
         }
 
-        public IHttpActionResult Post([FromBody] Employee emp)
+        public IHttpActionResult Post([FromBody] Day day)
         {
             try
             {
-                TimeUnit.Employees.Insert(emp);
+                TimeUnit.Calendar.Insert(day);
                 TimeUnit.Save();
-                return Ok(emp);
+                return Ok(day);
             }
             catch (Exception ex)
             {
@@ -43,14 +44,14 @@ namespace TimeKeeper.API.Controllers
             }
         }
 
-        public IHttpActionResult Put([FromBody] Employee emp, int id)
+        public IHttpActionResult Put([FromBody] Day day, int id)
         {
             try
             {
-                if (TimeUnit.Employees.Get(id) == null) return NotFound();
-                TimeUnit.Employees.Update(emp, id);
+                if (TimeUnit.Calendar.Get(id) == null) return NotFound();
+                TimeUnit.Calendar.Update(day, id);
                 TimeUnit.Save();
-                return Ok(emp);
+                return Ok(day);
             }
             catch (Exception ex)
             {
@@ -62,9 +63,9 @@ namespace TimeKeeper.API.Controllers
         {
             try
             {
-                Employee emp = TimeUnit.Employees.Get(id);
-                if (emp == null) return NotFound();
-                TimeUnit.Employees.Delete(emp);
+                Day day = TimeUnit.Calendar.Get(id);
+                if (day == null) return NotFound();
+                TimeUnit.Calendar.Delete(day);
                 TimeUnit.Save();
                 return Ok();
             }

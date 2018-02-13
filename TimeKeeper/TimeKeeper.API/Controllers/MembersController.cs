@@ -8,34 +8,34 @@ using TimeKeeper.DAL.Entities;
 
 namespace TimeKeeper.API.Controllers
 {
-    public class EmployeesController : BaseController
+    public class MembersController : BaseController
     {
         public IHttpActionResult Get()
         {
-            var list = TimeUnit.Employees.Get().ToList().Select(x => TimeFactory.Create(x)).ToList();
+            var list = TimeUnit.Engagements.Get().ToList().Select(x => TimeFactory.Create(x)).ToList();
             return Ok(list);
         }
 
         public IHttpActionResult Get(int id)
         {
-            Employee emp = TimeUnit.Employees.Get(id);
-            if (emp == null)
+            Engagement member = TimeUnit.Engagements.Get(id);
+            if (member == null)
             {
                 return NotFound();
             }
             else
             {
-                return Ok(TimeFactory.Create(emp));
+                return Ok(TimeFactory.Create(member));
             }
         }
 
-        public IHttpActionResult Post([FromBody] Employee emp)
+        public IHttpActionResult Post([FromBody] Engagement member)
         {
             try
             {
-                TimeUnit.Employees.Insert(emp);
+                TimeUnit.Engagements.Insert(member);
                 TimeUnit.Save();
-                return Ok(emp);
+                return Ok(member);
             }
             catch (Exception ex)
             {
@@ -43,14 +43,14 @@ namespace TimeKeeper.API.Controllers
             }
         }
 
-        public IHttpActionResult Put([FromBody] Employee emp, int id)
+        public IHttpActionResult Put([FromBody] Engagement member, int id)
         {
             try
             {
-                if (TimeUnit.Employees.Get(id) == null) return NotFound();
-                TimeUnit.Employees.Update(emp, id);
+                if (TimeUnit.Engagements.Get(id) == null) return NotFound();
+                TimeUnit.Engagements.Update(member, id);
                 TimeUnit.Save();
-                return Ok(emp);
+                return Ok(member);
             }
             catch (Exception ex)
             {
@@ -62,9 +62,9 @@ namespace TimeKeeper.API.Controllers
         {
             try
             {
-                Employee emp = TimeUnit.Employees.Get(id);
-                if (emp == null) return NotFound();
-                TimeUnit.Employees.Delete(emp);
+                Engagement member = TimeUnit.Engagements.Get(id);
+                if (member == null) return NotFound();
+                TimeUnit.Engagements.Delete(member);
                 TimeUnit.Save();
                 return Ok();
             }

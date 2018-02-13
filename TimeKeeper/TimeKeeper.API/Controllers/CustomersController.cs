@@ -8,34 +8,34 @@ using TimeKeeper.DAL.Entities;
 
 namespace TimeKeeper.API.Controllers
 {
-    public class EmployeesController : BaseController
+    public class CustomersController : BaseController
     {
         public IHttpActionResult Get()
         {
-            var list = TimeUnit.Employees.Get().ToList().Select(x => TimeFactory.Create(x)).ToList();
+            var list = TimeUnit.Customers.Get().ToList().Select(x => TimeFactory.Create(x)).ToList();
             return Ok(list);
         }
 
         public IHttpActionResult Get(int id)
         {
-            Employee emp = TimeUnit.Employees.Get(id);
-            if (emp == null)
+            Customer customer = TimeUnit.Customers.Get(id);
+            if (customer == null)
             {
                 return NotFound();
             }
             else
             {
-                return Ok(TimeFactory.Create(emp));
+                return Ok(TimeFactory.Create(customer));
             }
         }
 
-        public IHttpActionResult Post([FromBody] Employee emp)
+        public IHttpActionResult Post([FromBody] Customer customer)
         {
             try
             {
-                TimeUnit.Employees.Insert(emp);
+                TimeUnit.Customers.Insert(customer);
                 TimeUnit.Save();
-                return Ok(emp);
+                return Ok(customer);
             }
             catch (Exception ex)
             {
@@ -43,14 +43,14 @@ namespace TimeKeeper.API.Controllers
             }
         }
 
-        public IHttpActionResult Put([FromBody] Employee emp, int id)
+        public IHttpActionResult Put([FromBody] Customer customer, int id)
         {
             try
             {
-                if (TimeUnit.Employees.Get(id) == null) return NotFound();
-                TimeUnit.Employees.Update(emp, id);
+                if (TimeUnit.Customers.Get(id) == null) return NotFound();
+                TimeUnit.Customers.Update(customer, id);
                 TimeUnit.Save();
-                return Ok(emp);
+                return Ok(customer);
             }
             catch (Exception ex)
             {
@@ -62,9 +62,9 @@ namespace TimeKeeper.API.Controllers
         {
             try
             {
-                Employee emp = TimeUnit.Employees.Get(id);
-                if (emp == null) return NotFound();
-                TimeUnit.Employees.Delete(emp);
+                Customer customer = TimeUnit.Customers.Get(id);
+                if (customer == null) return NotFound();
+                TimeUnit.Customers.Delete(customer);
                 TimeUnit.Save();
                 return Ok();
             }
