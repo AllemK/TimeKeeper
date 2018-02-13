@@ -61,14 +61,63 @@ namespace TimeKeeper.API.Models
             };
         }
 
-        public TaskModel Create (Detail t)
+        public EmployeeModel Create(Employee e)
         {
-            return new TaskModel()
+            return new EmployeeModel()
             {
-                Description = t.Description,
-                Hours = t.Hours,
-                Project = t.Project.Name,
-                Day = t.Day.Date.ToString()
+                FirstName = e.FirstName,
+                LastName = e.LastName,
+                Image = e.Image,
+                Email = e.Email,
+                Phone = e.Phone,
+                Salary = e.Salary,
+                BirthDate = e.BirthDate,
+                BeginDate = e.BeginDate,
+                EndDate = e.EndDate,
+                Status = e.Status.ToString(),
+                Position = e.Position.Name,
+                Engagements = e.Engagements.Select(eng => Create(eng)).ToList()
+            };
+        }
+
+        public DetailModel Create(Detail d)
+        {
+            return new DetailModel()
+            {
+                Description = d.Description,
+                Hours = d.Hours,
+                Day = d.Day.Date.ToString(),
+                Project = d.Project.Name
+            };
+        }
+
+        public CalendarModel Create(Day d)
+        {
+            return new CalendarModel()
+            {
+                Date = d.Date,
+                Hours = d.Hours,
+                Type = d.Type.ToString(),
+                Employee = d.Employee.FullName,
+                Details = d.Details.Select(de => Create(de)).ToList()
+            };
+        }
+
+        public CustomerModel Create(Customer c)
+        {
+            return new CustomerModel()
+            {
+                Name = c.Name,
+                Image = c.Image,
+                Monogram = c.Monogram,
+                Contact = c.Contact,
+                Email = c.Email,
+                Phone = c.Phone,
+                Address_Road = c.Address.Road,
+                Address_ZipCode = c.Address.ZipCode,
+                Address_City = c.Address.City,
+                Status = c.Status.ToString(),
+                Projects = c.Projects.Select(x=>Create(x)).ToList()
             };
         }
     }
