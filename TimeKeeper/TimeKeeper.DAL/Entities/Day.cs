@@ -29,7 +29,7 @@ namespace TimeKeeper.DAL.Entities
         [Required]
         public DayType Type { get; set; }
 
-        [Required]
+        //[Required]
         public virtual Employee Employee { get; set; }
         public virtual ICollection<Detail> Details { get; set; }
     }

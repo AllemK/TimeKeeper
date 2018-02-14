@@ -43,9 +43,9 @@ namespace TimeKeeper.DAL.Entities
         [Required]
 		public ProjectStatus Status { get; set; }
 
-        [Required]
+        //[Required]
         public virtual Team Team { get; set; }
-        [Required]
+        //[Required]
         public virtual Customer Customer { get; set; }
 
         public virtual ICollection<Detail> Details { get; set; }
