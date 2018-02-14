@@ -31,10 +31,11 @@ namespace TimeKeeper.API.Controllers
 
         public IHttpActionResult Post([FromBody] Customer customer)
         {
+
             try
             {
                 TimeUnit.Customers.Insert(customer);
-                TimeUnit.Save();
+                bool b = TimeUnit.Save();
                 return Ok(customer);
             }
             catch (Exception ex)
