@@ -7,10 +7,11 @@ namespace TimeKeeper.API.Models
 {
     public class TeamModel
     {
-        public string TeamId { get; set; }
-        public string TeamName { get; set; }
-        public string TeamImage { get; set; }
-        public ICollection<MemberModel> Members { get; set; }
+        public string Id { get; set; }
+        public string Name { get; set; }
+        public string Image { get; set; }
+        public string Description { get; set; }
+        public ICollection<MemberModel> Engagements { get; set; }
         public ICollection<ProjectModel> Projects { get; set; }
     }
 }
