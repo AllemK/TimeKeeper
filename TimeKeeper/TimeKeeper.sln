@@ -1,11 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.27130.2020
+VisualStudioVersion = 15.0.27130.2027
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TimeKeeper.DAL", "TimeKeeper.DAL\TimeKeeper.DAL.csproj", "{70B8FD2B-BDF2-41F9-B0C2-CE752AB1129E}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TimeKeeper.ConApp", "TimeKeeper.ConApp\TimeKeeper.ConApp.csproj", "{118DC0B1-FAE8-43C9-B278-074A074B11A8}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TimeKeeper.Seed", "TimeKeeper.Seed\TimeKeeper.Seed.csproj", "{039448CD-7A4B-4C09-AA87-1654E2D572EF}"
 EndProject
@@ -23,10 +21,6 @@ Global
 		{70B8FD2B-BDF2-41F9-B0C2-CE752AB1129E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{70B8FD2B-BDF2-41F9-B0C2-CE752AB1129E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{70B8FD2B-BDF2-41F9-B0C2-CE752AB1129E}.Release|Any CPU.Build.0 = Release|Any CPU
-		{118DC0B1-FAE8-43C9-B278-074A074B11A8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{118DC0B1-FAE8-43C9-B278-074A074B11A8}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{118DC0B1-FAE8-43C9-B278-074A074B11A8}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{118DC0B1-FAE8-43C9-B278-074A074B11A8}.Release|Any CPU.Build.0 = Release|Any CPU
 		{039448CD-7A4B-4C09-AA87-1654E2D572EF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{039448CD-7A4B-4C09-AA87-1654E2D572EF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{039448CD-7A4B-4C09-AA87-1654E2D572EF}.Release|Any CPU.ActiveCfg = Release|Any CPU
