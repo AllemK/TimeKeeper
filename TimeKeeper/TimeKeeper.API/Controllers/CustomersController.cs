@@ -10,12 +10,14 @@ namespace TimeKeeper.API.Controllers
 {
     public class CustomersController : BaseController
     {
+        //Get all Customers
         public IHttpActionResult Get()
         {
             var list = TimeUnit.Customers.Get().ToList().Select(x => TimeFactory.Create(x)).ToList();
             return Ok(list);
         }
 
+        //Get specific Customer
         public IHttpActionResult Get(int id)
         {
             Customer customer = TimeUnit.Customers.Get(id);
@@ -31,10 +33,11 @@ namespace TimeKeeper.API.Controllers
 
         public IHttpActionResult Post([FromBody] Customer customer)
         {
+
             try
             {
                 TimeUnit.Customers.Insert(customer);
-                TimeUnit.Save();
+                bool b = TimeUnit.Save();
                 return Ok(customer);
             }
             catch (Exception ex)

@@ -14,11 +14,11 @@ namespace TimeKeeper.DAL.Entities
         [Precision(3,1)]
         public decimal Hours { get; set; }
 
-        [Required]
+        //[Required]
         public virtual Team Team { get; set; }
-        [Required]
+        //[Required]
         public virtual Employee Employee { get; set; }
-        [Required]
+        //[Required]
         public virtual Role Role { get; set; }
     }
 }
