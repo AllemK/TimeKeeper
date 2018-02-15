@@ -10,10 +10,10 @@ namespace TimeKeeper.API.Controllers
 {
     public class CustomersController : BaseController
     {
-        //<summary>
-        //Get all Customers
-        //</summary>
-        //<returns></returns>
+        ///<summary>
+        ///Get all Customers
+        ///</summary>
+        ///<returns></returns>
         public IHttpActionResult Get()
         {
             var list = TimeKeeperUnit.Customers.Get().ToList().Select(x => TimeKeeperFactory.Create(x)).ToList();

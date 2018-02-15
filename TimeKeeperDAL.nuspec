@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <package >
   <metadata>
-    <id>DakotaMuhaAPI</id>
+    <id>DakotaMuhaDAL</id>
     <version>$version$</version>
     <authors>Maestral Solutions</authors>
     <owners>Maestral Solutions</owners>
@@ -13,7 +13,7 @@
     <copyright>Copyright Maestral Solutions 2017</copyright>
   </metadata>
   <files>
-	<file src="TimeKeeper\TimeKeeper.API\**\*.*" />
-	<file src="TimeKeeper\TimeKeeper.API\*.*" />
+	<file src="TimeKeeper\TimeKeeper.DAL\**\*.*" />
+	<file src="TimeKeeper\TimeKeeper.DAL\*.*" />
   </files>
 </package>
