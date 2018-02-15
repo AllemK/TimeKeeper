@@ -13,6 +13,9 @@
     <copyright>Copyright Maestral Solutions 2017</copyright>
   </metadata>
   <files>
-	<file src="TimeKeeper\**\*.*" />
+	<file src="TimeKeeper\TimeKeeper.DAL\**\*.*" />
+	<file src="TimeKeeper\TimeKeeper.DAL\*.*" />
+	<file src="TimeKeeper\TimeKeeper.API\**\*.*" />
+	<file src="TimeKeeper\TimeKeeper.DAL\*.*" />
   </files>
 </package>
