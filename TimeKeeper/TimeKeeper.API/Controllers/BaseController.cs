@@ -14,7 +14,7 @@ namespace TimeKeeper.API.Controllers
         UnitOfWork unit;
         ModelFactory factory;
 
-        public UnitOfWork TimeUnit
+        public UnitOfWork TimeKeeperUnit
         {
             get
             {
@@ -23,7 +23,7 @@ namespace TimeKeeper.API.Controllers
             }
         }
 
-        public ModelFactory TimeFactory
+        public ModelFactory TimeKeeperFactory
         {
             get
             {

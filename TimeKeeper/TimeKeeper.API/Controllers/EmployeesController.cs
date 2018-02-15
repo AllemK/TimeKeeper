@@ -12,20 +12,20 @@ namespace TimeKeeper.API.Controllers
     {
         public IHttpActionResult Get()
         {
-            var list = TimeUnit.Employees.Get().ToList().Select(x => TimeFactory.Create(x)).ToList();
+            var list = TimeKeeperUnit.Employees.Get().ToList().Select(x => TimeKeeperFactory.Create(x)).ToList();
             return Ok(list);
         }
 
         public IHttpActionResult Get(int id)
         {
-            Employee emp = TimeUnit.Employees.Get(id);
+            Employee emp = TimeKeeperUnit.Employees.Get(id);
             if (emp == null)
             {
                 return NotFound();
             }
             else
             {
-                return Ok(TimeFactory.Create(emp));
+                return Ok(TimeKeeperFactory.Create(emp));
             }
         }
 
@@ -33,12 +33,14 @@ namespace TimeKeeper.API.Controllers
         {
             try
             {
-                TimeUnit.Employees.Insert(emp);
-                TimeUnit.Save();
+                TimeKeeperUnit.Employees.Insert(emp);
+                TimeKeeperUnit.Save();
+                Utility.Log($"insert data for employee {emp.FullName}");
                 return Ok(emp);
             }
             catch (Exception ex)
             {
+                Utility.Log(ex.Message, "ERROR", ex);
                 return BadRequest(ex.Message);
             }
         }
@@ -47,9 +49,9 @@ namespace TimeKeeper.API.Controllers
         {
             try
             {
-                if (TimeUnit.Employees.Get(id) == null) return NotFound();
-                TimeUnit.Employees.Update(emp, id);
-                TimeUnit.Save();
+                if (TimeKeeperUnit.Employees.Get(id) == null) return NotFound();
+                TimeKeeperUnit.Employees.Update(emp, id);
+                TimeKeeperUnit.Save();
                 return Ok(emp);
             }
             catch (Exception ex)
@@ -62,10 +64,10 @@ namespace TimeKeeper.API.Controllers
         {
             try
             {
-                Employee emp = TimeUnit.Employees.Get(id);
+                Employee emp = TimeKeeperUnit.Employees.Get(id);
                 if (emp == null) return NotFound();
-                TimeUnit.Employees.Delete(emp);
-                TimeUnit.Save();
+                TimeKeeperUnit.Employees.Delete(emp);
+                TimeKeeperUnit.Save();
                 return Ok();
             }
             catch (Exception ex)
