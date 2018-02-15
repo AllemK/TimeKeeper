@@ -16,7 +16,7 @@
 	<file src="TimeKeeper\TimeKeeper.DAL\**\*.*" />
 	<file src="TimeKeeper\TimeKeeper.DAL\*.*" />
 	<file src="TimeKeeper\TimeKeeper.API\**\*.*" />
-	<file src="TimeKeeper\TimeKeeper.DAL\*.*" />
+	<file src="TimeKeeper\TimeKeeper.API\*.*" />
 	<file src="TimeKeeper\packages\**\*.*" />
   </files>
 </package>
