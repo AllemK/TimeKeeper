@@ -15,6 +15,10 @@ namespace TimeKeeper.DAL.Entities
 
     public class Customer : BaseClass<int>
     {
+        public Customer()
+        {
+            Address = new Address();
+        }
         [Required]
         [MaxLength(50)]
         public string Name { get; set; }

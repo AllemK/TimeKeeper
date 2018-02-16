@@ -12,10 +12,10 @@ namespace TimeKeeper.API.Models
         {
             return new TeamModel
             {
-                TeamId = t.Id,
-                TeamName = t.Name,
-                TeamImage = t.Image,
-                Members = t.Engagements.Select(e=>Create(e)).ToList(),
+                Id = t.Id,
+                Name = t.Name,
+                Image = t.Image,
+                Engagements = t.Engagements.Select(e => Create(e)).ToList(),
                 Projects = t.Projects.Select(p => Create(p)).ToList()
             };
         }
@@ -37,9 +37,9 @@ namespace TimeKeeper.API.Models
         {
             return new MemberModel
             {
-                Team = e.Team.Name,
-                Role = e.Role.Name,
-                Employee = e.Employee.FirstName+" "+e.Employee.LastName,
+                Team = e.Team.Id,
+                Role = e.Role.Id,
+                Employee = e.Employee.Id.ToString(),
                 Hours = e.Hours
             };
         }
@@ -56,8 +56,8 @@ namespace TimeKeeper.API.Models
                 Status = p.Status.ToString(),
                 Pricing = p.Pricing.ToString(),
                 Amount = p.Amount,
-                Customer = p.Customer.Name,
-                Team = p.Team.Name
+                Customer = p.Customer.ToString(),
+                Team = p.Team.Id
             };
         }
 
@@ -75,7 +75,7 @@ namespace TimeKeeper.API.Models
                 BeginDate = e.BeginDate,
                 EndDate = e.EndDate,
                 Status = e.Status.ToString(),
-                Position = e.Position.Name,
+                Position = e.Position.ToString(),
                 Engagements = e.Engagements.Select(eng => Create(eng)).ToList()
             };
         }
@@ -117,7 +117,7 @@ namespace TimeKeeper.API.Models
                 Address_ZipCode = c.Address.ZipCode,
                 Address_City = c.Address.City,
                 Status = c.Status.ToString(),
-                Projects = c.Projects.Select(x=>Create(x)).ToList()
+                Projects = c.Projects.Select(x => Create(x)).ToList()
             };
         }
     }

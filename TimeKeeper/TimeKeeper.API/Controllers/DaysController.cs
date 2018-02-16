@@ -13,20 +13,20 @@ namespace TimeKeeper.API.Controllers
 
         public IHttpActionResult Get()
         {
-            var list = TimeUnit.Calendar.Get().ToList().Select(x => TimeFactory.Create(x)).ToList();
+            var list = TimeKeeperUnit.Calendar.Get().ToList().Select(x => TimeKeeperFactory.Create(x)).ToList();
             return Ok(list);
         }
 
         public IHttpActionResult Get(int id)
         {
-            Day day = TimeUnit.Calendar.Get(id);
+            Day day = TimeKeeperUnit.Calendar.Get(id);
             if (day == null)
             {
                 return NotFound();
             }
             else
             {
-                return Ok(TimeFactory.Create(day));
+                return Ok(TimeKeeperFactory.Create(day));
             }
         }
 
@@ -34,8 +34,8 @@ namespace TimeKeeper.API.Controllers
         {
             try
             {
-                TimeUnit.Calendar.Insert(day);
-                TimeUnit.Save();
+                TimeKeeperUnit.Calendar.Insert(day);
+                TimeKeeperUnit.Save();
                 return Ok(day);
             }
             catch (Exception ex)
@@ -48,9 +48,9 @@ namespace TimeKeeper.API.Controllers
         {
             try
             {
-                if (TimeUnit.Calendar.Get(id) == null) return NotFound();
-                TimeUnit.Calendar.Update(day, id);
-                TimeUnit.Save();
+                if (TimeKeeperUnit.Calendar.Get(id) == null) return NotFound();
+                TimeKeeperUnit.Calendar.Update(day, id);
+                TimeKeeperUnit.Save();
                 return Ok(day);
             }
             catch (Exception ex)
@@ -63,10 +63,10 @@ namespace TimeKeeper.API.Controllers
         {
             try
             {
-                Day day = TimeUnit.Calendar.Get(id);
+                Day day = TimeKeeperUnit.Calendar.Get(id);
                 if (day == null) return NotFound();
-                TimeUnit.Calendar.Delete(day);
-                TimeUnit.Save();
+                TimeKeeperUnit.Calendar.Delete(day);
+                TimeKeeperUnit.Save();
                 return Ok();
             }
             catch (Exception ex)
