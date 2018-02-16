@@ -12,20 +12,20 @@ namespace TimeKeeper.API.Controllers
     {
         public IHttpActionResult Get()
         {
-            var list = TimeUnit.Projects.Get().ToList().Select(x => TimeFactory.Create(x)).ToList();
+            var list = TimeKeeperUnit.Projects.Get().ToList().Select(x => TimeKeeperFactory.Create(x)).ToList();
             return Ok(list);
         }
 
         public IHttpActionResult Get(int id)
         {
-            Project project = TimeUnit.Projects.Get(id);
+            Project project = TimeKeeperUnit.Projects.Get(id);
             if (project == null)
             {
                 return NotFound();
             }
             else
             {
-                return Ok(TimeFactory.Create(project));
+                return Ok(TimeKeeperFactory.Create(project));
             }
         }
 
@@ -33,8 +33,8 @@ namespace TimeKeeper.API.Controllers
         {
             try
             {
-                TimeUnit.Projects.Insert(project);
-                TimeUnit.Save();
+                TimeKeeperUnit.Projects.Insert(project);
+                TimeKeeperUnit.Save();
                 return Ok(project);
             }
             catch (Exception ex)
@@ -47,9 +47,9 @@ namespace TimeKeeper.API.Controllers
         {
             try
             {
-                if (TimeUnit.Projects.Get(id) == null) return NotFound();
-                TimeUnit.Projects.Update(project, id);
-                TimeUnit.Save();
+                if (TimeKeeperUnit.Projects.Get(id) == null) return NotFound();
+                TimeKeeperUnit.Projects.Update(project, id);
+                TimeKeeperUnit.Save();
                 return Ok(project);
             }
             catch (Exception ex)
@@ -62,10 +62,10 @@ namespace TimeKeeper.API.Controllers
         {
             try
             {
-                Project project = TimeUnit.Projects.Get(id);
+                Project project = TimeKeeperUnit.Projects.Get(id);
                 if (project == null) return NotFound();
-                TimeUnit.Projects.Delete(project);
-                TimeUnit.Save();
+                TimeKeeperUnit.Projects.Delete(project);
+                TimeKeeperUnit.Save();
                 return Ok();
             }
             catch (Exception ex)

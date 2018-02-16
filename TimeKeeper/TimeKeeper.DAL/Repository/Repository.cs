@@ -20,26 +20,31 @@ namespace TimeKeeper.DAL.Repository
 
         public IQueryable<T> Get()
         {
+            Utility.Log("REPOSITORY: all records retrieved", "INFO");
             return dbSet;
         }
 
         public List<T> Get(Func<T, bool> where)
         {
+            Utility.Log("REPOSITORY: all records retrieved", "INFO");
             return dbSet.Where(where).ToList();
         }
 
         public T Get(I id)
         {
+            Utility.Log($"REPOSITORY: record with id({id}) retrieved", "INFO");
             return dbSet.Find(id);
         }
 
         public void Insert(T entity)
         {
+            Utility.Log($"REPOSITORY: record inserted", "INFO");
             dbSet.Add(entity);
         }
 
         public void Update(T entity, I id)
         {
+            Utility.Log("REPOSITORY: record updated", "INFO");
             T old = Get(id);
             if (old != null)
             {
@@ -49,6 +54,7 @@ namespace TimeKeeper.DAL.Repository
 
         public void Delete(T entity)
         {
+            Utility.Log("REPOSITORY: record deleted", "INFO");
             dbSet.Remove(entity);
         }
     }

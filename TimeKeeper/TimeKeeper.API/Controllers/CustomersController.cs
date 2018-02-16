@@ -10,24 +10,27 @@ namespace TimeKeeper.API.Controllers
 {
     public class CustomersController : BaseController
     {
-        //Get all Customers
+        ///<summary>
+        ///Get all Customers
+        ///</summary>
+        ///<returns></returns>
         public IHttpActionResult Get()
         {
-            var list = TimeUnit.Customers.Get().ToList().Select(x => TimeFactory.Create(x)).ToList();
+            var list = TimeKeeperUnit.Customers.Get().ToList().Select(x => TimeKeeperFactory.Create(x)).ToList();
             return Ok(list);
         }
 
         //Get specific Customer
         public IHttpActionResult Get(int id)
         {
-            Customer customer = TimeUnit.Customers.Get(id);
+            Customer customer = TimeKeeperUnit.Customers.Get(id);
             if (customer == null)
             {
                 return NotFound();
             }
             else
             {
-                return Ok(TimeFactory.Create(customer));
+                return Ok(TimeKeeperFactory.Create(customer));
             }
         }
 
@@ -36,8 +39,8 @@ namespace TimeKeeper.API.Controllers
 
             try
             {
-                TimeUnit.Customers.Insert(customer);
-                bool b = TimeUnit.Save();
+                TimeKeeperUnit.Customers.Insert(customer);
+                bool b = TimeKeeperUnit.Save();
                 return Ok(customer);
             }
             catch (Exception ex)
@@ -50,9 +53,9 @@ namespace TimeKeeper.API.Controllers
         {
             try
             {
-                if (TimeUnit.Customers.Get(id) == null) return NotFound();
-                TimeUnit.Customers.Update(customer, id);
-                TimeUnit.Save();
+                if (TimeKeeperUnit.Customers.Get(id) == null) return NotFound();
+                TimeKeeperUnit.Customers.Update(customer, id);
+                TimeKeeperUnit.Save();
                 return Ok(customer);
             }
             catch (Exception ex)
@@ -65,10 +68,10 @@ namespace TimeKeeper.API.Controllers
         {
             try
             {
-                Customer customer = TimeUnit.Customers.Get(id);
+                Customer customer = TimeKeeperUnit.Customers.Get(id);
                 if (customer == null) return NotFound();
-                TimeUnit.Customers.Delete(customer);
-                TimeUnit.Save();
+                TimeKeeperUnit.Customers.Delete(customer);
+                TimeKeeperUnit.Save();
                 return Ok();
             }
             catch (Exception ex)

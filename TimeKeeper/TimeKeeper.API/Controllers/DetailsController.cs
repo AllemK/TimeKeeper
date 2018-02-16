@@ -12,20 +12,20 @@ namespace TimeKeeper.API.Controllers
     {
         public IHttpActionResult Get()
         {
-            var list = TimeUnit.Details.Get().ToList().Select(x => TimeFactory.Create(x)).ToList();
+            var list = TimeKeeperUnit.Details.Get().ToList().Select(x => TimeKeeperFactory.Create(x)).ToList();
             return Ok(list);
         }
 
         public IHttpActionResult Get(int id)
         {
-            Detail detail = TimeUnit.Details.Get(id);
+            Detail detail = TimeKeeperUnit.Details.Get(id);
             if (detail == null)
             {
                 return NotFound();
             }
             else
             {
-                return Ok(TimeFactory.Create(detail));
+                return Ok(TimeKeeperFactory.Create(detail));
             }
         }
 
@@ -33,8 +33,8 @@ namespace TimeKeeper.API.Controllers
         {
             try
             {
-                TimeUnit.Details.Insert(detail);
-                TimeUnit.Save();
+                TimeKeeperUnit.Details.Insert(detail);
+                TimeKeeperUnit.Save();
                 return Ok(detail);
             }
             catch (Exception ex)
@@ -47,9 +47,9 @@ namespace TimeKeeper.API.Controllers
         {
             try
             {
-                if (TimeUnit.Details.Get(id) == null) return NotFound();
-                TimeUnit.Details.Update(detail, id);
-                TimeUnit.Save();
+                if (TimeKeeperUnit.Details.Get(id) == null) return NotFound();
+                TimeKeeperUnit.Details.Update(detail, id);
+                TimeKeeperUnit.Save();
                 return Ok(detail);
             }
             catch (Exception ex)
@@ -62,10 +62,10 @@ namespace TimeKeeper.API.Controllers
         {
             try
             {
-                Detail detail = TimeUnit.Details.Get(id);
+                Detail detail = TimeKeeperUnit.Details.Get(id);
                 if (detail == null) return NotFound();
-                TimeUnit.Details.Delete(detail);
-                TimeUnit.Save();
+                TimeKeeperUnit.Details.Delete(detail);
+                TimeKeeperUnit.Save();
                 return Ok();
             }
             catch (Exception ex)
