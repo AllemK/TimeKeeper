@@ -23,7 +23,7 @@ namespace TimeKeeper.API.Controllers
             Employee emp = TimeKeeperUnit.Employees.Get(id);
             if (emp == null)
             {
-                //Utility.Log(ex.Message, "ERROR", ex);
+                Utility.Log($"no record of employee with id: {id}");
                 return NotFound();
             }
             else
@@ -38,9 +38,16 @@ namespace TimeKeeper.API.Controllers
             try
             {
                 TimeKeeperUnit.Employees.Insert(emp);
-                TimeKeeperUnit.Save();
-                Utility.Log($"insert data for employee {emp.FullName}");
-                return Ok(emp);
+                if (TimeKeeperUnit.Save())
+                {
+                    Utility.Log($"inserted data for new employee {emp.FullName}");
+                    return Ok(emp);
+                }
+                else
+                {
+                    Utility.Log("Failed inserting employee","ERROR");
+                    throw new Exception("wrong ");
+                }
             }
             catch (Exception ex)
             {
@@ -55,11 +62,12 @@ namespace TimeKeeper.API.Controllers
             {
                 if (TimeKeeperUnit.Employees.Get(id) == null)
                 {
+
                     return NotFound();
                 }
                 TimeKeeperUnit.Employees.Update(emp, id);
                 TimeKeeperUnit.Save();
-                Utility.Log($"returned record for employee {emp.FullName}", "INFO");
+                Utility.Log($"updated record for employee {emp.FullName}", "INFO");
                 return Ok(emp);
             }
             catch (Exception ex)
