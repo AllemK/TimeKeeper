@@ -114,7 +114,7 @@
     <Compile Include="Controllers\DaysController.cs" />
     <Compile Include="Controllers\DetailsController.cs" />
     <Compile Include="Controllers\EmployeesController.cs" />
-    <Compile Include="Controllers\MembersController.cs" />
+    <Compile Include="Controllers\EngagementsController.cs" />
     <Compile Include="Controllers\ProjectsController.cs" />
     <Compile Include="Controllers\RolesController.cs" />
     <Compile Include="Controllers\TeamsController.cs" />
@@ -125,7 +125,7 @@
     <Compile Include="Models\CustomerModel.cs" />
     <Compile Include="Models\DetailModel.cs" />
     <Compile Include="Models\EmployeeModel.cs" />
-    <Compile Include="Models\MemberModel.cs" />
+    <Compile Include="Models\EngagementModel.cs" />
     <Compile Include="Models\ModelFactory.cs" />
     <Compile Include="Models\ProjectModel.cs" />
     <Compile Include="Models\RoleModel.cs" />
