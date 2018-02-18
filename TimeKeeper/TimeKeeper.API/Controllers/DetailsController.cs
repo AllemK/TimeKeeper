@@ -11,72 +11,120 @@ namespace TimeKeeper.API.Controllers
 {
     public class DetailsController : BaseController
     {
+        /// <summary>
+        /// Get all Tasks
+        /// </summary>
+        /// <returns></returns>
         public IHttpActionResult Get()
         {
             var list = TimeKeeperUnit.Details.Get().ToList().Select(x => TimeKeeperFactory.Create(x)).ToList();
-            Utility.Log("returned all records for tasks", "INFO");
+            Utility.Log("Returned all tasks", "INFO");
             return Ok(list);
         }
 
+        /// <summary>
+        /// Get specific Task
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public IHttpActionResult Get(int id)
         {
             Detail detail = TimeKeeperUnit.Details.Get(id);
             if (detail == null)
             {
-                Utility.Log($"no record for task with id {id}", "INFO");
+                Utility.Log($"No task with id {id}");
                 return NotFound();
             }
             else
             {
-                Utility.Log($"returned records for task with id {id}", "INFO");
+                Utility.Log($"Returned task with id {id}", "INFO");
                 return Ok(TimeKeeperFactory.Create(detail));
             }
         }
 
+        /// <summary>
+        /// Insert new Task
+        /// </summary>
+        /// <param name="detail"></param>
+        /// <returns></returns>
         public IHttpActionResult Post([FromBody] Detail detail)
         {
             try
             {
                 TimeKeeperUnit.Details.Insert(detail);
-                TimeKeeperUnit.Save();
-                Utility.Log($"inserted data for new task {detail.Id}", "INFO");
-                return Ok(detail);
+                if (TimeKeeperUnit.Save())
+                {
+                    Utility.Log($"Inserted new task {detail.Id}", "INFO");
+                    return Ok(detail);
+                }
+                else
+                {
+                    throw new Exception("Failed inserting new task, wrong data sent");
+                }
             }
             catch (Exception ex)
             {
+                Utility.Log(ex.Message, "ERROR", ex);
                 return BadRequest(ex.Message);
             }
         }
 
+        /// <summary>
+        /// Update chosen Task
+        /// </summary>
+        /// <param name="detail"></param>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public IHttpActionResult Put([FromBody] Detail detail, int id)
         {
             try
             {
-                if (TimeKeeperUnit.Details.Get(id) == null) return NotFound();
+                if (TimeKeeperUnit.Details.Get(id) == null)
+                {
+                    Utility.Log($"No such task with id {id}", "ERROR");
+                    return NotFound();
+                }
                 TimeKeeperUnit.Details.Update(detail, id);
-                TimeKeeperUnit.Save();
-                Utility.Log($"updated task with id {id}", "INFO");
-                return Ok(detail);
+                if (TimeKeeperUnit.Save())
+                {
+                    Utility.Log($"Updated task with id {id}", "INFO");
+                    return Ok(detail);
+                }
+                else
+                {
+                    throw new Exception($"Failed updating task with id {id}, wrong data sent");
+                }
             }
             catch (Exception ex)
             {
+                Utility.Log(ex.Message, "ERROR", ex);
                 return BadRequest(ex.Message);
             }
         }
 
+        /// <summary>
+        /// Delete chosen Task
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public IHttpActionResult Delete(int id)
         {
             try
             {
                 Detail detail = TimeKeeperUnit.Details.Get(id);
-                if (detail == null) return NotFound();
+                if (detail == null)
+                {
+                    Utility.Log($"No such task with id {id}");
+                    return NotFound();
+                }
                 TimeKeeperUnit.Details.Delete(detail);
                 TimeKeeperUnit.Save();
-                Utility.Log($"deleted task with id {id}", "INFO");
+                Utility.Log($"Deleted task with id {id}", "INFO");
                 return Ok();
             }
             catch (Exception ex)
             {
+                Utility.Log(ex.Message, "ERROR", ex);
                 return BadRequest(ex.Message);
             }
         }

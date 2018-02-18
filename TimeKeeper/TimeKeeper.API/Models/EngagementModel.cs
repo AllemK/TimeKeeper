@@ -5,7 +5,7 @@ using System.Web;
 
 namespace TimeKeeper.API.Models
 {
-    public class MemberModel
+    public class EngagementModel
     {
         public string Role { get; set; }
         public string Employee { get; set; }

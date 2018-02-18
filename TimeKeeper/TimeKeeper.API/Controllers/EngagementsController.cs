@@ -9,59 +9,58 @@ using TimeKeeper.DAL.Entities;
 
 namespace TimeKeeper.API.Controllers
 {
-    public class DaysController : BaseController
+    public class EngagementsController : BaseController
     {
         /// <summary>
-        /// Get all Days
+        /// Get all Engagements
         /// </summary>
         /// <returns></returns>
         public IHttpActionResult Get()
         {
-            var list = TimeKeeperUnit.Calendar.Get().ToList().Select(x => TimeKeeperFactory.Create(x)).ToList();
-            Utility.Log("Returned all days");
+            var list = TimeKeeperUnit.Engagements.Get().ToList().Select(x => TimeKeeperFactory.Create(x)).ToList();
+            Utility.Log("Returned all members", "INFO");
             return Ok(list);
         }
 
         /// <summary>
-        /// Get specific Day
+        /// Get specific Engagement
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
         public IHttpActionResult Get(int id)
         {
-            Day day = TimeKeeperUnit.Calendar.Get(id);
-            if (day == null)
+            Engagement member = TimeKeeperUnit.Engagements.Get(id);
+            if (member == null)
             {
-                Utility.Log($"No such day with id {id}");
+                Utility.Log($"No such engagement with id {id}");
                 return NotFound();
             }
             else
             {
-                Utility.Log($"Returned day with id {id}", "INFO");
-                return Ok(TimeKeeperFactory.Create(day));
+                Utility.Log($"Returned engagement with id {id}", "INFO");
+                return Ok(TimeKeeperFactory.Create(member));
             }
         }
 
         /// <summary>
-        /// Insert new Day
+        /// Insert new Engagement
         /// </summary>
-        /// <param name="day"></param>
+        /// <param name="engagement"></param>
         /// <returns></returns>
-        public IHttpActionResult Post([FromBody] Day day)
+        public IHttpActionResult Post([FromBody] Engagement engagement)
         {
             try
             {
-                TimeKeeperUnit.Calendar.Insert(day);
+                TimeKeeperUnit.Engagements.Insert(engagement);
                 if (TimeKeeperUnit.Save())
                 {
-                    Utility.Log("Inserted new day", "INFO");
-                    return Ok(day);
+                    Utility.Log("Inserted new engagement", "INFO");
+                    return Ok(engagement);
                 }
                 else
                 {
-                    throw new Exception("Failed inserting new day, wrong data sent");
+                    throw new Exception("Failed inserting engagement, wrong data sent");
                 }
-                
             }
             catch (Exception ex)
             {
@@ -71,25 +70,29 @@ namespace TimeKeeper.API.Controllers
         }
 
         /// <summary>
-        /// Update chosen Day
+        /// Update chosen Engagement
         /// </summary>
-        /// <param name="day"></param>
+        /// <param name="engagement"></param>
         /// <param name="id"></param>
         /// <returns></returns>
-        public IHttpActionResult Put([FromBody] Day day, int id)
+        public IHttpActionResult Put([FromBody] Engagement engagement, int id)
         {
             try
             {
-                if (TimeKeeperUnit.Calendar.Get(id) == null) return NotFound();
-                TimeKeeperUnit.Calendar.Update(day, id);
+                if (TimeKeeperUnit.Engagements.Get(id) == null)
+                {
+                    Utility.Log($"No such engagement with id {id}");
+                    return NotFound();
+                }
+                TimeKeeperUnit.Engagements.Update(engagement, id);
                 if (TimeKeeperUnit.Save())
                 {
-                    Utility.Log($"Updated day with id {id}", "INFO");
-                    return Ok(day);
+                    Utility.Log($"Updated engagement with id {id}", "INFO");
+                    return Ok(engagement);
                 }
                 else
                 {
-                    throw new Exception($"Failed updating day with id {id}, wrong data sent");
+                    throw new Exception($"Failed updating engagement with id {id}, wrong data sent");
                 }
             }
             catch (Exception ex)
@@ -100,7 +103,7 @@ namespace TimeKeeper.API.Controllers
         }
 
         /// <summary>
-        /// Delete chosen Day
+        /// Delete chosen Engagement
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
@@ -108,15 +111,15 @@ namespace TimeKeeper.API.Controllers
         {
             try
             {
-                Day day = TimeKeeperUnit.Calendar.Get(id);
-                if (day == null)
+                Engagement member = TimeKeeperUnit.Engagements.Get(id);
+                if (member == null)
                 {
-                    Utility.Log($"No day found with id {id}");
+                    Utility.Log($"No such engagement with id {id}");
                     return NotFound();
                 }
-                TimeKeeperUnit.Calendar.Delete(day);
+                TimeKeeperUnit.Engagements.Delete(member);
                 TimeKeeperUnit.Save();
-                Utility.Log($"Deleted day with id {id}", "INFO");
+                Utility.Log($"Deleted engagement with id {id}", "INFO");
                 return Ok();
             }
             catch (Exception ex)
