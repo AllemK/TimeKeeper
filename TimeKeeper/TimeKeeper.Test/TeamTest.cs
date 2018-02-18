@@ -13,7 +13,7 @@ namespace TimeKeeper.Test
         [TestMethod]
         public void CheckTeams()
         {
-            int expected = 2;
+            int expected = 3;
 
             int numberOfTeams = unit.Teams.Get().Count();
 
@@ -33,7 +33,7 @@ namespace TimeKeeper.Test
             unit.Teams.Insert(t);
 
             Assert.IsTrue(unit.Save());
-            Assert.IsNotNull(unit.Roles.Get("OMG"));
+            Assert.IsNotNull(unit.Teams.Get("OMG"));
         }
 
         [TestMethod]
@@ -45,18 +45,30 @@ namespace TimeKeeper.Test
             t.Name = "OM";
 
             Assert.IsTrue(unit.Save());
-            Assert.AreEqual(expected, unit.Roles.Get().FirstOrDefault().Name);
+            Assert.AreEqual(expected, unit.Teams.Get().FirstOrDefault().Name);
         }
 
         [TestMethod]
         public void DeleteTeam()
         {
-            Team t = unit.Teams.Get().LastOrDefault();
+            Team t = unit.Teams.Get("OMG");
 
             unit.Teams.Delete(t);
+            unit.Save();
 
-            Assert.IsTrue(unit.Save());
-            Assert.IsNull(t);
+            Assert.IsNull(unit.Teams.Get("OMG"));
+        }
+
+        [TestMethod]
+        public void CheckValidityForTeams()
+        {
+            Team t = new Team();
+            Team t1 = unit.Teams.Get().FirstOrDefault();
+
+            unit.Teams.Insert(t);
+            t1.Name = "";
+
+            Assert.IsFalse(unit.Save());
         }
     }
 }

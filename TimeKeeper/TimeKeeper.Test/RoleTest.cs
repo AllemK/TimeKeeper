@@ -57,12 +57,24 @@ namespace TimeKeeper.Test
         [TestMethod]
         public void DeleteRole()
         {
-            Role r = unit.Roles.Get().LastOrDefault();
+            Role r = unit.Roles.Get("ADM");
 
             unit.Roles.Delete(r);
+            unit.Save();
+            
+            Assert.IsNull(unit.Roles.Get("ADM"));
+        }
 
-            Assert.IsTrue(unit.Save());
-            Assert.IsNull(r);
+        [TestMethod]
+        public void CheckValidityForRoles()
+        {
+            Role r = new Role();
+            Role r1 = unit.Roles.Get().FirstOrDefault();
+
+            unit.Roles.Insert(r);
+            r1.Name = "";
+
+            Assert.IsFalse(unit.Save());
         }
 
         //Test for Roles controller
