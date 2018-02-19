@@ -23,6 +23,6 @@ namespace TimeKeeper.API.Models
         public string Position { get; set; }
 
         public ICollection<CalendarModel> Days { get; set; }
-        public ICollection<MemberModel> Engagements { get; set; }
+        public ICollection<EngagementModel> Engagements { get; set; }
     }
 }

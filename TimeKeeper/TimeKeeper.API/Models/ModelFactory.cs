@@ -33,9 +33,9 @@ namespace TimeKeeper.API.Models
             };
         }
 
-        public MemberModel Create(Engagement e)
+        public EngagementModel Create(Engagement e)
         {
-            return new MemberModel
+            return new EngagementModel
             {
                 Team = e.Team.Id,
                 Role = e.Role.Id,

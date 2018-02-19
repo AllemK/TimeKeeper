@@ -38,24 +38,28 @@ namespace TimeKeeper.DAL.Repository
 
         public void Insert(T entity)
         {
-            Utility.Log($"REPOSITORY: record inserted", "INFO");
             dbSet.Add(entity);
+            Utility.Log($"REPOSITORY: record inserted", "INFO");
         }
 
         public void Update(T entity, I id)
         {
-            Utility.Log("REPOSITORY: record updated", "INFO");
             T old = Get(id);
             if (old != null)
             {
                 timeKeeperContext.Entry(old).CurrentValues.SetValues(entity);
+                Utility.Log("REPOSITORY: record updated", "INFO");
+            }
+            else
+            {
+                Utility.Log("REPOSITORY: record not found", "ERROR");
             }
         }
 
         public void Delete(T entity)
         {
-            Utility.Log("REPOSITORY: record deleted", "INFO");
             dbSet.Remove(entity);
+            Utility.Log("REPOSITORY: record deleted", "INFO");
         }
     }
 }
