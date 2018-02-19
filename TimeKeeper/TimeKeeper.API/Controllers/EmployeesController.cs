@@ -1,9 +1,11 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using TimeKeeper.API.Helper;
 using TimeKeeper.DAL;
 using TimeKeeper.DAL.Entities;
 
@@ -14,11 +16,25 @@ namespace TimeKeeper.API.Controllers
         /// <summary>
         /// Get all Employees
         /// </summary>
+        /// <param name="page"></param>
+        /// <param name="pageSize"></param>
+        /// <param name="sort"></param>
+        /// <param name="filter"></param>
         /// <returns></returns>
-        public IHttpActionResult Get()
+        public IHttpActionResult Get(int page = 0, int pageSize = 10, int sort = 0, string filter = "")
         {
-            var list = TimeKeeperUnit.Employees.Get().ToList().Select(x => TimeKeeperFactory.Create(x)).ToList();
+            int itemCount = TimeKeeperUnit.Employees.Get().Count();
+            int totalPages = (int)Math.Ceiling((double)itemCount / pageSize);
+
+            var list = TimeKeeperUnit.Employees.Get(x => x.LastName.Contains(filter) || x.FirstName.Contains(filter))
+                .SortBy(sort)
+                .Skip(pageSize * page)
+                .Take(pageSize)
+                .Select(x => TimeKeeperFactory.Create(x))
+                .ToList();
+
             Utility.Log("Returned all records for employees", "INFO");
+            UtilityController.InsertHeader(page, pageSize, totalPages, sort, filter);
             return Ok(list);
         }
 
@@ -27,7 +43,7 @@ namespace TimeKeeper.API.Controllers
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public IHttpActionResult Get(int id)
+        public IHttpActionResult GetById(int id)
         {
             Employee emp = TimeKeeperUnit.Employees.Get(id);
             if (emp == null)
@@ -54,7 +70,7 @@ namespace TimeKeeper.API.Controllers
                 TimeKeeperUnit.Employees.Insert(emp);
                 if (TimeKeeperUnit.Save())
                 {
-                    Utility.Log($"Inserted new employee {emp.FullName}","INFO");
+                    Utility.Log($"Inserted new employee {emp.FullName}", "INFO");
                     return Ok(emp);
                 }
                 else
@@ -128,5 +144,6 @@ namespace TimeKeeper.API.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
     }
 }

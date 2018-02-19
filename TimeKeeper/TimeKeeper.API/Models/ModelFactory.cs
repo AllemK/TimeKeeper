@@ -37,9 +37,10 @@ namespace TimeKeeper.API.Models
         {
             return new EngagementModel
             {
-                Team = e.Team.Id,
-                Role = e.Role.Id,
-                Employee = e.Employee.Id.ToString(),
+                Id = e.Id,
+                Team = e.Team.Name,
+                Role = e.Role.Name,
+                Employee = e.Employee.FullName,
                 Hours = e.Hours
             };
         }
@@ -48,6 +49,7 @@ namespace TimeKeeper.API.Models
         {
             return new ProjectModel()
             {
+                Id = p.Id,
                 Name = p.Name,
                 Monogram = p.Monogram,
                 Description = p.Description,
@@ -56,8 +58,8 @@ namespace TimeKeeper.API.Models
                 Status = p.Status.ToString(),
                 Pricing = p.Pricing.ToString(),
                 Amount = p.Amount,
-                Customer = p.Customer.ToString(),
-                Team = p.Team.Id
+                Customer = p.Customer.Name,
+                Team = p.Team.Name
             };
         }
 
@@ -65,6 +67,7 @@ namespace TimeKeeper.API.Models
         {
             return new EmployeeModel()
             {
+                Id = e.Id,
                 FirstName = e.FirstName,
                 LastName = e.LastName,
                 Image = e.Image,
@@ -75,7 +78,7 @@ namespace TimeKeeper.API.Models
                 BeginDate = e.BeginDate,
                 EndDate = e.EndDate,
                 Status = e.Status.ToString(),
-                Position = e.Position.ToString(),
+                Position = e.Position.Name,
                 Engagements = e.Engagements.Select(eng => Create(eng)).ToList()
             };
         }
@@ -84,6 +87,7 @@ namespace TimeKeeper.API.Models
         {
             return new DetailModel()
             {
+                Id = d.Id,
                 Description = d.Description,
                 Hours = d.Hours,
                 Day = d.Day.Date.ToString(),
@@ -95,6 +99,7 @@ namespace TimeKeeper.API.Models
         {
             return new CalendarModel()
             {
+                Id = d.Id,
                 Date = d.Date,
                 Hours = d.Hours,
                 Type = d.Type.ToString(),
@@ -107,6 +112,7 @@ namespace TimeKeeper.API.Models
         {
             return new CustomerModel()
             {
+                Id = c.Id,
                 Name = c.Name,
                 Image = c.Image,
                 Monogram = c.Monogram,

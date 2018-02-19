@@ -1,6 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Web.Http.Results;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using TimeKeeper.API.Controllers;
+using TimeKeeper.API.Models;
 using TimeKeeper.DAL.Entities;
 using TimeKeeper.DAL.Repository;
 
@@ -43,7 +47,7 @@ namespace TimeKeeper.Test
             unit.Customers.Insert(c);
 
             Assert.IsTrue(unit.Save());
-            Assert.AreEqual(c,unit.Customers.Get(unit.Customers.Get().Count()));
+            Assert.AreEqual(c, unit.Customers.Get(unit.Customers.Get().Count()));
         }
 
         [TestMethod]
@@ -58,6 +62,103 @@ namespace TimeKeeper.Test
             Assert.AreEqual(expected, unit.Customers.Get(unit.Customers.Get().Count()).Name);
         }
 
+        [TestMethod]
+        public void DeleteCustomer()
+        {
+            Customer c = unit.Customers.Get(unit.Customers.Get().Count());
+            int expected = unit.Customers.Get().Count() - 1;
 
+            unit.Customers.Delete(c);
+            unit.Save();
+
+            Assert.AreEqual(expected, unit.Customers.Get().Count());
+        }
+
+        [TestMethod]
+        public void CheckValidityForCustomer()
+        {
+            Customer t = new Customer();
+            Customer t1 = unit.Customers.Get().FirstOrDefault();
+
+            unit.Customers.Insert(t);
+            t1.Name = "";
+
+            Assert.IsFalse(unit.Save());
+        }
+
+        //Tests for Controller
+        [TestMethod]
+        public void ControllerGetAllCustomers()
+        {
+            var controller = new CustomersController();
+
+            var response = controller.Get();
+            var result = (OkNegotiatedContentResult<List<CustomerModel>>)response;
+
+            Assert.IsNotNull(result);
+            Assert.IsNotNull(result.Content);
+        }
+
+        [TestMethod]
+        public void ControllerGetCustomerById()
+        {
+            var controller = new CustomersController();
+
+            var response = controller.Get(1);
+            var result = (OkNegotiatedContentResult<CustomerModel>)response;
+
+            Assert.IsNotNull(result);
+            Assert.IsNotNull(result.Content);
+        }
+
+        [TestMethod]
+        public void ControllerPostCustomer()
+        {
+            var controller = new CustomersController();
+            Customer c = new Customer()
+            {
+                Name = "TestC",
+                Contact = "Testo Testic",
+                Email = "testo@test.com",
+                Phone = "Testo phone number",
+                Address = {
+                    Road = "Test road, 1",
+                    ZipCode="1000",
+                    City = "Test city"
+                },
+                Status = CustomerStatus.Prospect
+            };
+
+            var response = controller.Post(c);
+            var result = (OkNegotiatedContentResult<Customer>)response;
+
+            Assert.IsNotNull(result);
+            Assert.IsNotNull(result.Content);
+        }
+
+        [TestMethod]
+        public void ControllerPutCustomer()
+        {
+            var controller = new CustomersController();
+            Customer c = unit.Customers.Get(1);
+
+            c.Name = "Testo Company";
+            var response = controller.Put(c, 1);
+            var result = (OkNegotiatedContentResult<Customer>)response;
+
+            Assert.IsNotNull(result);
+            Assert.IsNotNull(result.Content);
+        }
+
+        [TestMethod]
+        public void ControllerDeleteCustomer()
+        {
+            var controller = new CustomersController();
+
+            var response = controller.Delete(1);
+            var result = (OkResult)response;
+
+            Assert.IsNotNull(result);
+        }
     }
 }

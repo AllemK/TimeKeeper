@@ -32,6 +32,10 @@ namespace TimeKeeper.DAL
                     AddTeams(unit);
                     AddCustomers(unit);
                     AddProjects(unit);
+                    AddEmployees(unit);
+                    //AddDays(unit);
+                    //AddTasks(unit);
+                    //AddEngagements(unit);
                 }
             }
         }
@@ -145,6 +149,37 @@ namespace TimeKeeper.DAL
                 }
             });
             unit.Save();
+        }
+
+        void AddEmployees(UnitOfWork unit)
+        {
+            unit.Employees.Insert(new Employee()
+            {
+                FirstName = "First1",
+                LastName = "Last1",
+                BirthDate = new DateTime(1990, 01, 01),
+                BeginDate = new DateTime(2018, 01, 15),
+                Email = "first@testmail.com",
+                Image = "FirstEmp.jpg",
+                Phone = "Emp1 Phone number",
+                Position = unit.Roles.Get("SD"),
+                Salary = 3000m,
+                Status = EmployeeStatus.Active
+            });
+            unit.Employees.Insert(new Employee()
+            {
+                FirstName = "First2",
+                LastName = "Last2",
+                BirthDate = new DateTime(1991, 01, 01),
+                BeginDate = new DateTime(2018, 01, 15),
+                Email = "second@testmail.com",
+                Image = "SecondEmp.jpg",
+                Phone = "Emp2 Phone number",
+                Position = unit.Roles.Get("UX"),
+                Salary = 5000m,
+                Status = EmployeeStatus.Active
+            });
+
         }
     }
 }

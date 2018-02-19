@@ -20,7 +20,7 @@ namespace TimeKeeper.API.Controllers
         public IHttpActionResult Get()
         {
             var list = TimeKeeperUnit.Teams.Get().ToList().Select(t => TimeKeeperFactory.Create(t)).ToList();
-            Utility.Log("Returned all teams");
+            Utility.Log("Returned all teams", "INFO");
             return Ok(list); //Ok - status 200
         }
 

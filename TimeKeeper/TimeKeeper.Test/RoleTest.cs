@@ -1,7 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Web.Http.Results;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using TimeKeeper.API.Controllers;
+using TimeKeeper.API.Models;
 using TimeKeeper.DAL.Entities;
 
 namespace TimeKeeper.Test
@@ -78,12 +81,73 @@ namespace TimeKeeper.Test
         }
 
         //Test for Roles controller
-        //[TestMethod]
-        //public void GetRoles()
-        //{
-        //    RolesController rc = new RolesController();
+        [TestMethod]
+        public void ControllerGetAllRoles()
+        {
+            var controller = new RolesController();
 
-        //    rc.Get();
-        //}
+            var response = controller.Get();
+            var result = (OkNegotiatedContentResult<List<RoleModel>>)response;
+
+            Assert.IsNotNull(result);
+            Assert.IsNotNull(result.Content);
+        }
+
+        [TestMethod]
+        public void ControllerGetRoleById()
+        {
+            var controller = new RolesController();
+
+            var response = controller.Get("SD");
+            var result = (OkNegotiatedContentResult<RoleModel>)response;
+
+            Assert.IsNotNull(result);
+            Assert.IsNotNull(result.Content);
+        }
+
+        [TestMethod]
+        public void ControllerPostRole()
+        {
+            var controller = new RolesController();
+            Role r = new Role()
+            {
+                Id = "ADM",
+                Name = "Admin",
+                HourlyRate = 30m,
+                MonthlyRate = 4000m,
+                Type = RoleType.AppRole
+            };
+
+            var response = controller.Post(r);
+            var result = (OkNegotiatedContentResult<Role>)response;
+
+            Assert.IsNotNull(result);
+            Assert.IsNotNull(result.Content);
+        }
+
+        [TestMethod]
+        public void ControllerPutRole()
+        {
+            var controller = new RolesController();
+            Role r = unit.Roles.Get("ADM");
+
+            r.Name = "Administrator";
+            var response = controller.Put(r, "ADM");
+            var result = (OkNegotiatedContentResult<Role>)response;
+
+            Assert.IsNotNull(result);
+            Assert.IsNotNull(result.Content);
+        }
+
+        [TestMethod]
+        public void ControllerDeleteRole()
+        {
+            var controller = new RolesController();
+
+            var response = controller.Delete("ADM");
+            var result = (OkResult)response;
+
+            Assert.IsNotNull(result);
+        }
     }
 }
