@@ -5,8 +5,8 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using TimeKeeper.API.Models;
+using TimeKeeper.DAL;
 using TimeKeeper.DAL.Entities;
-using TimeKeeper.DAL.Repository;
 
 namespace TimeKeeper.API.Controllers
 {
@@ -17,6 +17,7 @@ namespace TimeKeeper.API.Controllers
             var list = TimeKeeperUnit.Teams.Get().ToList()
                            .Select(t => TimeKeeperFactory.Create(t))
                            .ToList();
+            Utility.Log("Returned all records for teams", "INFO");
             return Ok(list); //Ok - status 200
         }
 
@@ -24,8 +25,10 @@ namespace TimeKeeper.API.Controllers
         {
             Team team = TimeKeeperUnit.Teams.Get(id);
             if (team == null)
+                //Utility.Log(ex.Message, "ERROR", ex);
                 return NotFound();
             else
+                Utility.Log($"Returned record for team: {team.Name}", "INFO");
                 return Ok(TimeKeeperFactory.Create(team));
         }
 
@@ -35,10 +38,12 @@ namespace TimeKeeper.API.Controllers
             {
                 TimeKeeperUnit.Teams.Insert(team);
                 TimeKeeperUnit.Save();
+                Utility.Log($"Insert data for team {team.Name}", "INFO");
                 return Ok(team);
             }
             catch (Exception ex)
             {
+                Utility.Log("Error posting team. " +  ex.Message, "ERROR", ex);
                 return BadRequest(ex.Message);
             }
         }
@@ -66,6 +71,7 @@ namespace TimeKeeper.API.Controllers
                 if (team == null) return NotFound();
                 TimeKeeperUnit.Teams.Delete(team);
                 TimeKeeperUnit.Save();
+                Utility.Log($"Deleted team record: {team.Name}", "INFO");
                 return Ok();
             }
             catch (Exception ex)
