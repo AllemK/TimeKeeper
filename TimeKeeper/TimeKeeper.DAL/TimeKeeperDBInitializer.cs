@@ -33,7 +33,7 @@ namespace TimeKeeper.DAL
                     AddCustomers(unit);
                     AddProjects(unit);
                     AddEmployees(unit);
-                    //AddDays(unit);
+                    AddDays(unit);
                     //AddTasks(unit);
                     //AddEngagements(unit);
                 }
@@ -179,7 +179,26 @@ namespace TimeKeeper.DAL
                 Salary = 5000m,
                 Status = EmployeeStatus.Active
             });
+            unit.Save();
+        }
 
+        void AddDays(UnitOfWork unit)
+        {
+            unit.Calendar.Insert(new Day()
+            {
+                Date = DateTime.Today,
+                Hours = 6,
+                Type = DayType.WorkingDay,
+                Employee = unit.Employees.Get(1)
+            });
+            unit.Calendar.Insert(new Day()
+            {
+                Date = DateTime.Today,
+                Hours = 6,
+                Type = DayType.WorkingDay,
+                Employee = unit.Employees.Get(1)
+            });
+            unit.Save();
         }
     }
 }

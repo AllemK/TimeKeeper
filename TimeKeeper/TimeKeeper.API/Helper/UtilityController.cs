@@ -9,17 +9,28 @@ namespace TimeKeeper.API.Helper
 {
     public static class UtilityController
     {
-        public static IOrderedEnumerable<Employee> SortBy(this IEnumerable<Employee> list, int sort)
+        public static IEnumerable<Employee> Header(this IEnumerable<Employee> list, Header h)
         {
-            switch (sort)
+            list.Where(x => x.LastName.Contains(h.filter));
+            int totalPages = (int)Math.Ceiling((double)list.Count() / h.pageSize);
+            InsertHeader(h.page, h.pageSize, totalPages, h.sort, h.filter);
+
+            switch (h.sort)
             {
-                case 1: return list.OrderBy(x => x.LastName);
-                case 2: return list.OrderBy(x => x.BirthDate);
-                default: return list.OrderBy(x => x.Id);
+                case 1: return list.OrderBy(x => x.LastName)
+                        .Skip(h.pageSize * h.page)
+                        .Take(h.pageSize);
+                case 2: return list.OrderBy(x => x.BirthDate)
+                        .Skip(h.pageSize * h.page)
+                        .Take(h.pageSize);
+                default: return list.OrderBy(x => x.Id)
+                        .Skip(h.pageSize * h.page)
+                        .Take(h.pageSize); ;
             }
+
         }
 
-        public static IOrderedEnumerable<Customer> SortBy(this IEnumerable<Customer> list, int sort)
+        public static IEnumerable<Customer> SortBy(this IEnumerable<Customer> list, int sort)
         {
             switch (sort)
             {

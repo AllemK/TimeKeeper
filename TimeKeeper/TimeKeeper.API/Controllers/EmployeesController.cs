@@ -16,25 +16,16 @@ namespace TimeKeeper.API.Controllers
         /// <summary>
         /// Get all Employees
         /// </summary>
-        /// <param name="page"></param>
-        /// <param name="pageSize"></param>
-        /// <param name="sort"></param>
-        /// <param name="filter"></param>
+        /// <param name="h"></param>
         /// <returns></returns>
-        public IHttpActionResult Get(int page = 0, int pageSize = 10, int sort = 0, string filter = "")
+        public IHttpActionResult Get([FromUri] Header h)
         {
-            int itemCount = TimeKeeperUnit.Employees.Get().Count();
-            int totalPages = (int)Math.Ceiling((double)itemCount / pageSize);
-
-            var list = TimeKeeperUnit.Employees.Get(x => x.LastName.Contains(filter) || x.FirstName.Contains(filter))
-                .SortBy(sort)
-                .Skip(pageSize * page)
-                .Take(pageSize)
+            var list = TimeKeeperUnit.Employees.Get()
+                .Header(h)
                 .Select(x => TimeKeeperFactory.Create(x))
                 .ToList();
 
             Utility.Log("Returned all records for employees", "INFO");
-            UtilityController.InsertHeader(page, pageSize, totalPages, sort, filter);
             return Ok(list);
         }
 

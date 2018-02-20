@@ -40,7 +40,7 @@ namespace TimeKeeper.API.Models
                 Id = e.Id,
                 Team = e.Team.Name,
                 Role = e.Role.Name,
-                Employee = e.Employee.FullName,
+                Employee = (e.Employee != null) ? e.Employee.FullName : "",
                 Hours = e.Hours
             };
         }
@@ -58,8 +58,8 @@ namespace TimeKeeper.API.Models
                 Status = p.Status.ToString(),
                 Pricing = p.Pricing.ToString(),
                 Amount = p.Amount,
-                Customer = p.Customer.Name,
-                Team = p.Team.Name
+                Customer = (p.Customer != null) ? p.Customer.Name : "",
+                Team = (p.Team != null) ? p.Team.Name : ""
             };
         }
 
@@ -78,7 +78,7 @@ namespace TimeKeeper.API.Models
                 BeginDate = e.BeginDate,
                 EndDate = e.EndDate,
                 Status = e.Status.ToString(),
-                Position = e.Position.Name,
+                Position = (e.Position!=null) ? e.Position.Name : "",
                 Engagements = e.Engagements.Select(eng => Create(eng)).ToList()
             };
         }
@@ -90,7 +90,7 @@ namespace TimeKeeper.API.Models
                 Id = d.Id,
                 Description = d.Description,
                 Hours = d.Hours,
-                Day = d.Day.Date.ToString(),
+                Day = (d.Day!=null) ? d.Day.Date.ToString():"",
                 Project = d.Project.Name
             };
         }

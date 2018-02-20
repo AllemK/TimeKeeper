@@ -78,6 +78,7 @@ namespace TimeKeeper.Test
             r1.Name = "";
 
             Assert.IsFalse(unit.Save());
+            Assert.AreNotEqual("", unit.Roles.Get().FirstOrDefault().Name);
         }
 
         //Test for Roles controller
@@ -111,7 +112,7 @@ namespace TimeKeeper.Test
             var controller = new RolesController();
             Role r = new Role()
             {
-                Id = "ADM",
+                Id = "AD",
                 Name = "Admin",
                 HourlyRate = 30m,
                 MonthlyRate = 4000m,
@@ -129,10 +130,10 @@ namespace TimeKeeper.Test
         public void ControllerPutRole()
         {
             var controller = new RolesController();
-            Role r = unit.Roles.Get("ADM");
+            Role r = unit.Roles.Get("AD");
 
             r.Name = "Administrator";
-            var response = controller.Put(r, "ADM");
+            var response = controller.Put(r, "AD");
             var result = (OkNegotiatedContentResult<Role>)response;
 
             Assert.IsNotNull(result);
@@ -144,7 +145,7 @@ namespace TimeKeeper.Test
         {
             var controller = new RolesController();
 
-            var response = controller.Delete("ADM");
+            var response = controller.Delete("AD");
             var result = (OkResult)response;
 
             Assert.IsNotNull(result);

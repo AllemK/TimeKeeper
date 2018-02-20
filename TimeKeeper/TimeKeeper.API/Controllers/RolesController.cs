@@ -9,6 +9,7 @@ using TimeKeeper.DAL.Entities;
 
 namespace TimeKeeper.API.Controllers
 {
+    [RoutePrefix("api/roles")]
     public class RolesController : BaseController
     {
         /// <summary>
@@ -47,6 +48,7 @@ namespace TimeKeeper.API.Controllers
         /// </summary>
         /// <param name="role"></param>
         /// <returns></returns>
+        [Route("")]
         public IHttpActionResult Post([FromBody] Role role)
         {
             try
@@ -55,7 +57,7 @@ namespace TimeKeeper.API.Controllers
                 if (TimeKeeperUnit.Save())
                 {
                     Utility.Log("Inserted new role", "INFO");
-                    return Ok(role);
+                    return Ok(TimeKeeperFactory.Create(role));
                 }
                 else
                 {
