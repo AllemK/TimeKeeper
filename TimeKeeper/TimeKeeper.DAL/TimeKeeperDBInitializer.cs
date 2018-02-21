@@ -34,8 +34,8 @@ namespace TimeKeeper.DAL
                     AddProjects(unit);
                     AddEmployees(unit);
                     AddDays(unit);
-                    //AddTasks(unit);
-                    //AddEngagements(unit);
+                    AddDetails(unit);
+                    AddEngagements(unit);
                 }
             }
         }
@@ -197,6 +197,44 @@ namespace TimeKeeper.DAL
                 Hours = 6,
                 Type = DayType.WorkingDay,
                 Employee = unit.Employees.Get(1)
+            });
+            unit.Save();
+        }
+           
+        void AddDetails(UnitOfWork unit)
+        {
+            unit.Details.Insert(new Detail()
+            {
+                Hours = 7,
+                Description = "Lorem ipsum 1",
+                Day = unit.Calendar.Get(1),
+                Project = unit.Projects.Get(1)
+            });
+            unit.Details.Insert(new Detail()
+            {
+                Hours = 7,
+                Description = "Lorem ipsum 1",
+                Day = unit.Calendar.Get(2),
+                Project = unit.Projects.Get(2)
+            });
+            unit.Save();
+        }
+
+        void AddEngagements(UnitOfWork unit)
+        {
+            unit.Engagements.Insert(new Engagement()
+            {
+                Hours=6,
+                Employee = unit.Employees.Get(1),
+                Team = unit.Teams.Get("A"),
+                Role = unit.Roles.Get("SD")
+            });
+            unit.Engagements.Insert(new Engagement()
+            {
+                Hours = 3,
+                Employee = unit.Employees.Get(2),
+                Team = unit.Teams.Get("B"),
+                Role = unit.Roles.Get("UX")
             });
             unit.Save();
         }

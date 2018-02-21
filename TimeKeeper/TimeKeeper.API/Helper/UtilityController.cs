@@ -11,7 +11,7 @@ namespace TimeKeeper.API.Helper
     {
         public static IEnumerable<Employee> Header(this IEnumerable<Employee> list, Header h)
         {
-            list.Where(x => x.LastName.Contains(h.filter));
+            list.Where(x => x.LastName.Contains(h.filter) || x.FirstName.Contains(h.filter));
             int totalPages = (int)Math.Ceiling((double)list.Count() / h.pageSize);
             InsertHeader(h.page, h.pageSize, totalPages, h.sort, h.filter);
 
@@ -28,78 +28,130 @@ namespace TimeKeeper.API.Helper
                 default:
                     return list.OrderBy(x => x.Id)
                    .Skip(h.pageSize * h.page)
-                   .Take(h.pageSize); ;
+                   .Take(h.pageSize);
             }
 
         }
 
-        public static IEnumerable<Customer> SortBy(this IEnumerable<Customer> list, int sort)
+        public static IEnumerable<Customer> Header(this IEnumerable<Customer> list, Header h)
+        {
+            list.Where(x => x.Name.Contains(h.filter));
+            int totalPages = (int)Math.Ceiling((double)list.Count() / h.pageSize);
+            InsertHeader(h.page, h.pageSize, totalPages, h.sort, h.filter);
+
+            switch (h.sort)
+            {
+                case 1: return list.OrderBy(x => x.Name)
+                        .Skip(h.pageSize*h.page)
+                        .Take(h.pageSize);
+                case 2: return list.OrderBy(x => x.Contact)
+                        .Skip(h.pageSize*h.page)
+                        .Take(h.pageSize);
+                default: return list.OrderBy(x => x.Id)
+                        .Skip(h.pageSize*h.page)
+                        .Take(h.pageSize);
+            }
+        }
+
+        public static IEnumerable<Day> Header(this IEnumerable<Day> list, Header h)
+        {
+            list.Where(x => x.Date.CompareTo(Convert.ToDateTime(h.filter))==0);
+            int totalPages = (int)Math.Ceiling((double)list.Count() / h.pageSize);
+            InsertHeader(h.page, h.pageSize, totalPages, h.sort, h.filter);
+
+            switch (h.sort)
+            {
+                case 1: return list.OrderBy(x => x.Date)
+                        .Skip(h.pageSize*h.page)
+                        .Take(h.pageSize);
+                case 2: return list.OrderBy(x => x.Type)
+                        .Skip(h.pageSize*h.page)
+                        .Take(h.pageSize);
+                default: return list.OrderBy(x => x.Id)
+                        .Skip(h.pageSize*h.page)
+                        .Take(h.pageSize);
+            }
+        }
+
+        public static IEnumerable<Detail> Header(this IEnumerable<Detail> list, Header h)
+        {
+            list.Where(x => x.Description.Contains(h.filter));
+            int totalPages = (int)Math.Ceiling((double)list.Count() / h.pageSize);
+            InsertHeader(h.page, h.pageSize, totalPages, h.sort, h.filter);
+
+            switch (h.sort)
+            {
+                case 1: return list.OrderBy(x => x.Day.Date)
+                        .Skip(h.pageSize*h.page)
+                        .Take(h.pageSize);
+                case 2: return list.OrderBy(x => x.Project.Name)
+                        .Skip(h.pageSize * h.page)
+                        .Take(h.pageSize);
+                default: return list.OrderBy(x => x.Id)
+                        .Skip(h.pageSize * h.page)
+                        .Take(h.pageSize);
+            }
+        }
+
+        public static IEnumerable<Engagement> Header(this IEnumerable<Engagement> list, Header h)
+        {
+            switch (h.sort)
+            {
+                case 1: return list.OrderBy(x => x.Employee.LastName)
+                        .Skip(h.pageSize * h.page)
+                        .Take(h.pageSize);
+                case 2: return list.OrderBy(x => x.Role.Name)
+                        .Skip(h.pageSize * h.page)
+                        .Take(h.pageSize);
+                case 3: return list.OrderBy(x => x.Team.Name)
+                        .Skip(h.pageSize * h.page)
+                        .Take(h.pageSize);
+                default: return list.OrderBy(x => x.Id)
+                        .Skip(h.pageSize * h.page)
+                        .Take(h.pageSize);
+            }
+        }
+
+        public static IEnumerable<Project> SortBy(this IEnumerable<Project> list, Header h)
+        {
+            switch (h.sort)
+            {
+                case 1: return list.OrderBy(x => x.Name)
+                        .Skip(h.pageSize * h.page)
+                        .Take(h.pageSize);
+                case 2: return list.OrderBy(x => x.StartDate)
+                        .Skip(h.pageSize * h.page)
+                        .Take(h.pageSize);
+                default: return list.OrderBy(x => x.Id)
+                        .Skip(h.pageSize * h.page)
+                        .Take(h.pageSize);
+            }
+        }
+
+        public static IEnumerable<Role> SortBy(this IEnumerable<Role> list, Header h)
         {
             switch (sort)
             {
-                case 1: return list.OrderBy(x => x.Name);
-                case 2: return list.OrderBy(x => x.Contact);
+                case 1: return list.OrderBy(x => x.Name)
+                        .Skip(h.pageSize * h.page)
+                        .Take(h.pageSize);
+                case 2: return list.OrderBy(x => x.Type)
+                        .Skip(h.pageSize * h.page)
+                        .Take(h.pageSize);
                 default: return list.OrderBy(x => x.Id);
             }
         }
 
-        public static IOrderedEnumerable<Day> SortBy(this IEnumerable<Day> list, int sort)
+        public static IEnumerable<Team> SortBy(this IEnumerable<Team> list, Header h)
         {
             switch (sort)
             {
-                case 1: return list.OrderBy(x => x.Date);
-                case 2: return list.OrderBy(x => x.Type);
-                default: return list.OrderBy(x => x.Id);
-            }
-        }
-
-        public static IOrderedEnumerable<Detail> SortBy(this IEnumerable<Detail> list, int sort)
-        {
-            switch (sort)
-            {
-                case 1: return list.OrderBy(x => x.Day.Date);
-                case 2: return list.OrderBy(x => x.Project.Name);
-                default: return list.OrderBy(x => x.Id);
-            }
-        }
-
-        public static IOrderedEnumerable<Engagement> SortBy(this IEnumerable<Engagement> list, int sort)
-        {
-            switch (sort)
-            {
-                case 1: return list.OrderBy(x => x.Employee.LastName);
-                case 2: return list.OrderBy(x => x.Role.Name);
-                case 3: return list.OrderBy(x => x.Team.Name);
-                default: return list.OrderBy(x => x.Id);
-            }
-        }
-
-        public static IOrderedEnumerable<Project> SortBy(this IEnumerable<Project> list, int sort)
-        {
-            switch (sort)
-            {
-                case 1: return list.OrderBy(x => x.Name);
-                case 2: return list.OrderBy(x => x.StartDate);
-                default: return list.OrderBy(x => x.Id);
-            }
-        }
-
-        public static IOrderedEnumerable<Role> SortBy(this IEnumerable<Role> list, int sort)
-        {
-            switch (sort)
-            {
-                case 1: return list.OrderBy(x => x.Name);
-                case 2: return list.OrderBy(x => x.Type);
-                default: return list.OrderBy(x => x.Id);
-            }
-        }
-
-        public static IOrderedEnumerable<Team> SortBy(this IEnumerable<Team> list, int sort)
-        {
-            switch (sort)
-            {
-                case 1: return list.OrderBy(x => x.Name);
-                default: return list.OrderBy(x => x.Id);
+                case 1: return list.OrderBy(x => x.Name)
+                        .Skip(h.pageSize * h.page)
+                        .Take(h.pageSize);
+                default: return list.OrderBy(x => x.Id)
+                        .Skip(h.pageSize * h.page)
+                        .Take(h.pageSize);
             }
         }
 
@@ -115,8 +167,7 @@ namespace TimeKeeper.API.Helper
                 sort,
                 filter
             };
-            if(HttpContext.Current != null)
-                HttpContext.Current.Response.Headers.Add("Pagination", JsonConvert.SerializeObject(header));
+            HttpContext.Current.Response.AddHeader("Pagination", JsonConvert.SerializeObject(header));
         }
     }
 }

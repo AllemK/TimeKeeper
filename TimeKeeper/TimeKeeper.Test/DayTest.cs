@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Web;
 using System.Web.Http.Results;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using TimeKeeper.API.Controllers;
@@ -14,6 +16,15 @@ namespace TimeKeeper.Test
     public class DayTest
     {
         UnitOfWork unit = new UnitOfWork();
+
+        [TestInitialize]
+        public void InitializeHttpContext()
+        {
+            HttpContext.Current = new HttpContext(
+                new HttpRequest("", "http://tempuri.org", ""),
+                new HttpResponse(new StringWriter())
+            );
+        }
 
         [TestMethod]
         public void CheckAllDays()
@@ -72,6 +83,16 @@ namespace TimeKeeper.Test
             unit.Save();
 
             Assert.IsNull(unit.Calendar.Get(3));
+        }
+
+        [TestMethod]
+        public void CheckValidityForDay()
+        {
+            Day d = new Day();
+
+            unit.Calendar.Insert(d);
+
+            Assert.IsFalse(unit.Save());
         }
 
         //Test for controller

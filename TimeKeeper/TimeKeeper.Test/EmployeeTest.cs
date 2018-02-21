@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Web;
 using System.Web.Http.Results;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using TimeKeeper.API.Controllers;
@@ -15,6 +17,15 @@ namespace TimeKeeper.Test
     public class EmployeeTest
     {
         UnitOfWork unit = new UnitOfWork();
+
+        [TestInitialize]
+        public void InitializeHttpContext()
+        {
+            HttpContext.Current = new HttpContext(
+                new HttpRequest("", "http://tempuri.org", ""),
+                new HttpResponse(new StringWriter())
+            );
+        }
 
         [TestMethod]
         public void CheckEmployees()
@@ -87,6 +98,10 @@ namespace TimeKeeper.Test
         {
             var controller = new EmployeesController();
             var h = new Header();
+    //        HttpContext.Current = new HttpContext(
+    //new HttpRequest("", "http://tempuri.org", ""),
+    //new HttpResponse(new StringWriter())
+    //);
 
             var response = controller.Get(h);
             var result = (OkNegotiatedContentResult<List<EmployeeModel>>)response;

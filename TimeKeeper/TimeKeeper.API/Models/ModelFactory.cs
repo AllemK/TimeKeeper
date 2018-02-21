@@ -38,8 +38,8 @@ namespace TimeKeeper.API.Models
             return new EngagementModel
             {
                 Id = e.Id,
-                Team = e.Team.Name,
-                Role = e.Role.Name,
+                Team = (e.Team != null) ? e.Team.Name : "",
+                Role = (e.Role != null) ? e.Role.Name : "",
                 Employee = (e.Employee != null) ? e.Employee.FullName : "",
                 Hours = e.Hours
             };
@@ -91,7 +91,7 @@ namespace TimeKeeper.API.Models
                 Description = d.Description,
                 Hours = d.Hours,
                 Day = (d.Day != null) ? d.Day.Date.ToString() : "",
-                Project = d.Project.Name
+                Project = (d.Project != null) ? d.Project.Name : ""
             };
         }
 
