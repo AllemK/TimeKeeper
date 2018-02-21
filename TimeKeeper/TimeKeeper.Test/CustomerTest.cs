@@ -6,6 +6,7 @@ using System.Web;
 using System.Web.Http.Results;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using TimeKeeper.API.Controllers;
+using TimeKeeper.API.Helper;
 using TimeKeeper.API.Models;
 using TimeKeeper.DAL.Entities;
 using TimeKeeper.DAL.Repository;
@@ -103,8 +104,9 @@ namespace TimeKeeper.Test
         public void ControllerGetAllCustomers()
         {
             var controller = new CustomersController();
+            var h = new Header();
 
-            var response = controller.Get();
+            var response = controller.Get(h);
             var result = (OkNegotiatedContentResult<List<CustomerModel>>)response;
 
             Assert.IsNotNull(result);

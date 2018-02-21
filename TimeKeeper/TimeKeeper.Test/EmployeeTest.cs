@@ -98,14 +98,9 @@ namespace TimeKeeper.Test
         {
             var controller = new EmployeesController();
             var h = new Header();
-    //        HttpContext.Current = new HttpContext(
-    //new HttpRequest("", "http://tempuri.org", ""),
-    //new HttpResponse(new StringWriter())
-    //);
 
             var response = controller.Get(h);
             var result = (OkNegotiatedContentResult<List<EmployeeModel>>)response;
-
 
             Assert.IsNotNull(result);
             Assert.IsNotNull(result.Content);

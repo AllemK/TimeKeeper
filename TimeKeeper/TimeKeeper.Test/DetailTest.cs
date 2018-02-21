@@ -6,6 +6,7 @@ using System.Web;
 using System.Web.Http.Results;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using TimeKeeper.API.Controllers;
+using TimeKeeper.API.Helper;
 using TimeKeeper.API.Models;
 using TimeKeeper.DAL.Entities;
 using TimeKeeper.DAL.Repository;
@@ -56,6 +57,7 @@ namespace TimeKeeper.Test
         {
             Detail d = new Detail()
             {
+                Id=1,
                 Description = "Modified existing task",
                 Hours = 8
             };
@@ -63,7 +65,7 @@ namespace TimeKeeper.Test
             unit.Details.Update(d, 1);
 
             Assert.IsTrue(unit.Save());
-            Assert.AreEqual(d.Description, unit.Details.Get(d.Id));
+            Assert.AreEqual(d.Description, unit.Details.Get(1));
         }
 
         [TestMethod]
@@ -92,8 +94,9 @@ namespace TimeKeeper.Test
         public void ControllerGetAllDetails()
         {
             var controller = new DetailsController();
+            var h = new Header();
 
-            var response = controller.Get();
+            var response = controller.Get(h);
             var result = (OkNegotiatedContentResult<List<DetailModel>>)response;
 
             Assert.IsNotNull(result);
@@ -137,12 +140,12 @@ namespace TimeKeeper.Test
             var controller = new DetailsController();
             Detail d = new Detail()
             {
+                Id=3,
                 Description = "Add new tasks",
-                Hours = 8,
+                Hours = 8
             };
-            int id = 3;
 
-            var response = controller.Put(d, id);
+            var response = controller.Put(d, 3);
             var result = (OkNegotiatedContentResult<Detail>)response;
 
             Assert.IsNotNull(result);

@@ -16,7 +16,6 @@ namespace TimeKeeper.API.Controllers
         /// <summary>
         /// Get all Employees
         /// </summary>
-        /// <param name="h"></param>
         /// <returns></returns>
         public IHttpActionResult Get([FromUri] Header h)
         {

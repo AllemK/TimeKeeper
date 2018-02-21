@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using TimeKeeper.API.Helper;
 using TimeKeeper.DAL;
 using TimeKeeper.DAL.Entities;
 
@@ -15,9 +16,12 @@ namespace TimeKeeper.API.Controllers
         /// Get all Engagements
         /// </summary>
         /// <returns></returns>
-        public IHttpActionResult Get()
+        public IHttpActionResult Get([FromUri] Header h)
         {
-            var list = TimeKeeperUnit.Engagements.Get().ToList().Select(x => TimeKeeperFactory.Create(x)).ToList();
+            var list = TimeKeeperUnit.Engagements.Get()
+                .Header(h)
+                .Select(x => TimeKeeperFactory.Create(x))
+                .ToList();
             Utility.Log("Returned all members", "INFO");
             return Ok(list);
         }

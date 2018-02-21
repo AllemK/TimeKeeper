@@ -13,7 +13,7 @@ namespace TimeKeeper.API.Helper
         {
             list.Where(x => x.LastName.Contains(h.filter) || x.FirstName.Contains(h.filter));
             int totalPages = (int)Math.Ceiling((double)list.Count() / h.pageSize);
-            InsertHeader(h.page, h.pageSize, totalPages, h.sort, h.filter);
+            InsertHeader(h, totalPages);
 
             switch (h.sort)
             {
@@ -37,7 +37,7 @@ namespace TimeKeeper.API.Helper
         {
             list.Where(x => x.Name.Contains(h.filter));
             int totalPages = (int)Math.Ceiling((double)list.Count() / h.pageSize);
-            InsertHeader(h.page, h.pageSize, totalPages, h.sort, h.filter);
+            InsertHeader(h, totalPages);
 
             switch (h.sort)
             {
@@ -57,7 +57,7 @@ namespace TimeKeeper.API.Helper
         {
             list.Where(x => x.Date.CompareTo(Convert.ToDateTime(h.filter))==0);
             int totalPages = (int)Math.Ceiling((double)list.Count() / h.pageSize);
-            InsertHeader(h.page, h.pageSize, totalPages, h.sort, h.filter);
+            InsertHeader(h, totalPages);
 
             switch (h.sort)
             {
@@ -77,7 +77,7 @@ namespace TimeKeeper.API.Helper
         {
             list.Where(x => x.Description.Contains(h.filter));
             int totalPages = (int)Math.Ceiling((double)list.Count() / h.pageSize);
-            InsertHeader(h.page, h.pageSize, totalPages, h.sort, h.filter);
+            InsertHeader(h, totalPages);
 
             switch (h.sort)
             {
@@ -95,6 +95,10 @@ namespace TimeKeeper.API.Helper
 
         public static IEnumerable<Engagement> Header(this IEnumerable<Engagement> list, Header h)
         {
+            list.Where(x => x.Employee.FullName.Contains(h.filter));
+            int totalPages = (int)Math.Ceiling((double)list.Count() / h.pageSize);
+            InsertHeader(h, totalPages);
+
             switch (h.sort)
             {
                 case 1: return list.OrderBy(x => x.Employee.LastName)
@@ -112,8 +116,12 @@ namespace TimeKeeper.API.Helper
             }
         }
 
-        public static IEnumerable<Project> SortBy(this IEnumerable<Project> list, Header h)
+        public static IEnumerable<Project> Header(this IEnumerable<Project> list, Header h)
         {
+            list.Where(x => x.Name.Contains(h.filter));
+            int totalPages = (int)Math.Ceiling((double)list.Count() / h.pageSize);
+            InsertHeader(h, totalPages);
+
             switch (h.sort)
             {
                 case 1: return list.OrderBy(x => x.Name)
@@ -128,9 +136,13 @@ namespace TimeKeeper.API.Helper
             }
         }
 
-        public static IEnumerable<Role> SortBy(this IEnumerable<Role> list, Header h)
+        public static IEnumerable<Role> Header(this IEnumerable<Role> list, Header h)
         {
-            switch (sort)
+            list.Where(x => x.Name.Contains(h.filter));
+            int totalPages = (int)Math.Ceiling((double)list.Count() / h.pageSize);
+            InsertHeader(h, totalPages);
+
+            switch (h.sort)
             {
                 case 1: return list.OrderBy(x => x.Name)
                         .Skip(h.pageSize * h.page)
@@ -142,9 +154,13 @@ namespace TimeKeeper.API.Helper
             }
         }
 
-        public static IEnumerable<Team> SortBy(this IEnumerable<Team> list, Header h)
+        public static IEnumerable<Team> Header(this IEnumerable<Team> list, Header h)
         {
-            switch (sort)
+            list.Where(x => x.Name.Contains(h.filter));
+            int totalPages = (int)Math.Ceiling((double)list.Count() / h.pageSize);
+            InsertHeader(h,totalPages);
+
+            switch (h.sort)
             {
                 case 1: return list.OrderBy(x => x.Name)
                         .Skip(h.pageSize * h.page)
@@ -155,17 +171,17 @@ namespace TimeKeeper.API.Helper
             }
         }
 
-        public static void InsertHeader(int page, int pageSize, int totalPages, int sort, string filter)
+        public static void InsertHeader(Header h, int totalPages)
         {
             var header = new
             {
-                nextPage = (page == totalPages - 1) ? -1 : page + 1,
-                previousPage = page - 1,
-                pageSize,
+                nextPage = (h.page == totalPages - 1) ? -1 : h.page + 1,
+                previousPage = h.page - 1,
+                h.pageSize,
                 totalPages,
-                page,
-                sort,
-                filter
+                h.page,
+                h.sort,
+                h.filter
             };
             HttpContext.Current.Response.AddHeader("Pagination", JsonConvert.SerializeObject(header));
         }

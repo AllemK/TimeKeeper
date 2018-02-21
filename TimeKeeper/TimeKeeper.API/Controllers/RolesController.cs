@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using TimeKeeper.API.Helper;
 using TimeKeeper.DAL;
 using TimeKeeper.DAL.Entities;
 
@@ -16,9 +17,12 @@ namespace TimeKeeper.API.Controllers
         /// Get all Roles
         /// </summary>
         /// <returns></returns>
-        public IHttpActionResult Get()
+        public IHttpActionResult Get([FromUri] Header h)
         {
-            var list = TimeKeeperUnit.Roles.Get().ToList().Select(r => TimeKeeperFactory.Create(r)).ToList();
+            var list = TimeKeeperUnit.Roles.Get()
+                .Header(h)
+                .Select(r => TimeKeeperFactory.Create(r))
+                .ToList();
             Utility.Log("Returned all roles", "INFO");
             return Ok(list);
         }

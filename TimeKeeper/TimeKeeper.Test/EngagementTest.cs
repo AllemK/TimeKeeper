@@ -6,6 +6,7 @@ using System.Web;
 using System.Web.Http.Results;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using TimeKeeper.API.Controllers;
+using TimeKeeper.API.Helper;
 using TimeKeeper.API.Models;
 using TimeKeeper.DAL.Entities;
 using TimeKeeper.DAL.Repository;
@@ -58,6 +59,7 @@ namespace TimeKeeper.Test
         {
             Engagement e = new Engagement()
             {
+                Id=3,
                 Hours = 6
             };
 
@@ -92,9 +94,9 @@ namespace TimeKeeper.Test
         public void ControllerGetAllEngagements()
         {
             var controller = new EngagementsController();
+            var h = new Header();
 
-
-            var response = controller.Get();
+            var response = controller.Get(h);
             var result = (OkNegotiatedContentResult<List<EngagementModel>>)response;
 
             Assert.IsNotNull(result);
@@ -138,6 +140,7 @@ namespace TimeKeeper.Test
             var controller = new EngagementsController();
             Engagement e = new Engagement()
             {
+                Id=1,
                 Hours = 3
             };
 
