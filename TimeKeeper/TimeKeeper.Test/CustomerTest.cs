@@ -14,6 +14,7 @@ namespace TimeKeeper.Test
     public class CustomerTest
     {
         UnitOfWork unit = new UnitOfWork();
+
         [TestMethod]
         public void CheckCustomers()
         {

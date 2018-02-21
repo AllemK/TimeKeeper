@@ -14,6 +14,7 @@ namespace TimeKeeper.Test
     public class DayTest
     {
         UnitOfWork unit = new UnitOfWork();
+
         [TestMethod]
         public void CheckAllDays()
         {
@@ -107,7 +108,7 @@ namespace TimeKeeper.Test
                 Date = DateTime.Today,
                 Hours = 8,
                 Type = DayType.SickLeave,
-                Employee = unit.Employees.Get(2)
+                //Employee = unit.Employees.Get(2)
             };
 
             var response = controller.Post(d);
@@ -121,10 +122,10 @@ namespace TimeKeeper.Test
         public void ControllerPutDay()
         {
             var controller = new DaysController();
-            Day d = unit.Calendar.Get(3);
+            Day d = unit.Calendar.Get(4);
             d.Date = new DateTime(2018, 02, 16);
 
-            var response = controller.Put(d,3);
+            var response = controller.Put(d,4);
             var result = (OkNegotiatedContentResult<Day>)response;
 
             Assert.IsNotNull(result);
@@ -136,7 +137,7 @@ namespace TimeKeeper.Test
         {
             var controller = new DaysController();
 
-            var response = controller.Delete(3);
+            var response = controller.Delete(4);
             var result = (OkResult)response;
 
             Assert.IsNotNull(result);

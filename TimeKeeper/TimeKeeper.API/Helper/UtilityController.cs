@@ -17,15 +17,18 @@ namespace TimeKeeper.API.Helper
 
             switch (h.sort)
             {
-                case 1: return list.OrderBy(x => x.LastName)
-                        .Skip(h.pageSize * h.page)
-                        .Take(h.pageSize);
-                case 2: return list.OrderBy(x => x.BirthDate)
-                        .Skip(h.pageSize * h.page)
-                        .Take(h.pageSize);
-                default: return list.OrderBy(x => x.Id)
-                        .Skip(h.pageSize * h.page)
-                        .Take(h.pageSize); ;
+                case 1:
+                    return list.OrderBy(x => x.LastName)
+                    .Skip(h.pageSize * h.page)
+                    .Take(h.pageSize);
+                case 2:
+                    return list.OrderBy(x => x.BirthDate)
+                    .Skip(h.pageSize * h.page)
+                    .Take(h.pageSize);
+                default:
+                    return list.OrderBy(x => x.Id)
+                   .Skip(h.pageSize * h.page)
+                   .Take(h.pageSize); ;
             }
 
         }
@@ -112,7 +115,8 @@ namespace TimeKeeper.API.Helper
                 sort,
                 filter
             };
-            HttpContext.Current.Response.Headers.Add("Pagination", JsonConvert.SerializeObject(header));
+            if(HttpContext.Current != null)
+                HttpContext.Current.Response.Headers.Add("Pagination", JsonConvert.SerializeObject(header));
         }
     }
 }

@@ -6,13 +6,15 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using TimeKeeper.API.Controllers;
 using TimeKeeper.API.Models;
 using TimeKeeper.DAL.Entities;
+using TimeKeeper.DAL.Repository;
 
 namespace TimeKeeper.Test
 {
     [TestClass]
     public class ProjectTest
     {
-        DAL.Repository.UnitOfWork unit = new DAL.Repository.UnitOfWork();
+        UnitOfWork unit = new UnitOfWork();
+
         [TestMethod]
         public void CheckProjects()
         {
@@ -57,6 +59,7 @@ namespace TimeKeeper.Test
             Assert.IsTrue(unit.Save());
             Assert.AreEqual(expected, unit.Projects.Get().FirstOrDefault().Name);
         }
+
         [TestMethod]
         public void DeleteProject()
         {
@@ -80,6 +83,7 @@ namespace TimeKeeper.Test
             Assert.IsFalse(unit.Save());
         }
 
+        //Tests for controller
         [TestMethod]
         public void ControllerGetAllProjects()
         {
@@ -95,7 +99,6 @@ namespace TimeKeeper.Test
 
         [TestMethod]
         public void ControllerGetProjectById()
-
         {
             var controller = new ProjectsController();
 
@@ -129,12 +132,14 @@ namespace TimeKeeper.Test
             Assert.IsNotNull(result);
             Assert.IsNotNull(result.Content);
         }
+
         [TestMethod]
         public void ControllerPutProject()
         {
             var controller = new ProjectsController();
             Project p = new Project()
             {
+                Id=1,
                 Name = "NewProject",
                 Description = "Teaam will work on few projects",
                 Pricing = Pricing.NotBillable,
@@ -145,14 +150,13 @@ namespace TimeKeeper.Test
 
             };
 
-            int id = 1;
-            var response = controller.Put(p, id);
+            var response = controller.Put(p, 1);
             var result = (OkNegotiatedContentResult<Project>)response;
 
             Assert.IsNotNull(result);
             Assert.IsNotNull(result.Content);
-
         }
+
         [TestMethod]
         public void ControllerDeleteProject()
         {

@@ -6,13 +6,15 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using TimeKeeper.API.Controllers;
 using TimeKeeper.API.Models;
 using TimeKeeper.DAL.Entities;
+using TimeKeeper.DAL.Repository;
 
 namespace TimeKeeper.Test
 {
     [TestClass]
     public class RoleTest
     {
-        DAL.Repository.UnitOfWork unit = new DAL.Repository.UnitOfWork();
+        UnitOfWork unit = new UnitOfWork();
+
         [TestMethod]
         public void CheckRoles()
         {
@@ -78,10 +80,9 @@ namespace TimeKeeper.Test
             r1.Name = "";
 
             Assert.IsFalse(unit.Save());
-            Assert.AreNotEqual("", unit.Roles.Get().FirstOrDefault().Name);
         }
 
-        //Test for Roles controller
+        //Test for controller
         [TestMethod]
         public void ControllerGetAllRoles()
         {

@@ -57,7 +57,7 @@ namespace TimeKeeper.API.Controllers
                 if (TimeKeeperUnit.Save())
                 {
                     Utility.Log("Inserted new role", "INFO");
-                    return Ok(TimeKeeperFactory.Create(role));
+                    return Ok(role);
                 }
                 else
                 {
