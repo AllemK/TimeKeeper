@@ -122,9 +122,9 @@ namespace TimeKeeper.Test
             Engagement e = new Engagement()
             {
                 Hours = 4,
-                Employee = unit.Employees.Get(2),
-                Team = unit.Teams.Get("A"),
-                Role = unit.Roles.Get("UX")
+                //Employee = unit.Employees.Get(2),
+                //Team = unit.Teams.Get("A"),
+                //Role = unit.Roles.Get("UX")
             };
 
             var response = controller.Post(e);

@@ -21,11 +21,6 @@ namespace TimeKeeper.API
                 routeTemplate: "api/{controller}/{id}",
                 defaults: new { id = RouteParameter.Optional }
             );
-            config.Routes.MapHttpRoute(
-                name: "PagingApi",
-                routeTemplate: "api/{controller}/page/{page}",
-                defaults: new { id = RouteParameter.Optional }
-            );
 
             var json = GlobalConfiguration.Configuration;
             json.Formatters.XmlFormatter.SupportedMediaTypes.Clear();

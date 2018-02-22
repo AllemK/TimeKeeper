@@ -70,6 +70,7 @@ namespace TimeKeeper.Test
             string expected = "CharlieTest Company";
 
             c.Name = expected;
+            unit.Customers.Update(c, c.Id);
 
             Assert.IsTrue(unit.Save());
             Assert.AreEqual(expected, unit.Customers.Get(unit.Customers.Get().Count()).Name);

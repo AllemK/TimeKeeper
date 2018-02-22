@@ -60,6 +60,7 @@ namespace TimeKeeper.Test
             string expected = "OM";
 
             t.Name = "OM";
+            unit.Teams.Update(t, t.Id);
 
             Assert.IsTrue(unit.Save());
             Assert.AreEqual(expected, unit.Teams.Get().FirstOrDefault().Name);

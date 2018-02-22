@@ -65,6 +65,7 @@ namespace TimeKeeper.Test
             string expected = "Helen";
 
             e.FirstName = "Helen";
+            unit.Employees.Update(e, 1);
 
             Assert.IsTrue(unit.Save());
             Assert.AreEqual(expected, unit.Employees.Get().FirstOrDefault().FirstName);

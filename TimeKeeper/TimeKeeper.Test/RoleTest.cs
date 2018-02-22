@@ -65,6 +65,7 @@ namespace TimeKeeper.Test
 
             r.HourlyRate = 25m;
             r.MonthlyRate = 5000m;
+            unit.Roles.Update(r, r.Id);
 
             Assert.IsTrue(unit.Save());
             Assert.AreEqual(expectedHourly, unit.Roles.Get().FirstOrDefault().HourlyRate);

@@ -67,6 +67,7 @@ namespace TimeKeeper.Test
             string expected = "Delta";
 
             p.Name = "Delta";
+            unit.Projects.Update(p, 1);
 
             Assert.IsTrue(unit.Save());
             Assert.AreEqual(expected, unit.Projects.Get().FirstOrDefault().Name);

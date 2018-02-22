@@ -65,7 +65,7 @@ namespace TimeKeeper.Test
             unit.Details.Update(d, 1);
 
             Assert.IsTrue(unit.Save());
-            Assert.AreEqual(d.Description, unit.Details.Get(1));
+            Assert.AreEqual(d.Description, unit.Details.Get(1).Description);
         }
 
         [TestMethod]
@@ -123,8 +123,8 @@ namespace TimeKeeper.Test
             {
                 Description = "Add new tasks",
                 Hours = 8,
-                Day = unit.Calendar.Get(1),
-                Project = unit.Projects.Get(1)
+                //Day = unit.Calendar.Get(1),
+                //Project = unit.Projects.Get(1)
             };
 
             var response = controller.Post(d);

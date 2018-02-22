@@ -45,6 +45,7 @@ namespace TimeKeeper.API.Controllers
                 return Ok(TimeKeeperFactory.Create(customer));
             }
         }
+
         /// <summary>
         /// Insert new customer
         /// </summary>

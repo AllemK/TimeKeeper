@@ -10,7 +10,6 @@ using TimeKeeper.DAL.Entities;
 
 namespace TimeKeeper.API.Controllers
 {
-    [RoutePrefix("api/roles")]
     public class RolesController : BaseController
     {
         /// <summary>
@@ -52,7 +51,6 @@ namespace TimeKeeper.API.Controllers
         /// </summary>
         /// <param name="role"></param>
         /// <returns></returns>
-        [Route("")]
         public IHttpActionResult Post([FromBody] Role role)
         {
             try

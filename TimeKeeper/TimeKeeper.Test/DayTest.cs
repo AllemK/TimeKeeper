@@ -69,7 +69,9 @@ namespace TimeKeeper.Test
         {
             Day d = unit.Calendar.Get(3);
             DateTime expected = new DateTime(2018, 1, 5);
+
             d.Date = new DateTime(2018, 1, 5);
+            unit.Calendar.Update(d, 3);
 
             Assert.IsTrue(unit.Save());
             Assert.AreEqual(expected, unit.Calendar.Get(3).Date);
@@ -145,10 +147,10 @@ namespace TimeKeeper.Test
         public void ControllerPutDay()
         {
             var controller = new DaysController();
-            Day d = unit.Calendar.Get(4);
+            Day d = unit.Calendar.Get(5);
             d.Date = new DateTime(2018, 02, 16);
 
-            var response = controller.Put(d,4);
+            var response = controller.Put(d,5);
             var result = (OkNegotiatedContentResult<Day>)response;
 
             Assert.IsNotNull(result);
@@ -160,7 +162,7 @@ namespace TimeKeeper.Test
         {
             var controller = new DaysController();
 
-            var response = controller.Delete(4);
+            var response = controller.Delete(5);
             var result = (OkResult)response;
 
             Assert.IsNotNull(result);
