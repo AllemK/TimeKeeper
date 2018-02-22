@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Linq;
+using System.Web.Http.Results;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using TimeKeeper.API.Controllers;
+using TimeKeeper.API.Models;
 using TimeKeeper.DAL.Entities;
 using TimeKeeper.DAL.Repository;
 
@@ -69,6 +72,18 @@ namespace TimeKeeper.Test
             t1.Name = "";
 
             Assert.IsFalse(unit.Save());
+        }
+
+        [TestMethod]
+        public void GetAllTeamsSucess()
+        {
+            var controller = new TeamsController();
+
+            var response = controller.Get("A");
+            var result = (OkNegotiatedContentResult<TeamModel>) response;
+            Assert.IsNotNull(result);
+            Assert.IsNotNull(result.Content);
+
         }
     }
 }

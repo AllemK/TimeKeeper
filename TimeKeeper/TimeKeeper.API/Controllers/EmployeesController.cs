@@ -1,8 +1,10 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Web;
 using System.Web.Http;
 using TimeKeeper.DAL;
 using TimeKeeper.DAL.Entities;
@@ -15,9 +17,40 @@ namespace TimeKeeper.API.Controllers
         /// Get all Employees
         /// </summary>
         /// <returns></returns>
-        public IHttpActionResult Get()
+
+        public IHttpActionResult Get(int page = 0, int pageSize = 10, int sort = 0, string filter = "")
         {
-            var list = TimeKeeperUnit.Employees.Get().ToList().Select(x => TimeKeeperFactory.Create(x)).ToList();
+            int itemCount = TimeKeeperUnit.Employees.Get().Count();
+            int totalPages = (int)Math.Ceiling((double)itemCount / pageSize);
+
+            var query = TimeKeeperUnit.Employees.Get();
+            if (filter != "") query = query.Where(x => x.LastName.Contains(filter));
+            switch (sort)
+            {
+                case 1: query = query.OrderBy(x => x.LastName); break;
+                case 2: query = query.OrderBy(x => x.BirthDate); break;
+                default: query = query.OrderBy(x => x.Id); break;
+
+            }
+            var list = query.Skip(pageSize * page)
+                            .Take(pageSize)
+                            .ToList()
+                            .Select(x => TimeKeeperFactory.Create(x)).ToList();
+
+
+
+            var header = new
+            {
+                nextPage = (page == totalPages - 1) ? -1 : page + 1,
+                prevPage = page - 1,
+                pageSize = pageSize,
+                totalPages = totalPages,
+                page = page,
+                sort
+            };
+            System.Web.HttpContext.Current.Response.Headers
+                      .Add("Pagination", JsonConvert.SerializeObject(header));
+
             Utility.Log("Returned all records for employees", "INFO");
             return Ok(list);
         }
@@ -27,7 +60,7 @@ namespace TimeKeeper.API.Controllers
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public IHttpActionResult Get(int id)
+        public IHttpActionResult GetById(int id)
         {
             Employee emp = TimeKeeperUnit.Employees.Get(id);
             if (emp == null)
