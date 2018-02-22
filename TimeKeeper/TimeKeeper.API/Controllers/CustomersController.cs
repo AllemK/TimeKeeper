@@ -120,6 +120,7 @@ namespace TimeKeeper.API.Controllers
                     Utility.Log($"No customer found with id {id}");
                     return NotFound();
                 }
+                TimeKeeperUnit.Projects.Get(x => x.Customer.Id == customer.Id).ForEach(x=>TimeKeeperUnit.Projects.Delete(x));
                 TimeKeeperUnit.Customers.Delete(customer);
                 TimeKeeperUnit.Save();
                 Utility.Log($"Deleted customer with id {id}", "INFO");

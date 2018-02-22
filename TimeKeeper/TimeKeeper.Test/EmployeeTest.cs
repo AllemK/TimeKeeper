@@ -152,9 +152,9 @@ namespace TimeKeeper.Test
             {
                 Id = 2,
                 FirstName = "Annie",
-                LastName = "Brown",
+                LastName = unit.Employees.Get(2).LastName,
                 BirthDate = new DateTime(1988, 06, 03),
-                Email = "anniebrown@gmail.com",
+                Email = unit.Employees.Get(2).Email,
                 Phone = "+38762123836",
                 Salary = 65.5m,
                 BeginDate = new DateTime(2017, 07, 03),
