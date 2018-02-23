@@ -9,6 +9,12 @@ namespace TimeKeeper.DAL.Entities
 {
     public class Team : BaseClass<string>
     {
+        public Team()
+        {
+            Engagements = new List<Engagement>();
+            Projects = new List<Project>();
+        }
+
         [Required]
         [MaxLength(20)]
         public string Name { get; set; }

@@ -28,7 +28,7 @@ namespace TimeKeeper.Test
         }
 
         [TestMethod]
-        public void CheckAllDays()
+        public void DayCheck()
         {
             int numberOfDays = unit.Calendar.Get().Count();
 
@@ -38,7 +38,7 @@ namespace TimeKeeper.Test
         }
 
         [TestMethod]
-        public void GetDayById()
+        public void DayGetById()
         {
             Day d = unit.Calendar.Get(1);
 
@@ -48,7 +48,7 @@ namespace TimeKeeper.Test
         }
 
         [TestMethod]
-        public void AddDay()
+        public void DayAdd()
         {
             Day d = new Day()
             {
@@ -65,7 +65,7 @@ namespace TimeKeeper.Test
         }
 
         [TestMethod]
-        public void UpdateDay()
+        public void DayUpdate()
         {
             Day d = unit.Calendar.Get(3);
             DateTime expected = new DateTime(2018, 1, 5);
@@ -78,7 +78,7 @@ namespace TimeKeeper.Test
         }
 
         [TestMethod]
-        public void DeleteDay()
+        public void DayDelete()
         {
             Day d = unit.Calendar.Get(3);
 
@@ -89,7 +89,7 @@ namespace TimeKeeper.Test
         }
 
         [TestMethod]
-        public void CheckValidityForDay()
+        public void DayCheckValidity()
         {
             Day d = new Day();
 
@@ -100,7 +100,7 @@ namespace TimeKeeper.Test
 
         //Test for controller
         [TestMethod]
-        public void ControllerGetAllDays()
+        public void DayControllerGet()
         {
             var controller = new DaysController();
             var h = new Header();
@@ -113,7 +113,7 @@ namespace TimeKeeper.Test
         }
 
         [TestMethod]
-        public void ControllerGetDayBy()
+        public void DayControllerGetById()
         {
             var controller = new DaysController();
 
@@ -125,7 +125,7 @@ namespace TimeKeeper.Test
         }
 
         [TestMethod]
-        public void ControllerPostDay()
+        public void DayControllerPost()
         {
             var controller = new DaysController();
             Day d = new Day()
@@ -144,7 +144,7 @@ namespace TimeKeeper.Test
         }
 
         [TestMethod]
-        public void ControllerPutDay()
+        public void DayControllerPut()
         {
             var controller = new DaysController();
             Day d = unit.Calendar.Get(5);
@@ -158,7 +158,7 @@ namespace TimeKeeper.Test
         }
 
         [TestMethod]
-        public void ControllerDeleteDay()
+        public void DayControllerDelete()
         {
             var controller = new DaysController();
 

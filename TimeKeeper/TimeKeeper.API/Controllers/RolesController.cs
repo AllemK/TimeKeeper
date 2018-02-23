@@ -121,8 +121,20 @@ namespace TimeKeeper.API.Controllers
                     Utility.Log($"No such role with id {id}");
                     return NotFound();
                 }
+
+                EngagementsController ec = new EngagementsController();
+                foreach (var item in TimeKeeperUnit.Engagements.Get().Where(x => x.Role.Id == role.Id)){
+                    ec.Delete(item.Id);
+                }
+
+                EmployeesController emc = new EmployeesController();
+                foreach (var item in TimeKeeperUnit.Employees.Get().Where(x => x.Position.Id == role.Id)) {
+                    emc.Delete(item.Id);
+                }
+
                 TimeKeeperUnit.Roles.Delete(role);
                 TimeKeeperUnit.Save();
+                Utility.Log($"Deleted role with id {id}");
                 return Ok();
             }
             catch (Exception ex)

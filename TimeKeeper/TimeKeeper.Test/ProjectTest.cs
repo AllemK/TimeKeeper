@@ -28,7 +28,7 @@ namespace TimeKeeper.Test
         }
 
         [TestMethod]
-        public void CheckProjects()
+        public void ProjectCheck()
         {
             int checkNumberOfProjects = 0;
             int expected = 2;
@@ -39,7 +39,7 @@ namespace TimeKeeper.Test
         }
 
         [TestMethod]
-        public void AddProject()
+        public void ProjectAdd()
         {
             Project p = new Project()
             {
@@ -61,7 +61,7 @@ namespace TimeKeeper.Test
         }
 
         [TestMethod]
-        public void UpdateProject()
+        public void ProjectUpdate()
         {
             Project p = unit.Projects.Get().FirstOrDefault();
             string expected = "Delta";
@@ -74,18 +74,18 @@ namespace TimeKeeper.Test
         }
 
         [TestMethod]
-        public void DeleteProject()
+        public void ProjectDelete()
         {
-            Project p = unit.Projects.Get(x => x.Id == 2).FirstOrDefault();
+            Project p = unit.Projects.Get(x => x.Id == 3).FirstOrDefault();
 
             unit.Projects.Delete(p);
             unit.Save();
 
-            Assert.IsNull(unit.Projects.Get(2));
+            Assert.IsNull(unit.Projects.Get(3));
         }
 
         [TestMethod]
-        public void CheckValidityForProjects()
+        public void ProjectCheckValidity()
         {
             Project p = new Project();
             Project p1 = unit.Projects.Get().FirstOrDefault();
@@ -98,7 +98,7 @@ namespace TimeKeeper.Test
 
         //Tests for controller
         [TestMethod]
-        public void ControllerGetAllProjects()
+        public void ProjectControllerGet()
         {
             var controller = new ProjectsController();
             var h = new Header();
@@ -112,7 +112,7 @@ namespace TimeKeeper.Test
         }
 
         [TestMethod]
-        public void ControllerGetProjectById()
+        public void ProjectControllerGetById()
         {
             var controller = new ProjectsController();
 
@@ -124,12 +124,11 @@ namespace TimeKeeper.Test
         }
 
         [TestMethod]
-        public void ControllerPostProject()
+        public void ProjectControllerPost()
         {
             var Controller = new ProjectsController();
             Project p = new Project()
             {
-
                 Name = "NewProject",
                 Description = "This is a new project",
                 Monogram = "PRO",
@@ -137,7 +136,6 @@ namespace TimeKeeper.Test
                 Pricing = Pricing.FixedPrice,
                 StartDate = new DateTime(2018, 02, 15),
                 Status = ProjectStatus.OnHold
-
             };
 
             var response = Controller.Post(p);
@@ -148,7 +146,7 @@ namespace TimeKeeper.Test
         }
 
         [TestMethod]
-        public void ControllerPutProject()
+        public void ProjectControllerPut()
         {
             var controller = new ProjectsController();
             Project p = new Project()
@@ -161,7 +159,6 @@ namespace TimeKeeper.Test
                 Monogram = "NEW",
                 Status = ProjectStatus.InProgress,
                 StartDate = new DateTime(2018, 05, 05)
-
             };
 
             var response = controller.Put(p, 1);
@@ -172,11 +169,11 @@ namespace TimeKeeper.Test
         }
 
         [TestMethod]
-        public void ControllerDeleteProject()
+        public void ProjectControllerDelete()
         {
             var controller = new ProjectsController();
 
-            var response = controller.Delete(1);
+            var response = controller.Delete(3);
             var result = (OkResult)response;
 
             Assert.IsNotNull(result);

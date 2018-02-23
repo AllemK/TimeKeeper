@@ -28,7 +28,7 @@ namespace TimeKeeper.Test
         }
 
         [TestMethod]
-        public void CheckDetails()
+        public void DetailCheck()
         {
             int expected = 2;
 
@@ -38,7 +38,7 @@ namespace TimeKeeper.Test
         }
 
         [TestMethod]
-        public void AddDetail()
+        public void DetailAdd()
         {
             Detail d = new Detail()
             {
@@ -53,7 +53,7 @@ namespace TimeKeeper.Test
         }
 
         [TestMethod]
-        public void UpdateDetail()
+        public void DetailUpdate()
         {
             Detail d = new Detail()
             {
@@ -69,7 +69,7 @@ namespace TimeKeeper.Test
         }
 
         [TestMethod]
-        public void DeleteDetail()
+        public void DetailDelete()
         {
             Detail d = unit.Details.Get(2);
 
@@ -80,7 +80,7 @@ namespace TimeKeeper.Test
         }
 
         [TestMethod]
-        public void CheckValidityForDetail()
+        public void DetailCheckValidity()
         {
             Detail d = new Detail();
 
@@ -91,7 +91,7 @@ namespace TimeKeeper.Test
 
         //Tests for controller
         [TestMethod]
-        public void ControllerGetAllDetails()
+        public void DetailControllerGet()
         {
             var controller = new DetailsController();
             var h = new Header();
@@ -104,7 +104,7 @@ namespace TimeKeeper.Test
         }
 
         [TestMethod]
-        public void ControllerGetDetailById()
+        public void DetailControllerGetById()
         {
             var controller = new DetailsController();
 
@@ -116,7 +116,7 @@ namespace TimeKeeper.Test
         }
 
         [TestMethod]
-        public void ControllerPostDetail()
+        public void DetailControllerPost()
         {
             var controller = new DetailsController();
             Detail d = new Detail()
@@ -135,7 +135,7 @@ namespace TimeKeeper.Test
         }
 
         [TestMethod]
-        public void ControllerPutDetail()
+        public void DetailControllerPut()
         {
             var controller = new DetailsController();
             Detail d = new Detail()
@@ -154,7 +154,7 @@ namespace TimeKeeper.Test
         }
 
         [TestMethod]
-        public void ControllerDeleteDetail()
+        public void DetailControllerDelete()
         {
             var controller = new DetailsController();
 

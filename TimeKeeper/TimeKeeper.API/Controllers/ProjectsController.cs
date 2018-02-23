@@ -116,6 +116,12 @@ namespace TimeKeeper.API.Controllers
                     Utility.Log($"No such project with id {id}");
                     return NotFound();
                 }
+
+                DetailsController dc = new DetailsController();
+                foreach (var item in TimeKeeperUnit.Details.Get().Where(x => x.Project.Id == project.Id)) {
+                    dc.Delete(item.Id);
+                }
+
                 TimeKeeperUnit.Projects.Delete(project);
                 TimeKeeperUnit.Save();
                 return Ok();

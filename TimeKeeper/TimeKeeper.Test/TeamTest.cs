@@ -28,9 +28,9 @@ namespace TimeKeeper.Test
         }
 
         [TestMethod]
-        public void CheckTeams()
+        public void TeamCheck()
         {
-            int expected = 3;
+            int expected = 2;
 
             int numberOfTeams = unit.Teams.Get().Count();
 
@@ -38,13 +38,13 @@ namespace TimeKeeper.Test
         }
 
         [TestMethod]
-        public void AddTeam()
+        public void TeamAdd()
         {
             Team t = new Team()
             {
                 Id = "OMG",
-                Name="Omega",
-                Description="Work on backend"
+                Name = "Omega",
+                Description = "Work on backend"                
             };
 
             unit.Teams.Insert(t);
@@ -54,20 +54,20 @@ namespace TimeKeeper.Test
         }
 
         [TestMethod]
-        public void UpdateTeam()
+        public void TeamUpdate()
         {
-            Team t = unit.Teams.Get().FirstOrDefault();
+            Team t = unit.Teams.Get("OMG");
             string expected = "OM";
 
             t.Name = "OM";
             unit.Teams.Update(t, t.Id);
 
             Assert.IsTrue(unit.Save());
-            Assert.AreEqual(expected, unit.Teams.Get().FirstOrDefault().Name);
+            Assert.AreEqual(expected, unit.Teams.Get("OMG").Name);
         }
 
         [TestMethod]
-        public void DeleteTeam()
+        public void TeamDelete()
         {
             Team t = unit.Teams.Get("OMG");
 
@@ -78,12 +78,15 @@ namespace TimeKeeper.Test
         }
 
         [TestMethod]
-        public void CheckValidityForTeams()
+        public void TeamCheckValidity()
         {
             Team t = new Team();
             Team t1 = unit.Teams.Get().FirstOrDefault();
 
             unit.Teams.Insert(t);
+
+            Assert.IsFalse(unit.Save());
+
             t1.Name = "";
 
             Assert.IsFalse(unit.Save());
@@ -91,7 +94,7 @@ namespace TimeKeeper.Test
 
         //Tests for controllers
         [TestMethod]
-        public void ControllerGetAllTeams()
+        public void TeamControllerGetAll()
         {
             var controller = new TeamsController();
             var h = new Header();
@@ -105,7 +108,7 @@ namespace TimeKeeper.Test
         }
 
         [TestMethod]
-        public void ControllerGetTeamWithId()
+        public void TeamControllerGetById()
         {
             var controller = new TeamsController();
 
@@ -118,14 +121,14 @@ namespace TimeKeeper.Test
         }
 
         [TestMethod]
-        public void ControllerPostTeam()
+        public void TeamControllerPost()
         {
             var controller = new TeamsController();
             Team t = new Team()
             {
                 Id = "DAK",
                 Name = "Dakota",
-                Description = "Teaam will work on few related projects"
+                Description = "Team will work on few related projects"
 
             };
 
@@ -138,19 +141,17 @@ namespace TimeKeeper.Test
         }
 
         [TestMethod]
-        public void ControllerPutTeam()
+        public void TeamControllerPut()
         {
             var controller = new TeamsController();
             Team t = new Team()
             {
                 Id = "DAK",
                 Name = "DAKOTA",
-                Description = "Teaam will work on few related projects like TimeKEEPER"
-
+                Description = "Team will work on few related projects like TimeKEEPER"
             };
 
-            string id = "DAK";
-            var response = controller.Put(t, id);
+            var response = controller.Put(t, "DAK");
             var result = (OkNegotiatedContentResult<Team>)response;
 
             Assert.IsNotNull(result);
@@ -159,7 +160,7 @@ namespace TimeKeeper.Test
         }
 
         [TestMethod]
-        public void ControllerDeleteTeam()
+        public void TeamControllerDelete()
         {
             var controller = new TeamsController();
 

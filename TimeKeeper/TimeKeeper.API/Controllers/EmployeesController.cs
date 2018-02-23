@@ -123,6 +123,18 @@ namespace TimeKeeper.API.Controllers
                     Utility.Log($"No such employee with id {id}");
                     return NotFound();
                 }
+
+                DaysController dc = new DaysController();
+                foreach (var item in TimeKeeperUnit.Calendar.Get().Where(x => x.Employee.Id == emp.Id))
+                {
+                     dc.Delete(item.Id);
+                }
+
+                EngagementsController ec = new EngagementsController();
+                foreach(var item in TimeKeeperUnit.Engagements.Get().Where(x => x.Employee.Id == emp.Id)){
+                    dc.Delete(item.Id);
+                }
+
                 TimeKeeperUnit.Employees.Delete(emp);
                 TimeKeeperUnit.Save();
                 Utility.Log($"Deleted employee with id {id}", "INFO");

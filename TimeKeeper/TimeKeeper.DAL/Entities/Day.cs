@@ -21,6 +21,11 @@ namespace TimeKeeper.DAL.Entities
 
     public class Day : BaseClass<int>
     {
+        public Day()
+        {
+            Details = new List<Detail>();
+        }
+
         [Required]
         public DateTime Date { get; set; }
         [Required]

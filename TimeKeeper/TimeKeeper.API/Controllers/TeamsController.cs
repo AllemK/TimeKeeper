@@ -123,6 +123,19 @@ namespace TimeKeeper.API.Controllers
                     Utility.Log($"No such team with id {id}");
                     return NotFound();
                 }
+
+                ProjectsController pc = new ProjectsController();
+                foreach(var item in TimeKeeperUnit.Projects.Get().Where(x=>x.Team.Id==team.Id))
+                {
+                    pc.Delete(item.Id);
+                }
+
+                EngagementsController ec = new EngagementsController();
+                foreach(var item in TimeKeeperUnit.Engagements.Get().Where(x => x.Team.Id == team.Id))
+                {
+                    ec.Delete(item.Id);
+                }
+
                 TimeKeeperUnit.Teams.Delete(team);
                 TimeKeeperUnit.Save();
                 Utility.Log($"Deleted team with id {id}", "INFO");

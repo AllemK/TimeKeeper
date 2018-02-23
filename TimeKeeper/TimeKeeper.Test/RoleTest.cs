@@ -28,7 +28,7 @@ namespace TimeKeeper.Test
         }
 
         [TestMethod]
-        public void CheckRoles()
+        public void RoleCheck()
         {
             int checkNumberOfRoles = 0;
             int expected = 2;
@@ -39,7 +39,7 @@ namespace TimeKeeper.Test
         }
 
         [TestMethod]
-        public void AddRole()
+        public void RoleAdd()
         {
             Role r = new Role()
             {
@@ -57,9 +57,9 @@ namespace TimeKeeper.Test
         }
 
         [TestMethod]
-        public void UpdateRole()
+        public void RoleUpdate()
         {
-            Role r = unit.Roles.Get().FirstOrDefault();
+            Role r = unit.Roles.Get("ADM");
             decimal expectedHourly = 25m;
             decimal expectedMonthly = 3000m;
 
@@ -68,12 +68,12 @@ namespace TimeKeeper.Test
             unit.Roles.Update(r, r.Id);
 
             Assert.IsTrue(unit.Save());
-            Assert.AreEqual(expectedHourly, unit.Roles.Get().FirstOrDefault().HourlyRate);
-            Assert.AreNotEqual(expectedMonthly, unit.Roles.Get().FirstOrDefault().MonthlyRate);
+            Assert.AreEqual(expectedHourly, unit.Roles.Get("ADM").HourlyRate);
+            Assert.AreNotEqual(expectedMonthly, unit.Roles.Get("ADM").MonthlyRate);
         }
 
         [TestMethod]
-        public void DeleteRole()
+        public void RoleDelete()
         {
             Role r = unit.Roles.Get("ADM");
 
@@ -84,12 +84,15 @@ namespace TimeKeeper.Test
         }
 
         [TestMethod]
-        public void CheckValidityForRoles()
+        public void RoleCheckValidity()
         {
             Role r = new Role();
             Role r1 = unit.Roles.Get().FirstOrDefault();
 
             unit.Roles.Insert(r);
+
+            Assert.IsFalse(unit.Save());
+
             r1.Name = "";
 
             Assert.IsFalse(unit.Save());
@@ -97,7 +100,7 @@ namespace TimeKeeper.Test
 
         //Test for controller
         [TestMethod]
-        public void ControllerGetAllRoles()
+        public void RoleControllerGet()
         {
             var controller = new RolesController();
             var h = new Header();
@@ -110,7 +113,7 @@ namespace TimeKeeper.Test
         }
 
         [TestMethod]
-        public void ControllerGetRoleById()
+        public void RoleControllerGetById()
         {
             var controller = new RolesController();
 
@@ -122,7 +125,7 @@ namespace TimeKeeper.Test
         }
 
         [TestMethod]
-        public void ControllerPostRole()
+        public void RoleControllerPost()
         {
             var controller = new RolesController();
             Role r = new Role()
@@ -142,7 +145,7 @@ namespace TimeKeeper.Test
         }
 
         [TestMethod]
-        public void ControllerPutRole()
+        public void RoleControllerPut()
         {
             var controller = new RolesController();
             Role r = unit.Roles.Get("AD");
@@ -156,7 +159,7 @@ namespace TimeKeeper.Test
         }
 
         [TestMethod]
-        public void ControllerDeleteRole()
+        public void RoleControllerDelete()
         {
             var controller = new RolesController();
 

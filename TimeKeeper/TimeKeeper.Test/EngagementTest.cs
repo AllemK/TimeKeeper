@@ -28,7 +28,7 @@ namespace TimeKeeper.Test
         }
 
         [TestMethod]
-        public void CheckEngagements()
+        public void EngagementCheck()
         {
             int expected = 2;
 
@@ -38,7 +38,7 @@ namespace TimeKeeper.Test
         }
 
         [TestMethod]
-        public void AddEngagement()
+        public void EngagementAdd()
         {
             Engagement e = new Engagement()
             {
@@ -55,7 +55,7 @@ namespace TimeKeeper.Test
         }
 
         [TestMethod]
-        public void UpdateEngagement()
+        public void EngagementUpdate()
         {
             Engagement e = new Engagement()
             {
@@ -70,7 +70,7 @@ namespace TimeKeeper.Test
         }
 
         [TestMethod]
-        public void DeleteEngagement()
+        public void EngagementDelete()
         {
             Engagement e = unit.Engagements.Get(3);
 
@@ -81,7 +81,7 @@ namespace TimeKeeper.Test
         }
 
         [TestMethod]
-        public void CheckValidityForEngagement()
+        public void EngagementCheckValidity()
         {
             Engagement e = new Engagement();
 
@@ -91,7 +91,7 @@ namespace TimeKeeper.Test
         }
 
         //Tests for controller
-        public void ControllerGetAllEngagements()
+        public void EngagementControllerGet()
         {
             var controller = new EngagementsController();
             var h = new Header();
@@ -104,7 +104,7 @@ namespace TimeKeeper.Test
         }
 
         [TestMethod]
-        public void ControllerGetEngagementById()
+        public void EngagementControllerGetById()
         {
             var controller = new EngagementsController();
 
@@ -116,7 +116,7 @@ namespace TimeKeeper.Test
         }
 
         [TestMethod]
-        public void ControllerPostEngagement()
+        public void EngagementControllerPost()
         {
             var controller = new EngagementsController();
             Engagement e = new Engagement()
@@ -135,7 +135,7 @@ namespace TimeKeeper.Test
         }
 
         [TestMethod]
-        public void ControllerPutEngagement()
+        public void EngagementControllerPut()
         {
             var controller = new EngagementsController();
             Engagement e = new Engagement()
@@ -152,7 +152,7 @@ namespace TimeKeeper.Test
         }
 
         [TestMethod]
-        public void ControllerDeleteEngagement()
+        public void EngagementControllerDelete()
         {
             var controller = new EngagementsController();
 

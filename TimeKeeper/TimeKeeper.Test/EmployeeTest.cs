@@ -28,7 +28,7 @@ namespace TimeKeeper.Test
         }
 
         [TestMethod]
-        public void CheckEmployees()
+        public void EmployeeCheck()
         {
             int expected = 2;
 
@@ -38,7 +38,7 @@ namespace TimeKeeper.Test
         }
 
         [TestMethod]
-        public void AddEmployee()
+        public void EmployeeAdd()
         {
             Employee e = new Employee()
             {
@@ -59,7 +59,7 @@ namespace TimeKeeper.Test
         }
 
         [TestMethod]
-        public void UpdateEmployee()
+        public void EmployeeUpdate()
         {
             Employee e = unit.Employees.Get().FirstOrDefault();
             string expected = "Helen";
@@ -72,7 +72,7 @@ namespace TimeKeeper.Test
         }
 
         [TestMethod]
-        public void DeleteEmployee()
+        public void EmployeeDelete()
         {
             Employee e = unit.Employees.Get(1);
 
@@ -83,7 +83,7 @@ namespace TimeKeeper.Test
         }
 
         [TestMethod]
-        public void CheckValidityForEmployees()
+        public void EmployeeCheckValidity()
         {
             Employee e = new Employee();
             Employee e1 = unit.Employees.Get().FirstOrDefault();
@@ -94,8 +94,9 @@ namespace TimeKeeper.Test
             Assert.IsFalse(unit.Save());
         }
 
+        //Tests for controller
         [TestMethod]
-        public void ControllerGetAllEmployees()
+        public void EmployeeControllerGet()
         {
             var controller = new EmployeesController();
             var h = new Header();
@@ -108,7 +109,7 @@ namespace TimeKeeper.Test
         }
 
         [TestMethod]
-        public void ControllerGetEmployeeById()
+        public void EmployeeControllerGetById()
         {
             var controller = new EmployeesController();
 
@@ -121,7 +122,7 @@ namespace TimeKeeper.Test
         }
 
         [TestMethod]
-        public void ControllerPostEmployee()
+        public void EmployeeControllerPost()
         {
             var controller = new EmployeesController();
             Employee e = new Employee()
@@ -145,7 +146,7 @@ namespace TimeKeeper.Test
         }
 
         [TestMethod]
-        public void ControllerPutEmployee()
+        public void EmployeeControllerPut()
         {
             var controller = new EmployeesController();
             Employee e = new Employee()
@@ -169,7 +170,7 @@ namespace TimeKeeper.Test
         }
 
         [TestMethod]
-        public void ControllerDeleteEmployee()
+        public void EmployeeControllerDelete()
         {
             var controller = new EmployeesController();
 

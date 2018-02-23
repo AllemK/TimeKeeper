@@ -117,36 +117,30 @@ namespace TimeKeeper.DAL
             });
             unit.Projects.Insert(new Project()
             {
-                Name = "Charlie Project",
-                Monogram = "CHP",
-                Description = "Charlie test project on charlie",
+                Name = "Bravo Project",
+                Monogram = "BRP",
+                Description = "Bravo test project on bravo",
                 StartDate = new DateTime(2018, 02, 15),
                 Pricing = Pricing.FixedPrice,
                 Status = ProjectStatus.InProgress,
                 Amount = 10000m,
                 Customer = new Customer()
                 {
-                    Name = "Charlie company",
-                    Contact = "Charlie person",
-                    Email = "charliemail@alpha.com",
-                    Image = "CharlieImage.jpg",
-                    Monogram = "CHP",
-                    Phone = "Charlie number",
+                    Name = "Bravo company",
+                    Contact = "Bravo person",
+                    Email = "bravomail@alpha.com",
+                    Image = "BravoImage.jpg",
+                    Monogram = "BRV",
+                    Phone = "Bravo number",
                     Address = new Address()
                     {
-                        Road = "Charlie road, 1",
+                        Road = "Bravo road, 1",
                         ZipCode = "1000",
-                        City = "Charlie city"
+                        City = "Bravo city"
                     },
                     Status = CustomerStatus.Client
                 },
-                Team = new Team()
-                {
-                    Name = "Charlie",
-                    Id = "C",
-                    Image = "C.jpg",
-                    Description = "Charlie Team"
-                }
+                Team = unit.Teams.Get("B")
             });
             unit.Save();
         }
@@ -196,7 +190,7 @@ namespace TimeKeeper.DAL
                 Date = DateTime.Today,
                 Hours = 6,
                 Type = DayType.WorkingDay,
-                Employee = unit.Employees.Get(1)
+                Employee = unit.Employees.Get(2)
             });
             unit.Save();
         }
@@ -213,7 +207,7 @@ namespace TimeKeeper.DAL
             unit.Details.Insert(new Detail()
             {
                 Hours = 7,
-                Description = "Lorem ipsum 1",
+                Description = "Lorem ipsum 2",
                 Day = unit.Calendar.Get(2),
                 Project = unit.Projects.Get(2)
             });

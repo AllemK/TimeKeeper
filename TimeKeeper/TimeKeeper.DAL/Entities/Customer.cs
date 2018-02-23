@@ -18,7 +18,9 @@ namespace TimeKeeper.DAL.Entities
         public Customer()
         {
             Address = new Address();
+            Projects = new List<Project>();
         }
+
         [Required]
         [MaxLength(50)]
         public string Name { get; set; }

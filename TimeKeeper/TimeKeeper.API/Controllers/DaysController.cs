@@ -22,7 +22,7 @@ namespace TimeKeeper.API.Controllers
                 .Header(h)
                 .Select(x => TimeKeeperFactory.Create(x))
                 .ToList();
-            Utility.Log("Returned all days");
+            Utility.Log("Returned all days","INFO");
             return Ok(list);
         }
 
@@ -118,6 +118,12 @@ namespace TimeKeeper.API.Controllers
                     Utility.Log($"No day found with id {id}");
                     return NotFound();
                 }
+
+                DetailsController dc = new DetailsController();
+                foreach(var item in TimeKeeperUnit.Details.Get().Where(x => x.Day.Id == day.Id)){
+                    dc.Delete(item.Id);
+                }
+
                 TimeKeeperUnit.Calendar.Delete(day);
                 TimeKeeperUnit.Save();
                 Utility.Log($"Deleted day with id {id}", "INFO");
