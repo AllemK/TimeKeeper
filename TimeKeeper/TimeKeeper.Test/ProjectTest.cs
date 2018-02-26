@@ -173,7 +173,7 @@ namespace TimeKeeper.Test
         {
             var controller = new ProjectsController();
 
-            var response = controller.Delete(3);
+            var response = controller.Delete(4);
             var result = (OkResult)response;
 
             Assert.IsNotNull(result);

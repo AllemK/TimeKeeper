@@ -74,12 +74,12 @@ namespace TimeKeeper.Test
         [TestMethod]
         public void EmployeeDelete()
         {
-            Employee e = unit.Employees.Get(1);
+            Employee e = unit.Employees.Get(3);
 
             unit.Employees.Delete(e);
             unit.Save();
 
-            Assert.IsNull(unit.Employees.Get(1));
+            Assert.IsNull(unit.Employees.Get(3));
         }
 
         [TestMethod]
@@ -174,7 +174,7 @@ namespace TimeKeeper.Test
         {
             var controller = new EmployeesController();
 
-            var response = controller.Delete(3);
+            var response = controller.Delete(1);
             var result = (OkResult)response;
 
             Assert.IsNotNull(result);

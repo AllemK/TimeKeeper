@@ -124,6 +124,11 @@ namespace TimeKeeper.API.Controllers
                     return NotFound();
                 }
 
+                /*Tried to delete all of the foreign key contraint items
+                 * within the delete function, however it requires more
+                 * attetion, and debugging, for now left alone until
+                 * more consultation needed
+                
                 ProjectsController pc = new ProjectsController();
                 foreach(var item in TimeKeeperUnit.Projects.Get().Where(x=>x.Team.Id==team.Id))
                 {
@@ -135,6 +140,7 @@ namespace TimeKeeper.API.Controllers
                 {
                     ec.Delete(item.Id);
                 }
+                */
 
                 TimeKeeperUnit.Teams.Delete(team);
                 TimeKeeperUnit.Save();

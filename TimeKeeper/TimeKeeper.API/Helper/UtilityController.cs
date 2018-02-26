@@ -30,7 +30,6 @@ namespace TimeKeeper.API.Helper
                    .Skip(h.pageSize * h.page)
                    .Take(h.pageSize);
             }
-
         }
 
         public static IEnumerable<Customer> Header(this IEnumerable<Customer> list, Header h)
