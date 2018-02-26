@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using TimeKeeper.API.Helper;
 using TimeKeeper.DAL;
 using TimeKeeper.DAL.Entities;
 
@@ -15,9 +16,12 @@ namespace TimeKeeper.API.Controllers
         ///Get all Customers
         ///</summary>
         ///<returns>All Customers</returns>
-        public IHttpActionResult Get()
+        public IHttpActionResult Get([FromUri] Header h)
         {
-            var list = TimeKeeperUnit.Customers.Get().ToList().Select(x => TimeKeeperFactory.Create(x)).ToList();
+            var list = TimeKeeperUnit.Customers.Get()
+                .Header(h)
+                .Select(x => TimeKeeperFactory.Create(x))
+                .ToList();
             Utility.Log("Returned all customers", "INFO");
             return Ok(list);
         }
@@ -41,6 +45,7 @@ namespace TimeKeeper.API.Controllers
                 return Ok(TimeKeeperFactory.Create(customer));
             }
         }
+
         /// <summary>
         /// Insert new customer
         /// </summary>
@@ -48,7 +53,6 @@ namespace TimeKeeper.API.Controllers
         /// <returns>A new Customer</returns>
         public IHttpActionResult Post([FromBody] Customer customer)
         {
-            //customer.Deleted = false;
             try
             {
                 TimeKeeperUnit.Customers.Insert(customer);
@@ -115,6 +119,18 @@ namespace TimeKeeper.API.Controllers
                     Utility.Log($"No customer found with id {id}");
                     return NotFound();
                 }
+
+                /* Tried to delete all of the foreign key contraint items
+                 * within the delete function, however it requires more
+                 * attetion, and debugging, for now left alone until
+                 * more consultation needed
+                ProjectsController pc = new ProjectsController();                
+                foreach (var item in TimeKeeperUnit.Projects.Get().Where(x => x.Customer.Id == customer.Id))
+                {
+                    pc.Delete(item.Id);
+                }
+                */
+
                 TimeKeeperUnit.Customers.Delete(customer);
                 TimeKeeperUnit.Save();
                 Utility.Log($"Deleted customer with id {id}", "INFO");

@@ -32,6 +32,10 @@ namespace TimeKeeper.DAL
                     AddTeams(unit);
                     AddCustomers(unit);
                     AddProjects(unit);
+                    AddEmployees(unit);
+                    AddDays(unit);
+                    AddDetails(unit);
+                    AddEngagements(unit);
                 }
             }
         }
@@ -113,36 +117,118 @@ namespace TimeKeeper.DAL
             });
             unit.Projects.Insert(new Project()
             {
-                Name = "Charlie Project",
-                Monogram = "CHP",
-                Description = "Charlie test project on charlie",
+                Name = "Bravo Project",
+                Monogram = "BRP",
+                Description = "Bravo test project on bravo",
                 StartDate = new DateTime(2018, 02, 15),
                 Pricing = Pricing.FixedPrice,
                 Status = ProjectStatus.InProgress,
                 Amount = 10000m,
                 Customer = new Customer()
                 {
-                    Name = "Charlie company",
-                    Contact = "Charlie person",
-                    Email = "charliemail@alpha.com",
-                    Image = "CharlieImage.jpg",
-                    Monogram = "CHP",
-                    Phone = "Charlie number",
+                    Name = "Bravo company",
+                    Contact = "Bravo person",
+                    Email = "bravomail@alpha.com",
+                    Image = "BravoImage.jpg",
+                    Monogram = "BRV",
+                    Phone = "Bravo number",
                     Address = new Address()
                     {
-                        Road = "Charlie road, 1",
+                        Road = "Bravo road, 1",
                         ZipCode = "1000",
-                        City = "Charlie city"
+                        City = "Bravo city"
                     },
                     Status = CustomerStatus.Client
                 },
-                Team = new Team()
-                {
-                    Name = "Charlie",
-                    Id = "C",
-                    Image = "C.jpg",
-                    Description = "Charlie Team"
-                }
+                Team = unit.Teams.Get("B")
+            });
+            unit.Save();
+        }
+
+        void AddEmployees(UnitOfWork unit)
+        {
+            unit.Employees.Insert(new Employee()
+            {
+                FirstName = "First1",
+                LastName = "Last1",
+                BirthDate = new DateTime(1990, 01, 01),
+                BeginDate = new DateTime(2018, 01, 15),
+                Email = "first@testmail.com",
+                Image = "FirstEmp.jpg",
+                Phone = "Emp1 Phone number",
+                Position = unit.Roles.Get("SD"),
+                Salary = 3000m,
+                Status = EmployeeStatus.Active
+            });
+            unit.Employees.Insert(new Employee()
+            {
+                FirstName = "First2",
+                LastName = "Last2",
+                BirthDate = new DateTime(1991, 01, 01),
+                BeginDate = new DateTime(2018, 01, 15),
+                Email = "second@testmail.com",
+                Image = "SecondEmp.jpg",
+                Phone = "Emp2 Phone number",
+                Position = unit.Roles.Get("UX"),
+                Salary = 5000m,
+                Status = EmployeeStatus.Active
+            });
+            unit.Save();
+        }
+
+        void AddDays(UnitOfWork unit)
+        {
+            unit.Calendar.Insert(new Day()
+            {
+                Date = DateTime.Today,
+                Hours = 6,
+                Type = DayType.WorkingDay,
+                Employee = unit.Employees.Get(1)
+            });
+            unit.Calendar.Insert(new Day()
+            {
+                Date = DateTime.Today,
+                Hours = 6,
+                Type = DayType.WorkingDay,
+                Employee = unit.Employees.Get(2)
+            });
+            unit.Save();
+        }
+           
+        void AddDetails(UnitOfWork unit)
+        {
+            unit.Details.Insert(new Detail()
+            {
+                Hours = 7,
+                Description = "Lorem ipsum 1",
+                Day = unit.Calendar.Get(1),
+                Project = unit.Projects.Get(1)
+            });
+            unit.Details.Insert(new Detail()
+            {
+                Hours = 7,
+                Description = "Lorem ipsum 2",
+                Day = unit.Calendar.Get(2),
+                Project = unit.Projects.Get(2)
+            });
+            unit.Save();
+        }
+
+        void AddEngagements(UnitOfWork unit)
+        {
+            unit.Engagements.Insert(new Engagement()
+            {
+                Hours=6,
+                Employee = unit.Employees.Get(1),
+                Team = unit.Teams.Get("A"),
+                Role = unit.Roles.Get("SD")
+            });
+            unit.Engagements.Insert(new Engagement()
+            {
+                Hours = 3,
+                Employee = unit.Employees.Get(2),
+                Team = unit.Teams.Get("B"),
+                Role = unit.Roles.Get("UX")
             });
             unit.Save();
         }

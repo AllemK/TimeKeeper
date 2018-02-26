@@ -17,6 +17,12 @@ namespace TimeKeeper.DAL.Entities
 
     public class Role : BaseClass<string>
     {
+        public Role()
+        {
+            Employees = new List<Employee>();
+            Engagements = new List<Engagement>();
+        }
+
         [Required]
         [MaxLength(30)]
         public string Name { get; set; }

@@ -1,9 +1,11 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using TimeKeeper.API.Helper;
 using TimeKeeper.DAL;
 using TimeKeeper.DAL.Entities;
 
@@ -15,9 +17,13 @@ namespace TimeKeeper.API.Controllers
         /// Get all Employees
         /// </summary>
         /// <returns></returns>
-        public IHttpActionResult Get()
+        public IHttpActionResult Get([FromUri] Header h)
         {
-            var list = TimeKeeperUnit.Employees.Get().ToList().Select(x => TimeKeeperFactory.Create(x)).ToList();
+            var list = TimeKeeperUnit.Employees.Get()
+                .Header(h)
+                .Select(x => TimeKeeperFactory.Create(x))
+                .ToList();
+
             Utility.Log("Returned all records for employees", "INFO");
             return Ok(list);
         }
@@ -54,7 +60,7 @@ namespace TimeKeeper.API.Controllers
                 TimeKeeperUnit.Employees.Insert(emp);
                 if (TimeKeeperUnit.Save())
                 {
-                    Utility.Log($"Inserted new employee {emp.FullName}","INFO");
+                    Utility.Log($"Inserted new employee {emp.FullName}", "INFO");
                     return Ok(emp);
                 }
                 else
@@ -117,6 +123,23 @@ namespace TimeKeeper.API.Controllers
                     Utility.Log($"No such employee with id {id}");
                     return NotFound();
                 }
+
+                /* Tried to delete all of the foreign key contraint items
+                 * within the delete function, however it requires more
+                 * attetion, and debugging, for now left alone until
+                 * more consultation needed
+                DaysController dc = new DaysController();
+                foreach (var item in TimeKeeperUnit.Calendar.Get().Where(x => x.Employee.Id == emp.Id))
+                {
+                     dc.Delete(item.Id);
+                }
+
+                EngagementsController ec = new EngagementsController();
+                foreach(var item in TimeKeeperUnit.Engagements.Get().Where(x => x.Employee.Id == emp.Id)){
+                    dc.Delete(item.Id);
+                }
+                */
+
                 TimeKeeperUnit.Employees.Delete(emp);
                 TimeKeeperUnit.Save();
                 Utility.Log($"Deleted employee with id {id}", "INFO");
@@ -128,5 +151,6 @@ namespace TimeKeeper.API.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
     }
 }

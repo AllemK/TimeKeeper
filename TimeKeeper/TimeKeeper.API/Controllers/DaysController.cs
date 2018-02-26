@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using TimeKeeper.API.Helper;
 using TimeKeeper.DAL;
 using TimeKeeper.DAL.Entities;
 
@@ -15,10 +16,13 @@ namespace TimeKeeper.API.Controllers
         /// Get all Days
         /// </summary>
         /// <returns></returns>
-        public IHttpActionResult Get()
+        public IHttpActionResult Get([FromUri] Header h)
         {
-            var list = TimeKeeperUnit.Calendar.Get().ToList().Select(x => TimeKeeperFactory.Create(x)).ToList();
-            Utility.Log("Returned all days");
+            var list = TimeKeeperUnit.Calendar.Get()
+                .Header(h)
+                .Select(x => TimeKeeperFactory.Create(x))
+                .ToList();
+            Utility.Log("Returned all days","INFO");
             return Ok(list);
         }
 
@@ -114,6 +118,17 @@ namespace TimeKeeper.API.Controllers
                     Utility.Log($"No day found with id {id}");
                     return NotFound();
                 }
+
+                /* Tried to delete all of the foreign key contraint items
+                 * within the delete function, however it requires more
+                 * attetion, and debugging, for now left alone until
+                 * more consultation needed
+                DetailsController dc = new DetailsController();
+                foreach(var item in TimeKeeperUnit.Details.Get().Where(x => x.Day.Id == day.Id)){
+                    dc.Delete(item.Id);
+                }
+                */
+
                 TimeKeeperUnit.Calendar.Delete(day);
                 TimeKeeperUnit.Save();
                 Utility.Log($"Deleted day with id {id}", "INFO");
@@ -127,3 +142,4 @@ namespace TimeKeeper.API.Controllers
         }
     }
 }
+ 
