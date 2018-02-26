@@ -9,9 +9,8 @@ namespace TimeKeeper.API.Helper
 {
     public static class UtilityController
     {
-        public static IEnumerable<Employee> Header(this IEnumerable<Employee> list, Header h)
+        public static IQueryable<Employee> Header(this IQueryable<Employee> list, Header h)
         {
-            list.Where(x => x.LastName.Contains(h.filter) || x.FirstName.Contains(h.filter));
             int totalPages = (int)Math.Ceiling((double)list.Count() / h.pageSize);
             InsertHeader(h, totalPages);
 
@@ -32,9 +31,8 @@ namespace TimeKeeper.API.Helper
             }
         }
 
-        public static IEnumerable<Customer> Header(this IEnumerable<Customer> list, Header h)
+        public static IQueryable<Customer> Header(this IQueryable<Customer> list, Header h)
         {
-            list.Where(x => x.Name.Contains(h.filter));
             int totalPages = (int)Math.Ceiling((double)list.Count() / h.pageSize);
             InsertHeader(h, totalPages);
 
@@ -52,9 +50,8 @@ namespace TimeKeeper.API.Helper
             }
         }
 
-        public static IEnumerable<Day> Header(this IEnumerable<Day> list, Header h)
+        public static IQueryable<Day> Header(this IQueryable<Day> list, Header h)
         {
-            list.Where(x => x.Date.CompareTo(Convert.ToDateTime(h.filter))==0);
             int totalPages = (int)Math.Ceiling((double)list.Count() / h.pageSize);
             InsertHeader(h, totalPages);
 
@@ -72,9 +69,8 @@ namespace TimeKeeper.API.Helper
             }
         }
 
-        public static IEnumerable<Detail> Header(this IEnumerable<Detail> list, Header h)
+        public static IQueryable<Detail> Header(this IQueryable<Detail> list, Header h)
         {
-            list.Where(x => x.Description.Contains(h.filter));
             int totalPages = (int)Math.Ceiling((double)list.Count() / h.pageSize);
             InsertHeader(h, totalPages);
 
@@ -92,9 +88,8 @@ namespace TimeKeeper.API.Helper
             }
         }
 
-        public static IEnumerable<Engagement> Header(this IEnumerable<Engagement> list, Header h)
+        public static IQueryable<Engagement> Header(this IQueryable<Engagement> list, Header h)
         {
-            list.Where(x => x.Employee.FullName.Contains(h.filter));
             int totalPages = (int)Math.Ceiling((double)list.Count() / h.pageSize);
             InsertHeader(h, totalPages);
 
@@ -115,9 +110,8 @@ namespace TimeKeeper.API.Helper
             }
         }
 
-        public static IEnumerable<Project> Header(this IEnumerable<Project> list, Header h)
+        public static IQueryable<Project> Header(this IQueryable<Project> list, Header h)
         {
-            list.Where(x => x.Name.Contains(h.filter));
             int totalPages = (int)Math.Ceiling((double)list.Count() / h.pageSize);
             InsertHeader(h, totalPages);
 
@@ -135,9 +129,8 @@ namespace TimeKeeper.API.Helper
             }
         }
 
-        public static IEnumerable<Role> Header(this IEnumerable<Role> list, Header h)
+        public static IQueryable<Role> Header(this IQueryable<Role> list, Header h)
         {
-            list.Where(x => x.Name.Contains(h.filter));
             int totalPages = (int)Math.Ceiling((double)list.Count() / h.pageSize);
             InsertHeader(h, totalPages);
 
@@ -153,9 +146,8 @@ namespace TimeKeeper.API.Helper
             }
         }
 
-        public static IEnumerable<Team> Header(this IEnumerable<Team> list, Header h)
+        public static IQueryable<Team> Header(this IQueryable<Team> list, Header h)
         {
-            list.Where(x => x.Name.Contains(h.filter));
             int totalPages = (int)Math.Ceiling((double)list.Count() / h.pageSize);
             InsertHeader(h,totalPages);
 

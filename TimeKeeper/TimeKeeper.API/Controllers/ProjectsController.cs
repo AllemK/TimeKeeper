@@ -19,7 +19,9 @@ namespace TimeKeeper.API.Controllers
         public IHttpActionResult Get([FromUri] Header h)
         {
             var list = TimeKeeperUnit.Projects.Get()
+                .Where(x => x.Name.Contains(h.filter))
                 .Header(h)
+                .ToList()
                 .Select(x => TimeKeeperFactory.Create(x))
                 .ToList();
             Utility.Log("Returned all projects", "INFO");

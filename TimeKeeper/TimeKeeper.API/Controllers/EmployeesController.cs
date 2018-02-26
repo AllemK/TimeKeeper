@@ -20,7 +20,9 @@ namespace TimeKeeper.API.Controllers
         public IHttpActionResult Get([FromUri] Header h)
         {
             var list = TimeKeeperUnit.Employees.Get()
+                .Where(x => x.LastName.Contains(h.filter) || x.FirstName.Contains(h.filter))
                 .Header(h)
+                .ToList()
                 .Select(x => TimeKeeperFactory.Create(x))
                 .ToList();
 

@@ -21,7 +21,9 @@ namespace TimeKeeper.API.Controllers
         public IHttpActionResult Get([FromUri] Header h)
         {
             var list = TimeKeeperUnit.Teams.Get()
+                .Where(x => x.Name.Contains(h.filter))
                 .Header(h)
+                .ToList()
                 .Select(t => TimeKeeperFactory.Create(t))
                 .ToList();
             Utility.Log("Returned all teams", "INFO");

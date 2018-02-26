@@ -19,7 +19,9 @@ namespace TimeKeeper.API.Controllers
         public IHttpActionResult Get([FromUri] Header h)
         {
             var list = TimeKeeperUnit.Calendar.Get()
+                .Where(x => x.Employee.LastName.Contains(h.filter))
                 .Header(h)
+                .ToList()
                 .Select(x => TimeKeeperFactory.Create(x))
                 .ToList();
             Utility.Log("Returned all days","INFO");

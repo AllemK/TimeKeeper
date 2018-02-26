@@ -19,7 +19,9 @@ namespace TimeKeeper.API.Controllers
         public IHttpActionResult Get([FromUri] Header h)
         {
             var list = TimeKeeperUnit.Roles.Get()
+                .Where(x => x.Name.Contains(h.filter))
                 .Header(h)
+                .ToList()
                 .Select(r => TimeKeeperFactory.Create(r))
                 .ToList();
             Utility.Log("Returned all roles", "INFO");
