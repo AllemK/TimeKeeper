@@ -5,6 +5,7 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using TimeKeeper.API.Helper;
+using TimeKeeper.API.Models;
 using TimeKeeper.DAL;
 using TimeKeeper.DAL.Entities;
 
@@ -53,11 +54,17 @@ namespace TimeKeeper.API.Controllers
         /// </summary>
         /// <param name="customer"></param>
         /// <returns>A new Customer</returns>
-        public IHttpActionResult Post([FromBody] Customer customer)
+        public IHttpActionResult Post([FromBody] CustomerModel customer)
         {
             try
             {
-                TimeKeeperUnit.Customers.Insert(customer);
+                if (!ModelState.IsValid)
+                {
+                    var message = "";
+                    message = string.Join(" \n ", ModelState.Values.SelectMany(v => v.Errors).Select(e => e.ErrorMessage));
+                    throw new Exception(message);
+                }
+                TimeKeeperUnit.Customers.Insert(TimeKeeperFactory.Create(customer));
                 if (TimeKeeperUnit.Save())
                 {
                     Utility.Log($"Inserted new customer with name {customer.Name}", "INFO");

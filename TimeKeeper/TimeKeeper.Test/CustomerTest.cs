@@ -80,7 +80,7 @@ namespace TimeKeeper.Test
         public void CustomerDelete()
         {
             Customer c = unit.Customers.Get(3);
-            int expected = unit.Customers.Get().Count() -1;
+            int expected = unit.Customers.Get().Count() - 1;
 
             unit.Customers.Delete(c);
             unit.Save();
@@ -130,18 +130,16 @@ namespace TimeKeeper.Test
         public void CustomerControllerPost()
         {
             var controller = new CustomersController();
-            Customer c = new Customer()
+            CustomerModel c = new CustomerModel()
             {
                 Name = "TestC",
                 Contact = "Testo Testic",
                 Email = "testo@test.com",
                 Phone = "Testo phone number",
-                Address = {
-                    Road = "Test road, 1",
-                    ZipCode="1000",
-                    City = "Test city"
-                },
-                Status = CustomerStatus.Prospect
+                Address_Road = "Test road, 1",
+                Address_ZipCode = "1000",
+                Address_City = "Test city",
+                Status = CustomerStatus.Prospect.ToString()
             };
 
             var response = controller.Post(c);

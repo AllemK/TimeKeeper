@@ -22,8 +22,14 @@ namespace TimeKeeper.API.Models
         public string Status { get; set; }
 
         public string Position { get; set; }
-
+        public string RoleId { get; set; }
         public ICollection<CalendarModel> Days { get; set; }
         public ICollection<EngagementModel> Engagements { get; set; }
+
+        public EmployeeModel()
+        {
+            Days = new List<CalendarModel>();
+            Engagements = new List<EngagementModel>();
+        }
     }
 }

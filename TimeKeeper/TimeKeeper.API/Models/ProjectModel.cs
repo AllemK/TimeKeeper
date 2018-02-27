@@ -16,7 +16,10 @@ namespace TimeKeeper.API.Models
         public string Status { get; set; }
         public string Pricing { get; set; }
         public decimal Amount { get; set; }
+
         public string Customer { get; set; }
+        public int CustomerId { get; set; }
         public string Team { get; set; }
+        public string TeamId { get; set; }
     }
 }

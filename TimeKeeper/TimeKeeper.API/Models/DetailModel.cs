@@ -10,7 +10,10 @@ namespace TimeKeeper.API.Models
         public int Id { get; set; }
         public string Description { get; set; }
         public decimal Hours { get; set; }
+
         public string Project { get; set; }
+        public int ProjectId { get; set; }
         public string Day { get; set; }
+        public int DayId { get; set; }
     }
 }

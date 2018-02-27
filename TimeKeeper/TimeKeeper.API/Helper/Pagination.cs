@@ -7,7 +7,7 @@ using TimeKeeper.DAL.Entities;
 
 namespace TimeKeeper.API.Helper
 {
-    public static class UtilityController
+    public static class Pagination
     {
         public static IQueryable<Employee> Header(this IQueryable<Employee> list, Header h)
         {

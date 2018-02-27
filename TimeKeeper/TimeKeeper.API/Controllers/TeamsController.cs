@@ -55,24 +55,24 @@ namespace TimeKeeper.API.Controllers
         /// </summary>
         /// <param name="team"></param>
         /// <returns></returns>
-        public IHttpActionResult Post([FromBody] Team team)
+        public IHttpActionResult Post([FromBody] TeamModel team)
         {
             try
             {
-                TimeKeeperUnit.Teams.Insert(team);
-                if (TimeKeeperUnit.Save())
+                if (!ModelState.IsValid)
                 {
-                    Utility.Log("Inserted new team", "INFO");
-                    return Ok(team);
+                    var message = "Failed inserting new team, ";
+                    message = string.Join(" ", ModelState.Values.SelectMany(v => v.Errors).Select(e => e.ErrorMessage));
+                    throw new Exception(message);
                 }
-                else
-                {
-                    throw new Exception("Failed inserting new team, wrong data sent");
-                }
+                TimeKeeperUnit.Teams.Insert(TimeKeeperFactory.Create(team));
+                TimeKeeperUnit.Save();
+                Utility.Log("Inserted new team", "INFO");
+                return Ok(team);
             }
             catch (Exception ex)
             {
-                Utility.Log(ex.Message, "ERROR", ex);                
+                Utility.Log(ex.Message, "ERROR", ex);
                 return BadRequest(ex.Message);
             }
         }
@@ -83,7 +83,7 @@ namespace TimeKeeper.API.Controllers
         /// <param name="team"></param>
         /// <param name="id"></param>
         /// <returns></returns>
-        public IHttpActionResult Put([FromBody] Team team, string id)
+        public IHttpActionResult Put([FromBody] TeamModel team, string id)
         {
             try
             {
@@ -92,7 +92,7 @@ namespace TimeKeeper.API.Controllers
                     Utility.Log($"No such team with id {id}");
                     return NotFound();
                 }
-                TimeKeeperUnit.Teams.Update(team, id);
+                TimeKeeperUnit.Teams.Update(TimeKeeperFactory.Create(team), id);
                 if (TimeKeeperUnit.Save())
                 {
                     Utility.Log($"Updated team with id {id}", "INFO");

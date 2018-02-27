@@ -11,7 +11,14 @@ namespace TimeKeeper.API.Models
         public DateTime Date { get; set; }
         public decimal Hours { get; set; }
         public string Type { get; set; }
+
         public string Employee { get; set; }
+        public int EmployeeId { get; set; }
         public ICollection<DetailModel> Details { get; set; }
+
+        public CalendarModel()
+        {
+            Details = new List<DetailModel>();
+        }
     }
 }
