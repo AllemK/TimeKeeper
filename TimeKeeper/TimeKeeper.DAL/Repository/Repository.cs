@@ -20,26 +20,26 @@ namespace TimeKeeper.DAL.Repository
 
         public IQueryable<T> Get()
         {
-            Utility.Log("REPOSITORY: all records retrieved", "INFO");
+            Logger.Log("REPOSITORY: all records retrieved", "INFO");
             return dbSet;
         }
 
         public List<T> Get(Func<T, bool> where)
         {
-            Utility.Log("REPOSITORY: all records retrieved", "INFO");
+            Logger.Log("REPOSITORY: all records retrieved", "INFO");
             return dbSet.Where(where).ToList();
         }
 
         public T Get(I id)
         {
-            Utility.Log($"REPOSITORY: record with id({id}) retrieved", "INFO");
+            Logger.Log($"REPOSITORY: record with id({id}) retrieved", "INFO");
             return dbSet.Find(id);
         }
 
         public void Insert(T entity)
         {
             dbSet.Add(entity);
-            Utility.Log($"REPOSITORY: record inserted", "INFO");
+            Logger.Log($"REPOSITORY: record inserted", "INFO");
         }
 
         public void Update(T entity, I id)
@@ -48,18 +48,18 @@ namespace TimeKeeper.DAL.Repository
             if (old != null)
             {
                 timeKeeperContext.Entry(old).CurrentValues.SetValues(entity);
-                Utility.Log("REPOSITORY: record updated", "INFO");
+                Logger.Log("REPOSITORY: record updated", "INFO");
             }
             else
             {
-                Utility.Log("REPOSITORY: record not found", "ERROR");
+                Logger.Log("REPOSITORY: record not found", "ERROR");
             }
         }
 
         public void Delete(T entity)
         {
             dbSet.Remove(entity);
-            Utility.Log("REPOSITORY: record deleted", "INFO");
+            Logger.Log("REPOSITORY: record deleted", "INFO");
         }
     }
 }

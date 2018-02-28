@@ -24,7 +24,7 @@ namespace TimeKeeper.API.Controllers
                 .ToList()
                 .Select(x => TimeKeeperFactory.Create(x))
                 .ToList();
-            Utility.Log("Returned all members", "INFO");
+            Logger.Log("Returned all members", "INFO");
             return Ok(list);
         }
 
@@ -38,12 +38,12 @@ namespace TimeKeeper.API.Controllers
             Engagement member = TimeKeeperUnit.Engagements.Get(id);
             if (member == null)
             {
-                Utility.Log($"No such engagement with id {id}");
+                Logger.Log($"No such engagement with id {id}");
                 return NotFound();
             }
             else
             {
-                Utility.Log($"Returned engagement with id {id}", "INFO");
+                Logger.Log($"Returned engagement with id {id}", "INFO");
                 return Ok(TimeKeeperFactory.Create(member));
             }
         }
@@ -60,7 +60,7 @@ namespace TimeKeeper.API.Controllers
                 TimeKeeperUnit.Engagements.Insert(engagement);
                 if (TimeKeeperUnit.Save())
                 {
-                    Utility.Log("Inserted new engagement", "INFO");
+                    Logger.Log("Inserted new engagement", "INFO");
                     return Ok(engagement);
                 }
                 else
@@ -70,7 +70,7 @@ namespace TimeKeeper.API.Controllers
             }
             catch (Exception ex)
             {
-                Utility.Log(ex.Message, "ERROR", ex);
+                Logger.Log(ex.Message, "ERROR", ex);
                 return BadRequest(ex.Message);
             }
         }
@@ -87,13 +87,13 @@ namespace TimeKeeper.API.Controllers
             {
                 if (TimeKeeperUnit.Engagements.Get(id) == null)
                 {
-                    Utility.Log($"No such engagement with id {id}");
+                    Logger.Log($"No such engagement with id {id}");
                     return NotFound();
                 }
                 TimeKeeperUnit.Engagements.Update(engagement, id);
                 if (TimeKeeperUnit.Save())
                 {
-                    Utility.Log($"Updated engagement with id {id}", "INFO");
+                    Logger.Log($"Updated engagement with id {id}", "INFO");
                     return Ok(engagement);
                 }
                 else
@@ -103,7 +103,7 @@ namespace TimeKeeper.API.Controllers
             }
             catch (Exception ex)
             {
-                Utility.Log(ex.Message, "ERROR", ex);
+                Logger.Log(ex.Message, "ERROR", ex);
                 return BadRequest(ex.Message);
             }
         }
@@ -120,17 +120,17 @@ namespace TimeKeeper.API.Controllers
                 Engagement member = TimeKeeperUnit.Engagements.Get(id);
                 if (member == null)
                 {
-                    Utility.Log($"No such engagement with id {id}");
+                    Logger.Log($"No such engagement with id {id}");
                     return NotFound();
                 }
                 TimeKeeperUnit.Engagements.Delete(member);
                 TimeKeeperUnit.Save();
-                Utility.Log($"Deleted engagement with id {id}", "INFO");
+                Logger.Log($"Deleted engagement with id {id}", "INFO");
                 return Ok();
             }
             catch (Exception ex)
             {
-                Utility.Log(ex.Message, "ERROR", ex);
+                Logger.Log(ex.Message, "ERROR", ex);
                 return BadRequest(ex.Message);
             }
         }

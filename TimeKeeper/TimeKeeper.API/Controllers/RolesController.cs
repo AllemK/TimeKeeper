@@ -24,7 +24,7 @@ namespace TimeKeeper.API.Controllers
                 .ToList()
                 .Select(r => TimeKeeperFactory.Create(r))
                 .ToList();
-            Utility.Log("Returned all roles", "INFO");
+            Logger.Log("Returned all roles", "INFO");
             return Ok(list);
         }
 
@@ -38,12 +38,12 @@ namespace TimeKeeper.API.Controllers
             Role role = TimeKeeperUnit.Roles.Get(id);
             if (role == null)
             {
-                Utility.Log($"No such role with id {id}");
+                Logger.Log($"No such role with id {id}");
                 return NotFound();
             }
             else
             {
-                Utility.Log($"Returned role with id {id}", "INFO");
+                Logger.Log($"Returned role with id {id}", "INFO");
                 return Ok(TimeKeeperFactory.Create(role));
             }
         }
@@ -60,7 +60,7 @@ namespace TimeKeeper.API.Controllers
                 TimeKeeperUnit.Roles.Insert(role);
                 if (TimeKeeperUnit.Save())
                 {
-                    Utility.Log("Inserted new role", "INFO");
+                    Logger.Log("Inserted new role", "INFO");
                     return Ok(role);
                 }
                 else
@@ -70,7 +70,7 @@ namespace TimeKeeper.API.Controllers
             }
             catch (Exception ex)
             {
-                Utility.Log(ex.Message, "ERROR", ex);
+                Logger.Log(ex.Message, "ERROR", ex);
                 return BadRequest(ex.Message);
             }
         }
@@ -87,13 +87,13 @@ namespace TimeKeeper.API.Controllers
             {
                 if (TimeKeeperUnit.Roles.Get(id) == null)
                 {
-                    Utility.Log($"No such role with id {id}");
+                    Logger.Log($"No such role with id {id}");
                     return NotFound();
                 }
                 TimeKeeperUnit.Roles.Update(role, id);
                 if (TimeKeeperUnit.Save())
                 {
-                    Utility.Log($"Updated role with id {id}", "INFO");
+                    Logger.Log($"Updated role with id {id}", "INFO");
                     return Ok(role);
                 }
                 else
@@ -103,7 +103,7 @@ namespace TimeKeeper.API.Controllers
             }
             catch (Exception ex)
             {
-                Utility.Log(ex.Message, "ERROR", ex);
+                Logger.Log(ex.Message, "ERROR", ex);
                 return BadRequest(ex.Message);
             }
         }
@@ -120,7 +120,7 @@ namespace TimeKeeper.API.Controllers
                 Role role = TimeKeeperUnit.Roles.Get(id);
                 if (role == null)
                 {
-                    Utility.Log($"No such role with id {id}");
+                    Logger.Log($"No such role with id {id}");
                     return NotFound();
                 }
 
@@ -141,12 +141,12 @@ namespace TimeKeeper.API.Controllers
 
                 TimeKeeperUnit.Roles.Delete(role);
                 TimeKeeperUnit.Save();
-                Utility.Log($"Deleted role with id {id}");
+                Logger.Log($"Deleted role with id {id}");
                 return Ok();
             }
             catch (Exception ex)
             {
-                Utility.Log(ex.Message, "ERROR", ex);
+                Logger.Log(ex.Message, "ERROR", ex);
                 return BadRequest(ex.Message);
             }
         }

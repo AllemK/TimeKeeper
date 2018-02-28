@@ -24,7 +24,7 @@ namespace TimeKeeper.API.Controllers
                 .ToList()
                 .Select(x => TimeKeeperFactory.Create(x))
                 .ToList();
-            Utility.Log("Returned all projects", "INFO");
+            Logger.Log("Returned all projects", "INFO");
             return Ok(list);
         }
 
@@ -33,12 +33,12 @@ namespace TimeKeeper.API.Controllers
             Project project = TimeKeeperUnit.Projects.Get(id);
             if (project == null)
             {
-                Utility.Log($"No such project with id {id}");
+                Logger.Log($"No such project with id {id}");
                 return NotFound();
             }
             else
             {
-                Utility.Log($"Returned project with id {id}", "INFO");
+                Logger.Log($"Returned project with id {id}", "INFO");
                 return Ok(TimeKeeperFactory.Create(project));
             }
         }
@@ -55,7 +55,7 @@ namespace TimeKeeper.API.Controllers
                 TimeKeeperUnit.Projects.Insert(project);
                 if (TimeKeeperUnit.Save())
                 {
-                    Utility.Log("Inserted new project", "INFO");
+                    Logger.Log("Inserted new project", "INFO");
                     return Ok(project);
                 }
                 else
@@ -65,7 +65,7 @@ namespace TimeKeeper.API.Controllers
             }
             catch (Exception ex)
             {
-                Utility.Log(ex.Message, "ERROR", ex);
+                Logger.Log(ex.Message, "ERROR", ex);
                 return BadRequest(ex.Message);
             }
         }
@@ -82,13 +82,13 @@ namespace TimeKeeper.API.Controllers
             {
                 if (TimeKeeperUnit.Projects.Get(id) == null)
                 {
-                    Utility.Log($"No such project with id {id}");
+                    Logger.Log($"No such project with id {id}");
                     return NotFound();
                 }
                 TimeKeeperUnit.Projects.Update(project, id);
                 if (TimeKeeperUnit.Save())
                 {
-                    Utility.Log($"Updated project with id {id}", "INFO");
+                    Logger.Log($"Updated project with id {id}", "INFO");
                     return Ok(project);
                 }
                 else
@@ -98,7 +98,7 @@ namespace TimeKeeper.API.Controllers
             }
             catch (Exception ex)
             {
-                Utility.Log(ex.Message, "ERROR", ex);
+                Logger.Log(ex.Message, "ERROR", ex);
                 return BadRequest(ex.Message);
             }
         }
@@ -115,7 +115,7 @@ namespace TimeKeeper.API.Controllers
                 Project project = TimeKeeperUnit.Projects.Get(id);
                 if (project == null)
                 {
-                    Utility.Log($"No such project with id {id}");
+                    Logger.Log($"No such project with id {id}");
                     return NotFound();
                 }
 
@@ -135,7 +135,7 @@ namespace TimeKeeper.API.Controllers
             }
             catch (Exception ex)
             {
-                Utility.Log(ex.Message, "ERROR", ex);
+                Logger.Log(ex.Message, "ERROR", ex);
                 return BadRequest(ex.Message);
             }
         }

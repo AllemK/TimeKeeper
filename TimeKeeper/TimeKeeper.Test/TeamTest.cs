@@ -124,12 +124,11 @@ namespace TimeKeeper.Test
         public void TeamControllerPost()
         {
             var controller = new TeamsController();
-            Team t = new Team()
+            TeamModel t = new TeamModel()
             {
                 Id = "DAK",
                 Name = "Dakota",
                 Description = "Team will work on few related projects"
-
             };
 
             var response = controller.Post(t);
@@ -144,7 +143,7 @@ namespace TimeKeeper.Test
         public void TeamControllerPut()
         {
             var controller = new TeamsController();
-            Team t = new Team()
+            TeamModel t = new TeamModel()
             {
                 Id = "DAK",
                 Name = "DAKOTA",

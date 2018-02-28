@@ -20,12 +20,10 @@ namespace TimeKeeper.API.Controllers
         public IHttpActionResult Get([FromUri] Header h)
         {
             var list = TimeKeeperUnit.Customers.Get()
-                .Where(x => x.Name.Contains(h.filter))
                 .Header(h)
-                .ToList()
                 .Select(x => TimeKeeperFactory.Create(x))
                 .ToList();
-            Utility.Log("Returned all customers", "INFO");
+            Logger.Log("Returned all customers", "INFO");
             return Ok(list);
         }
 
@@ -39,12 +37,12 @@ namespace TimeKeeper.API.Controllers
             Customer customer = TimeKeeperUnit.Customers.Get(id);
             if (customer == null)
             {
-                Utility.Log($"Found no customer with id {id}");
+                Logger.Log($"Found no customer with id {id}");
                 return NotFound();
             }
             else
             {
-                Utility.Log($"Returned customer with id {id}", "INFO");
+                Logger.Log($"Returned customer with id {id}", "INFO");
                 return Ok(TimeKeeperFactory.Create(customer));
             }
         }
@@ -60,59 +58,56 @@ namespace TimeKeeper.API.Controllers
             {
                 if (!ModelState.IsValid)
                 {
-                    var message = "";
-                    message = string.Join(" \n ", ModelState.Values.SelectMany(v => v.Errors).Select(e => e.ErrorMessage));
+                    var message = "Failed inserting new customer, ";
+                    message = string.Join(", ", ModelState.Values.SelectMany(v => v.Errors).Select(e => e.ErrorMessage));
                     throw new Exception(message);
                 }
                 TimeKeeperUnit.Customers.Insert(TimeKeeperFactory.Create(customer));
-                if (TimeKeeperUnit.Save())
-                {
-                    Utility.Log($"Inserted new customer with name {customer.Name}", "INFO");
-                    return Ok(customer);
-                }
-                else
-                {
-                    throw new Exception("Failed inserting new customer, wrong data sent");
-                }
+                TimeKeeperUnit.Save();
+                Logger.Log($"Inserted new customer with name {customer.Name}", "INFO");
+                return Ok(customer);
             }
             catch (Exception ex)
             {
-                Utility.Log(ex.Message, "ERROR", ex);
+                Logger.Log(ex.Message, "ERROR", ex);
                 return BadRequest(ex.Message);
             }
         }
+
         /// <summary>
         /// Update chosen customer
         /// </summary>
         /// <param name="customer"></param>
         /// <param name="id"></param>
         /// <returns>Updated wanted Customer</returns>
-        public IHttpActionResult Put([FromBody] Customer customer, int id)
+        public IHttpActionResult Put([FromBody] CustomerModel customer, int id)
         {
             try
             {
                 if (TimeKeeperUnit.Customers.Get(id) == null)
                 {
-                    Utility.Log($"Customer not found with id {id}");
+                    Logger.Log($"Customer not found with id {id}");
                     return NotFound();
                 }
-                TimeKeeperUnit.Customers.Update(customer, id);
-                if (TimeKeeperUnit.Save())
+                customer.Id = id;
+                if (!ModelState.IsValid)
                 {
-                    Utility.Log($"Updated record for customer with id {id}", "INFO");
-                    return Ok(customer);
-                }
-                else
-                {
-                    throw new Exception($"Failed updating customer with id {id}, wrong data sent");
-                }
+                    var message = $"Failed updating customer with id {id}, ";
+                    message = string.Join(", ", ModelState.Values.SelectMany(v => v.Errors).Select(e => e.ErrorMessage));
+                    throw new Exception(message);
+                }                
+                TimeKeeperUnit.Customers.Update(TimeKeeperFactory.Create(customer), id);
+                TimeKeeperUnit.Save();
+                Logger.Log($"Updated record for customer with id {id}", "INFO");
+                return Ok(customer);
             }
             catch (Exception ex)
             {
-                Utility.Log(ex.Message, "ERROR", ex);
+                Logger.Log(ex.Message, "ERROR", ex);
                 return BadRequest(ex.Message);
             }
         }
+
         /// <summary>
         /// Delete chosen customer
         /// </summary>
@@ -125,7 +120,7 @@ namespace TimeKeeper.API.Controllers
                 Customer customer = TimeKeeperUnit.Customers.Get(id);
                 if (customer == null)
                 {
-                    Utility.Log($"No customer found with id {id}");
+                    Logger.Log($"No customer found with id {id}");
                     return NotFound();
                 }
 
@@ -142,12 +137,12 @@ namespace TimeKeeper.API.Controllers
 
                 TimeKeeperUnit.Customers.Delete(customer);
                 TimeKeeperUnit.Save();
-                Utility.Log($"Deleted customer with id {id}", "INFO");
+                Logger.Log($"Deleted customer with id {id}", "INFO");
                 return Ok();
             }
             catch (Exception ex)
             {
-                Utility.Log(ex.Message, "ERROR", ex);
+                Logger.Log(ex.Message, "ERROR", ex);
                 return BadRequest(ex.Message);
             }
         }

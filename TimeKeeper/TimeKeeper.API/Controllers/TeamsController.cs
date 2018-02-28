@@ -26,7 +26,7 @@ namespace TimeKeeper.API.Controllers
                 .ToList()
                 .Select(t => TimeKeeperFactory.Create(t))
                 .ToList();
-            Utility.Log("Returned all teams", "INFO");
+            Logger.Log("Returned all teams", "INFO");
             return Ok(list); //Ok - status 200
         }
 
@@ -40,12 +40,12 @@ namespace TimeKeeper.API.Controllers
             Team team = TimeKeeperUnit.Teams.Get(id);
             if (team == null)
             {
-                Utility.Log($"No such team with id {id}");
+                Logger.Log($"No such team with id {id}");
                 return NotFound();
             }
             else
             {
-                Utility.Log($"Returned team with id {id}", "INFO");
+                Logger.Log($"Returned team with id {id}", "INFO");
                 return Ok(TimeKeeperFactory.Create(team));
             }
         }
@@ -62,17 +62,17 @@ namespace TimeKeeper.API.Controllers
                 if (!ModelState.IsValid)
                 {
                     var message = "Failed inserting new team, ";
-                    message = string.Join(" ", ModelState.Values.SelectMany(v => v.Errors).Select(e => e.ErrorMessage));
+                    message = string.Join(", ", ModelState.Values.SelectMany(v => v.Errors).Select(e => e.ErrorMessage));
                     throw new Exception(message);
                 }
                 TimeKeeperUnit.Teams.Insert(TimeKeeperFactory.Create(team));
                 TimeKeeperUnit.Save();
-                Utility.Log("Inserted new team", "INFO");
+                Logger.Log("Inserted new team", "INFO");
                 return Ok(team);
             }
             catch (Exception ex)
             {
-                Utility.Log(ex.Message, "ERROR", ex);
+                Logger.Log(ex.Message, "ERROR", ex);
                 return BadRequest(ex.Message);
             }
         }
@@ -89,23 +89,23 @@ namespace TimeKeeper.API.Controllers
             {
                 if (TimeKeeperUnit.Teams.Get(id) == null)
                 {
-                    Utility.Log($"No such team with id {id}");
+                    Logger.Log($"No such team with id {id}");
                     return NotFound();
                 }
+                if (!ModelState.IsValid)
+                {
+                    var message = $"Failed updating team {id}, ";
+                    message = string.Join(", ", ModelState.Values.SelectMany(v => v.Errors).Select(e => e.ErrorMessage));
+                    throw new Exception(message);
+                }
                 TimeKeeperUnit.Teams.Update(TimeKeeperFactory.Create(team), id);
-                if (TimeKeeperUnit.Save())
-                {
-                    Utility.Log($"Updated team with id {id}", "INFO");
-                    return Ok(team);
-                }
-                else
-                {
-                    throw new Exception($"Failed updating team with id {id}, wrong data sent");
-                }
+                TimeKeeperUnit.Save();
+                Logger.Log($"Updated team with id {id}", "INFO");
+                return Ok(team);
             }
             catch (Exception ex)
             {
-                Utility.Log(ex.Message, "ERROR", ex);
+                Logger.Log(ex.Message, "ERROR", ex);
                 return BadRequest(ex.Message);
             }
         }
@@ -122,7 +122,7 @@ namespace TimeKeeper.API.Controllers
                 Team team = TimeKeeperUnit.Teams.Get(id);
                 if (team == null)
                 {
-                    Utility.Log($"No such team with id {id}");
+                    Logger.Log($"No such team with id {id}");
                     return NotFound();
                 }
 
@@ -146,12 +146,12 @@ namespace TimeKeeper.API.Controllers
 
                 TimeKeeperUnit.Teams.Delete(team);
                 TimeKeeperUnit.Save();
-                Utility.Log($"Deleted team with id {id}", "INFO");
+                Logger.Log($"Deleted team with id {id}", "INFO");
                 return Ok();
             }
             catch (Exception ex)
             {
-                Utility.Log(ex.Message, "ERROR", ex);
+                Logger.Log(ex.Message, "ERROR", ex);
                 return BadRequest(ex.Message);
             }
         }

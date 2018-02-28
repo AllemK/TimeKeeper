@@ -24,7 +24,7 @@ namespace TimeKeeper.API.Controllers
                 .ToList()
                 .Select(x => TimeKeeperFactory.Create(x))
                 .ToList();
-            Utility.Log("Returned all tasks", "INFO");
+            Logger.Log("Returned all tasks", "INFO");
             return Ok(list);
         }
 
@@ -38,12 +38,12 @@ namespace TimeKeeper.API.Controllers
             Detail detail = TimeKeeperUnit.Details.Get(id);
             if (detail == null)
             {
-                Utility.Log($"No task with id {id}");
+                Logger.Log($"No task with id {id}");
                 return NotFound();
             }
             else
             {
-                Utility.Log($"Returned task with id {id}", "INFO");
+                Logger.Log($"Returned task with id {id}", "INFO");
                 return Ok(TimeKeeperFactory.Create(detail));
             }
         }
@@ -60,7 +60,7 @@ namespace TimeKeeper.API.Controllers
                 TimeKeeperUnit.Details.Insert(detail);
                 if (TimeKeeperUnit.Save())
                 {
-                    Utility.Log($"Inserted new task {detail.Id}", "INFO");
+                    Logger.Log($"Inserted new task {detail.Id}", "INFO");
                     return Ok(detail);
                 }
                 else
@@ -70,7 +70,7 @@ namespace TimeKeeper.API.Controllers
             }
             catch (Exception ex)
             {
-                Utility.Log(ex.Message, "ERROR", ex);
+                Logger.Log(ex.Message, "ERROR", ex);
                 return BadRequest(ex.Message);
             }
         }
@@ -87,13 +87,13 @@ namespace TimeKeeper.API.Controllers
             {
                 if (TimeKeeperUnit.Details.Get(id) == null)
                 {
-                    Utility.Log($"No such task with id {id}", "ERROR");
+                    Logger.Log($"No such task with id {id}", "ERROR");
                     return NotFound();
                 }
                 TimeKeeperUnit.Details.Update(detail, id);
                 if (TimeKeeperUnit.Save())
                 {
-                    Utility.Log($"Updated task with id {id}", "INFO");
+                    Logger.Log($"Updated task with id {id}", "INFO");
                     return Ok(detail);
                 }
                 else
@@ -103,7 +103,7 @@ namespace TimeKeeper.API.Controllers
             }
             catch (Exception ex)
             {
-                Utility.Log(ex.Message, "ERROR", ex);
+                Logger.Log(ex.Message, "ERROR", ex);
                 return BadRequest(ex.Message);
             }
         }
@@ -120,17 +120,17 @@ namespace TimeKeeper.API.Controllers
                 Detail detail = TimeKeeperUnit.Details.Get(id);
                 if (detail == null)
                 {
-                    Utility.Log($"No such task with id {id}");
+                    Logger.Log($"No such task with id {id}");
                     return NotFound();
                 }
                 TimeKeeperUnit.Details.Delete(detail);
                 TimeKeeperUnit.Save();
-                Utility.Log($"Deleted task with id {id}", "INFO");
+                Logger.Log($"Deleted task with id {id}", "INFO");
                 return Ok();
             }
             catch (Exception ex)
             {
-                Utility.Log(ex.Message, "ERROR", ex);
+                Logger.Log(ex.Message, "ERROR", ex);
                 return BadRequest(ex.Message);
             }
         }

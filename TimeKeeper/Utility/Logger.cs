@@ -7,7 +7,7 @@ using System.Text.RegularExpressions;
 
 namespace TimeKeeper.DAL
 {
-    public static class Utility
+    public static class Logger
     {
         private static readonly log4net.ILog log = log4net.LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
 

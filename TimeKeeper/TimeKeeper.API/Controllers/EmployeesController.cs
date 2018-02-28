@@ -26,7 +26,7 @@ namespace TimeKeeper.API.Controllers
                 .Select(x => TimeKeeperFactory.Create(x))
                 .ToList();
 
-            Utility.Log("Returned all records for employees", "INFO");
+            Logger.Log("Returned all records for employees", "INFO");
             return Ok(list);
         }
 
@@ -40,12 +40,12 @@ namespace TimeKeeper.API.Controllers
             Employee emp = TimeKeeperUnit.Employees.Get(id);
             if (emp == null)
             {
-                Utility.Log($"No record of employee with id: {id}");
+                Logger.Log($"No record of employee with id: {id}");
                 return NotFound();
             }
             else
             {
-                Utility.Log($"Returned record for employee {emp.FullName}", "INFO");
+                Logger.Log($"Returned record for employee {emp.FullName}", "INFO");
                 return Ok(TimeKeeperFactory.Create(emp));
             }
         }
@@ -62,7 +62,7 @@ namespace TimeKeeper.API.Controllers
                 TimeKeeperUnit.Employees.Insert(emp);
                 if (TimeKeeperUnit.Save())
                 {
-                    Utility.Log($"Inserted new employee {emp.FullName}", "INFO");
+                    Logger.Log($"Inserted new employee {emp.FullName}", "INFO");
                     return Ok(emp);
                 }
                 else
@@ -72,7 +72,7 @@ namespace TimeKeeper.API.Controllers
             }
             catch (Exception ex)
             {
-                Utility.Log(ex.Message, "ERROR", ex);
+                Logger.Log(ex.Message, "ERROR", ex);
                 return BadRequest(ex.Message);
             }
         }
@@ -89,13 +89,13 @@ namespace TimeKeeper.API.Controllers
             {
                 if (TimeKeeperUnit.Employees.Get(id) == null)
                 {
-                    Utility.Log($"No existing employee with id {id}");
+                    Logger.Log($"No existing employee with id {id}");
                     return NotFound();
                 }
                 TimeKeeperUnit.Employees.Update(emp, id);
                 if (TimeKeeperUnit.Save())
                 {
-                    Utility.Log($"Updated record for employee {emp.FullName}", "INFO");
+                    Logger.Log($"Updated record for employee {emp.FullName}", "INFO");
                     return Ok(emp);
                 }
                 else
@@ -105,7 +105,7 @@ namespace TimeKeeper.API.Controllers
             }
             catch (Exception ex)
             {
-                Utility.Log(ex.Message, "ERROR", ex);
+                Logger.Log(ex.Message, "ERROR", ex);
                 return BadRequest(ex.Message);
             }
         }
@@ -122,7 +122,7 @@ namespace TimeKeeper.API.Controllers
                 Employee emp = TimeKeeperUnit.Employees.Get(id);
                 if (emp == null)
                 {
-                    Utility.Log($"No such employee with id {id}");
+                    Logger.Log($"No such employee with id {id}");
                     return NotFound();
                 }
 
@@ -144,12 +144,12 @@ namespace TimeKeeper.API.Controllers
 
                 TimeKeeperUnit.Employees.Delete(emp);
                 TimeKeeperUnit.Save();
-                Utility.Log($"Deleted employee with id {id}", "INFO");
+                Logger.Log($"Deleted employee with id {id}", "INFO");
                 return Ok();
             }
             catch (Exception ex)
             {
-                Utility.Log(ex.Message, "ERROR", ex);
+                Logger.Log(ex.Message, "ERROR", ex);
                 return BadRequest(ex.Message);
             }
         }

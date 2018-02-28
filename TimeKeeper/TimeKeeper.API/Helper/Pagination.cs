@@ -9,63 +9,55 @@ namespace TimeKeeper.API.Helper
 {
     public static class Pagination
     {
-        public static IQueryable<Employee> Header(this IQueryable<Employee> list, Header h)
+        public static IEnumerable<Customer> Header(this IQueryable<Customer> list, Header h)
         {
+            list = list.Where(x => x.Name.Contains(h.filter));
             int totalPages = (int)Math.Ceiling((double)list.Count() / h.pageSize);
             InsertHeader(h, totalPages);
 
             switch (h.sort)
             {
                 case 1:
-                    return list.OrderBy(x => x.LastName)
+                    return list.OrderBy(x => x.Name)
                     .Skip(h.pageSize * h.page)
-                    .Take(h.pageSize);
+                    .Take(h.pageSize)
+                    .ToList();
                 case 2:
-                    return list.OrderBy(x => x.BirthDate)
+                    return list.OrderBy(x => x.Contact)
                     .Skip(h.pageSize * h.page)
-                    .Take(h.pageSize);
+                    .Take(h.pageSize)
+                    .ToList();
                 default:
                     return list.OrderBy(x => x.Id)
                    .Skip(h.pageSize * h.page)
-                   .Take(h.pageSize);
+                   .Take(h.pageSize)
+                   .ToList();
             }
         }
 
-        public static IQueryable<Customer> Header(this IQueryable<Customer> list, Header h)
+        public static IEnumerable<Day> Header(this IQueryable<Day> list, Header h)
         {
+            list = list.Where(x => h.filter.Contains(x.Date.ToShortDateString()));
             int totalPages = (int)Math.Ceiling((double)list.Count() / h.pageSize);
             InsertHeader(h, totalPages);
 
             switch (h.sort)
             {
-                case 1: return list.OrderBy(x => x.Name)
-                        .Skip(h.pageSize*h.page)
-                        .Take(h.pageSize);
-                case 2: return list.OrderBy(x => x.Contact)
-                        .Skip(h.pageSize*h.page)
-                        .Take(h.pageSize);
-                default: return list.OrderBy(x => x.Id)
-                        .Skip(h.pageSize*h.page)
-                        .Take(h.pageSize);
-            }
-        }
-
-        public static IQueryable<Day> Header(this IQueryable<Day> list, Header h)
-        {
-            int totalPages = (int)Math.Ceiling((double)list.Count() / h.pageSize);
-            InsertHeader(h, totalPages);
-
-            switch (h.sort)
-            {
-                case 1: return list.OrderBy(x => x.Date)
-                        .Skip(h.pageSize*h.page)
-                        .Take(h.pageSize);
-                case 2: return list.OrderBy(x => x.Type)
-                        .Skip(h.pageSize*h.page)
-                        .Take(h.pageSize);
-                default: return list.OrderBy(x => x.Id)
-                        .Skip(h.pageSize*h.page)
-                        .Take(h.pageSize);
+                case 1:
+                    return list.OrderBy(x => x.Date)
+                    .Skip(h.pageSize * h.page)
+                    .Take(h.pageSize)
+                    .ToList();
+                case 2:
+                    return list.OrderBy(x => x.Type)
+                    .Skip(h.pageSize * h.page)
+                    .Take(h.pageSize)
+                    .ToList();
+                default:
+                    return list.OrderBy(x => x.Id)
+                   .Skip(h.pageSize * h.page)
+                   .Take(h.pageSize)
+                   .ToList();
             }
         }
 
@@ -76,15 +68,44 @@ namespace TimeKeeper.API.Helper
 
             switch (h.sort)
             {
-                case 1: return list.OrderBy(x => x.Day.Date)
-                        .Skip(h.pageSize*h.page)
-                        .Take(h.pageSize);
-                case 2: return list.OrderBy(x => x.Project.Name)
-                        .Skip(h.pageSize * h.page)
-                        .Take(h.pageSize);
-                default: return list.OrderBy(x => x.Id)
-                        .Skip(h.pageSize * h.page)
-                        .Take(h.pageSize);
+                case 1:
+                    return list.OrderBy(x => x.Day.Date)
+                    .Skip(h.pageSize * h.page)
+                    .Take(h.pageSize);
+                case 2:
+                    return list.OrderBy(x => x.Project.Name)
+                    .Skip(h.pageSize * h.page)
+                    .Take(h.pageSize);
+                default:
+                    return list.OrderBy(x => x.Id)
+                   .Skip(h.pageSize * h.page)
+                   .Take(h.pageSize);
+            }
+        }
+
+        public static IEnumerable<Employee> Header(this IQueryable<Employee> list, Header h)
+        {
+            list = list.Where(x => x.FirstName.Contains(h.filter) || x.LastName.Contains(h.filter));
+            int totalPages = (int)Math.Ceiling((double)list.Count() / h.pageSize);
+            InsertHeader(h, totalPages);
+
+            switch (h.sort)
+            {
+                case 1:
+                    return list.OrderBy(x => x.LastName)
+                    .Skip(h.pageSize * h.page)
+                    .Take(h.pageSize)
+                    .ToList();
+                case 2:
+                    return list.OrderBy(x => x.BirthDate)
+                    .Skip(h.pageSize * h.page)
+                    .Take(h.pageSize)
+                    .ToList();
+                default:
+                    return list.OrderBy(x => x.Id)
+                   .Skip(h.pageSize * h.page)
+                   .Take(h.pageSize)
+                   .ToList();
             }
         }
 
@@ -95,18 +116,22 @@ namespace TimeKeeper.API.Helper
 
             switch (h.sort)
             {
-                case 1: return list.OrderBy(x => x.Employee.LastName)
-                        .Skip(h.pageSize * h.page)
-                        .Take(h.pageSize);
-                case 2: return list.OrderBy(x => x.Role.Name)
-                        .Skip(h.pageSize * h.page)
-                        .Take(h.pageSize);
-                case 3: return list.OrderBy(x => x.Team.Name)
-                        .Skip(h.pageSize * h.page)
-                        .Take(h.pageSize);
-                default: return list.OrderBy(x => x.Id)
-                        .Skip(h.pageSize * h.page)
-                        .Take(h.pageSize);
+                case 1:
+                    return list.OrderBy(x => x.Employee.LastName)
+                    .Skip(h.pageSize * h.page)
+                    .Take(h.pageSize);
+                case 2:
+                    return list.OrderBy(x => x.Role.Name)
+                    .Skip(h.pageSize * h.page)
+                    .Take(h.pageSize);
+                case 3:
+                    return list.OrderBy(x => x.Team.Name)
+                    .Skip(h.pageSize * h.page)
+                    .Take(h.pageSize);
+                default:
+                    return list.OrderBy(x => x.Id)
+                   .Skip(h.pageSize * h.page)
+                   .Take(h.pageSize);
             }
         }
 
@@ -117,15 +142,18 @@ namespace TimeKeeper.API.Helper
 
             switch (h.sort)
             {
-                case 1: return list.OrderBy(x => x.Name)
-                        .Skip(h.pageSize * h.page)
-                        .Take(h.pageSize);
-                case 2: return list.OrderBy(x => x.StartDate)
-                        .Skip(h.pageSize * h.page)
-                        .Take(h.pageSize);
-                default: return list.OrderBy(x => x.Id)
-                        .Skip(h.pageSize * h.page)
-                        .Take(h.pageSize);
+                case 1:
+                    return list.OrderBy(x => x.Name)
+                    .Skip(h.pageSize * h.page)
+                    .Take(h.pageSize);
+                case 2:
+                    return list.OrderBy(x => x.StartDate)
+                    .Skip(h.pageSize * h.page)
+                    .Take(h.pageSize);
+                default:
+                    return list.OrderBy(x => x.Id)
+                   .Skip(h.pageSize * h.page)
+                   .Take(h.pageSize);
             }
         }
 
@@ -136,12 +164,14 @@ namespace TimeKeeper.API.Helper
 
             switch (h.sort)
             {
-                case 1: return list.OrderBy(x => x.Name)
-                        .Skip(h.pageSize * h.page)
-                        .Take(h.pageSize);
-                case 2: return list.OrderBy(x => x.Type)
-                        .Skip(h.pageSize * h.page)
-                        .Take(h.pageSize);
+                case 1:
+                    return list.OrderBy(x => x.Name)
+                    .Skip(h.pageSize * h.page)
+                    .Take(h.pageSize);
+                case 2:
+                    return list.OrderBy(x => x.Type)
+                    .Skip(h.pageSize * h.page)
+                    .Take(h.pageSize);
                 default: return list.OrderBy(x => x.Id);
             }
         }
@@ -149,16 +179,18 @@ namespace TimeKeeper.API.Helper
         public static IQueryable<Team> Header(this IQueryable<Team> list, Header h)
         {
             int totalPages = (int)Math.Ceiling((double)list.Count() / h.pageSize);
-            InsertHeader(h,totalPages);
+            InsertHeader(h, totalPages);
 
             switch (h.sort)
             {
-                case 1: return list.OrderBy(x => x.Name)
-                        .Skip(h.pageSize * h.page)
-                        .Take(h.pageSize);
-                default: return list.OrderBy(x => x.Id)
-                        .Skip(h.pageSize * h.page)
-                        .Take(h.pageSize);
+                case 1:
+                    return list.OrderBy(x => x.Name)
+                    .Skip(h.pageSize * h.page)
+                    .Take(h.pageSize);
+                default:
+                    return list.OrderBy(x => x.Id)
+                   .Skip(h.pageSize * h.page)
+                   .Take(h.pageSize);
             }
         }
 

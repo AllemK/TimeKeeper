@@ -149,6 +149,10 @@
       <Project>{70b8fd2b-bdf2-41f9-b0c2-ce752ab1129e}</Project>
       <Name>TimeKeeper.DAL</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Utility\TimeKeeper.Utility.csproj">
+      <Project>{7e4467fa-6b3f-4848-9af6-d1890bc45851}</Project>
+      <Name>TimeKeeper.Utility</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

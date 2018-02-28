@@ -211,7 +211,7 @@ namespace TimeKeeper.API.Models
             {
                 Id = d.Id,
                 Date = d.Date,
-                Hours = d.Hours,
+                Hours = d.Hours.ToString(),
                 Type = d.Type.ToString(),
                 Employee = (d.Employee != null) ? d.Employee.FullName : "",
                 Details = d.Details.Select(de => Create(de)).ToList()
@@ -227,7 +227,7 @@ namespace TimeKeeper.API.Models
                 {
                     Id = cm.Id,
                     Date = cm.Date,
-                    Hours = cm.Hours,
+                    Hours = decimal.Parse(cm.Hours),
                     Type = type,
                     Employee = unit.Employees.Get(cm.EmployeeId),
                     Details = cm.Details.Select(x => Create(x)).ToList()

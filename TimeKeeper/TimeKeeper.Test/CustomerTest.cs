@@ -143,7 +143,7 @@ namespace TimeKeeper.Test
             };
 
             var response = controller.Post(c);
-            var result = (OkNegotiatedContentResult<Customer>)response;
+            var result = (OkNegotiatedContentResult<CustomerModel>)response;
 
             Assert.IsNotNull(result);
             Assert.IsNotNull(result.Content);
@@ -154,10 +154,11 @@ namespace TimeKeeper.Test
         {
             var controller = new CustomersController();
             Customer c = unit.Customers.Get(1);
+            ModelFactory mf = new ModelFactory();
 
             c.Name = "Testo Company";
-            var response = controller.Put(c, 1);
-            var result = (OkNegotiatedContentResult<Customer>)response;
+            var response = controller.Put(mf.Create(c), 1);
+            var result = (OkNegotiatedContentResult<CustomerModel>)response;
 
             Assert.IsNotNull(result);
             Assert.IsNotNull(result.Content);
