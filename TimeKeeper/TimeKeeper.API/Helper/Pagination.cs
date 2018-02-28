@@ -37,7 +37,7 @@ namespace TimeKeeper.API.Helper
 
         public static IEnumerable<Day> Header(this IQueryable<Day> list, Header h)
         {
-            list = list.Where(x => h.filter.Contains(x.Date.ToShortDateString()));
+            list = list.Where(x => x.Date.ToString().Contains(h.filter));
             int totalPages = (int)Math.Ceiling((double)list.Count() / h.pageSize);
             InsertHeader(h, totalPages);
 
@@ -61,8 +61,9 @@ namespace TimeKeeper.API.Helper
             }
         }
 
-        public static IQueryable<Detail> Header(this IQueryable<Detail> list, Header h)
+        public static IEnumerable<Detail> Header(this IQueryable<Detail> list, Header h)
         {
+            list = list.Where(x => x.Description.Contains(h.filter));
             int totalPages = (int)Math.Ceiling((double)list.Count() / h.pageSize);
             InsertHeader(h, totalPages);
 
@@ -71,15 +72,18 @@ namespace TimeKeeper.API.Helper
                 case 1:
                     return list.OrderBy(x => x.Day.Date)
                     .Skip(h.pageSize * h.page)
-                    .Take(h.pageSize);
+                    .Take(h.pageSize)
+                    .ToList();
                 case 2:
                     return list.OrderBy(x => x.Project.Name)
                     .Skip(h.pageSize * h.page)
-                    .Take(h.pageSize);
+                    .Take(h.pageSize)
+                    .ToList();
                 default:
                     return list.OrderBy(x => x.Id)
                    .Skip(h.pageSize * h.page)
-                   .Take(h.pageSize);
+                   .Take(h.pageSize)
+                   .ToList();
             }
         }
 

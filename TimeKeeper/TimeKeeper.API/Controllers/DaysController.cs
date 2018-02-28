@@ -59,7 +59,8 @@ namespace TimeKeeper.API.Controllers
                 if (!ModelState.IsValid)
                 {
                     var message = "Failed inserting new day, ";
-
+                    message = string.Join(", ", ModelState.Values.SelectMany(x => x.Errors).Select(x => x.ErrorMessage));
+                    throw new Exception(message);
                 }
                 TimeKeeperUnit.Calendar.Insert(TimeKeeperFactory.Create(day));
                 TimeKeeperUnit.Save();
@@ -83,17 +84,21 @@ namespace TimeKeeper.API.Controllers
         {
             try
             {
-                if (TimeKeeperUnit.Calendar.Get(id) == null) return NotFound();
-                TimeKeeperUnit.Calendar.Update(day, id);
-                if (TimeKeeperUnit.Save())
+                if (TimeKeeperUnit.Calendar.Get(id) == null)
                 {
-                    Logger.Log($"Updated day with id {id}", "INFO");
-                    return Ok(day);
+                    Logger.Log($"No such day with id {id}");
+                    return NotFound();
                 }
-                else
+                if (!ModelState.IsValid)
                 {
-                    throw new Exception($"Failed updating day with id {id}, wrong data sent");
+                    var message = $"Failed updating day with id {id}, ";
+                    message = string.Join(", ", ModelState.Values.SelectMany(x => x.Errors).Select(x => x.ErrorMessage));
+                    throw new Exception(message);
                 }
+                TimeKeeperUnit.Calendar.Update(TimeKeeperFactory.Create(day), id);
+                TimeKeeperUnit.Save();
+                Logger.Log($"Updated day with id {id}", "INFO");
+                return Ok(day);
             }
             catch (Exception ex)
             {
@@ -114,7 +119,7 @@ namespace TimeKeeper.API.Controllers
                 Day day = TimeKeeperUnit.Calendar.Get(id);
                 if (day == null)
                 {
-                    Logger.Log($"No day found with id {id}");
+                    Logger.Log($"No such day with id {id}");
                     return NotFound();
                 }
 

@@ -86,7 +86,7 @@ namespace TimeKeeper.API.Controllers
             {
                 if (TimeKeeperUnit.Customers.Get(id) == null)
                 {
-                    Logger.Log($"Customer not found with id {id}");
+                    Logger.Log($"No such customer with id {id}");
                     return NotFound();
                 }
                 customer.Id = id;

@@ -18,10 +18,8 @@ namespace TimeKeeper.API.Controllers
         /// <returns></returns>
         public IHttpActionResult Get([FromUri] Header h)
         {
-            var list = TimeKeeperUnit.Details.Get()
-                .Where(x => x.Description.Contains(h.filter))
+            var list = TimeKeeperUnit.Details.Get()                
                 .Header(h)
-                .ToList()
                 .Select(x => TimeKeeperFactory.Create(x))
                 .ToList();
             Logger.Log("Returned all tasks", "INFO");
