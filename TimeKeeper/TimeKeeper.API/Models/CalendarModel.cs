@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
@@ -8,10 +9,23 @@ namespace TimeKeeper.API.Models
     public class CalendarModel
     {
         public int Id { get; set; }
+        [Required(ErrorMessage = "Date is required")]
+        [DataType(DataType.Date)]
         public DateTime Date { get; set; }
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Hours is required")]
+        [Range(0.5,24,ErrorMessage = "Hours must be between 0.5 and 24")]
+        [RegularExpression(@"^\d{1,2}(\.5)?$", ErrorMessage = "Hours must have whole number or .5")]
         public decimal Hours { get; set; }
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Type of day is required")]
         public string Type { get; set; }
+
         public string Employee { get; set; }
+        public int EmployeeId { get; set; }
         public ICollection<DetailModel> Details { get; set; }
+
+        public CalendarModel()
+        {
+            Details = new List<DetailModel>();
+        }
     }
 }

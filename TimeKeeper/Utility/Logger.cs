@@ -5,9 +5,9 @@ using System.Reflection;
 using System.Text.RegularExpressions;
 [assembly: log4net.Config.XmlConfigurator(Watch = true)]
 
-namespace TimeKeeper.DAL
+namespace TimeKeeper.Utility
 {
-    public static class Utility
+    public static class Logger
     {
         private static readonly log4net.ILog log = log4net.LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
 

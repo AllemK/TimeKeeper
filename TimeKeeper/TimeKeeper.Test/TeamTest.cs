@@ -124,16 +124,15 @@ namespace TimeKeeper.Test
         public void TeamControllerPost()
         {
             var controller = new TeamsController();
-            Team t = new Team()
+            TeamModel t = new TeamModel()
             {
                 Id = "DAK",
                 Name = "Dakota",
                 Description = "Team will work on few related projects"
-
             };
 
             var response = controller.Post(t);
-            var result = (OkNegotiatedContentResult<Team>)response;
+            var result = (OkNegotiatedContentResult<TeamModel>)response;
 
             Assert.IsNotNull(result);
             Assert.IsNotNull(result.Content);
@@ -144,7 +143,7 @@ namespace TimeKeeper.Test
         public void TeamControllerPut()
         {
             var controller = new TeamsController();
-            Team t = new Team()
+            TeamModel t = new TeamModel()
             {
                 Id = "DAK",
                 Name = "DAKOTA",
@@ -152,7 +151,7 @@ namespace TimeKeeper.Test
             };
 
             var response = controller.Put(t, "DAK");
-            var result = (OkNegotiatedContentResult<Team>)response;
+            var result = (OkNegotiatedContentResult<TeamModel>)response;
 
             Assert.IsNotNull(result);
             Assert.IsNotNull(result.Content);

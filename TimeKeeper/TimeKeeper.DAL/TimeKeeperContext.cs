@@ -9,7 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TimeKeeper.DAL.Entities;
-using TimeKeeper.DAL.Helper;
+using TimeKeeper.Utility;
 
 namespace TimeKeeper.DAL
 {

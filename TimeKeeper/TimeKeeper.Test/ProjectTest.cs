@@ -127,6 +127,7 @@ namespace TimeKeeper.Test
         public void ProjectControllerPost()
         {
             var Controller = new ProjectsController();
+            var mf = new ModelFactory();
             Project p = new Project()
             {
                 Name = "NewProject",
@@ -138,8 +139,8 @@ namespace TimeKeeper.Test
                 Status = ProjectStatus.OnHold
             };
 
-            var response = Controller.Post(p);
-            var result = (OkNegotiatedContentResult<Project>)response;
+            var response = Controller.Post(mf.Create(p));
+            var result = (OkNegotiatedContentResult<ProjectModel>)response;
 
             Assert.IsNotNull(result);
             Assert.IsNotNull(result.Content);
@@ -149,6 +150,7 @@ namespace TimeKeeper.Test
         public void ProjectControllerPut()
         {
             var controller = new ProjectsController();
+            var mf = new ModelFactory();
             Project p = new Project()
             {
                 Id=1,
@@ -161,8 +163,8 @@ namespace TimeKeeper.Test
                 StartDate = new DateTime(2018, 05, 05)
             };
 
-            var response = controller.Put(p, 1);
-            var result = (OkNegotiatedContentResult<Project>)response;
+            var response = controller.Put(mf.Create(p), 1);
+            var result = (OkNegotiatedContentResult<ProjectModel>)response;
 
             Assert.IsNotNull(result);
             Assert.IsNotNull(result.Content);

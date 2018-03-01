@@ -38,16 +38,6 @@ namespace TimeKeeper.Test
         }
 
         [TestMethod]
-        public void DayGetById()
-        {
-            Day d = unit.Calendar.Get(1);
-
-            string expected = unit.Calendar.Get().FirstOrDefault().Date.ToString();
-
-            Assert.AreEqual(expected, d.Date.ToString());
-        }
-
-        [TestMethod]
         public void DayAdd()
         {
             Day d = new Day()
@@ -128,16 +118,16 @@ namespace TimeKeeper.Test
         public void DayControllerPost()
         {
             var controller = new DaysController();
-            Day d = new Day()
+            CalendarModel d = new CalendarModel()
             {
                 Date = DateTime.Today,
                 Hours = 8,
-                Type = DayType.SickLeave,
+                Type = "SickLeave",
                 //Employee = unit.Employees.Get(2)
             };
 
             var response = controller.Post(d);
-            var result = (OkNegotiatedContentResult<Day>)response;
+            var result = (OkNegotiatedContentResult<CalendarModel>)response;
 
             Assert.IsNotNull(result);
             Assert.IsNotNull(result.Content);
@@ -149,9 +139,10 @@ namespace TimeKeeper.Test
             var controller = new DaysController();
             Day d = unit.Calendar.Get(5);
             d.Date = new DateTime(2018, 02, 16);
+            ModelFactory mf = new ModelFactory();
 
-            var response = controller.Put(d,5);
-            var result = (OkNegotiatedContentResult<Day>)response;
+            var response = controller.Put(mf.Create(d),5);
+            var result = (OkNegotiatedContentResult<CalendarModel>)response;
 
             Assert.IsNotNull(result);
             Assert.IsNotNull(result.Content);

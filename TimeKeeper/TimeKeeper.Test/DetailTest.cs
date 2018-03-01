@@ -119,6 +119,7 @@ namespace TimeKeeper.Test
         public void DetailControllerPost()
         {
             var controller = new DetailsController();
+            ModelFactory mf = new ModelFactory();
             Detail d = new Detail()
             {
                 Description = "Add new tasks",
@@ -127,8 +128,8 @@ namespace TimeKeeper.Test
                 //Project = unit.Projects.Get(1)
             };
 
-            var response = controller.Post(d);
-            var result = (OkNegotiatedContentResult<Detail>)response;
+            var response = controller.Post(mf.Create(d));
+            var result = (OkNegotiatedContentResult<DetailModel>)response;
 
             Assert.IsNotNull(result);
             Assert.IsNotNull(result.Content);
@@ -138,6 +139,7 @@ namespace TimeKeeper.Test
         public void DetailControllerPut()
         {
             var controller = new DetailsController();
+            ModelFactory mf = new ModelFactory();
             Detail d = new Detail()
             {
                 Id=3,
@@ -145,8 +147,8 @@ namespace TimeKeeper.Test
                 Hours = 8
             };
 
-            var response = controller.Put(d, 3);
-            var result = (OkNegotiatedContentResult<Detail>)response;
+            var response = controller.Put(mf.Create(d), 3);
+            var result = (OkNegotiatedContentResult<DetailModel>)response;
 
             Assert.IsNotNull(result);
             Assert.IsNotNull(result.Content);
