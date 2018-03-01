@@ -6,9 +6,8 @@ using System.Net.Http;
 using System.Web.Http;
 using TimeKeeper.API.Helper;
 using TimeKeeper.API.Models;
-using TimeKeeper.DAL;
+using TimeKeeper.Utility;
 using TimeKeeper.DAL.Entities;
-using TimeKeeper.DAL.Repository;
 
 namespace TimeKeeper.API.Controllers
 {

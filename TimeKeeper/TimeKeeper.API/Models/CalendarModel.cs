@@ -14,8 +14,9 @@ namespace TimeKeeper.API.Models
         [DataType(DataType.Date)]
         public DateTime Date { get; set; }
         [Required(AllowEmptyStrings = false, ErrorMessage = "Hours is required")]
-        [RegularExpression(@"^([8]|[1-7]([.][5]){0,1})$")]
-        public string Hours { get; set; }
+        [Range(0.5,24,ErrorMessage = "Hours must be between 0.5 and 24")]
+        [RegularExpression(@"^\d{1,2}(\.5)?$", ErrorMessage = "Hours must have whole number or .5")]
+        public decimal Hours { get; set; }
         [Required(AllowEmptyStrings = false, ErrorMessage = "Type of day is required")]
         public string Type { get; set; }
 

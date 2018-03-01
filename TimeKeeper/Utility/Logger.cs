@@ -5,7 +5,7 @@ using System.Reflection;
 using System.Text.RegularExpressions;
 [assembly: log4net.Config.XmlConfigurator(Watch = true)]
 
-namespace TimeKeeper.DAL
+namespace TimeKeeper.Utility
 {
     public static class Logger
     {

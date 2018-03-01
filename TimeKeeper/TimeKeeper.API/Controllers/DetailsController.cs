@@ -5,7 +5,8 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using TimeKeeper.API.Helper;
-using TimeKeeper.DAL;
+using TimeKeeper.API.Models;
+using TimeKeeper.Utility;
 using TimeKeeper.DAL.Entities;
 
 namespace TimeKeeper.API.Controllers
@@ -18,7 +19,7 @@ namespace TimeKeeper.API.Controllers
         /// <returns></returns>
         public IHttpActionResult Get([FromUri] Header h)
         {
-            var list = TimeKeeperUnit.Details.Get()                
+            var list = TimeKeeperUnit.Details.Get()
                 .Header(h)
                 .Select(x => TimeKeeperFactory.Create(x))
                 .ToList();
@@ -51,20 +52,20 @@ namespace TimeKeeper.API.Controllers
         /// </summary>
         /// <param name="detail"></param>
         /// <returns></returns>
-        public IHttpActionResult Post([FromBody] Detail detail)
+        public IHttpActionResult Post([FromBody] DetailModel detail)
         {
             try
             {
-                TimeKeeperUnit.Details.Insert(detail);
-                if (TimeKeeperUnit.Save())
+                if (!ModelState.IsValid)
                 {
-                    Logger.Log($"Inserted new task {detail.Id}", "INFO");
-                    return Ok(detail);
+                    string message = "Failed inserting new task, ";
+                    message = string.Join(", ", ModelState.Values.SelectMany(x => x.Errors).Select(x => x.ErrorMessage));
+                    throw new Exception(message);
                 }
-                else
-                {
-                    throw new Exception("Failed inserting new task, wrong data sent");
-                }
+                TimeKeeperUnit.Details.Insert(TimeKeeperFactory.Create(detail));
+                TimeKeeperUnit.Save();
+                Logger.Log($"Inserted new task {detail.Id}", "INFO");
+                return Ok(detail);
             }
             catch (Exception ex)
             {
@@ -79,7 +80,7 @@ namespace TimeKeeper.API.Controllers
         /// <param name="detail"></param>
         /// <param name="id"></param>
         /// <returns></returns>
-        public IHttpActionResult Put([FromBody] Detail detail, int id)
+        public IHttpActionResult Put([FromBody] DetailModel detail, int id)
         {
             try
             {
@@ -88,16 +89,16 @@ namespace TimeKeeper.API.Controllers
                     Logger.Log($"No such task with id {id}", "ERROR");
                     return NotFound();
                 }
-                TimeKeeperUnit.Details.Update(detail, id);
-                if (TimeKeeperUnit.Save())
+                if (!ModelState.IsValid)
                 {
-                    Logger.Log($"Updated task with id {id}", "INFO");
-                    return Ok(detail);
+                    string message = $"Failed updating task with id {id}, ";
+                    message = string.Join(", ", ModelState.Values.SelectMany(x => x.Errors).Select(x => x.ErrorMessage));
+                    throw new Exception(message);
                 }
-                else
-                {
-                    throw new Exception($"Failed updating task with id {id}, wrong data sent");
-                }
+                TimeKeeperUnit.Details.Update(TimeKeeperFactory.Create(detail), id);
+                TimeKeeperUnit.Save();
+                Logger.Log($"Updated task with id {id}", "INFO");
+                return Ok(detail);                
             }
             catch (Exception ex)
             {
