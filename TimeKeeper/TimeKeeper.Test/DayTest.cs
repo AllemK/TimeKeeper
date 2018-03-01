@@ -38,16 +38,6 @@ namespace TimeKeeper.Test
         }
 
         [TestMethod]
-        public void DayGetById()
-        {
-            Day d = unit.Calendar.Get(1);
-
-            string expected = unit.Calendar.Get().FirstOrDefault().Date.ToString();
-
-            Assert.AreEqual(expected, d.Date.ToString());
-        }
-
-        [TestMethod]
         public void DayAdd()
         {
             Day d = new Day()
@@ -131,7 +121,7 @@ namespace TimeKeeper.Test
             CalendarModel d = new CalendarModel()
             {
                 Date = DateTime.Today,
-                Hours = "8",
+                Hours = 8,
                 Type = "SickLeave",
                 //Employee = unit.Employees.Get(2)
             };

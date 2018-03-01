@@ -119,6 +119,7 @@ namespace TimeKeeper.Test
         public void EngagementControllerPost()
         {
             var controller = new EngagementsController();
+            var mf = new ModelFactory();
             Engagement e = new Engagement()
             {
                 Hours = 4,
@@ -127,8 +128,8 @@ namespace TimeKeeper.Test
                 //Role = unit.Roles.Get("UX")
             };
 
-            var response = controller.Post(e);
-            var result = (OkNegotiatedContentResult<Engagement>)response;
+            var response = controller.Post(mf.Create(e));
+            var result = (OkNegotiatedContentResult<EngagementModel>)response;
 
             Assert.IsNotNull(result);
             Assert.IsNotNull(result.Content);
@@ -138,14 +139,15 @@ namespace TimeKeeper.Test
         public void EngagementControllerPut()
         {
             var controller = new EngagementsController();
+            var mf = new ModelFactory();
             Engagement e = new Engagement()
             {
                 Id=1,
                 Hours = 3
             };
 
-            var response = controller.Put(e, 1);
-            var result = (OkNegotiatedContentResult<Engagement>)response;
+            var response = controller.Put(mf.Create(e), 1);
+            var result = (OkNegotiatedContentResult<EngagementModel>)response;
 
             Assert.IsNotNull(result);
             Assert.IsNotNull(result.Content);

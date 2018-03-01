@@ -132,7 +132,7 @@ namespace TimeKeeper.Test
             };
 
             var response = controller.Post(t);
-            var result = (OkNegotiatedContentResult<Team>)response;
+            var result = (OkNegotiatedContentResult<TeamModel>)response;
 
             Assert.IsNotNull(result);
             Assert.IsNotNull(result.Content);
@@ -151,7 +151,7 @@ namespace TimeKeeper.Test
             };
 
             var response = controller.Put(t, "DAK");
-            var result = (OkNegotiatedContentResult<Team>)response;
+            var result = (OkNegotiatedContentResult<TeamModel>)response;
 
             Assert.IsNotNull(result);
             Assert.IsNotNull(result.Content);

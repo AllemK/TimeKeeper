@@ -19,7 +19,9 @@ namespace TimeKeeper.API.Controllers
         /// <returns></returns>
         public IHttpActionResult Get([FromUri] Header h)
         {
-            var list = TimeKeeperUnit.Details.Get()
+            var list = TimeKeeperUnit.Details
+                .Get(x => x.Description.Contains(h.filter))
+                .AsQueryable()
                 .Header(h)
                 .Select(x => TimeKeeperFactory.Create(x))
                 .ToList();
@@ -58,8 +60,8 @@ namespace TimeKeeper.API.Controllers
             {
                 if (!ModelState.IsValid)
                 {
-                    string message = "Failed inserting new task, ";
-                    message = string.Join(", ", ModelState.Values.SelectMany(x => x.Errors).Select(x => x.ErrorMessage));
+                    string message = "Failed inserting new task, " + Environment.NewLine;
+                    message += string.Join(Environment.NewLine, ModelState.Values.SelectMany(x => x.Errors).Select(x => x.ErrorMessage));
                     throw new Exception(message);
                 }
                 TimeKeeperUnit.Details.Insert(TimeKeeperFactory.Create(detail));
@@ -91,14 +93,14 @@ namespace TimeKeeper.API.Controllers
                 }
                 if (!ModelState.IsValid)
                 {
-                    string message = $"Failed updating task with id {id}, ";
-                    message = string.Join(", ", ModelState.Values.SelectMany(x => x.Errors).Select(x => x.ErrorMessage));
+                    string message = $"Failed updating task with id {id}, " + Environment.NewLine;
+                    message += string.Join(Environment.NewLine, ModelState.Values.SelectMany(x => x.Errors).Select(x => x.ErrorMessage));
                     throw new Exception(message);
                 }
                 TimeKeeperUnit.Details.Update(TimeKeeperFactory.Create(detail), id);
                 TimeKeeperUnit.Save();
                 Logger.Log($"Updated task with id {id}", "INFO");
-                return Ok(detail);                
+                return Ok(detail);
             }
             catch (Exception ex)
             {

@@ -7,6 +7,7 @@ using System.Web.Http;
 using TimeKeeper.API.Helper;
 using TimeKeeper.Utility;
 using TimeKeeper.DAL.Entities;
+using TimeKeeper.API.Models;
 
 namespace TimeKeeper.API.Controllers
 {
@@ -18,10 +19,10 @@ namespace TimeKeeper.API.Controllers
         /// <returns></returns>
         public IHttpActionResult Get([FromUri] Header h)
         {
-            var list = TimeKeeperUnit.Roles.Get()
-                .Where(x => x.Name.Contains(h.filter))
+            var list = TimeKeeperUnit.Roles
+                .Get(x => x.Name.Contains(h.filter))
+                .AsQueryable()
                 .Header(h)
-                .ToList()
                 .Select(r => TimeKeeperFactory.Create(r))
                 .ToList();
             Logger.Log("Returned all roles", "INFO");
@@ -53,20 +54,20 @@ namespace TimeKeeper.API.Controllers
         /// </summary>
         /// <param name="role"></param>
         /// <returns></returns>
-        public IHttpActionResult Post([FromBody] Role role)
+        public IHttpActionResult Post([FromBody] RoleModel role)
         {
             try
             {
-                TimeKeeperUnit.Roles.Insert(role);
-                if (TimeKeeperUnit.Save())
+                if (!ModelState.IsValid)
                 {
-                    Logger.Log("Inserted new role", "INFO");
-                    return Ok(role);
+                    string message = "Failed inserting new role" + Environment.NewLine;
+                    message += string.Join(Environment.NewLine, ModelState.Values.SelectMany(x => x.Errors).Select(x => x.ErrorMessage));
+                    throw new Exception(message);
                 }
-                else
-                {
-                    throw new Exception("Failed inserting new role, wrong data sent");
-                }
+                TimeKeeperUnit.Roles.Insert(TimeKeeperFactory.Create(role));
+                TimeKeeperUnit.Save();
+                Logger.Log("Inserted new role", "INFO");
+                return Ok(role);
             }
             catch (Exception ex)
             {
@@ -81,7 +82,7 @@ namespace TimeKeeper.API.Controllers
         /// <param name="role"></param>
         /// <param name="id"></param>
         /// <returns></returns>
-        public IHttpActionResult Put([FromBody] Role role, string id)
+        public IHttpActionResult Put([FromBody] RoleModel role, string id)
         {
             try
             {
@@ -90,16 +91,16 @@ namespace TimeKeeper.API.Controllers
                     Logger.Log($"No such role with id {id}");
                     return NotFound();
                 }
-                TimeKeeperUnit.Roles.Update(role, id);
-                if (TimeKeeperUnit.Save())
+                if (!ModelState.IsValid)
                 {
-                    Logger.Log($"Updated role with id {id}", "INFO");
-                    return Ok(role);
+                    string message = $"Failed updating project with id {id}" + Environment.NewLine;
+                    message += string.Join(Environment.NewLine, ModelState.Values.SelectMany(x => x.Errors).Select(x => x.ErrorMessage));
+                    throw new Exception(message);
                 }
-                else
-                {
-                    throw new Exception("Failed updating role with id {id}, wrong data sent");
-                }
+                TimeKeeperUnit.Roles.Update(TimeKeeperFactory.Create(role), id);
+                TimeKeeperUnit.Save();
+                Logger.Log($"Updated role with id {id}", "INFO");
+                return Ok(role);
             }
             catch (Exception ex)
             {

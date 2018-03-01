@@ -60,8 +60,8 @@ namespace TimeKeeper.API.Controllers
             {
                 if (!ModelState.IsValid)
                 {
-                    var message = "Failed inserting new team, ";
-                    message = string.Join(", ", ModelState.Values.SelectMany(v => v.Errors).Select(e => e.ErrorMessage));
+                    var message = "Failed inserting new team"+Environment.NewLine;
+                    message += string.Join(Environment.NewLine, ModelState.Values.SelectMany(v => v.Errors).Select(e => e.ErrorMessage));
                     throw new Exception(message);
                 }
                 TimeKeeperUnit.Teams.Insert(TimeKeeperFactory.Create(team));
@@ -93,8 +93,8 @@ namespace TimeKeeper.API.Controllers
                 }
                 if (!ModelState.IsValid)
                 {
-                    var message = $"Failed updating team {id}, ";
-                    message = string.Join(", ", ModelState.Values.SelectMany(v => v.Errors).Select(e => e.ErrorMessage));
+                    var message = $"Failed updating team with id {id}"+Environment.NewLine;
+                    message += string.Join(Environment.NewLine, ModelState.Values.SelectMany(v => v.Errors).Select(e => e.ErrorMessage));
                     throw new Exception(message);
                 }
                 TimeKeeperUnit.Teams.Update(TimeKeeperFactory.Create(team), id);

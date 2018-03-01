@@ -19,7 +19,9 @@ namespace TimeKeeper.API.Controllers
         /// <returns></returns>
         public IHttpActionResult Get([FromUri] Header h)
         {
-            var list = TimeKeeperUnit.Calendar.Get()
+            var list = TimeKeeperUnit.Calendar
+                .Get(x => x.Date.ToString().Contains(h.filter))
+                .AsQueryable()
                 .Header(h)
                 .Select(x => TimeKeeperFactory.Create(x))
                 .ToList();
@@ -58,8 +60,8 @@ namespace TimeKeeper.API.Controllers
             {
                 if (!ModelState.IsValid)
                 {
-                    var message = "Failed inserting new day, ";
-                    message = string.Join(", ", ModelState.Values.SelectMany(x => x.Errors).Select(x => x.ErrorMessage));
+                    var message = "Failed inserting new day, " + Environment.NewLine;
+                    message += string.Join(Environment.NewLine, ModelState.Values.SelectMany(x => x.Errors).Select(x => x.ErrorMessage));
                     throw new Exception(message);
                 }
                 TimeKeeperUnit.Calendar.Insert(TimeKeeperFactory.Create(day));
@@ -91,8 +93,8 @@ namespace TimeKeeper.API.Controllers
                 }
                 if (!ModelState.IsValid)
                 {
-                    var message = $"Failed updating day with id {id}, ";
-                    message = string.Join(", ", ModelState.Values.SelectMany(x => x.Errors).Select(x => x.ErrorMessage));
+                    var message = $"Failed updating day with id {id}, " + Environment.NewLine;
+                    message += string.Join(Environment.NewLine, ModelState.Values.SelectMany(x => x.Errors).Select(x => x.ErrorMessage));
                     throw new Exception(message);
                 }
                 TimeKeeperUnit.Calendar.Update(TimeKeeperFactory.Create(day), id);

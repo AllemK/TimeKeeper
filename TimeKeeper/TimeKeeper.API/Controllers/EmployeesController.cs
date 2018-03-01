@@ -8,6 +8,7 @@ using System.Web.Http;
 using TimeKeeper.API.Helper;
 using TimeKeeper.Utility;
 using TimeKeeper.DAL.Entities;
+using TimeKeeper.API.Models;
 
 namespace TimeKeeper.API.Controllers
 {
@@ -19,13 +20,12 @@ namespace TimeKeeper.API.Controllers
         /// <returns></returns>
         public IHttpActionResult Get([FromUri] Header h)
         {
-            var list = TimeKeeperUnit.Employees.Get()
-                .Where(x => x.LastName.Contains(h.filter) || x.FirstName.Contains(h.filter))
+            var list = TimeKeeperUnit.Employees
+                .Get(x => x.FirstName.Contains(h.filter) || x.LastName.Contains(h.filter))
+                .AsQueryable()
                 .Header(h)
-                .ToList()
                 .Select(x => TimeKeeperFactory.Create(x))
                 .ToList();
-
             Logger.Log("Returned all records for employees", "INFO");
             return Ok(list);
         }
@@ -55,20 +55,19 @@ namespace TimeKeeper.API.Controllers
         /// </summary>
         /// <param name="emp"></param>
         /// <returns></returns>
-        public IHttpActionResult Post([FromBody] Employee emp)
+        public IHttpActionResult Post([FromBody] EmployeeModel emp)
         {
             try
             {
-                TimeKeeperUnit.Employees.Insert(emp);
-                if (TimeKeeperUnit.Save())
+                if (!ModelState.IsValid)
                 {
-                    Logger.Log($"Inserted new employee {emp.FullName}", "INFO");
-                    return Ok(emp);
+                    string message = "Failed inserting new employee, " + Environment.NewLine;
+                    message += string.Join(Environment.NewLine, ModelState.Values.SelectMany(x => x.Errors).Select(x => x.ErrorMessage));
+                    throw new Exception(message);
                 }
-                else
-                {
-                    throw new Exception("Failed inserting new employee. Wrong data sent");
-                }
+                TimeKeeperUnit.Employees.Insert(TimeKeeperFactory.Create(emp));
+                Logger.Log($"Inserted new employee {emp.FullName}", "INFO");
+                return Ok(emp);
             }
             catch (Exception ex)
             {
@@ -83,7 +82,7 @@ namespace TimeKeeper.API.Controllers
         /// <param name="emp"></param>
         /// <param name="id"></param>
         /// <returns></returns>
-        public IHttpActionResult Put([FromBody] Employee emp, int id)
+        public IHttpActionResult Put([FromBody] EmployeeModel emp, int id)
         {
             try
             {
@@ -92,16 +91,16 @@ namespace TimeKeeper.API.Controllers
                     Logger.Log($"No existing employee with id {id}");
                     return NotFound();
                 }
-                TimeKeeperUnit.Employees.Update(emp, id);
-                if (TimeKeeperUnit.Save())
+                if (!ModelState.IsValid)
                 {
-                    Logger.Log($"Updated record for employee {emp.FullName}", "INFO");
-                    return Ok(emp);
+                    string message = $"Failed updating employee with id {id}" + Environment.NewLine;
+                    message += string.Join(Environment.NewLine, ModelState.Values.SelectMany(x => x.Errors).Select(x => x.ErrorMessage));
+                    throw new Exception(message);
                 }
-                else
-                {
-                    throw new Exception($"Failed updating employee with id {id}. Wrong data sent");
-                }
+                TimeKeeperUnit.Employees.Update(TimeKeeperFactory.Create(emp), id);
+                TimeKeeperUnit.Save();
+                Logger.Log($"Updated record for employee {emp.FullName}", "INFO");
+                return Ok(emp);
             }
             catch (Exception ex)
             {

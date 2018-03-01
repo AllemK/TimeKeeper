@@ -125,7 +125,8 @@ namespace TimeKeeper.Test
         public void EmployeeControllerPost()
         {
             var controller = new EmployeesController();
-            Employee e = new Employee()
+            var mf = new ModelFactory();
+            var e = new Employee()
             {
                 FirstName = "Daria",
                 LastName = "Eleska",
@@ -137,8 +138,8 @@ namespace TimeKeeper.Test
                 Status = EmployeeStatus.Active
             };
 
-            var response = controller.Post(e);
-            var result = (OkNegotiatedContentResult<Employee>)response;
+            var response = controller.Post(mf.Create(e));
+            var result = (OkNegotiatedContentResult<EmployeeModel>)response;
 
             Assert.IsNotNull(result);
             Assert.IsNotNull(result.Content);
@@ -149,7 +150,8 @@ namespace TimeKeeper.Test
         public void EmployeeControllerPut()
         {
             var controller = new EmployeesController();
-            Employee e = new Employee()
+            var mf = new ModelFactory();
+            var e = new Employee()
             {
                 Id = 2,
                 FirstName = "Annie",
@@ -162,8 +164,8 @@ namespace TimeKeeper.Test
                 Status = EmployeeStatus.Leaver
             };
 
-            var response = controller.Put(e, 2);
-            var result = (OkNegotiatedContentResult<Employee>)response;
+            var response = controller.Put(mf.Create(e), 2);
+            var result = (OkNegotiatedContentResult<EmployeeModel>)response;
 
             Assert.IsNotNull(result);
             Assert.IsNotNull(result.Content);

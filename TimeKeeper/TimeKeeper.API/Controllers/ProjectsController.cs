@@ -7,6 +7,7 @@ using System.Web.Http;
 using TimeKeeper.API.Helper;
 using TimeKeeper.Utility;
 using TimeKeeper.DAL.Entities;
+using TimeKeeper.API.Models;
 
 namespace TimeKeeper.API.Controllers
 {
@@ -18,8 +19,9 @@ namespace TimeKeeper.API.Controllers
         /// <returns></returns>
         public IHttpActionResult Get([FromUri] Header h)
         {
-            var list = TimeKeeperUnit.Projects.Get()
-                .Where(x => x.Name.Contains(h.filter))
+            var list = TimeKeeperUnit.Projects
+                .Get(x => x.Name.Contains(h.filter))
+                .AsQueryable()
                 .Header(h)
                 .ToList()
                 .Select(x => TimeKeeperFactory.Create(x))
@@ -48,20 +50,20 @@ namespace TimeKeeper.API.Controllers
         /// </summary>
         /// <param name="project"></param>
         /// <returns></returns>
-        public IHttpActionResult Post([FromBody] Project project)
+        public IHttpActionResult Post([FromBody] ProjectModel project)
         {
             try
             {
-                TimeKeeperUnit.Projects.Insert(project);
-                if (TimeKeeperUnit.Save())
+                if (!ModelState.IsValid)
                 {
-                    Logger.Log("Inserted new project", "INFO");
-                    return Ok(project);
+                    string message = "Failed inserting new project" + Environment.NewLine;
+                    message += string.Join(Environment.NewLine, ModelState.Values.SelectMany(x => x.Errors).Select(x => x.ErrorMessage));
+                    throw new Exception(message);
                 }
-                else
-                {
-                    throw new Exception("Failed inserting new project, wrong data sent");
-                }
+                TimeKeeperUnit.Projects.Insert(TimeKeeperFactory.Create(project));
+                TimeKeeperUnit.Save();
+                Logger.Log("Inserted new project", "INFO");
+                return Ok(project);
             }
             catch (Exception ex)
             {
@@ -76,7 +78,7 @@ namespace TimeKeeper.API.Controllers
         /// <param name="project"></param>
         /// <param name="id"></param>
         /// <returns></returns>
-        public IHttpActionResult Put([FromBody] Project project, int id)
+        public IHttpActionResult Put([FromBody] ProjectModel project, int id)
         {
             try
             {
@@ -85,16 +87,16 @@ namespace TimeKeeper.API.Controllers
                     Logger.Log($"No such project with id {id}");
                     return NotFound();
                 }
-                TimeKeeperUnit.Projects.Update(project, id);
-                if (TimeKeeperUnit.Save())
+                if (!ModelState.IsValid)
                 {
-                    Logger.Log($"Updated project with id {id}", "INFO");
-                    return Ok(project);
+                    string message = $"Failed updating project with id {id}" + Environment.NewLine;
+                    message += string.Join(Environment.NewLine, ModelState.Values.SelectMany(x => x.Errors).Select(x => x.ErrorMessage));
+                    throw new Exception(message);
                 }
-                else
-                {
-                    throw new Exception($"Failed updating project with id {id}, wrong data sent");
-                }
+                TimeKeeperUnit.Projects.Update(TimeKeeperFactory.Create(project), id);
+                TimeKeeperUnit.Save();
+                Logger.Log($"Updated project with id {id}", "INFO");
+                return Ok(project);
             }
             catch (Exception ex)
             {

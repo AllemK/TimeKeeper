@@ -19,7 +19,9 @@ namespace TimeKeeper.API.Controllers
         ///<returns>All Customers</returns>
         public IHttpActionResult Get([FromUri] Header h)
         {
-            var list = TimeKeeperUnit.Customers.Get()
+            var list = TimeKeeperUnit.Customers
+                .Get(x => x.Name.Contains(h.filter))
+                .AsQueryable()
                 .Header(h)
                 .Select(x => TimeKeeperFactory.Create(x))
                 .ToList();
@@ -58,8 +60,8 @@ namespace TimeKeeper.API.Controllers
             {
                 if (!ModelState.IsValid)
                 {
-                    var message = "Failed inserting new customer, ";
-                    message = string.Join(", ", ModelState.Values.SelectMany(v => v.Errors).Select(e => e.ErrorMessage));
+                    var message = "Failed inserting new customer" + Environment.NewLine;
+                    message += string.Join(Environment.NewLine, ModelState.Values.SelectMany(v => v.Errors).Select(e => e.ErrorMessage));
                     throw new Exception(message);
                 }
                 TimeKeeperUnit.Customers.Insert(TimeKeeperFactory.Create(customer));
@@ -92,10 +94,10 @@ namespace TimeKeeper.API.Controllers
                 customer.Id = id;
                 if (!ModelState.IsValid)
                 {
-                    var message = $"Failed updating customer with id {id}, ";
-                    message = string.Join(", ", ModelState.Values.SelectMany(v => v.Errors).Select(e => e.ErrorMessage));
+                    var message = $"Failed updating customer with id {id}, " + Environment.NewLine;
+                    message += string.Join(Environment.NewLine, ModelState.Values.SelectMany(v => v.Errors).Select(e => e.ErrorMessage));
                     throw new Exception(message);
-                }                
+                }
                 TimeKeeperUnit.Customers.Update(TimeKeeperFactory.Create(customer), id);
                 TimeKeeperUnit.Save();
                 Logger.Log($"Updated record for customer with id {id}", "INFO");

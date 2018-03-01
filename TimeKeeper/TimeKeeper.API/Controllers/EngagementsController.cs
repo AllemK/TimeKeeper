@@ -7,6 +7,7 @@ using System.Web.Http;
 using TimeKeeper.API.Helper;
 using TimeKeeper.Utility;
 using TimeKeeper.DAL.Entities;
+using TimeKeeper.API.Models;
 
 namespace TimeKeeper.API.Controllers
 {
@@ -18,10 +19,10 @@ namespace TimeKeeper.API.Controllers
         /// <returns></returns>
         public IHttpActionResult Get([FromUri] Header h)
         {
-            var list = TimeKeeperUnit.Engagements.Get()
-                .Where(x => x.Employee.FullName.Contains(h.filter))
+            var list = TimeKeeperUnit.Engagements
+                .Get(x => x.Employee.FullName.Contains(h.filter))
+                .AsQueryable()
                 .Header(h)
-                .ToList()
                 .Select(x => TimeKeeperFactory.Create(x))
                 .ToList();
             Logger.Log("Returned all members", "INFO");
@@ -53,20 +54,20 @@ namespace TimeKeeper.API.Controllers
         /// </summary>
         /// <param name="engagement"></param>
         /// <returns></returns>
-        public IHttpActionResult Post([FromBody] Engagement engagement)
+        public IHttpActionResult Post([FromBody] EngagementModel engagement)
         {
             try
             {
-                TimeKeeperUnit.Engagements.Insert(engagement);
-                if (TimeKeeperUnit.Save())
+                if (!ModelState.IsValid)
                 {
-                    Logger.Log("Inserted new engagement", "INFO");
-                    return Ok(engagement);
+                    string message = "Failed inserting new engagement" + Environment.NewLine;
+                    message += string.Join(Environment.NewLine, ModelState.Values.SelectMany(x => x.Errors).Select(x => x.ErrorMessage));
+                    throw new Exception(message);
                 }
-                else
-                {
-                    throw new Exception("Failed inserting engagement, wrong data sent");
-                }
+                TimeKeeperUnit.Engagements.Insert(TimeKeeperFactory.Create(engagement));
+                TimeKeeperUnit.Save();
+                Logger.Log("Inserted new engagement", "INFO");
+                return Ok(engagement);
             }
             catch (Exception ex)
             {
@@ -81,7 +82,7 @@ namespace TimeKeeper.API.Controllers
         /// <param name="engagement"></param>
         /// <param name="id"></param>
         /// <returns></returns>
-        public IHttpActionResult Put([FromBody] Engagement engagement, int id)
+        public IHttpActionResult Put([FromBody] EngagementModel engagement, int id)
         {
             try
             {
@@ -90,16 +91,16 @@ namespace TimeKeeper.API.Controllers
                     Logger.Log($"No such engagement with id {id}");
                     return NotFound();
                 }
-                TimeKeeperUnit.Engagements.Update(engagement, id);
-                if (TimeKeeperUnit.Save())
+                if (!ModelState.IsValid)
                 {
-                    Logger.Log($"Updated engagement with id {id}", "INFO");
-                    return Ok(engagement);
+                    string message = "Failed updating engagement" + Environment.NewLine;
+                    message += string.Join(Environment.NewLine, ModelState.Values.SelectMany(x => x.Errors).Select(x => x.ErrorMessage));
+                    throw new Exception(message);
                 }
-                else
-                {
-                    throw new Exception($"Failed updating engagement with id {id}, wrong data sent");
-                }
+                TimeKeeperUnit.Engagements.Update(TimeKeeperFactory.Create(engagement), id);
+                TimeKeeperUnit.Save();
+                Logger.Log($"Updated engagement with id {id}", "INFO");
+                return Ok(engagement);
             }
             catch (Exception ex)
             {

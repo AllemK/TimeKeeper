@@ -128,6 +128,7 @@ namespace TimeKeeper.Test
         public void RoleControllerPost()
         {
             var controller = new RolesController();
+            var mf = new ModelFactory();
             Role r = new Role()
             {
                 Id = "AD",
@@ -137,8 +138,8 @@ namespace TimeKeeper.Test
                 Type = RoleType.AppRole
             };
 
-            var response = controller.Post(r);
-            var result = (OkNegotiatedContentResult<Role>)response;
+            var response = controller.Post(mf.Create(r));
+            var result = (OkNegotiatedContentResult<RoleModel>)response;
 
             Assert.IsNotNull(result);
             Assert.IsNotNull(result.Content);
@@ -148,11 +149,12 @@ namespace TimeKeeper.Test
         public void RoleControllerPut()
         {
             var controller = new RolesController();
+            var mf = new ModelFactory();
             Role r = unit.Roles.Get("AD");
 
             r.Name = "Administrator";
-            var response = controller.Put(r, "AD");
-            var result = (OkNegotiatedContentResult<Role>)response;
+            var response = controller.Put(mf.Create(r), "AD");
+            var result = (OkNegotiatedContentResult<RoleModel>)response;
 
             Assert.IsNotNull(result);
             Assert.IsNotNull(result.Content);
