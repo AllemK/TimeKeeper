@@ -18,6 +18,7 @@ namespace TimeKeeper.API.Controllers
         /// </summary>
         /// <returns></returns>
 
+        [Authorize]
         public IHttpActionResult Get(int page = 0, int pageSize = 10, int sort = 0, string filter = "")
         {
             int itemCount = TimeKeeperUnit.Employees.Get().Count();
