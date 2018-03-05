@@ -6,8 +6,10 @@ using System.Net;
 using System.Net.Http;
 using System.Web;
 using System.Web.Http;
-using TimeKeeper.DAL;
+using TimeKeeper.API.Helper;
+using TimeKeeper.Utility;
 using TimeKeeper.DAL.Entities;
+using TimeKeeper.API.Models;
 
 namespace TimeKeeper.API.Controllers
 {
@@ -17,42 +19,15 @@ namespace TimeKeeper.API.Controllers
         /// Get all Employees
         /// </summary>
         /// <returns></returns>
-
-        [Authorize]
-        public IHttpActionResult Get(int page = 0, int pageSize = 10, int sort = 0, string filter = "")
+        public IHttpActionResult Get([FromUri] Header h)
         {
-            int itemCount = TimeKeeperUnit.Employees.Get().Count();
-            int totalPages = (int)Math.Ceiling((double)itemCount / pageSize);
-
-            var query = TimeKeeperUnit.Employees.Get();
-            if (filter != "") query = query.Where(x => x.LastName.Contains(filter));
-            switch (sort)
-            {
-                case 1: query = query.OrderBy(x => x.LastName); break;
-                case 2: query = query.OrderBy(x => x.BirthDate); break;
-                default: query = query.OrderBy(x => x.Id); break;
-
-            }
-            var list = query.Skip(pageSize * page)
-                            .Take(pageSize)
-                            .ToList()
-                            .Select(x => TimeKeeperFactory.Create(x)).ToList();
-
-
-
-            var header = new
-            {
-                nextPage = (page == totalPages - 1) ? -1 : page + 1,
-                prevPage = page - 1,
-                pageSize = pageSize,
-                totalPages = totalPages,
-                page = page,
-                sort
-            };
-            System.Web.HttpContext.Current.Response.Headers
-                      .Add("Pagination", JsonConvert.SerializeObject(header));
-
-            Utility.Log("Returned all records for employees", "INFO");
+            var list = TimeKeeperUnit.Employees
+                .Get(x => x.FirstName.Contains(h.filter) || x.LastName.Contains(h.filter))
+                .AsQueryable()
+                .Header(h)
+                .Select(x => TimeKeeperFactory.Create(x))
+                .ToList();
+            Logger.Log("Returned all records for employees", "INFO");
             return Ok(list);
         }
 
@@ -66,12 +41,12 @@ namespace TimeKeeper.API.Controllers
             Employee emp = TimeKeeperUnit.Employees.Get(id);
             if (emp == null)
             {
-                Utility.Log($"No record of employee with id: {id}");
+                Logger.Log($"No record of employee with id: {id}");
                 return NotFound();
             }
             else
             {
-                Utility.Log($"Returned record for employee {emp.FullName}", "INFO");
+                Logger.Log($"Returned record for employee {emp.FullName}", "INFO");
                 return Ok(TimeKeeperFactory.Create(emp));
             }
         }
@@ -81,24 +56,23 @@ namespace TimeKeeper.API.Controllers
         /// </summary>
         /// <param name="emp"></param>
         /// <returns></returns>
-        public IHttpActionResult Post([FromBody] Employee emp)
+        public IHttpActionResult Post([FromBody] EmployeeModel emp)
         {
             try
             {
-                TimeKeeperUnit.Employees.Insert(emp);
-                if (TimeKeeperUnit.Save())
+                if (!ModelState.IsValid)
                 {
-                    Utility.Log($"Inserted new employee {emp.FullName}","INFO");
-                    return Ok(emp);
+                    string message = "Failed inserting new employee, " + Environment.NewLine;
+                    message += string.Join(Environment.NewLine, ModelState.Values.SelectMany(x => x.Errors).Select(x => x.ErrorMessage));
+                    throw new Exception(message);
                 }
-                else
-                {
-                    throw new Exception("Failed inserting new employee. Wrong data sent");
-                }
+                TimeKeeperUnit.Employees.Insert(TimeKeeperFactory.Create(emp));
+                Logger.Log($"Inserted new employee {emp.FullName}", "INFO");
+                return Ok(emp);
             }
             catch (Exception ex)
             {
-                Utility.Log(ex.Message, "ERROR", ex);
+                Logger.Log(ex.Message, "ERROR", ex);
                 return BadRequest(ex.Message);
             }
         }
@@ -109,29 +83,29 @@ namespace TimeKeeper.API.Controllers
         /// <param name="emp"></param>
         /// <param name="id"></param>
         /// <returns></returns>
-        public IHttpActionResult Put([FromBody] Employee emp, int id)
+        public IHttpActionResult Put([FromBody] EmployeeModel emp, int id)
         {
             try
             {
                 if (TimeKeeperUnit.Employees.Get(id) == null)
                 {
-                    Utility.Log($"No existing employee with id {id}");
+                    Logger.Log($"No existing employee with id {id}");
                     return NotFound();
                 }
-                TimeKeeperUnit.Employees.Update(emp, id);
-                if (TimeKeeperUnit.Save())
+                if (!ModelState.IsValid)
                 {
-                    Utility.Log($"Updated record for employee {emp.FullName}", "INFO");
-                    return Ok(emp);
+                    string message = $"Failed updating employee with id {id}" + Environment.NewLine;
+                    message += string.Join(Environment.NewLine, ModelState.Values.SelectMany(x => x.Errors).Select(x => x.ErrorMessage));
+                    throw new Exception(message);
                 }
-                else
-                {
-                    throw new Exception($"Failed updating employee with id {id}. Wrong data sent");
-                }
+                TimeKeeperUnit.Employees.Update(TimeKeeperFactory.Create(emp), id);
+                TimeKeeperUnit.Save();
+                Logger.Log($"Updated record for employee {emp.FullName}", "INFO");
+                return Ok(emp);
             }
             catch (Exception ex)
             {
-                Utility.Log(ex.Message, "ERROR", ex);
+                Logger.Log(ex.Message, "ERROR", ex);
                 return BadRequest(ex.Message);
             }
         }
@@ -148,19 +122,37 @@ namespace TimeKeeper.API.Controllers
                 Employee emp = TimeKeeperUnit.Employees.Get(id);
                 if (emp == null)
                 {
-                    Utility.Log($"No such employee with id {id}");
+                    Logger.Log($"No such employee with id {id}");
                     return NotFound();
                 }
+
+                /* Tried to delete all of the foreign key contraint items
+                 * within the delete function, however it requires more
+                 * attetion, and debugging, for now left alone until
+                 * more consultation needed
+                DaysController dc = new DaysController();
+                foreach (var item in TimeKeeperUnit.Calendar.Get().Where(x => x.Employee.Id == emp.Id))
+                {
+                     dc.Delete(item.Id);
+                }
+
+                EngagementsController ec = new EngagementsController();
+                foreach(var item in TimeKeeperUnit.Engagements.Get().Where(x => x.Employee.Id == emp.Id)){
+                    dc.Delete(item.Id);
+                }
+                */
+
                 TimeKeeperUnit.Employees.Delete(emp);
                 TimeKeeperUnit.Save();
-                Utility.Log($"Deleted employee with id {id}", "INFO");
+                Logger.Log($"Deleted employee with id {id}", "INFO");
                 return Ok();
             }
             catch (Exception ex)
             {
-                Utility.Log(ex.Message, "ERROR", ex);
+                Logger.Log(ex.Message, "ERROR", ex);
                 return BadRequest(ex.Message);
             }
         }
+
     }
 }

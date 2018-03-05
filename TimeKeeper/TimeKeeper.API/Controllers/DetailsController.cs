@@ -4,7 +4,9 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
-using TimeKeeper.DAL;
+using TimeKeeper.API.Helper;
+using TimeKeeper.API.Models;
+using TimeKeeper.Utility;
 using TimeKeeper.DAL.Entities;
 
 namespace TimeKeeper.API.Controllers
@@ -15,10 +17,15 @@ namespace TimeKeeper.API.Controllers
         /// Get all Tasks
         /// </summary>
         /// <returns></returns>
-        public IHttpActionResult Get()
+        public IHttpActionResult Get([FromUri] Header h)
         {
-            var list = TimeKeeperUnit.Details.Get().ToList().Select(x => TimeKeeperFactory.Create(x)).ToList();
-            Utility.Log("Returned all tasks", "INFO");
+            var list = TimeKeeperUnit.Details
+                .Get(x => x.Description.Contains(h.filter))
+                .AsQueryable()
+                .Header(h)
+                .Select(x => TimeKeeperFactory.Create(x))
+                .ToList();
+            Logger.Log("Returned all tasks", "INFO");
             return Ok(list);
         }
 
@@ -32,12 +39,12 @@ namespace TimeKeeper.API.Controllers
             Detail detail = TimeKeeperUnit.Details.Get(id);
             if (detail == null)
             {
-                Utility.Log($"No task with id {id}");
+                Logger.Log($"No task with id {id}");
                 return NotFound();
             }
             else
             {
-                Utility.Log($"Returned task with id {id}", "INFO");
+                Logger.Log($"Returned task with id {id}", "INFO");
                 return Ok(TimeKeeperFactory.Create(detail));
             }
         }
@@ -47,24 +54,24 @@ namespace TimeKeeper.API.Controllers
         /// </summary>
         /// <param name="detail"></param>
         /// <returns></returns>
-        public IHttpActionResult Post([FromBody] Detail detail)
+        public IHttpActionResult Post([FromBody] DetailModel detail)
         {
             try
             {
-                TimeKeeperUnit.Details.Insert(detail);
-                if (TimeKeeperUnit.Save())
+                if (!ModelState.IsValid)
                 {
-                    Utility.Log($"Inserted new task {detail.Id}", "INFO");
-                    return Ok(detail);
+                    string message = "Failed inserting new task, " + Environment.NewLine;
+                    message += string.Join(Environment.NewLine, ModelState.Values.SelectMany(x => x.Errors).Select(x => x.ErrorMessage));
+                    throw new Exception(message);
                 }
-                else
-                {
-                    throw new Exception("Failed inserting new task, wrong data sent");
-                }
+                TimeKeeperUnit.Details.Insert(TimeKeeperFactory.Create(detail));
+                TimeKeeperUnit.Save();
+                Logger.Log($"Inserted new task {detail.Id}", "INFO");
+                return Ok(detail);
             }
             catch (Exception ex)
             {
-                Utility.Log(ex.Message, "ERROR", ex);
+                Logger.Log(ex.Message, "ERROR", ex);
                 return BadRequest(ex.Message);
             }
         }
@@ -75,29 +82,29 @@ namespace TimeKeeper.API.Controllers
         /// <param name="detail"></param>
         /// <param name="id"></param>
         /// <returns></returns>
-        public IHttpActionResult Put([FromBody] Detail detail, int id)
+        public IHttpActionResult Put([FromBody] DetailModel detail, int id)
         {
             try
             {
                 if (TimeKeeperUnit.Details.Get(id) == null)
                 {
-                    Utility.Log($"No such task with id {id}", "ERROR");
+                    Logger.Log($"No such task with id {id}", "ERROR");
                     return NotFound();
                 }
-                TimeKeeperUnit.Details.Update(detail, id);
-                if (TimeKeeperUnit.Save())
+                if (!ModelState.IsValid)
                 {
-                    Utility.Log($"Updated task with id {id}", "INFO");
-                    return Ok(detail);
+                    string message = $"Failed updating task with id {id}, " + Environment.NewLine;
+                    message += string.Join(Environment.NewLine, ModelState.Values.SelectMany(x => x.Errors).Select(x => x.ErrorMessage));
+                    throw new Exception(message);
                 }
-                else
-                {
-                    throw new Exception($"Failed updating task with id {id}, wrong data sent");
-                }
+                TimeKeeperUnit.Details.Update(TimeKeeperFactory.Create(detail), id);
+                TimeKeeperUnit.Save();
+                Logger.Log($"Updated task with id {id}", "INFO");
+                return Ok(detail);
             }
             catch (Exception ex)
             {
-                Utility.Log(ex.Message, "ERROR", ex);
+                Logger.Log(ex.Message, "ERROR", ex);
                 return BadRequest(ex.Message);
             }
         }
@@ -114,17 +121,17 @@ namespace TimeKeeper.API.Controllers
                 Detail detail = TimeKeeperUnit.Details.Get(id);
                 if (detail == null)
                 {
-                    Utility.Log($"No such task with id {id}");
+                    Logger.Log($"No such task with id {id}");
                     return NotFound();
                 }
                 TimeKeeperUnit.Details.Delete(detail);
                 TimeKeeperUnit.Save();
-                Utility.Log($"Deleted task with id {id}", "INFO");
+                Logger.Log($"Deleted task with id {id}", "INFO");
                 return Ok();
             }
             catch (Exception ex)
             {
-                Utility.Log(ex.Message, "ERROR", ex);
+                Logger.Log(ex.Message, "ERROR", ex);
                 return BadRequest(ex.Message);
             }
         }

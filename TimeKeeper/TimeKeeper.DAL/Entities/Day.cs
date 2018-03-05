@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using TimeKeeper.DAL.Helper;
+using TimeKeeper.Utility;
 
 namespace TimeKeeper.DAL.Entities
 {
@@ -21,6 +21,11 @@ namespace TimeKeeper.DAL.Entities
 
     public class Day : BaseClass<int>
     {
+        public Day()
+        {
+            Details = new List<Detail>();
+        }
+
         [Required]
         public DateTime Date { get; set; }
         [Required]

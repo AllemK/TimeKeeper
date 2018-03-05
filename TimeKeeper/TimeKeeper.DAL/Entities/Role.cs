@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using TimeKeeper.DAL.Helper;
+using TimeKeeper.Utility;
 
 namespace TimeKeeper.DAL.Entities
 {
@@ -17,6 +17,12 @@ namespace TimeKeeper.DAL.Entities
 
     public class Role : BaseClass<string>
     {
+        public Role()
+        {
+            Employees = new List<Employee>();
+            Engagements = new List<Engagement>();
+        }
+
         [Required]
         [MaxLength(30)]
         public string Name { get; set; }

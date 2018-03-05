@@ -4,7 +4,9 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
-using TimeKeeper.DAL;
+using TimeKeeper.API.Helper;
+using TimeKeeper.API.Models;
+using TimeKeeper.Utility;
 using TimeKeeper.DAL.Entities;
 
 namespace TimeKeeper.API.Controllers
@@ -15,10 +17,15 @@ namespace TimeKeeper.API.Controllers
         /// Get all Days
         /// </summary>
         /// <returns></returns>
-        public IHttpActionResult Get()
+        public IHttpActionResult Get([FromUri] Header h)
         {
-            var list = TimeKeeperUnit.Calendar.Get().ToList().Select(x => TimeKeeperFactory.Create(x)).ToList();
-            Utility.Log("Returned all days");
+            var list = TimeKeeperUnit.Calendar
+                .Get(x => x.Date.ToString().Contains(h.filter))
+                .AsQueryable()
+                .Header(h)
+                .Select(x => TimeKeeperFactory.Create(x))
+                .ToList();
+            Logger.Log("Returned all days", "INFO");
             return Ok(list);
         }
 
@@ -32,12 +39,12 @@ namespace TimeKeeper.API.Controllers
             Day day = TimeKeeperUnit.Calendar.Get(id);
             if (day == null)
             {
-                Utility.Log($"No such day with id {id}");
+                Logger.Log($"No such day with id {id}");
                 return NotFound();
             }
             else
             {
-                Utility.Log($"Returned day with id {id}", "INFO");
+                Logger.Log($"Returned day with id {id}", "INFO");
                 return Ok(TimeKeeperFactory.Create(day));
             }
         }
@@ -47,25 +54,24 @@ namespace TimeKeeper.API.Controllers
         /// </summary>
         /// <param name="day"></param>
         /// <returns></returns>
-        public IHttpActionResult Post([FromBody] Day day)
+        public IHttpActionResult Post([FromBody] CalendarModel day)
         {
             try
             {
-                TimeKeeperUnit.Calendar.Insert(day);
-                if (TimeKeeperUnit.Save())
+                if (!ModelState.IsValid)
                 {
-                    Utility.Log("Inserted new day", "INFO");
-                    return Ok(day);
+                    var message = "Failed inserting new day, " + Environment.NewLine;
+                    message += string.Join(Environment.NewLine, ModelState.Values.SelectMany(x => x.Errors).Select(x => x.ErrorMessage));
+                    throw new Exception(message);
                 }
-                else
-                {
-                    throw new Exception("Failed inserting new day, wrong data sent");
-                }
-                
+                TimeKeeperUnit.Calendar.Insert(TimeKeeperFactory.Create(day));
+                TimeKeeperUnit.Save();
+                Logger.Log("Inserted new day", "INFO");
+                return Ok(day);
             }
             catch (Exception ex)
             {
-                Utility.Log(ex.Message, "ERROR", ex);
+                Logger.Log(ex.Message, "ERROR", ex);
                 return BadRequest(ex.Message);
             }
         }
@@ -76,25 +82,29 @@ namespace TimeKeeper.API.Controllers
         /// <param name="day"></param>
         /// <param name="id"></param>
         /// <returns></returns>
-        public IHttpActionResult Put([FromBody] Day day, int id)
+        public IHttpActionResult Put([FromBody] CalendarModel day, int id)
         {
             try
             {
-                if (TimeKeeperUnit.Calendar.Get(id) == null) return NotFound();
-                TimeKeeperUnit.Calendar.Update(day, id);
-                if (TimeKeeperUnit.Save())
+                if (TimeKeeperUnit.Calendar.Get(id) == null)
                 {
-                    Utility.Log($"Updated day with id {id}", "INFO");
-                    return Ok(day);
+                    Logger.Log($"No such day with id {id}");
+                    return NotFound();
                 }
-                else
+                if (!ModelState.IsValid)
                 {
-                    throw new Exception($"Failed updating day with id {id}, wrong data sent");
+                    var message = $"Failed updating day with id {id}, " + Environment.NewLine;
+                    message += string.Join(Environment.NewLine, ModelState.Values.SelectMany(x => x.Errors).Select(x => x.ErrorMessage));
+                    throw new Exception(message);
                 }
+                TimeKeeperUnit.Calendar.Update(TimeKeeperFactory.Create(day), id);
+                TimeKeeperUnit.Save();
+                Logger.Log($"Updated day with id {id}", "INFO");
+                return Ok(day);
             }
             catch (Exception ex)
             {
-                Utility.Log(ex.Message, "ERROR", ex);
+                Logger.Log(ex.Message, "ERROR", ex);
                 return BadRequest(ex.Message);
             }
         }
@@ -111,17 +121,28 @@ namespace TimeKeeper.API.Controllers
                 Day day = TimeKeeperUnit.Calendar.Get(id);
                 if (day == null)
                 {
-                    Utility.Log($"No day found with id {id}");
+                    Logger.Log($"No such day with id {id}");
                     return NotFound();
                 }
+
+                /* Tried to delete all of the foreign key contraint items
+                 * within the delete function, however it requires more
+                 * attetion, and debugging, for now left alone until
+                 * more consultation needed
+                DetailsController dc = new DetailsController();
+                foreach(var item in TimeKeeperUnit.Details.Get().Where(x => x.Day.Id == day.Id)){
+                    dc.Delete(item.Id);
+                }
+                */
+
                 TimeKeeperUnit.Calendar.Delete(day);
                 TimeKeeperUnit.Save();
-                Utility.Log($"Deleted day with id {id}", "INFO");
+                Logger.Log($"Deleted day with id {id}", "INFO");
                 return Ok();
             }
             catch (Exception ex)
             {
-                Utility.Log(ex.Message, "ERROR", ex);
+                Logger.Log(ex.Message, "ERROR", ex);
                 return BadRequest(ex.Message);
             }
         }
