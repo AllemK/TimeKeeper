@@ -4,7 +4,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
-using System.Web.Http.Cors;
 
 namespace TimeKeeper.API
 {
@@ -13,7 +12,6 @@ namespace TimeKeeper.API
         public static void Register(HttpConfiguration config)
         {
             // Web API configuration and services
-            config.EnableCors(new EnableCorsAttribute("*", "*", "*"));
 
             // Web API routes
             config.MapHttpAttributeRoutes();
@@ -22,12 +20,6 @@ namespace TimeKeeper.API
                 name: "DefaultApi",
                 routeTemplate: "api/{controller}/{id}",
                 defaults: new { id = RouteParameter.Optional }
-            );
-
-            config.Routes.MapHttpRoute(
-                name: "PagingApi",
-                routeTemplate: "api/{controller}/page/{page}",
-                defaults: new { page = RouteParameter.Optional }
             );
 
             var json = GlobalConfiguration.Configuration;

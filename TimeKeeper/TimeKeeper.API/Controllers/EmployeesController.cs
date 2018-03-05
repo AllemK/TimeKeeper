@@ -36,7 +36,7 @@ namespace TimeKeeper.API.Controllers
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public IHttpActionResult GetById(int id)
+        public IHttpActionResult Get(int id)
         {
             Employee emp = TimeKeeperUnit.Employees.Get(id);
             if (emp == null)
