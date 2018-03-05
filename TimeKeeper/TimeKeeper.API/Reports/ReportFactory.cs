@@ -99,15 +99,33 @@ namespace TimeKeeper.API.Reports
         //    return result;
         //}
 
-        //public PersonalModel PersonalReport(int id, int year, int month)
-        //{
-        //    if (year == 0) year = DateTime.Today.Year;
-        //    if (month == 0) month = DateTime.Today.Month;
+        public PersonalModel PersonalReport(int id, int year, int month)
+        {
+            int daysInCurrentMonth = 0;
+            if (year == 0) year = DateTime.Today.Year;
+            if (month == 0 || month == DateTime.Today.Month)
+            {
+                daysInCurrentMonth = DateTime.Today.Day;
+                month = DateTime.Today.Month;
+            }
+            else
+                daysInCurrentMonth = DateTime.DaysInMonth(year, month);
 
-        //    var query = TimeKeeperUnit.Employees.Get(x => x.Id == id);
-        //    query.FirstOrDefault().Days.FirstOrDefault().
-        //    PersonalModel pm = new PersonalModel(DateTime.DaysInMonth(year,month));
-        //    return pm;
-        //}
+            int tempDays = daysInCurrentMonth;
+            for (int i = 1; i <= tempDays; i++)
+            {
+                var date = new DateTime(year, month, i);
+
+                if (DayOfWeek.Saturday == date.DayOfWeek || DayOfWeek.Sunday == date.DayOfWeek || TimeKeeperUnit.Calendar.Get(x=>x.Date.Year==year&&x.Date.Month==month&&x.Date.Day==i).FirstOrDefault().Type!=DAL.Entities.DayType.WorkingDay)
+                    daysInCurrentMonth--;
+            }
+
+            var query = TimeKeeperUnit.Employees.Get(id);
+
+            PersonalModel pm = new PersonalModel(DateTime.DaysInMonth(year, month));
+            pm.TotalHours = query.Days.Where(x => x.Date.Month == month && x.Date.Year == year).Sum(x => x.Hours);
+            pm.Utilization = (month == DateTime.Today.Month) ? pm.TotalHours /
+            return pm;
+        }
     }
 }
