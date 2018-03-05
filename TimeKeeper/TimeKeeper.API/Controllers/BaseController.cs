@@ -6,6 +6,7 @@ using System.Net.Http;
 using System.Web.Http;
 using TimeKeeper.DAL.Repository;
 using TimeKeeper.API.Models;
+using TimeKeeper.API.Reports;
 
 namespace TimeKeeper.API.Controllers
 {
@@ -13,6 +14,7 @@ namespace TimeKeeper.API.Controllers
     {
         UnitOfWork unit;
         ModelFactory factory;
+        ReportFactory reports;
 
         public UnitOfWork TimeKeeperUnit
         {
@@ -29,6 +31,15 @@ namespace TimeKeeper.API.Controllers
             {
                 if (factory == null) factory = new ModelFactory();
                 return factory;
+            }
+        }
+
+        public ReportFactory TimeKeeperReports
+        {
+            get
+            {
+                if (reports == null) reports = new ReportFactory(TimeKeeperUnit);
+                return reports;
             }
         }
     }
