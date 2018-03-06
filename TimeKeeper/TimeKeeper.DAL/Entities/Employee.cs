@@ -33,6 +33,7 @@ namespace TimeKeeper.DAL.Entities
         public string Image { get; set; }
         [Required]
         public string Email { get; set; }
+        public string Password { get; set; }
         [Required]
         [MaxLength(20)]
         public string Phone { get; set; }

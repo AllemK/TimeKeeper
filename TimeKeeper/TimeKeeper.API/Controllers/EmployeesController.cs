@@ -9,6 +9,8 @@ using TimeKeeper.API.Helper;
 using TimeKeeper.Utility;
 using TimeKeeper.DAL.Entities;
 using TimeKeeper.API.Models;
+using System.Security.Claims;
+using Thinktecture.IdentityModel.WebApi;
 
 namespace TimeKeeper.API.Controllers
 {
@@ -35,9 +37,12 @@ namespace TimeKeeper.API.Controllers
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
+        [ScopeAuthorize("read")]
         public IHttpActionResult Get(int id)
         {
-            Employee emp = TimeKeeperUnit.Employees.Get(id);
+            var claimsPrincipal = User as ClaimsPrincipal;
+            string username = claimsPrincipal.FindFirst("http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Value;
+            Employee emp = TimeKeeperUnit.Employees.Get(x=>x.Email == username).FirstOrDefault();
             if (emp == null)
             {
                 Logger.Log($"No record of employee with id: {id}");

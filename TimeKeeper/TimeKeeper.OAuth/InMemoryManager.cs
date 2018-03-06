@@ -1,6 +1,7 @@
 ﻿using IdentityServer3.Core;
 using IdentityServer3.Core.Models;
 using IdentityServer3.Core.Services.InMemory;
+using IdentityServer3.EntityFramework;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,23 +18,23 @@ namespace TimeKeeper.OAuth
             {
                 new InMemoryUser
                 {
-                    Subject = "sulejmanca",
-                    Username = "sulejman.catibusic@gmail.com",
+                    Subject = "hhuskic@school.edu",
+                    Username = "hhuskic@school.edu",
                     Password = "andromeda",
                     Claims = new[]
                     {
-                        new Claim(Constants.ClaimTypes.Name, "Sulejman Catibusic")
+                        new Claim(Constants.ClaimTypes.Name, "Husein Huskic")
                     }
                 },
 
                 new InMemoryUser
                 {
-                    Subject = "muhamedbr",
-                    Username = "muhamedbr6@gmail.com",
-                    Password = "triangulum",
+                    Subject = "adelic@school.edu",
+                    Username = "adelic@school.edu",
+                    Password = "andromeda",
                     Claims = new[]
                     {
-                        new Claim(Constants.ClaimTypes.Name, "Muhamed Bratić")
+                        new Claim(Constants.ClaimTypes.Name, "Amel Delic")
                     }
                 }
             };
@@ -49,7 +50,8 @@ namespace TimeKeeper.OAuth
                 new Scope
                 {
                     Name = "read",
-                    DisplayName="Read Employee Data"
+                    DisplayName="Read Employee Data",
+                    IncludeAllClaimsForUser=true
                 }
             };
         }

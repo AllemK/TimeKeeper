@@ -124,7 +124,18 @@ namespace TimeKeeper.API.Reports
 
             PersonalModel pm = new PersonalModel(DateTime.DaysInMonth(year, month));
             pm.TotalHours = query.Days.Where(x => x.Date.Month == month && x.Date.Year == year).Sum(x => x.Hours);
-            pm.Utilization = (month == DateTime.Today.Month) ? pm.TotalHours /
+            pm.Utilization = pm.TotalHours / daysInCurrentMonth;
+            //pm.BradfordFactor = 
+            
+            int days = DateTime.DaysInMonth(year, month);
+            if (month == DateTime.Today.Month)
+                days = DateTime.Today.Day;
+            for(int i=1; i<=days; i++)
+            {
+                DateTime tempDate = new DateTime(year, month, i);
+                var item = query.Days.Where(x => x.Date.CompareTo(tempDate) == 0 && x.Type == DAL.Entities.DayType.WorkingDay && x.Hours >= 8).FirstOrDefault();
+                pm.Days[i-1] = (item!=null) ? "8" : "";
+            }
             return pm;
         }
     }
