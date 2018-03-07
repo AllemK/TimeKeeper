@@ -26,6 +26,7 @@ namespace TimeKeeper.API
             config.EnableCors(new EnableCorsAttribute("*","*","GET,POST"));
 
             var json = GlobalConfiguration.Configuration;
+            //json.Formatters.XmlFormatter.SupportedMediaTypes.Clear();
             json.Formatters.XmlFormatter.SupportedMediaTypes.Clear();
             json.Formatters.JsonFormatter.SerializerSettings.Formatting = Formatting.Indented;
             //json.Formatters.JsonFormatter.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Serialize;
