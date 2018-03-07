@@ -1,8 +1,5 @@
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Web.Http;
 using System.Web.Http.Cors;
 
@@ -12,9 +9,6 @@ namespace TimeKeeper.API
     {
         public static void Register(HttpConfiguration config)
         {
-            // Web API configuration and services
-
-            // Web API routes
             config.MapHttpAttributeRoutes();
 
             config.Routes.MapHttpRoute(
@@ -23,10 +17,9 @@ namespace TimeKeeper.API
                 defaults: new { id = RouteParameter.Optional }
             );
 
-            config.EnableCors(new EnableCorsAttribute("*","*","GET,POST"));
+            config.EnableCors(new EnableCorsAttribute("*", "*", "GET,POST"));
 
             var json = GlobalConfiguration.Configuration;
-            //json.Formatters.XmlFormatter.SupportedMediaTypes.Clear();
             json.Formatters.XmlFormatter.SupportedMediaTypes.Clear();
             json.Formatters.JsonFormatter.SerializerSettings.Formatting = Formatting.Indented;
             //json.Formatters.JsonFormatter.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Serialize;
