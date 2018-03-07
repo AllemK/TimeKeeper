@@ -124,17 +124,21 @@ namespace TimeKeeper.API.Reports
 
             PersonalModel pm = new PersonalModel(DateTime.DaysInMonth(year, month));
             pm.TotalHours = query.Days.Where(x => x.Date.Month == month && x.Date.Year == year).Sum(x => x.Hours);
-            pm.Utilization = pm.TotalHours / daysInCurrentMonth;
+            pm.Utilization = (pm.TotalHours / (daysInCurrentMonth*8))*100;
             //pm.BradfordFactor = 
             
             int days = DateTime.DaysInMonth(year, month);
             if (month == DateTime.Today.Month)
                 days = DateTime.Today.Day;
+            var publicHolidays = TimeKeeperUnit.Calendar.Get().Where(x => x.Type == DAL.Entities.DayType.PublicHoliday && x.Date.Month==month && x.Date.Year==year).ToList();
+            if(publicHolidays!=null)
+                publicHolidays.ForEach(x => pm.Days[x.Date.Day] = "PH");
             for(int i=1; i<=days; i++)
             {
                 DateTime tempDate = new DateTime(year, month, i);
-                var item = query.Days.Where(x => x.Date.CompareTo(tempDate) == 0 && x.Type == DAL.Entities.DayType.WorkingDay && x.Hours >= 8).FirstOrDefault();
-                pm.Days[i-1] = (item!=null) ? "8" : "";
+                var item = query.Days.Where(x => x.Date.CompareTo(tempDate) == 0).FirstOrDefault();
+                if(item.Hours>=8 && item!=null && item.Type==DAL.Entities.DayType.WorkingDay)
+                    pm.Days[i-1] = "8";
             }
             return pm;
         }
