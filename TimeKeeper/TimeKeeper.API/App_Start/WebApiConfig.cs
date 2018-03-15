@@ -17,7 +17,7 @@ namespace TimeKeeper.API
                 defaults: new { id = RouteParameter.Optional }
             );
 
-            config.EnableCors(new EnableCorsAttribute("*", "*", "GET,POST"));
+            config.EnableCors(new EnableCorsAttribute("*", "*", "*"));
 
             var json = GlobalConfiguration.Configuration;
             json.Formatters.XmlFormatter.SupportedMediaTypes.Clear();

@@ -166,6 +166,7 @@ namespace TimeKeeper.API.Helper
 
         public static IEnumerable<Role> Header(this IQueryable<Role> list, Header h)
         {
+            h.pageSize = list.Count();
             int totalPages = (int)Math.Ceiling((double)list.Count() / h.pageSize);
             InsertHeader(h, totalPages);
 

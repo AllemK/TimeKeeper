@@ -7,7 +7,7 @@ using System.Web.Http;
 
 namespace TimeKeeper.API.Controllers
 {
-    public class PersonalController : BaseController
+    public class PersonalReportController : BaseController
     {
         public IHttpActionResult Get(int id, int year = 0, int month = 0)
         {

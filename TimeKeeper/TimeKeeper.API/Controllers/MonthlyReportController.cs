@@ -7,7 +7,7 @@ using TimeKeeper.DAL;
 
 namespace TimeKeeper.API.Controllers
 {
-    public class MonthlyController : BaseController
+    public class MonthlyReportController : BaseController
     {
         public IHttpActionResult Get(int year = 0, int month = 0)
         {

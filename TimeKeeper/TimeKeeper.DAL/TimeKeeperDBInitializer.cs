@@ -156,7 +156,7 @@ namespace TimeKeeper.DAL
                 Email = "first@testmail.com",
                 Image = "FirstEmp.jpg",
                 Phone = "Emp1 Phone number",
-                Position = unit.Roles.Get("SD"),
+                Role = unit.Roles.Get("SD"),
                 Salary = 3000m,
                 Status = EmployeeStatus.Active
             });
@@ -169,7 +169,7 @@ namespace TimeKeeper.DAL
                 Email = "second@testmail.com",
                 Image = "SecondEmp.jpg",
                 Phone = "Emp2 Phone number",
-                Position = unit.Roles.Get("UX"),
+                Role = unit.Roles.Get("UX"),
                 Salary = 5000m,
                 Status = EmployeeStatus.Active
             });

@@ -17,11 +17,12 @@ namespace TimeKeeper.API.Models
         [RegularExpression(@"^(\p{L}+)$")]
         public string LastName { get; set; }
         public string FullName { get { return FirstName + " " + LastName; } }
-        [FileExtensions(Extensions = ".jpg", ErrorMessage = "File with jpg format is required")]
+        [FileExtensions(Extensions = "jpg,", ErrorMessage = "File with jpg format is required")]
         public string Image { get; set; }
         [Required(AllowEmptyStrings = false, ErrorMessage = "Email is required")]
         [EmailAddress(ErrorMessage = "Email is in wrong format")]
         public string Email { get; set; }
+        public string Password { get; set; }
         [Required(AllowEmptyStrings = false, ErrorMessage = "Phone is required")]
         [Phone(ErrorMessage = "Phone is in wrong format")]
         public string Phone { get; set; }
@@ -40,8 +41,7 @@ namespace TimeKeeper.API.Models
         [RegularExpression(@"^(Active|Trial|Leaver)$", ErrorMessage = "Wrong employee status, must be Active, Trial or Leaver")]
         public string Status { get; set; }
 
-        public string Position { get; set; }
-        public string RoleId { get; set; }
+        public string Role { get; set; }
         public ICollection<CalendarModel> Days { get; set; }
         public ICollection<EngagementModel> Engagements { get; set; }
 

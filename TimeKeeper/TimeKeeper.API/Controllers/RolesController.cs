@@ -64,7 +64,7 @@ namespace TimeKeeper.API.Controllers
                     message += string.Join(Environment.NewLine, ModelState.Values.SelectMany(x => x.Errors).Select(x => x.ErrorMessage));
                     throw new Exception(message);
                 }
-                TimeKeeperUnit.Roles.Insert(TimeKeeperFactory.Create(role));
+                TimeKeeperUnit.Roles.Insert(TimeKeeperFactory.Create(role, TimeKeeperUnit));
                 TimeKeeperUnit.Save();
                 Logger.Log("Inserted new role", "INFO");
                 return Ok(role);
@@ -97,7 +97,7 @@ namespace TimeKeeper.API.Controllers
                     message += string.Join(Environment.NewLine, ModelState.Values.SelectMany(x => x.Errors).Select(x => x.ErrorMessage));
                     throw new Exception(message);
                 }
-                TimeKeeperUnit.Roles.Update(TimeKeeperFactory.Create(role), id);
+                TimeKeeperUnit.Roles.Update(TimeKeeperFactory.Create(role, TimeKeeperUnit), id);
                 TimeKeeperUnit.Save();
                 Logger.Log($"Updated role with id {id}", "INFO");
                 return Ok(role);

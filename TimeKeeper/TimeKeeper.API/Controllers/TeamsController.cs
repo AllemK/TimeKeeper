@@ -64,7 +64,7 @@ namespace TimeKeeper.API.Controllers
                     message += string.Join(Environment.NewLine, ModelState.Values.SelectMany(v => v.Errors).Select(e => e.ErrorMessage));
                     throw new Exception(message);
                 }
-                TimeKeeperUnit.Teams.Insert(TimeKeeperFactory.Create(team));
+                TimeKeeperUnit.Teams.Insert(TimeKeeperFactory.Create(team, TimeKeeperUnit));
                 TimeKeeperUnit.Save();
                 Logger.Log("Inserted new team", "INFO");
                 return Ok(team);
@@ -97,7 +97,7 @@ namespace TimeKeeper.API.Controllers
                     message += string.Join(Environment.NewLine, ModelState.Values.SelectMany(v => v.Errors).Select(e => e.ErrorMessage));
                     throw new Exception(message);
                 }
-                TimeKeeperUnit.Teams.Update(TimeKeeperFactory.Create(team), id);
+                TimeKeeperUnit.Teams.Update(TimeKeeperFactory.Create(team, TimeKeeperUnit), id);
                 TimeKeeperUnit.Save();
                 Logger.Log($"Updated team with id {id}", "INFO");
                 return Ok(team);

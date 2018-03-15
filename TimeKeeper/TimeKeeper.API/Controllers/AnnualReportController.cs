@@ -3,7 +3,7 @@ using System.Web.Http;
 
 namespace TimeKeeper.API.Controllers
 {
-    public class AnnualController : BaseController
+    public class AnnualReportController : BaseController
     {
         public IHttpActionResult Get(int year = 0)
         {
