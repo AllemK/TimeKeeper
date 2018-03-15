@@ -60,7 +60,7 @@ namespace TimeKeeper.API.Controllers
                     message += string.Join(Environment.NewLine, ModelState.Values.SelectMany(x => x.Errors).Select(x => x.ErrorMessage));
                     throw new Exception(message);
                 }
-                TimeKeeperUnit.Projects.Insert(TimeKeeperFactory.Create(project));
+                TimeKeeperUnit.Projects.Insert(TimeKeeperFactory.Create(project, TimeKeeperUnit));
                 TimeKeeperUnit.Save();
                 Logger.Log("Inserted new project", "INFO");
                 return Ok(project);
@@ -93,7 +93,7 @@ namespace TimeKeeper.API.Controllers
                     message += string.Join(Environment.NewLine, ModelState.Values.SelectMany(x => x.Errors).Select(x => x.ErrorMessage));
                     throw new Exception(message);
                 }
-                TimeKeeperUnit.Projects.Update(TimeKeeperFactory.Create(project), id);
+                TimeKeeperUnit.Projects.Update(TimeKeeperFactory.Create(project, TimeKeeperUnit), id);
                 TimeKeeperUnit.Save();
                 Logger.Log($"Updated project with id {id}", "INFO");
                 return Ok(project);
