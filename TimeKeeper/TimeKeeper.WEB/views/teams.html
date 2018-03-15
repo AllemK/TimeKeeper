@@ -1,0 +1,6 @@
+<h1>Teams</h1>
+<h2>{{message}}</h2>
+<div ng-repeat="team in teams">
+    {{team.name}}: <span ng-repeat="member in team.engagements">{{member.employee}} </span>
+    <hr>
+</div>
