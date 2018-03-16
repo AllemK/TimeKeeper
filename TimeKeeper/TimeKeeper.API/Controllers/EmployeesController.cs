@@ -131,22 +131,6 @@ namespace TimeKeeper.API.Controllers
                     return NotFound();
                 }
 
-                /* Tried to delete all of the foreign key contraint items
-                 * within the delete function, however it requires more
-                 * attetion, and debugging, for now left alone until
-                 * more consultation needed*/
-                DaysController dc = new DaysController();
-                foreach (var item in TimeKeeperUnit.Calendar.Get().Where(x => x.Employee.Id == emp.Id))
-                {
-                    dc.Delete(item.Id);
-                }
-
-                EngagementsController ec = new EngagementsController();
-                foreach (var item in TimeKeeperUnit.Engagements.Get().Where(x => x.Employee.Id == emp.Id))
-                {
-                    ec.Delete(item.Id);
-                }
-
                 TimeKeeperUnit.Employees.Delete(emp);
                 TimeKeeperUnit.Save();
                 Logger.Log($"Deleted employee with id {id}", "INFO");

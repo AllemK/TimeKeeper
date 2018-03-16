@@ -3,7 +3,6 @@
     app.controller("employeesController", ['$scope', 'dataService', function ($scope, dataService) {
 
         dataService.list("roles", function(data){
-            $scope.page =
             $scope.roles = data;
         });
         $scope.message = "Wait...";

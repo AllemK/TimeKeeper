@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html ng-app="timeKeeper">
+
+<head>
+    <link href="app.min.css" rel="stylesheet" />
+    <script src="lib.min.js"></script>
+    <script src="app.min.js"></script>
+    <script src="template.js"></script>
+</head>
+
+<body>
+<header>
+    <div class="container">
+        <div class="pull-left"><h2>Time Keeper</h2></div>
+        <div class="pull-right" style="margin-top:24px">
+            <a href="#!/teams"><button class="btn btn-primary">Teams</button></a>
+            <a href="#!/employees"><button class="btn btn-primary">Employees</button></a>
+            <a href="#!/customers"><button class="btn btn-primary">Customers</button></a>
+            <a href="#!/projects"><button class="btn btn-primary">Projects</button></a>
+        </div>
+    </div>
+</header>
+
+<div class="container"><div ng-view></div></div>
+
+<footer>
+    <div>Copyright &copy; by Gigi School</div>
+</footer>
+</body>
+</html>
