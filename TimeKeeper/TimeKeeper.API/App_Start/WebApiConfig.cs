@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
+using System.Web.Http.Cors;
 
 namespace TimeKeeper.API
 {
@@ -21,6 +22,8 @@ namespace TimeKeeper.API
                 routeTemplate: "api/{controller}/{id}",
                 defaults: new { id = RouteParameter.Optional }
             );
+
+            config.EnableCors(new EnableCorsAttribute("*", "*", "*"));
 
             var json = GlobalConfiguration.Configuration;
             json.Formatters.XmlFormatter.SupportedMediaTypes.Clear();
