@@ -123,17 +123,7 @@ namespace TimeKeeper.API.Controllers
                 {
                     Logger.Log($"No such day with id {id}");
                     return NotFound();
-                }
-
-                /* Tried to delete all of the foreign key contraint items
-                 * within the delete function, however it requires more
-                 * attetion, and debugging, for now left alone until
-                 * more consultation needed*/
-                DetailsController dc = new DetailsController();
-                foreach(var item in TimeKeeperUnit.Details.Get().Where(x => x.Day.Id == day.Id)){
-                    dc.Delete(item.Id);
-                }
-                
+                }                
 
                 TimeKeeperUnit.Calendar.Delete(day);
                 TimeKeeperUnit.Save();

@@ -124,6 +124,7 @@ namespace TimeKeeper.API.Controllers
                     Logger.Log($"No such engagement with id {id}");
                     return NotFound();
                 }
+
                 TimeKeeperUnit.Engagements.Delete(member);
                 TimeKeeperUnit.Save();
                 Logger.Log($"Deleted engagement with id {id}", "INFO");

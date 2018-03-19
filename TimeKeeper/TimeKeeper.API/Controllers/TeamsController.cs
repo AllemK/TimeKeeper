@@ -60,7 +60,7 @@ namespace TimeKeeper.API.Controllers
             {
                 if (!ModelState.IsValid)
                 {
-                    var message = "Failed inserting new team"+Environment.NewLine;
+                    var message = "Failed inserting new team" + Environment.NewLine;
                     message += string.Join(Environment.NewLine, ModelState.Values.SelectMany(v => v.Errors).Select(e => e.ErrorMessage));
                     throw new Exception(message);
                 }
@@ -93,7 +93,7 @@ namespace TimeKeeper.API.Controllers
                 }
                 if (!ModelState.IsValid)
                 {
-                    var message = $"Failed updating team with id {id}"+Environment.NewLine;
+                    var message = $"Failed updating team with id {id}" + Environment.NewLine;
                     message += string.Join(Environment.NewLine, ModelState.Values.SelectMany(v => v.Errors).Select(e => e.ErrorMessage));
                     throw new Exception(message);
                 }
@@ -124,24 +124,6 @@ namespace TimeKeeper.API.Controllers
                     Logger.Log($"No such team with id {id}");
                     return NotFound();
                 }
-
-                /*Tried to delete all of the foreign key contraint items
-                 * within the delete function, however it requires more
-                 * attetion, and debugging, for now left alone until
-                 * more consultation needed
-                
-                ProjectsController pc = new ProjectsController();
-                foreach(var item in TimeKeeperUnit.Projects.Get().Where(x=>x.Team.Id==team.Id))
-                {
-                    pc.Delete(item.Id);
-                }
-
-                EngagementsController ec = new EngagementsController();
-                foreach(var item in TimeKeeperUnit.Engagements.Get().Where(x => x.Team.Id == team.Id))
-                {
-                    ec.Delete(item.Id);
-                }
-                */
 
                 TimeKeeperUnit.Teams.Delete(team);
                 TimeKeeperUnit.Save();

@@ -95,7 +95,7 @@ namespace TimeKeeper.Seed
                     BirthDate = (DateTime)row.Read(6, typeof(DateTime)),
                     BeginDate = (DateTime)row.Read(7, typeof(DateTime)),
                     Status = (EmployeeStatus)row.Read(9, typeof(int)),
-                    Position = context.Roles.Find((string)row.Read(10, typeof(string))),
+                    Role = context.Roles.Find((string)row.Read(10, typeof(string))),
                     Salary = (decimal)row.Read(11, typeof(decimal))
                 };
                 if (employee.Status == EmployeeStatus.Leaver)
