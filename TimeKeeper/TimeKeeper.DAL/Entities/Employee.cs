@@ -33,6 +33,7 @@ namespace TimeKeeper.DAL.Entities
         public string Image { get; set; }
         [Required]
         public string Email { get; set; }
+        public string Password { get; set; }
         [Required]
         [MaxLength(20)]
         public string Phone { get; set; }
@@ -47,7 +48,7 @@ namespace TimeKeeper.DAL.Entities
         [Required]
         public EmployeeStatus Status { get; set; }
 
-        public virtual Role Position { get; set; }
+        public virtual Role Role { get; set; }
 
         public virtual ICollection<Day> Days { get; set; }
         public virtual ICollection<Engagement> Engagements { get; set; }

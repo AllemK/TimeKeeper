@@ -64,7 +64,7 @@ namespace TimeKeeper.API.Controllers
                     message += string.Join(Environment.NewLine, ModelState.Values.SelectMany(x => x.Errors).Select(x => x.ErrorMessage));
                     throw new Exception(message);
                 }
-                TimeKeeperUnit.Roles.Insert(TimeKeeperFactory.Create(role));
+                TimeKeeperUnit.Roles.Insert(TimeKeeperFactory.Create(role, TimeKeeperUnit));
                 TimeKeeperUnit.Save();
                 Logger.Log("Inserted new role", "INFO");
                 return Ok(role);
@@ -97,7 +97,7 @@ namespace TimeKeeper.API.Controllers
                     message += string.Join(Environment.NewLine, ModelState.Values.SelectMany(x => x.Errors).Select(x => x.ErrorMessage));
                     throw new Exception(message);
                 }
-                TimeKeeperUnit.Roles.Update(TimeKeeperFactory.Create(role), id);
+                TimeKeeperUnit.Roles.Update(TimeKeeperFactory.Create(role, TimeKeeperUnit), id);
                 TimeKeeperUnit.Save();
                 Logger.Log($"Updated role with id {id}", "INFO");
                 return Ok(role);
@@ -124,21 +124,6 @@ namespace TimeKeeper.API.Controllers
                     Logger.Log($"No such role with id {id}");
                     return NotFound();
                 }
-
-                /* Tried to delete all of the foreign key contraint items
-                 * within the delete function, however it requires more
-                 * attetion, and debugging, for now left alone until
-                 * more consultation needed
-                EngagementsController ec = new EngagementsController();
-                foreach (var item in TimeKeeperUnit.Engagements.Get().Where(x => x.Role.Id == role.Id)){
-                    ec.Delete(item.Id);
-                }
-
-                EmployeesController emc = new EmployeesController();
-                foreach (var item in TimeKeeperUnit.Employees.Get().Where(x => x.Position.Id == role.Id)) {
-                    emc.Delete(item.Id);
-                }
-                */
 
                 TimeKeeperUnit.Roles.Delete(role);
                 TimeKeeperUnit.Save();

@@ -64,7 +64,7 @@ namespace TimeKeeper.API.Controllers
                     message += string.Join(Environment.NewLine, ModelState.Values.SelectMany(x => x.Errors).Select(x => x.ErrorMessage));
                     throw new Exception(message);
                 }
-                TimeKeeperUnit.Engagements.Insert(TimeKeeperFactory.Create(engagement));
+                TimeKeeperUnit.Engagements.Insert(TimeKeeperFactory.Create(engagement, TimeKeeperUnit));
                 TimeKeeperUnit.Save();
                 Logger.Log("Inserted new engagement", "INFO");
                 return Ok(engagement);
@@ -97,7 +97,7 @@ namespace TimeKeeper.API.Controllers
                     message += string.Join(Environment.NewLine, ModelState.Values.SelectMany(x => x.Errors).Select(x => x.ErrorMessage));
                     throw new Exception(message);
                 }
-                TimeKeeperUnit.Engagements.Update(TimeKeeperFactory.Create(engagement), id);
+                TimeKeeperUnit.Engagements.Update(TimeKeeperFactory.Create(engagement, TimeKeeperUnit), id);
                 TimeKeeperUnit.Save();
                 Logger.Log($"Updated engagement with id {id}", "INFO");
                 return Ok(engagement);
@@ -124,6 +124,7 @@ namespace TimeKeeper.API.Controllers
                     Logger.Log($"No such engagement with id {id}");
                     return NotFound();
                 }
+
                 TimeKeeperUnit.Engagements.Delete(member);
                 TimeKeeperUnit.Save();
                 Logger.Log($"Deleted engagement with id {id}", "INFO");

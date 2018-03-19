@@ -22,7 +22,7 @@ namespace TimeKeeper.API.Models
             };
         }
 
-        public Team Create(TeamModel tm)
+        public Team Create(TeamModel tm, UnitOfWork unit)
         {
             return new Team()
             {
@@ -30,8 +30,8 @@ namespace TimeKeeper.API.Models
                 Name = tm.Name,
                 Image = tm.Image,
                 Description = tm.Description,
-                Engagements = tm.Engagements.Select(x => Create(x)).ToList(),
-                Projects = tm.Projects.Select(x => Create(x)).ToList()
+                Engagements = tm.Engagements.Select(x => Create(x, unit)).ToList(),
+                Projects = tm.Projects.Select(x => Create(x, unit)).ToList()
             };
         }
 
@@ -48,7 +48,7 @@ namespace TimeKeeper.API.Models
             };
         }
 
-        public Role Create(RoleModel rm)
+        public Role Create(RoleModel rm, UnitOfWork unit)
         {
             Enum.TryParse(rm.Type, out RoleType type);
             return new Role()
@@ -58,8 +58,8 @@ namespace TimeKeeper.API.Models
                 Type = type,
                 HourlyRate = rm.HourlyRate,
                 MonthlyRate = rm.MonthlyRate,
-                Engagements = rm.Members.Select(x => Create(x)).ToList(),
-                Employees = rm.Employees.Select(x => Create(x)).ToList()
+                Engagements = rm.Members.Select(x => Create(x, unit)).ToList(),
+                Employees = rm.Employees.Select(x => Create(x, unit)).ToList()
             };
         }
 
@@ -75,20 +75,17 @@ namespace TimeKeeper.API.Models
             };
         }
 
-        public Engagement Create(EngagementModel em)
+        public Engagement Create(EngagementModel em, UnitOfWork unit)
         {
             string[] names = em.Employee.Split(' ');
-            using (UnitOfWork unit = new UnitOfWork())
+            return new Engagement
             {
-                return new Engagement
-                {
-                    Id = em.Id,
-                    Hours = em.Hours,
-                    Team = unit.Teams.Get(em.TeamId),
-                    Role = unit.Roles.Get(em.RoleId),
-                    Employee = unit.Employees.Get(em.EmployeeId)
-                };
-            }
+                Id = em.Id,
+                Hours = em.Hours,
+                Team = unit.Teams.Get(em.TeamId),
+                Role = unit.Roles.Get(em.RoleId),
+                Employee = unit.Employees.Get(em.EmployeeId)
+            };
         }
 
         public ProjectModel Create(Project p)
@@ -109,27 +106,24 @@ namespace TimeKeeper.API.Models
             };
         }
 
-        public Project Create(ProjectModel pm)
+        public Project Create(ProjectModel pm, UnitOfWork unit)
         {
             Enum.TryParse(pm.Status, out ProjectStatus status);
             Enum.TryParse(pm.Pricing, out Pricing pricing);
-            using (UnitOfWork unit = new UnitOfWork())
+            return new Project()
             {
-                return new Project()
-                {
-                    Id = pm.Id,
-                    Name = pm.Name,
-                    Monogram = pm.Monogram,
-                    Description = pm.Description,
-                    StartDate = pm.StartDate,
-                    EndDate = pm.EndDate,
-                    Status = status,
-                    Pricing = pricing,
-                    Amount = pm.Amount,
-                    Customer = unit.Customers.Get(pm.CustomerId),
-                    Team = unit.Teams.Get(pm.TeamId)
-                };
-            }
+                Id = pm.Id,
+                Name = pm.Name,
+                Monogram = pm.Monogram,
+                Description = pm.Description,
+                StartDate = pm.StartDate,
+                EndDate = pm.EndDate,
+                Status = status,
+                Pricing = pricing,
+                Amount = pm.Amount,
+                Customer = unit.Customers.Get(pm.CustomerId),
+                Team = unit.Teams.Get(pm.TeamId)
+            };
         }
 
         public EmployeeModel Create(Employee e)
@@ -141,41 +135,40 @@ namespace TimeKeeper.API.Models
                 LastName = e.LastName,
                 Image = e.Image,
                 Email = e.Email,
+                Password = e.Password,
                 Phone = e.Phone,
                 Salary = e.Salary,
                 BirthDate = e.BirthDate,
                 BeginDate = e.BeginDate,
                 EndDate = e.EndDate,
                 Status = e.Status.ToString(),
-                Position = (e.Position != null) ? e.Position.Name : "",
+                Role = e.Role.Id,
                 Engagements = e.Engagements.Select(eng => Create(eng)).ToList(),
                 Days = e.Days.Select(d => Create(d)).ToList()
             };
         }
 
-        public Employee Create(EmployeeModel em)
+        public Employee Create(EmployeeModel em, UnitOfWork unit)
         {
             Enum.TryParse(em.Status, out EmployeeStatus status);
-            using (UnitOfWork unit = new UnitOfWork())
+            return new Employee()
             {
-                return new Employee()
-                {
-                    Id = em.Id,
-                    FirstName = em.FirstName,
-                    LastName = em.LastName,
-                    Image = em.Image,
-                    Email = em.Email,
-                    Phone = em.Phone,
-                    Salary = em.Salary,
-                    BirthDate = em.BirthDate,
-                    BeginDate = em.BeginDate,
-                    EndDate = em.EndDate,
-                    Status = status,
-                    Position = unit.Roles.Get(em.RoleId),
-                    Engagements = em.Engagements.Select(x => Create(x)).ToList(),
-                    Days = em.Days.Select(x => Create(x)).ToList()
-                };
-            }
+                Id = em.Id,
+                FirstName = em.FirstName,
+                LastName = em.LastName,
+                Image = em.Image,
+                Email = em.Email,
+                Password = em.Password,
+                Phone = em.Phone,
+                Salary = em.Salary,
+                BirthDate = em.BirthDate,
+                BeginDate = em.BeginDate,
+                EndDate = em.EndDate,
+                Status = status,
+                Role = unit.Roles.Get(em.Role),
+                Engagements = em.Engagements.Select(x => Create(x, unit)).ToList(),
+                Days = em.Days.Select(x => Create(x, unit)).ToList()
+            };
         }
 
         public DetailModel Create(Detail d)
@@ -190,19 +183,16 @@ namespace TimeKeeper.API.Models
             };
         }
 
-        public Detail Create(DetailModel dm)
+        public Detail Create(DetailModel dm, UnitOfWork unit)
         {
-            using (UnitOfWork unit = new UnitOfWork())
+            return new Detail()
             {
-                return new Detail()
-                {
-                    Id = dm.Id,
-                    Description = dm.Description,
-                    Hours = dm.Hours,
-                    Day = unit.Calendar.Get(dm.DayId),
-                    Project = unit.Projects.Get(dm.ProjectId)
-                };
-            }
+                Id = dm.Id,
+                Description = dm.Description,
+                Hours = dm.Hours,
+                Day = unit.Calendar.Get(dm.DayId),
+                Project = unit.Projects.Get(dm.ProjectId)
+            };
         }
 
         public CalendarModel Create(Day d)
@@ -218,21 +208,18 @@ namespace TimeKeeper.API.Models
             };
         }
 
-        public Day Create(CalendarModel cm)
+        public Day Create(CalendarModel cm, UnitOfWork unit)
         {
             Enum.TryParse(cm.Type, out DayType type);
-            using (UnitOfWork unit = new UnitOfWork())
+            return new Day()
             {
-                return new Day()
-                {
-                    Id = cm.Id,
-                    Date = cm.Date,
-                    Hours = cm.Hours,
-                    Type = type,
-                    Employee = unit.Employees.Get(cm.EmployeeId),
-                    Details = cm.Details.Select(x => Create(x)).ToList()
-                };
-            }
+                Id = cm.Id,
+                Date = cm.Date,
+                Hours = cm.Hours,
+                Type = type,
+                Employee = unit.Employees.Get(cm.EmployeeId),
+                Details = cm.Details.Select(x => Create(x, unit)).ToList()
+            };
         }
 
         public CustomerModel Create(Customer c)
@@ -254,7 +241,7 @@ namespace TimeKeeper.API.Models
             };
         }
 
-        public Customer Create(CustomerModel cm)
+        public Customer Create(CustomerModel cm, UnitOfWork unit)
         {
             Enum.TryParse(cm.Status, out CustomerStatus status);
             return new Customer()
@@ -273,7 +260,7 @@ namespace TimeKeeper.API.Models
                     City = cm.Address_City
                 },
                 Status = status,
-                Projects = cm.Projects.Select(x => Create(x)).ToList()
+                Projects = cm.Projects.Select(x => Create(x, unit)).ToList()
             };
         }
     }

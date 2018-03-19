@@ -64,7 +64,7 @@ namespace TimeKeeper.API.Controllers
                     message += string.Join(Environment.NewLine, ModelState.Values.SelectMany(v => v.Errors).Select(e => e.ErrorMessage));
                     throw new Exception(message);
                 }
-                TimeKeeperUnit.Customers.Insert(TimeKeeperFactory.Create(customer));
+                TimeKeeperUnit.Customers.Insert(TimeKeeperFactory.Create(customer, TimeKeeperUnit));
                 TimeKeeperUnit.Save();
                 Logger.Log($"Inserted new customer with name {customer.Name}", "INFO");
                 return Ok(customer);
@@ -98,7 +98,7 @@ namespace TimeKeeper.API.Controllers
                     message += string.Join(Environment.NewLine, ModelState.Values.SelectMany(v => v.Errors).Select(e => e.ErrorMessage));
                     throw new Exception(message);
                 }
-                TimeKeeperUnit.Customers.Update(TimeKeeperFactory.Create(customer), id);
+                TimeKeeperUnit.Customers.Update(TimeKeeperFactory.Create(customer, TimeKeeperUnit), id);
                 TimeKeeperUnit.Save();
                 Logger.Log($"Updated record for customer with id {id}", "INFO");
                 return Ok(customer);
@@ -125,17 +125,6 @@ namespace TimeKeeper.API.Controllers
                     Logger.Log($"No customer found with id {id}");
                     return NotFound();
                 }
-
-                /* Tried to delete all of the foreign key contraint items
-                 * within the delete function, however it requires more
-                 * attetion, and debugging, for now left alone until
-                 * more consultation needed
-                ProjectsController pc = new ProjectsController();                
-                foreach (var item in TimeKeeperUnit.Projects.Get().Where(x => x.Customer.Id == customer.Id))
-                {
-                    pc.Delete(item.Id);
-                }
-                */
 
                 TimeKeeperUnit.Customers.Delete(customer);
                 TimeKeeperUnit.Save();

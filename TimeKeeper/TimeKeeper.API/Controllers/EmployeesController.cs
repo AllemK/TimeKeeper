@@ -10,6 +10,8 @@ using TimeKeeper.API.Helper;
 using TimeKeeper.Utility;
 using TimeKeeper.DAL.Entities;
 using TimeKeeper.API.Models;
+using System.Security.Claims;
+using Thinktecture.IdentityModel.WebApi;
 
 namespace TimeKeeper.API.Controllers
 {
@@ -36,9 +38,12 @@ namespace TimeKeeper.API.Controllers
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
+        [ScopeAuthorize("read")]
         public IHttpActionResult Get(int id)
         {
-            Employee emp = TimeKeeperUnit.Employees.Get(id);
+            var claimsPrincipal = User as ClaimsPrincipal;
+            string username = claimsPrincipal.FindFirst("http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Value;
+            Employee emp = TimeKeeperUnit.Employees.Get(x => x.Email == username).FirstOrDefault();
             if (emp == null)
             {
                 Logger.Log($"No record of employee with id: {id}");
@@ -66,7 +71,8 @@ namespace TimeKeeper.API.Controllers
                     message += string.Join(Environment.NewLine, ModelState.Values.SelectMany(x => x.Errors).Select(x => x.ErrorMessage));
                     throw new Exception(message);
                 }
-                TimeKeeperUnit.Employees.Insert(TimeKeeperFactory.Create(emp));
+                TimeKeeperUnit.Employees.Insert(TimeKeeperFactory.Create(emp, TimeKeeperUnit));
+                TimeKeeperUnit.Save();
                 Logger.Log($"Inserted new employee {emp.FullName}", "INFO");
                 return Ok(emp);
             }
@@ -98,7 +104,7 @@ namespace TimeKeeper.API.Controllers
                     message += string.Join(Environment.NewLine, ModelState.Values.SelectMany(x => x.Errors).Select(x => x.ErrorMessage));
                     throw new Exception(message);
                 }
-                TimeKeeperUnit.Employees.Update(TimeKeeperFactory.Create(emp), id);
+                TimeKeeperUnit.Employees.Update(TimeKeeperFactory.Create(emp, TimeKeeperUnit), id);
                 TimeKeeperUnit.Save();
                 Logger.Log($"Updated record for employee {emp.FullName}", "INFO");
                 return Ok(emp);
@@ -125,22 +131,6 @@ namespace TimeKeeper.API.Controllers
                     Logger.Log($"No such employee with id {id}");
                     return NotFound();
                 }
-
-                /* Tried to delete all of the foreign key contraint items
-                 * within the delete function, however it requires more
-                 * attetion, and debugging, for now left alone until
-                 * more consultation needed
-                DaysController dc = new DaysController();
-                foreach (var item in TimeKeeperUnit.Calendar.Get().Where(x => x.Employee.Id == emp.Id))
-                {
-                     dc.Delete(item.Id);
-                }
-
-                EngagementsController ec = new EngagementsController();
-                foreach(var item in TimeKeeperUnit.Engagements.Get().Where(x => x.Employee.Id == emp.Id)){
-                    dc.Delete(item.Id);
-                }
-                */
 
                 TimeKeeperUnit.Employees.Delete(emp);
                 TimeKeeperUnit.Save();

@@ -1,0 +1,24 @@
+body {
+    font-family: Verdana, sans-serif;
+    font-size: 11pt;
+    margin: 0;
+    padding-top: 78px;
+    padding-bottom: 32px;
+}
+
+header, footer {
+    position: fixed;
+    color: white;
+    background-color: #036;
+    width: 100%;
+    z-index: 999;
+    text-align: center;
+}
+
+header {
+    top: 0;
+}
+
+footer {
+    bottom: 0;
+}
