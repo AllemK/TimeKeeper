@@ -33,8 +33,7 @@ namespace TimeKeeper.API.Models
         public decimal Amount { get; set; }
 
         public string Customer { get; set; }
-        public int CustomerId { get; set; }
         public string Team { get; set; }
-        public string TeamId { get; set; }
+        public ICollection<DetailModel> Details { get; set; }
     }
 }
