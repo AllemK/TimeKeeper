@@ -96,45 +96,55 @@ namespace TimeKeeper.API.Reports
 
         public DashboardModel CompanyDashboard(int year, int month)
         {
-            var currentDate = new DateTime(year, month, DateTime.DaysInMonth(year, month));
-            int numberOfEmployees = TimeKeeperUnit.Employees
-                .Get(x => x.BeginDate.CompareTo(currentDate) <= 0 || (x.EndDate.HasValue && x.EndDate.Value.CompareTo(currentDate) < 0))
+            var firstDay = new DateTime(year, month, 1);
+            var lastDay = new DateTime(year, month, DateTime.DaysInMonth(year, month));
+            var query = TimeKeeperUnit.Projects
+                .Get(x => x.StartDate <= firstDay && (!x.EndDate.HasValue || x.EndDate.Value >= firstDay));
+
+            DashboardModel dm = new DashboardModel(query.Select(x => x.Team).Count(), query.Count);
+            dm.NumberOfEmployees = query
+                .Select(x => x.Team)
+                .SelectMany(x => x.Engagements)
+                .Select(x => x.Employee)
+                .GroupBy(x => x.Engagements.GroupBy(y => y.Team.Projects.GroupBy(z => z.Id)))
                 .Count();
-            var activeProjects = TimeKeeperUnit.Projects
-                .Get(x => x.StartDate.CompareTo(currentDate) <= 0 || (x.EndDate.HasValue && x.EndDate.Value.CompareTo(currentDate) > 0) && x.Status != ProjectStatus.Canceled);
-            var activeTeams = TimeKeeperUnit.Teams
-                .Get(x => x.Projects.Contains(activeProjects.FirstOrDefault()));
+            dm.NumberOfProjects = query.Count;
+            dm.TotalHours = query
+                .Select(x => x.Team)
+                .SelectMany(x => x.Engagements)
+                .Select(x => x.Employee)
+                .SelectMany(x => x.Days)
+                .GroupBy(x => x.Employee)
+                .Sum(x => x.Key.Days.Where(y => y.Date >= firstDay && y.Date <= lastDay).Sum(y => y.Hours));
 
-            var tempDate = new DateTime(year, month, 1);
-            //foreach(var item in activeTeams)
-            //{
-            //    for(int i = 1; i<DateTime.DaysInMonth(year,month))
-            //    var missingEntries = item.Engagements.SelectMany(x=>x.Employee.Days)
-            //        .Where(x=>x.Hours<8 || x.Date)
-            //}
-
-            DashboardModel dm = new DashboardModel(activeTeams.Count, activeProjects.Count);
-            dm.NumberOfEmployees = numberOfEmployees;
-            dm.NumberOfProjects = activeProjects.Count;
-            dm.TotalHours = TimeKeeperUnit.Calendar.Get(x => x.Date.Year == year && x.Date.Month == month).Sum(x => x.Hours);
-            int i = 0;
-            foreach (var item in activeTeams)
+            for (int i = 0; i < dm.PTOHours.Count(); i++)
             {
-                dm.OvertimeHours[i] = item.Engagements
-                    .SelectMany(x => x.Employee.Days)
-                    .Where(x=>x.Hours>8)
-                    .Sum(x => (x.Hours-8));
-                dm.PTOHours[i] = item.Engagements
-                    .SelectMany(x => x.Employee.Days)
-                    .Where(x => x.Type != DayType.WorkingDay)
-                    .Sum(x => x.Hours);
-                //dm.MissingEntries[i] = 
+                dm.PTOHours[i] = query
+                .Select(x => x.Team)
+                .ElementAt(i)
+                .Engagements
+                .Select(x => x.Employee)
+                .SelectMany(x => x.Days)
+                .GroupBy(x => x.Employee)
+                .Sum(x => x.Key.Days
+                .Where(y => y.Date >= firstDay && y.Date <= lastDay && y.Type!=DayType.WorkingDay)
+                .Sum(y => y.Hours));
+
+                dm.OvertimeHours[i] = query
+                .Select(x=>x.Team)
+                .ElementAt(i)
+                .Engagements
+                .Select(x => x.Employee)
+                .SelectMany(x => x.Days)
+                .GroupBy(x => x.Employee)
+                .Sum(x => x.Key.Days.Where(y => y.Date >= firstDay && y.Date <= lastDay && y.Hours>8)
+                .Sum(y => y.Hours-8));
             }
 
             return dm;
         }
 
-        public DashboardModel TeamDashboard()
+        public DashboardModel TeamDashboard(string teamId, int year, int month)
         {
             int numberOfEmployees = TimeKeeperUnit.Employees.Get().Count();
             int numberOfProjets = TimeKeeperUnit.Projects.Get().Count();
@@ -146,54 +156,45 @@ namespace TimeKeeper.API.Reports
         public PersonalModel PersonalReport(int id, int year, int month)
         {
             var query = TimeKeeperUnit.Employees.Get(id);
-
-            if (year == 0) year = DateTime.Today.Year;
-            if (month == 0 || month == DateTime.Today.Month)
-            {
-                month = DateTime.Today.Month;
-            }
-            int daysInCurrentMonth = GetWorkingDays(year, month);
+            int daysInCurrentMonth = GetWorkingDays(year, month, query);
 
             PersonalModel pm = new PersonalModel(DateTime.DaysInMonth(year, month));
-            pm.TotalHours = query.Days.Where(x => x.Date.Month == month && x.Date.Year == year).Sum(x => x.Hours);
-            pm.Utilization = (pm.TotalHours / (daysInCurrentMonth * 8)) * 100;
+
+            pm.TotalHours = query.Days.Where(x => x.Date.Month == month && x.Date.Year == year && x.Hours >= 8).Sum(x => x.Hours);
+            pm.Utilization = (query.Days.Where(x => x.Date.Month == month && x.Date.Year == year && x.Hours >= 8).Count() / daysInCurrentMonth) * 100;
             //pm.BradfordFactor = 
 
-            int days = DateTime.DaysInMonth(year, month);
-            if (month == DateTime.Today.Month)
-                days = DateTime.Today.Day;
-            var nonWorkingDays = TimeKeeperUnit.Calendar.Get().Where(x => x.Type != DayType.WorkingDay && x.Date.Month == month && x.Date.Year == year).ToList();
-            if (nonWorkingDays != null)
-            {
-                nonWorkingDays.Where(x => x.Type == DayType.PublicHoliday).ToList().ForEach(x => pm.Days[x.Date.Day] = "PH");
-                nonWorkingDays.Where(x => x.Type == DayType.ReligiousDay).ToList().ForEach(x => pm.Days[x.Date.Day] = "RD");
-                nonWorkingDays.Where(x => x.Type == DayType.Vacation).ToList().ForEach(x => pm.Days[x.Date.Day] = "V");
-                nonWorkingDays.Where(x => x.Type == DayType.SickLeave).ToList().ForEach(x => pm.Days[x.Date.Day] = "SL");
-                nonWorkingDays.Where(x => x.Type == DayType.BusinessAbsence).ToList().ForEach(x => pm.Days[x.Date.Day] = "BA");
-            }
-            for (int i = 1; i <= days; i++)
-            {
-                DateTime tempDate = new DateTime(year, month, i);
-                var item = query.Days.Where(x => x.Date.CompareTo(tempDate) == 0).FirstOrDefault();
-                if (item.Hours >= 8 && item != null && item.Type == DayType.WorkingDay)
-                    pm.Days[i - 1] = "8";
-            }
+            var days = query.Days.Where(x => x.Date.Month == month && x.Date.Year == year).OrderBy(x => x.Date).ToList();
+            days.Where(x => x.Type == DayType.WorkingDay).ToList().ForEach(x => pm.Days[x.Date.Day - 1] = "8");
+            days.Where(x => x.Type == DayType.PublicHoliday).ToList().ForEach(x => pm.Days[x.Date.Day - 1] = "PH");
+            days.Where(x => x.Type == DayType.ReligiousDay).ToList().ForEach(x => pm.Days[x.Date.Day - 1] = "RD");
+            days.Where(x => x.Type == DayType.BusinessAbsence).ToList().ForEach(x => pm.Days[x.Date.Day - 1] = "BA");
+            days.Where(x => x.Type == DayType.OtherAbsence).ToList().ForEach(x => pm.Days[x.Date.Day - 1] = "OA");
+            days.Where(x => x.Type == DayType.Vacation).ToList().ForEach(x => pm.Days[x.Date.Day - 1] = "V");
+            days.Where(x => x.Type == DayType.SickLeave).ToList().ForEach(x => pm.Days[x.Date.Day - 1] = "SL");
+
             return pm;
         }
 
-        public int GetWorkingDays(int year, int month)
+        public int GetWorkingDays(int year, int month, Employee query)
         {
+            int day = 1;
             int currentWorkingDays = DateTime.DaysInMonth(year, month);
             if (DateTime.Today.Month == month && DateTime.Today.Year == year)
             {
                 currentWorkingDays = DateTime.Today.Day;
             }
-            
-            for(int i = 1; i <= DateTime.DaysInMonth(year, month); i++)
+            if (query.BeginDate.Month == month && query.BeginDate.Year == year)
+            {
+                currentWorkingDays = DateTime.DaysInMonth(year, month) - query.BeginDate.Day + 1;
+                day = query.BeginDate.Day;
+            }
+
+            int tempDays = currentWorkingDays;
+            for (int i = day; i <= tempDays; i++)
             {
                 var tempDate = new DateTime(year, month, i);
-                var typeOfDay = TimeKeeperUnit.Calendar.Get(x => x.Date.CompareTo(tempDate) == 0).First().Type;
-                if (tempDate.DayOfWeek==DayOfWeek.Saturday || tempDate.DayOfWeek==DayOfWeek.Sunday || typeOfDay == DayType.PublicHoliday || typeOfDay == DayType.ReligiousDay)
+                if (tempDate.DayOfWeek == DayOfWeek.Saturday || tempDate.DayOfWeek == DayOfWeek.Sunday)
                 {
                     currentWorkingDays--;
                 }
