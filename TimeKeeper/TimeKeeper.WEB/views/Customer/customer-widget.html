@@ -1,0 +1,13 @@
+<div class="custFrame">
+    <img class="custImage" ng-src="images/{{data.monogram}}.jpg">
+    <div class="custData">
+        <span class="custTitle">{{data.name}}</span><br>
+        {{data.contact}}<br>
+        {{data.phone}}
+    </div>
+    <div class="clearfix"></div>
+    <div class="custNav">
+        <a href="" ng-click="edit(data)"><i class="glyphicon glyphicon-pencil"></i></a>
+        <a href="" ng-click="delete(data)"><i class="glyphicon glyphicon-trash"></i></a>
+    </div>
+</div>

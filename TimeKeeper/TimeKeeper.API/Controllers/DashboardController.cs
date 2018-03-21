@@ -7,9 +7,9 @@ using System.Web.Http;
 
 namespace TimeKeeper.API.Controllers
 {
-    public class PersonalReportController : BaseController
+    public class DashboardController : BaseController
     {
-        public IHttpActionResult Get(int id, int year = 0, int month = 0)
+        public IHttpActionResult Get(int year = 0, int month=0)
         {
             if (year == 0) year = DateTime.Today.Year;
             if (month == 0) month = DateTime.Today.Month;
@@ -17,8 +17,7 @@ namespace TimeKeeper.API.Controllers
             {
                 year,
                 month,
-                id,
-                list = TimeKeeperReports.PersonalReport(id, year, month)
+                list = TimeKeeperReports.CompanyDashboard(year, month)
             });
         }
     }

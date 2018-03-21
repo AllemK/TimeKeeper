@@ -94,9 +94,8 @@ namespace TimeKeeper.Test
         public void EngagementControllerGet()
         {
             var controller = new EngagementsController();
-            var h = new Header();
 
-            var response = controller.Get(h);
+            var response = controller.Get();
             var result = (OkNegotiatedContentResult<List<EngagementModel>>)response;
 
             Assert.IsNotNull(result);

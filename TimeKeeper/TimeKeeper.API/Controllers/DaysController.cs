@@ -8,6 +8,7 @@ using TimeKeeper.API.Helper;
 using TimeKeeper.API.Models;
 using TimeKeeper.Utility;
 using TimeKeeper.DAL.Entities;
+using System.Web.WebPages.Html;
 
 namespace TimeKeeper.API.Controllers
 {
@@ -17,6 +18,8 @@ namespace TimeKeeper.API.Controllers
         /// Get all Days
         /// </summary>
         /// <returns></returns>
+        [HttpGet]
+        [Route("api/calendar/{employeeId}/{year?}/{month?}")]
         public IHttpActionResult Get(int employeeId, int year = 0, int month = 0)
         {
             if (year == 0) year = DateTime.Today.Year;
@@ -25,17 +28,15 @@ namespace TimeKeeper.API.Controllers
             Employee employee = TimeKeeperUnit.Employees.Get(employeeId);
             if (employee != null)
             {
-                calendar.Employee = employee.FullName;
-                calendar.EmployeeId = employee.Id;
                 var listOfDays = employee.Days.Where(x => x.Date.Month == month && x.Date.Year == year).ToList();
                 foreach (var day in listOfDays)
                 {
-                    int i = day.Date.Day - 1;
-
-                    calendar.Days[i].Id = day.Id;
-                    calendar.Days[i].TypeOfDay = day.Type.ToString().ToLower();
-                    calendar.Days[i].Hours = day.Hours;
-                    calendar.Days[i].Details =   ay.Details.Select(x => TimeKeeperFactory.Create(x)).ToList();
+                    calendar.Days[day.Date.Day - 1].Id = day.Id;
+                    calendar.Days[day.Date.Day - 1].TypeOfDay = day.Type.ToString().ToLower();
+                    calendar.Days[day.Date.Day - 1].Hours = day.Hours;
+                    calendar.Days[day.Date.Day - 1].Details = day.Details.Select(x => TimeKeeperFactory.Create(x)).ToList();
+                    calendar.Days[day.Date.Day - 1].Employee = employee.FullName;
+                    calendar.Days[day.Date.Day - 1].EmployeeId = employee.Id;
                 }
             }
             Logger.Log("Returned calendar", "INFO");
@@ -67,7 +68,7 @@ namespace TimeKeeper.API.Controllers
         /// </summary>
         /// <param name="day"></param>
         /// <returns></returns>
-        public IHttpActionResult Post([FromBody] CalendarModel day)
+        public IHttpActionResult Post([FromBody] DayModel day)
         {
             try
             {
@@ -95,7 +96,7 @@ namespace TimeKeeper.API.Controllers
         /// <param name="day"></param>
         /// <param name="id"></param>
         /// <returns></returns>
-        public IHttpActionResult Put([FromBody] CalendarModel day, int id)
+        public IHttpActionResult Put([FromBody] DayModel day, int id)
         {
             try
             {

@@ -17,12 +17,13 @@ namespace TimeKeeper.API.Controllers
         /// Get all Roles
         /// </summary>
         /// <returns></returns>
-        public IHttpActionResult Get([FromUri] Header h)
+        public IHttpActionResult Get(/*[FromUri] Header h*/)
         {
             var list = TimeKeeperUnit.Roles
-                .Get(x => x.Name.Contains(h.filter))
-                .AsQueryable()
-                .Header(h)
+                .Get(/*x => x.Name.Contains(h.filter)*/)
+                //.AsQueryable()
+                //.Header(h)
+                .ToList()
                 .Select(r => TimeKeeperFactory.Create(r))
                 .ToList();
             Logger.Log("Returned all roles", "INFO");
@@ -124,21 +125,6 @@ namespace TimeKeeper.API.Controllers
                     Logger.Log($"No such role with id {id}");
                     return NotFound();
                 }
-
-                /* Tried to delete all of the foreign key contraint items
-                 * within the delete function, however it requires more
-                 * attetion, and debugging, for now left alone until
-                 * more consultation needed
-                EngagementsController ec = new EngagementsController();
-                foreach (var item in TimeKeeperUnit.Engagements.Get().Where(x => x.Role.Id == role.Id)){
-                    ec.Delete(item.Id);
-                }
-
-                EmployeesController emc = new EmployeesController();
-                foreach (var item in TimeKeeperUnit.Employees.Get().Where(x => x.Position.Id == role.Id)) {
-                    emc.Delete(item.Id);
-                }
-                */
 
                 TimeKeeperUnit.Roles.Delete(role);
                 TimeKeeperUnit.Save();

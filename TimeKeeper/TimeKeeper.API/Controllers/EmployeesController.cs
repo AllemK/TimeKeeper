@@ -11,11 +11,20 @@ using TimeKeeper.DAL.Entities;
 using TimeKeeper.API.Models;
 using System.Security.Claims;
 using Thinktecture.IdentityModel.WebApi;
+using System.Web.WebPages.Html;
 
 namespace TimeKeeper.API.Controllers
 {
     public class EmployeesController : BaseController
     {
+        public IHttpActionResult GetAll(string all)
+        {
+            var list = TimeKeeperUnit.Employees.Get().OrderBy(x=>x.FirstName).ToList()
+                .Select(x => new SelectListItem() { Value=x.Id.ToString(),Text=x.FullName})
+                .ToList();
+            return Ok(list);
+        }
+
         /// <summary>
         /// Get all Employees
         /// </summary>
@@ -135,22 +144,6 @@ namespace TimeKeeper.API.Controllers
                 {
                     Logger.Log($"No such employee with id {id}");
                     return NotFound();
-                }
-
-                /* Tried to delete all of the foreign key contraint items
-                 * within the delete function, however it requires more
-                 * attetion, and debugging, for now left alone until
-                 * more consultation needed*/
-                DaysController dc = new DaysController();
-                foreach (var item in TimeKeeperUnit.Calendar.Get().Where(x => x.Employee.Id == emp.Id))
-                {
-                    dc.Delete(item.Id);
-                }
-
-                EngagementsController ec = new EngagementsController();
-                foreach (var item in TimeKeeperUnit.Engagements.Get().Where(x => x.Employee.Id == emp.Id))
-                {
-                    ec.Delete(item.Id);
                 }
 
                 TimeKeeperUnit.Employees.Delete(emp);

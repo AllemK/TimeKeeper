@@ -8,11 +8,20 @@ using TimeKeeper.API.Helper;
 using TimeKeeper.Utility;
 using TimeKeeper.DAL.Entities;
 using TimeKeeper.API.Models;
+using System.Web.WebPages.Html;
 
 namespace TimeKeeper.API.Controllers
 {
     public class ProjectsController : BaseController
     {
+        public IHttpActionResult GetAll(string all)
+        {
+            var list = TimeKeeperUnit.Projects.Get().OrderBy(x => x.Name).ToList()
+                .Select(x => new SelectListItem() { Value = x.Id.ToString(), Text = x.Name })
+                .ToList();
+            return Ok(list);
+        }
+
         /// <summary>
         /// Get all Projects
         /// </summary>
@@ -120,16 +129,6 @@ namespace TimeKeeper.API.Controllers
                     Logger.Log($"No such project with id {id}");
                     return NotFound();
                 }
-
-                /*Tried to delete all of the foreign key contraint items
-                 * within the delete function, however it requires more
-                 * attetion, and debugging, for now left alone until
-                 * more consultation needed
-                DetailsController dc = new DetailsController();
-                foreach (var item in TimeKeeperUnit.Details.Get().Where(x => x.Project.Id == project.Id)) {
-                    dc.Delete(item.Id);
-                }
-                */
 
                 TimeKeeperUnit.Projects.Delete(project);
                 TimeKeeperUnit.Save();

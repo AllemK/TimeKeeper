@@ -7,12 +7,15 @@
     <script src="library/angular.min.js"></script>
     <script src="library/angular-route.min.js"></script>
 
+    <script src="library/ui-bootstrap-tpls.min.js"></script>
     <script src="scripts/app.js"></script>
     <script src="scripts/services/dataService.js"></script>
-    <script src="scripts/controllers/employeesController.js"></script>
     <script src="scripts/controllers/teamsController.js"></script>
     <script src="scripts/controllers/customersController.js"></script>
     <script src="scripts/controllers/projectsController.js"></script>
+    <script src="scripts/controllers/employeesController.js"></script>
+    <script src="scripts/controllers/calendarController.js"></script>
+    <script src="scripts/directives/customerDirective.js"></script>
 </head>
 
 <body>
@@ -20,10 +23,11 @@
     <div class="container">
         <div class="pull-left"><h2>Time Keeper</h2></div>
         <div class="pull-right" style="margin-top:24px">
-            <a href="#!/teams"><button class="btn btn-primary">Teams</button></a>
-            <a href="#!/employees"><button class="btn btn-primary">Employees</button></a>
+            <a href="#!/calendar"><button class="btn btn-primary">Calendar</button></a>
             <a href="#!/customers"><button class="btn btn-primary">Customers</button></a>
+            <a href="#!/employees"><button class="btn btn-primary">Employees</button></a>
             <a href="#!/projects"><button class="btn btn-primary">Projects</button></a>
+            <a href="#!/teams"><button class="btn btn-primary">Teams</button></a>
         </div>
     </div>
 </header>

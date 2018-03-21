@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
-using TimeKeeper.DAL.Entities;
 
 namespace TimeKeeper.API.Models
 {
@@ -42,12 +41,13 @@ namespace TimeKeeper.API.Models
         public string Status { get; set; }
 
         public string Role { get; set; }
-        public ICollection<CalendarModel> Days { get; set; }
+        public string RoleId { get; set; }
+        public ICollection<DayModel> Days { get; set; }
         public ICollection<EngagementModel> Engagements { get; set; }
 
         public EmployeeModel()
         {
-            Days = new List<CalendarModel>();
+            Days = new List<DayModel>();
             Engagements = new List<EngagementModel>();
         }
     }

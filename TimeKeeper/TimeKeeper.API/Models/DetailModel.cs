@@ -19,7 +19,7 @@ namespace TimeKeeper.API.Models
 
         public string Project { get; set; }
         public int ProjectId { get; set; }
-        public string Day { get; set; }
+        public DateTime? Day { get; set; }
         public int DayId { get; set; }
     }
 }

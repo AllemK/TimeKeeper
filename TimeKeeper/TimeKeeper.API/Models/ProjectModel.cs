@@ -36,5 +36,6 @@ namespace TimeKeeper.API.Models
         public int CustomerId { get; set; }
         public string Team { get; set; }
         public string TeamId { get; set; }
+        public ICollection<DetailModel> Details { get; set; }
     }
 }
