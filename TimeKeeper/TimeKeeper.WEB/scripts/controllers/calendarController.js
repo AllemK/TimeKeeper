@@ -24,22 +24,24 @@
             };
 
             $scope.edit = function(day){
-                var modalInstance = $uibModal.open({
-                    animation: true,
-                    templateUrl: 'views/Calendar/calendarModal.html',
-                    controller: 'ModalCalendarCtrl',
-                    controllerAs: '$cal',
-                    size: 'lg',
-                    resolve: {
-                        data: function () {
-                            return{
-                                day: day,
-                                empId: $scope.employeeId,
-                                empName: $scope.calendar.days[0].employee
-                            };
+                if(day.typeOfDay!=='weekend' && day.typeOfDay!=='future') {
+                    var modalInstance = $uibModal.open({
+                        animation: true,
+                        templateUrl: 'views/Calendar/calendarModal.html',
+                        controller: 'ModalCalendarCtrl',
+                        controllerAs: '$cal',
+                        size: 'lg',
+                        resolve: {
+                            data: function () {
+                                return {
+                                    day: day,
+                                    empId: $scope.employeeId,
+                                    empName: $scope.calendar.days[0].employee
+                                };
+                            }
                         }
-                    }
-                });
+                    });
+                }
             }
         }]);
     app.controller('ModalCalendarCtrl', function ($uibModalInstance, $scope, dataService, data) {
@@ -48,13 +50,9 @@
         $scope.day = data.day;
         $scope.empId = data.empId;
         $scope.empName = data.empName;
-        console.log(data.day);
-        console.log(data.empId);
-        console.log(data.empName);
 
         dataService.list("projects/?all", function(data){
             $scope.projects = data;
-            console.log(data);
         });
 
         $scope.ok = function () {
@@ -69,12 +67,13 @@
                 dataService.insert("calendar",data,function(data){
                     //success
                     //$scope.listCalendar();
+                    $scope.$emit('calendarUpdated');
                 })
             }else{
                 dataService.update("calendar",data.id, data, function(data){
                     //success
                     // $scope.listCalendar();
-
+                    $scope.$emit('calendarUpdated');
                 })
             }
             $uibModalInstance.close();

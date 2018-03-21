@@ -25,7 +25,7 @@ namespace TimeKeeper.API.Models
         [RegularExpression("^(InProgress|OnHold|Finished|Canceled)$")]
         public string Status { get; set; }
         [Required(AllowEmptyStrings = false, ErrorMessage = "Pricing is required")]
-        [RegularExpression("^(Hourly Rate|Per Capita Rate|Fixed Price|Not Billable)$")]
+        [RegularExpression("^(HourlyRate|PerCapitaRate|FixedPrice|NotBillable)$")]
         public string Pricing { get; set; }
         [Required(ErrorMessage = "Amount is required")]
         [Range(0,1000000,ErrorMessage = "Amount must be between 0 and 1,000,000.00")]

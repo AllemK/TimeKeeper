@@ -1,0 +1,54 @@
+<div class="modal-header">
+    <h3 class="modal-title" id="modal-title">{{project.name}}</h3>
+</div>
+
+<div class="modal-body" id="modal-body">
+    <input type="hidden" ng-model="project.id">
+    <div class="row">
+        <div class="col-md-4 label">Project Name:</div>
+        <div class="col-md-6"><input type="text" class="form-control" ng-model="project.name"></div>
+    </div>
+    <div class="row">
+        <div class="col-md-4 label">Customer Name:</div>
+        <select ng-model="customer.id" class="form-control"
+                ng-options="customer.id as customer.name for customer in customers"
+                ng-value="customer.id">{{customer.name}}</option>
+        </select>
+    </div>
+    <div class="row">
+        <div class="col-md-4 label">Team Name:</div>
+        <select ng-model="team.id" class="form-control"
+                ng-options="team.id as team.name for team in teams"
+                ng-value="team.id">{{team.name}}</option>
+        </select>
+    </div>
+    <div class="row">
+        <div class="col-md-4 label">Status:</div>
+        <div class="col-md-6"><input type="text" class="form-control" ng-model="project.status"></div>
+    </div>
+    <div class="row">
+        <div class="col-md-4 label">Pricing:</div>
+        <div class="col-md-6"><input type="text" class="form-control" ng-model="project.pricing"></div>
+    </div>
+    <div class="row">
+        <div class="col-md-4 label">Amount:</div>
+        <div class="col-md-6"><input type="text" class="form-control" ng-model="project.amount"></div>
+    </div>
+    <div class="row">
+        <div class="col-md-4 label">Start Date:</div>
+        <div class="col-md-6"><input type="text" class="form-control" ng-model="project.startDate"></div>
+    </div>
+    <div class="row">
+        <div class="col-md-4 label">End Date:</div>
+        <div class="col-md-6"><input type="text" class="form-control" ng-model="project.endDate"></div>
+    </div>
+    <div class="row">
+        <div class="col-md-4 label">Description:</div>
+        <div class="col-md-6"><input type="text" class="form-control" ng-model="project.description"></div>
+    </div>
+
+</div>
+<div class="modal-footer">
+    <button class="btn btn-success" type="button" ng-click="save(project)">SAVE</button>
+    <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
+</div>

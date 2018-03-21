@@ -11,7 +11,7 @@
                 controller: 'employeesController' })
             .when('/customers', { templateUrl: 'views/Customer/customers.html',
                 controller: 'customersController' })
-            .when('/projects',  { templateUrl: 'views/projects.html',
+            .when('/projects',  { templateUrl: 'views/Project/projects.html',
                 controller: 'projectsController' })
             .when('/calendar', {templateUrl: 'views/Calendar/calendar.html',
                 controller: 'calendarController' })

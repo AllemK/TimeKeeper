@@ -2,8 +2,8 @@
     <div class="col-md-4"><h1>Calendar</h1></div>
     <div class="col-md-3">Employee:
         <select ng-model="employeeId" class="form-control"
-                ng-options="person.value as person.text for person in people"
-                ng-value="person.value">{{person.text}}</option>
+                ng-options="person.id as person.fullName for person in people"
+                ng-value="person.id">{{person.fullName}}</option>
         </select>
     </div>
     <div class="col-md-2">Year: <input type="text" class="form-control" ng-model="year" size="5"></div>

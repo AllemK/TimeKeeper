@@ -17,7 +17,7 @@ namespace TimeKeeper.API.Controllers
         public IHttpActionResult GetAll(string all)
         {
             var list = TimeKeeperUnit.Projects.Get().OrderBy(x => x.Name).ToList()
-                .Select(x => new SelectListItem() { Value = x.Id.ToString(), Text = x.Name })
+                .Select(x => new { x.Id, x.Name })
                 .ToList();
             return Ok(list);
         }

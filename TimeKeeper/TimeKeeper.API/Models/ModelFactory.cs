@@ -108,7 +108,7 @@ namespace TimeKeeper.API.Models
                 CustomerId = (p.Customer != null) ? p.Customer.Id : 0,
                 Team = (p.Team != null) ? p.Team.Name : "",
                 TeamId = (p.Team != null) ? p.Team.Id : "",
-                Details = p.Details.Select(x => Create(x)).ToList()
+                //Details = p.Details.Select(x => Create(x)).ToList()
             };
         }
 
