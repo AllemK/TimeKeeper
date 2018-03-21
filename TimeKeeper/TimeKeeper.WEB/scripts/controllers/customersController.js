@@ -44,9 +44,6 @@
             dataService.update("customers", customer.id, customer, function(data){
                 window.alert("Data updated!");
             });
-        };
-
-        $scope.ok = function () {
             $uibModalInstance.close();
         };
 

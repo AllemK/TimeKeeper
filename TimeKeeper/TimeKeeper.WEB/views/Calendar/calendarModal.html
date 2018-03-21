@@ -1,0 +1,68 @@
+<div class="modal-header">
+    <h3 class="pull-left modal-title">{{empName}}</h3>
+    <input type="hidden" ng-model="day.id">
+    <div class="pull-right" style="margin-left:18px;">
+        <select class="form-control" ng-model="day.typeOfDay" ng-change="typeChanged()">
+            <option value="1">Working day</option>
+            <option value="2">Public holiday</option>
+            <option value="5">Sick leave</option>
+            <option value="6">Vacation</option>
+        </select>
+    </div>
+    <h3 class="pull-right modal-title">{{day.date.substring(0,10)}}</h3>
+</div>
+
+<div class="modal-body" id="modal-body">
+
+    <div class="row">
+        <div class="col-md-4">Project</div>
+        <div class="col-md-4">Description</div>
+        <div class="col-md-1">Time</div>
+        <div class="col-md-1">Edit</div>
+        <div class="col-md-1">Delete</div>
+    </div>
+    <div class="row" ng-repeat="task in day.details">
+        <input type="hidden" ng-model="task.id">
+        <div class="col-md-4">
+            <select ng-model="task.projectId" class="form-control"
+                    ng-options="project.value as project.text for project in projects"
+                    ng-value="project.value">{{project.text}}</option>
+            </select>
+        </div>
+        <div class="col-md-4">
+            <input type="text" class="form-control" ng-model="task.description">
+        </div>
+        <div class="col-md-1">
+            <input type="text" class="form-control" ng-model="task.hours">
+        </div>
+        <div class="col-md-1">
+            <i class="glyphicon glyphicon-save" ng-click="save(task)"></i>
+        </div>
+        <div class="col-md-1">
+            <i class="glyphicon glyphicon-trash"></i>
+        </div>
+
+    </div>
+    <div class="row">
+        <input type="hidden" ng-model="newTask.id" value="0">
+        <div class="col-md-4">
+            <select ng-model="newTask.projectId" class="form-control"
+                    ng-options="project.value as project.text for project in projects"
+                    ng-value="project.value">{{project.text}}</option>
+            </select>
+        </div>
+        <div class="col-md-4">
+            <input type="text" class="form-control" ng-model="newTask.description">
+        </div>
+        <div class="col-md-1">
+            <input type="text" class="form-control" ng-model="newTask.hours">
+        </div>
+        <div class="col-md-1">
+            <i class="glyphicon glyphicon-save"></i>
+        </div>
+    </div>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-primary" type="button" ng-click="ok()">OK</button>
+    <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
+</div>

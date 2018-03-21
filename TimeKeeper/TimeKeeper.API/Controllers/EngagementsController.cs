@@ -17,12 +17,12 @@ namespace TimeKeeper.API.Controllers
         /// Get all Engagements
         /// </summary>
         /// <returns></returns>
-        public IHttpActionResult Get([FromUri] Header h)
+        public IHttpActionResult Get(/*[FromUri] Header h*/)
         {
             var list = TimeKeeperUnit.Engagements
-                .Get(x => x.Employee.FullName.Contains(h.filter))
-                .AsQueryable()
-                .Header(h)
+                .Get(/*x => x.Employee.FullName.Contains(h.filter)*/)
+                //.AsQueryable()
+                //.Header(h)
                 .Select(x => TimeKeeperFactory.Create(x))
                 .ToList();
             Logger.Log("Returned all members", "INFO");

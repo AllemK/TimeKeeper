@@ -11,6 +11,7 @@ namespace TimeKeeper.API.Models
         public int Id { get; set; }
         [Required(AllowEmptyStrings = false, ErrorMessage = "Description is required")]
         public string Description { get; set; }
+
         [Required(AllowEmptyStrings = false, ErrorMessage = "Hours is required")]
         [Range(0.5,24,ErrorMessage = "Hours must be between 0.5 and 24")]
         [RegularExpression(@"^\d{1,2}(\.5)?$", ErrorMessage = "Hours must be whole number or .5")]
@@ -18,7 +19,7 @@ namespace TimeKeeper.API.Models
 
         public string Project { get; set; }
         public int ProjectId { get; set; }
-        public string Day { get; set; }
+        public DateTime? Day { get; set; }
         public int DayId { get; set; }
     }
 }

@@ -103,9 +103,8 @@ namespace TimeKeeper.Test
         public void RoleControllerGet()
         {
             var controller = new RolesController();
-            var h = new Header();
 
-            var response = controller.Get(h);
+            var response = controller.Get();
             var result = (OkNegotiatedContentResult<List<RoleModel>>)response;
 
             Assert.IsNotNull(result);

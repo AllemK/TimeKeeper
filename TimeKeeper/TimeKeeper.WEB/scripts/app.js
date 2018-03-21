@@ -1,7 +1,7 @@
 (function(){
     var app = angular.module("timeKeeper", ["ngRoute", "ui.bootstrap"]);
     app.constant("timeConst", {
-       apiUrl:"http://localhost:54283/api/"
+        apiUrl:"http://localhost:54283/api/"
     });
     app.config(['$routeProvider', function($routeProvider) {
         $routeProvider
@@ -13,6 +13,8 @@
                 controller: 'customersController' })
             .when('/projects',  { templateUrl: 'views/projects.html',
                 controller: 'projectsController' })
+            .when('/calendar', {templateUrl: 'views/Calendar/calendar.html',
+                controller: 'calendarController' })
             .otherwise({ redirectTo: '/teams' });
     }]);
 }());
