@@ -90,18 +90,17 @@ namespace TimeKeeper.Test
         }
 
         //Tests for controller
-        [TestMethod]
-        public void DetailControllerGet()
-        {
-            var controller = new DetailsController();
-            var h = new Header();
+        //[TestMethod]
+        //public void DetailControllerGet()
+        //{
+        //    var controller = new DetailsController();
 
-            var response = controller.Get(h);
-            var result = (OkNegotiatedContentResult<List<DetailModel>>)response;
+        //    var response = controller.Get();
+        //    var result = (OkNegotiatedContentResult<List<DetailModel>>)response;
 
-            Assert.IsNotNull(result);
-            Assert.IsNotNull(result.Content);
-        }
+        //    Assert.IsNotNull(result);
+        //    Assert.IsNotNull(result.Content);
+        //}
 
         [TestMethod]
         public void DetailControllerGetById()

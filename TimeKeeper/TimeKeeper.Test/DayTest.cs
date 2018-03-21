@@ -95,7 +95,7 @@ namespace TimeKeeper.Test
             var controller = new DaysController();
             var h = new Header();
 
-            var response = controller.Get(h);
+            var response = controller.Get(1,2017,1);
             var result = (OkNegotiatedContentResult<List<CalendarModel>>)response;
 
             Assert.IsNotNull(result);
@@ -118,11 +118,11 @@ namespace TimeKeeper.Test
         public void DayControllerPost()
         {
             var controller = new DaysController();
-            CalendarModel d = new CalendarModel()
+            DayModel d = new DayModel()
             {
                 Date = DateTime.Today,
                 Hours = 8,
-                Type = "SickLeave",
+                TypeOfDay = "SickLeave",
                 //Employee = unit.Employees.Get(2)
             };
 

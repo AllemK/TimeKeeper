@@ -1,0 +1,31 @@
+<div class="row">
+    <div class="col-md-4"><h1>Calendar</h1></div>
+    <div class="col-md-3">Employee:
+        <select ng-model="employeeId" class="form-control"
+                ng-options="person.value as person.text for person in people"
+                ng-value="person.value">{{person.text}}</option>
+        </select>
+    </div>
+    <div class="col-md-2">Year: <input type="text" class="form-control" ng-model="year" size="5"></div>
+    <div class="col-md-2">Month: <input type="text" class="form-control" ng-model="month" size="3"></div>
+    <div class="col-md-1" style="margin-top:18px">
+        <button type="button"
+                class="btn btn-primary"
+                ng-click="listCalendar()">LIST!
+        </button>
+    </div>
+</div>
+<hr>
+<div>
+    <div ng-show="calendar.employee"><h2>{{calendar.employee}}: {{calendar.year}}/{{calendar.month}}</h2></div>
+    <div class="calendar">
+        <div ng-repeat="i in num() track by $index" class="day spaceholder"></div>
+        <div ng-repeat="day in calendar.days">
+            <div class="day {{day.typeOfDay}}" title="{{day.typeOfDay}}" ng-click="edit(day)">
+                <div class="pull-left">{{day.ordinal}}</div>
+                <div class="clearfix"></div>
+                <div class="dayhours" ng-show="day.typeOfDay=='workingday'">{{day.hours}}</div>
+            </div>
+        </div>
+    </div>
+</div>

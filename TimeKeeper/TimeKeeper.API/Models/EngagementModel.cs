@@ -13,10 +13,10 @@ namespace TimeKeeper.API.Models
         [Range(1,40,ErrorMessage = "Hours must be between 1 and 40")]
         public decimal Hours { get; set; }
 
-        public string Team { get; set; }
-        public string TeamId { get; set; }
         public string Employee { get; set; }
         public int EmployeeId { get; set; }
+        public string Team { get; set; }
+        public string TeamId { get; set; }
         public string Role { get; set; }
         public string RoleId { get; set; }
     }

@@ -45,7 +45,7 @@ namespace TimeKeeper.API.Models
                 HourlyRate = r.HourlyRate,
                 MonthlyRate = r.MonthlyRate,
                 Members = r.Engagements.Select(e => Create(e)).ToList(),
-                Employees = r.Employees.Select(e=>Create(e)).ToList()
+                Employees = r.Employees.Select(e => Create(e)).ToList()
             };
         }
 
@@ -69,23 +69,25 @@ namespace TimeKeeper.API.Models
             return new EngagementModel()
             {
                 Id = e.Id,
-                Team = (e.Team != null) ? e.Team.Id : "",
-                Role = (e.Role != null) ? e.Role.Id : "",
-                Employee = (e.Employee != null) ? e.Employee.Id.ToString() : "",
+                Team = (e.Team != null) ? e.Team.Name : "",
+                TeamId = (e.Team != null) ? e.Team.Id : "",
+                Role = (e.Role != null) ? e.Role.Name : "",
+                RoleId = (e.Role != null) ? e.Role.Id : "",
+                Employee = (e.Employee != null) ? e.Employee.FullName : "",
+                EmployeeId = (e.Employee != null) ? e.Employee.Id : 0,
                 Hours = e.Hours
             };
         }
 
         public Engagement Create(EngagementModel em, UnitOfWork unit)
         {
-            string[] names = em.Employee.Split(' ');
             return new Engagement
             {
                 Id = em.Id,
                 Hours = em.Hours,
-                Team = unit.Teams.Get(em.Team),
-                Role = unit.Roles.Get(em.Role),
-                Employee = unit.Employees.Get(Convert.ToInt32(em.Employee))
+                Team = unit.Teams.Get(em.TeamId),
+                Role = unit.Roles.Get(em.RoleId),
+                Employee = unit.Employees.Get(em.EmployeeId)
             };
         }
 
@@ -102,8 +104,10 @@ namespace TimeKeeper.API.Models
                 Status = p.Status.ToString(),
                 Pricing = p.Pricing.ToString(),
                 Amount = p.Amount,
-                Customer = (p.Customer!=null)?p.Customer.Id.ToString():"",
-                Team = (p.Team!=null)?p.Team.Id:"",
+                Customer = (p.Customer != null) ? p.Customer.Name : "",
+                CustomerId = (p.Customer != null) ? p.Customer.Id : 0,
+                Team = (p.Team != null) ? p.Team.Name : "",
+                TeamId = (p.Team != null) ? p.Team.Id : "",
                 Details = p.Details.Select(x => Create(x)).ToList()
             };
         }
@@ -123,9 +127,9 @@ namespace TimeKeeper.API.Models
                 Status = status,
                 Pricing = pricing,
                 Amount = pm.Amount,
-                Customer = unit.Customers.Get(Convert.ToInt32(pm.Customer)),
-                Team = unit.Teams.Get(pm.Team),
-                Details = pm.Details.Select(x=>Create(x,unit)).ToList()
+                Customer = unit.Customers.Get(pm.CustomerId),
+                Team = unit.Teams.Get(pm.TeamId),
+                Details = pm.Details.Select(x => Create(x, unit)).ToList()
             };
         }
 
@@ -145,7 +149,8 @@ namespace TimeKeeper.API.Models
                 BeginDate = e.BeginDate,
                 EndDate = e.EndDate,
                 Status = e.Status.ToString(),
-                Role = (e.Role!=null)?e.Role.Id:"",
+                RoleId = (e.Role != null) ? e.Role.Id : "",
+                Role = (e.Role != null) ? e.Role.Name : "",
                 Engagements = e.Engagements.Select(eng => Create(eng)).ToList(),
                 Days = e.Days.Select(d => Create(d)).ToList()
             };
@@ -168,7 +173,7 @@ namespace TimeKeeper.API.Models
                 BeginDate = em.BeginDate,
                 EndDate = em.EndDate,
                 Status = status,
-                Role = unit.Roles.Get(em.Role),
+                Role = unit.Roles.Get(em.RoleId),
                 Engagements = em.Engagements.Select(x => Create(x, unit)).ToList(),
                 Days = em.Days.Select(x => Create(x, unit)).ToList()
             };
@@ -181,8 +186,10 @@ namespace TimeKeeper.API.Models
                 Id = d.Id,
                 Description = d.Description,
                 Hours = d.Hours,
-                Day = (d.Day != null) ? d.Day.Id.ToString() : "",
-                Project = (d.Project != null) ? d.Project.Id.ToString() : ""
+                DayId = (d.Day != null) ? d.Day.Id : 0,
+                Day = d.Day.Date,
+                Project = (d.Project != null) ? d.Project.Name : "",
+                ProjectId = (d.Project != null) ? d.Project.Id : 0
             };
         }
 
@@ -193,35 +200,36 @@ namespace TimeKeeper.API.Models
                 Id = dm.Id,
                 Description = dm.Description,
                 Hours = dm.Hours,
-                Day = unit.Calendar.Get(Convert.ToInt32(dm.Day)),
-                Project = unit.Projects.Get(Convert.ToInt32(dm.Project))
+                Day = unit.Calendar.Get(dm.DayId),
+                Project = unit.Projects.Get(dm.ProjectId)
             };
         }
 
-        public CalendarModel Create(Day d)
+        public DayModel Create(Day d)
         {
-            return new CalendarModel()
+            return new DayModel()
             {
                 Id = d.Id,
                 Date = d.Date,
                 Hours = d.Hours,
-                Type = d.Type.ToString(),
-                Employee = (d.Employee != null) ? d.Employee.Id.ToString() : "",
+                TypeOfDay = d.Type.ToString(),
+                Employee = (d.Employee != null) ? d.Employee.FullName : "",
+                EmployeeId = (d.Employee != null) ? d.Employee.Id : 0,
                 Details = d.Details.Select(de => Create(de)).ToList()
             };
         }
 
-        public Day Create(CalendarModel cm, UnitOfWork unit)
+        public Day Create(DayModel dm, UnitOfWork unit)
         {
-            Enum.TryParse(cm.Type, out DayType type);
+            Enum.TryParse(dm.TypeOfDay, out DayType type);
             return new Day()
             {
-                Id = cm.Id,
-                Date = cm.Date,
-                Hours = cm.Hours,
+                Id = dm.Id,
+                Date = dm.Date,
+                Hours = dm.Hours,
                 Type = type,
-                Employee = unit.Employees.Get(Convert.ToInt32(cm.Employee)),
-                Details = cm.Details.Select(x => Create(x, unit)).ToList()
+                Employee = unit.Employees.Get(dm.EmployeeId),
+                Details = dm.Details.Select(x => Create(x, unit)).ToList()
             };
         }
 
