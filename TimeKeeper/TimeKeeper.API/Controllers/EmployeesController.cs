@@ -40,12 +40,6 @@ namespace TimeKeeper.API.Controllers
             Logger.Log("Returned all records for employees", "INFO");
             return Ok(list);
         }
-        [HttpGet]
-        public IHttpActionResult GetAll(string all)
-        {
-            var list = TimeKeeperUnit.Employees.Get().ToList().Select(e => TimeKeeperFactory.Create(e)).ToList();
-            return Ok(list);
-        }
 
         /// <summary>
         /// Get specific Employee
