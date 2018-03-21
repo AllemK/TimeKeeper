@@ -17,16 +17,29 @@ namespace TimeKeeper.API.Controllers
         /// Get all Days
         /// </summary>
         /// <returns></returns>
-        public IHttpActionResult Get([FromUri] Header h)
+        public IHttpActionResult Get(int employeeId, int year = 0, int month = 0)
         {
-            var list = TimeKeeperUnit.Calendar
-                .Get(x => x.Date.ToString().Contains(h.filter))
-                .AsQueryable()
-                .Header(h)
-                .Select(x => TimeKeeperFactory.Create(x))
-                .ToList();
-            Logger.Log("Returned all days", "INFO");
-            return Ok(list);
+            if (year == 0) year = DateTime.Today.Year;
+            if (month == 0) month = DateTime.Today.Month;
+            CalendarModel calendar = new CalendarModel(year, month);
+            Employee employee = TimeKeeperUnit.Employees.Get(employeeId);
+            if (employee != null)
+            {
+                calendar.Employee = employee.FullName;
+                calendar.EmployeeId = employee.Id;
+                var listOfDays = employee.Days.Where(x => x.Date.Month == month && x.Date.Year == year).ToList();
+                foreach (var day in listOfDays)
+                {
+                    int i = day.Date.Day - 1;
+
+                    calendar.Days[i].Id = day.Id;
+                    calendar.Days[i].TypeOfDay = day.Type.ToString().ToLower();
+                    calendar.Days[i].Hours = day.Hours;
+                    calendar.Days[i].Details =   ay.Details.Select(x => TimeKeeperFactory.Create(x)).ToList();
+                }
+            }
+            Logger.Log("Returned calendar", "INFO");
+            return Ok(calendar);
         }
 
         /// <summary>
@@ -124,16 +137,6 @@ namespace TimeKeeper.API.Controllers
                     Logger.Log($"No such day with id {id}");
                     return NotFound();
                 }
-
-                /* Tried to delete all of the foreign key contraint items
-                 * within the delete function, however it requires more
-                 * attetion, and debugging, for now left alone until
-                 * more consultation needed*/
-                DetailsController dc = new DetailsController();
-                foreach(var item in TimeKeeperUnit.Details.Get().Where(x => x.Day.Id == day.Id)){
-                    dc.Delete(item.Id);
-                }
-                
 
                 TimeKeeperUnit.Calendar.Delete(day);
                 TimeKeeperUnit.Save();

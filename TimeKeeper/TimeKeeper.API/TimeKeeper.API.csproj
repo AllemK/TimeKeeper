@@ -207,6 +207,7 @@
     <Compile Include="Helper\Header.cs" />
     <Compile Include="Helper\Pagination.cs" />
     <Compile Include="Models\CalendarModel.cs" />
+    <Compile Include="Models\DayModel.cs" />
     <Compile Include="Models\CustomerModel.cs" />
     <Compile Include="Models\DetailModel.cs" />
     <Compile Include="Models\EmployeeModel.cs" />
