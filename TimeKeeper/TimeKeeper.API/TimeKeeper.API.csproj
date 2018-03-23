@@ -193,10 +193,8 @@
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\CustomersController.cs" />
     <Compile Include="Controllers\DashboardController.cs" />
-    <Compile Include="Controllers\DaysController.cs" />
-    <Compile Include="Controllers\DetailsController.cs" />
+    <Compile Include="Controllers\CalendarController.cs" />
     <Compile Include="Controllers\EmployeesController.cs" />
-    <Compile Include="Controllers\EngagementsController.cs" />
     <Compile Include="Controllers\MonthlyReportController.cs" />
     <Compile Include="Controllers\PersonalReportController.cs" />
     <Compile Include="Controllers\ProjectsController.cs" />
@@ -207,10 +205,9 @@
     </Compile>
     <Compile Include="Helper\Header.cs" />
     <Compile Include="Helper\Pagination.cs" />
+    <Compile Include="Models\BaseModel.cs" />
     <Compile Include="Models\CalendarModel.cs" />
     <Compile Include="Models\CustomerModel.cs" />
-    <Compile Include="Models\DayModel.cs" />
-    <Compile Include="Models\DetailModel.cs" />
     <Compile Include="Models\EmployeeModel.cs" />
     <Compile Include="Models\EngagementModel.cs" />
     <Compile Include="Models\ModelFactory.cs" />

@@ -19,8 +19,9 @@ namespace TimeKeeper.API.Controllers
     {
         public IHttpActionResult GetAll(string all)
         {
-            var list = TimeKeeperUnit.Employees.Get().OrderBy(x=>x.FirstName).ToList()
-                .Select(x => new { x.Id, x.FullName})
+            var list = TimeKeeperUnit.Employees.Get().OrderBy(x=>x.FirstName)
+                .ToList()
+                .Select(x => new { x.Id, Name = x.FullName})
                 .ToList();
             return Ok(list);
         }
