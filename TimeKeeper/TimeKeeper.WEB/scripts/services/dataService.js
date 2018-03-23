@@ -1,8 +1,8 @@
 (function () {
     var app = angular.module("timeKeeper");
 
-    app.factory("dataService", ['$http', 'timeConst', function ($http, timeConst) {
-        var source = timeConst.apiUrl;
+    app.factory("dataService", ['$http', 'timeConfig', function ($http, timeConfig) {
+        var source = timeConfig.apiUrl;
         return {
             list: function (dataSet, callback) {
                 $http.get(source + dataSet).then(

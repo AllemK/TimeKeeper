@@ -1,0 +1,56 @@
+<div class="modal-header">
+    <h3 class="modal-title" id="modal-title">New Employee</h3>
+</div>
+<div class="modal-body">
+    <div class="new-employee">
+        <div class="row">
+            <div class="col-md-3 label">First name</div>
+            <div class="col-md-6"><input type="text" class="form-control" ng-model="person.firstName"></div>
+        </div>
+        <div class="row">
+            <div class="col-md-3 label">Last name</div>
+            <div class="col-md-6"><input type="text" class="form-control" ng-model="person.lastName"></div>
+        </div>
+        <div class="row">
+            <div class="col-md-3 label">Email</div>
+            <div class="col-md-6"><input type="text" class="form-control" ng-model="person.email"></div>
+        </div>
+        <div class="row">
+            <div class="col-md-3 label">Phone number</div>
+            <div class="col-md-6"><input type="text" class="form-control" ng-model="person.phone"></div>
+        </div>
+        <div class="row">
+            <div class="col-md-3 label">Birth date</div>
+            <div class="col-md-6"><input type="text" class="form-control" ng-model="person.birthDate"></div>
+        </div>
+        <div class="row">
+            <div class="col-md-3 label">Employment begin date</div>
+            <div class="col-md-6"><input type="text" class="form-control" ng-model="person.beginDate"></div>
+        </div>
+        <div class="row">
+            <div class="col-md-3 label">Employment end date</div>
+            <div class="col-md-6"><input type="text" class="form-control" ng-model="person.endDate"></div>
+        </div>
+        <div class="row">
+            <div class="col-md-3 label">Position:</div>
+            <div class="col-md-6">
+                <select ng-model="person.position" class="form-control"
+                        ng-options="role.id as role.name for role in roles"
+                        ng-value="role.id">{{role.name}}></select>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3 label">Status:</div>
+            <div class="col-md-6">
+                <label class="radio-inline"><input type="radio" ng-model="person.status" value="1">Active</label>
+                <label class="radio-inline"><input type="radio" ng-model="person.status" value="0">Trial</label>
+                <label class="radio-inline"><input type="radio" ng-model="person.status" value="2">Leaver</label>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal-footer">
+    <div class="col-md-5 label"><button class="btn btn-success" type="button" ng-click="saveNew(person)">Save</button></div>
+    <div class="col-md-1 label"><button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button></div>
+</div>
+

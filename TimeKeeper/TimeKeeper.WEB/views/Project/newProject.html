@@ -1,0 +1,77 @@
+<div class="modal-header">
+    <h3 class="modal-title" id="modal-title">New Project</h3>
+</div>
+
+<div class="modal-body" id="modal-body">
+    <input type="hidden" ng-model="project.id">
+    <div class="row">
+        <div class="col-md-4 label">Project Name:</div>
+        <div class="col-md-6"><input type="text" class="form-control" ng-model="project.name"></div>
+    </div>
+    <div class="row">
+        <div class="col-md-4 label">Project Monogram:</div>
+        <div class="col-md-6"><input type="text" class="form-control" ng-model="project.monogram"></div>
+    </div>
+    <div class="row">
+        <div class="col-md-4 label">Customer Name:</div>
+        <div class="col-md-6">
+            <select ng-model="project.customer.id" class="form-control"
+                    ng-options="customer.id as customer.name for customer in customers"
+                    ng-value="customer.id">{{customer.name}}</option>
+            </select>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4 label">Team:</div>
+        <div class="col-md-6">
+            <select ng-model="project.team.id" class="form-control"
+                    ng-options="team.id as team.name for team in teams"
+                    ng-value="team.id">{{team.name}}</option>
+            </select>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4 label">Amount:</div>
+        <div class="col-md-6"><input type="text" class="form-control" ng-model="project.amount"></div>
+    </div>
+    <div class="row">
+        <div class="col-md-4 label">Start Date:</div>
+        <div class="col-md-6"><input type="text" class="form-control" ng-model="project.startDate"></div>
+    </div>
+    <div class="row">
+        <div class="col-md-4 label">End Date:</div>
+        <div class="col-md-6"><input type="text" class="form-control" ng-model="project.endDate"></div>
+    </div>
+    <div class="row">
+        <div class="col-md-4 label">Description:</div>
+        <div class="col-md-6"><input type="text" class="form-control" ng-model="project.description"></div>
+    </div>
+    <div class="row">
+        <div class="col-md-1 label">Status:</div>
+        <div class="col-md-11">
+            <label class="radio-inline"><input type="radio" ng-model="project.status" value=1>In Progress</label>
+            <label class="radio-inline"><input type="radio" ng-model="project.status" value=2>On Hold</label>
+            <label class="radio-inline"><input type="radio" ng-model="project.status" value=3>Finished</label>
+            <label class="radio-inline"><input type="radio" ng-model="project.status" value=4>Canceled</label>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-1 label">Pricing:</div>
+        <div class="col-md-11">
+            <label class="radio-inline"><input type="radio" ng-model="project.pricing" value=1>Hourly Rate</label>
+            <label class="radio-inline"><input type="radio" ng-model="project.pricing" value=2>Per Capita Rate</label>
+            <label class="radio-inline"><input type="radio" ng-model="project.pricing" value=3>Fixed Price</label>
+            <label class="radio-inline"><input type="radio" ng-model="project.pricing" value=4>Not Billable</label>
+        </div>
+    </div>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-success" type="button" ng-click="saveNew(project)">SAVE</button>
+    <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
+</div>
+
+
+
+
+
+

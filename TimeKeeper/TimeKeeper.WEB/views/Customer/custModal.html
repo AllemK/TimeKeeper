@@ -21,10 +21,22 @@
         <div class="col-md-6"><input type="text" class="form-control" ng-model="customer.phone"></div>
     </div>
     <div class="row">
+        <div class="col-md-4 label">Road:</div>
+        <div class="col-md-6"><input type="text" class="form-control" ng-model="customer.address_Road"></div>
+    </div>
+    <div class="row">
+        <div class="col-md-4 label">Zip Code:</div>
+        <div class="col-md-6"><input type="text" class="form-control" ng-model="customer.address_ZipCode"></div>
+    </div>
+    <div class="row">
+        <div class="col-md-4 label">City:</div>
+        <div class="col-md-6"><input type="text" class="form-control" ng-model="customer.address_City"></div>
+    </div>
+    <div class="row">
         <div class="col-md-4 label">Status:</div>
         <div class="col-md-7">
-            <label class="radio-inline"><input type="radio" ng-model="customer.status" value="Client">Client</label>
-            <label class="radio-inline"><input type="radio" ng-model="customer.status" value="Prospect">Prospect</label>
+            <label class="radio-inline"><input type="radio" ng-model="customer.status" value="1">Client</label>
+            <label class="radio-inline"><input type="radio" ng-model="customer.status" value="2">Prospect</label>
         </div>
     </div>
 </div>

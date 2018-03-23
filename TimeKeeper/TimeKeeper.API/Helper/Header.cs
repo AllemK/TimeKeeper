@@ -10,6 +10,7 @@ namespace TimeKeeper.API.Helper
         public int page { get; set; }
         public int pageSize { get; set; }
         public int sort { get; set; }
+        public int totalItems { get; set; }
         public string filter { get; set; }
 
         public Header()
@@ -18,6 +19,7 @@ namespace TimeKeeper.API.Helper
             pageSize = 10;
             sort = 0;
             filter = "";
+            totalItems = 0;
         }
     }
 }
