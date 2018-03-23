@@ -1,0 +1,43 @@
+<div class="modal-header">
+    <h3 class="modal-title" id="modal-title">{{team.name}}</h3>
+</div>
+
+<div class="modal-body" id="modal-body">
+    <input type="hidden" ng-model="team.id">
+    <div class="row">
+        <div class="col-md-4 label">Team Name:</div>
+        <div class="col-md-6"><input type="text" class="form-control" ng-model="team.name"></div>
+    </div>
+    <br>
+    <div class="row">
+        <div class="col-md-4 label">Project:</div>
+        <div class="col-md-6">
+            <select ng-model="team.projects[0].id" class="form-control"
+                    ng-options="project.id as project.name for project in projects"
+                    ng-value="project.id">{{project.name}}</option>
+            </select>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4 label">Members:</div>
+        <div class="col-md-6 ng-scope" ng-controller="teamsController">
+            <table class="table table-bordered">
+                <tbody ng-repeat="people in team.engagements">
+                <tr>
+                    <td>{{people.employee.name}}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4 label">Description:</div>
+        <div class="col-md-6"><input type="text" class="form-control" ng-model="team.description"></div>
+    </div>
+
+</div>
+
+<div class="modal-footer">
+    <button class="btn btn-success" type="button" ng-click="save(team)">SAVE</button>
+    <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
+</div>

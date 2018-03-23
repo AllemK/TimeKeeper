@@ -21,21 +21,16 @@ namespace TimeKeeper.API.Models
         public DateTime StartDate { get; set; }
         [DataType(DataType.Date)]
         public DateTime? EndDate { get; set; }
-        [Required(AllowEmptyStrings = false, ErrorMessage = "Status is required")]
-        [RegularExpression("^(InProgress|OnHold|Finished|Canceled)$")]
-        public string Status { get; set; }
-        [Required(AllowEmptyStrings = false, ErrorMessage = "Pricing is required")]
-        [RegularExpression("^(HourlyRate|PerCapitaRate|FixedPrice|NotBillable)$")]
-        public string Pricing { get; set; }
+        [Required(ErrorMessage = "Project status is required")]
+        public int Status { get; set; }
+        [Required(ErrorMessage = "Project pricing type is required")]
+        public int Pricing { get; set; }
         [Required(ErrorMessage = "Amount is required")]
         [Range(0,1000000,ErrorMessage = "Amount must be between 0 and 1,000,000.00")]
         [RegularExpression(@"^\d+(\.\d{1,2})?$")]
         public decimal Amount { get; set; }
 
-        public string Customer { get; set; }
-        public int CustomerId { get; set; }
-        public string Team { get; set; }
-        public string TeamId { get; set; }
-        public ICollection<DetailModel> Details { get; set; }
+        public BaseModel<int> Customer { get; set; }
+        public BaseModel<string> Team { get; set; }
     }
 }
