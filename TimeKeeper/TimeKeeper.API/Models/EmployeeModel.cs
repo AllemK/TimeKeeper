@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
-using TimeKeeper.DAL.Entities;
 
 namespace TimeKeeper.API.Models
 {
@@ -37,18 +36,9 @@ namespace TimeKeeper.API.Models
         public DateTime BeginDate { get; set; }
         [DataType(DataType.Date)]
         public DateTime? EndDate { get; set; }
-        [Required(AllowEmptyStrings = false, ErrorMessage = "Employee status is required")]
-        [RegularExpression(@"^(Active|Trial|Leaver)$", ErrorMessage = "Wrong employee status, must be Active, Trial or Leaver")]
-        public string Status { get; set; }
+        [Required(ErrorMessage = "Employee status is required")]
+        public int Status { get; set; }
 
-        public string Role { get; set; }
-        public ICollection<CalendarModel> Days { get; set; }
-        public ICollection<EngagementModel> Engagements { get; set; }
-
-        public EmployeeModel()
-        {
-            Days = new List<CalendarModel>();
-            Engagements = new List<EngagementModel>();
-        }
+        public BaseModel<string> Position { get; set; }
     }
 }

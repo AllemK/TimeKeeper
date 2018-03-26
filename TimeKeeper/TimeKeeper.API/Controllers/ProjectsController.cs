@@ -8,11 +8,20 @@ using TimeKeeper.API.Helper;
 using TimeKeeper.Utility;
 using TimeKeeper.DAL.Entities;
 using TimeKeeper.API.Models;
+using System.Web.WebPages.Html;
 
 namespace TimeKeeper.API.Controllers
 {
     public class ProjectsController : BaseController
     {
+        public IHttpActionResult GetAll(string all)
+        {
+            var list = TimeKeeperUnit.Projects.Get().OrderBy(x => x.Name).ToList()
+                .Select(x => new { x.Id, x.Name })
+                .ToList();
+            return Ok(list);
+        }
+
         /// <summary>
         /// Get all Projects
         /// </summary>

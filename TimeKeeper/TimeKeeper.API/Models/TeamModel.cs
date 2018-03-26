@@ -20,12 +20,12 @@ namespace TimeKeeper.API.Models
         public string Description { get; set; }
 
         public ICollection<EngagementModel> Engagements { get; set; }
-        public ICollection<ProjectModel> Projects { get; set; }
+        public ICollection<BaseModel<int>> Projects { get; set; }
 
         public TeamModel()
         {
             Engagements = new List<EngagementModel>();
-            Projects = new List<ProjectModel>();
+            Projects = new List<BaseModel<int>>();
         }
     }
 }

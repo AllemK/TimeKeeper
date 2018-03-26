@@ -13,6 +13,14 @@ namespace TimeKeeper.API.Controllers
 {
     public class TeamsController : BaseController
     {
+        public IHttpActionResult GetAll(string all)
+        {
+            var list = TimeKeeperUnit.Teams.Get().OrderBy(x => x.Name)
+                    .ToList()
+                    .Select(x => new { x.Id, x.Name })
+                    .ToList();
+            return Ok(list);
+        }
         /// <summary>
         /// Get all Teams
         /// </summary>

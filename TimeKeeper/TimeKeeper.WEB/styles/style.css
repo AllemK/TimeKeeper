@@ -23,6 +23,14 @@ footer {
     bottom: 0;
 }
 
+hr {
+    border: 0;
+    margin: 12px 0;
+    height: 3px;
+    background-color: #00C;
+    opacity: 0.5;
+}
+
 .grid {
     background-color: #EEE;
 }
@@ -60,5 +68,114 @@ footer {
 }
 
 .custNav {
+    float: right;
+}
+
+.modal-header {
+    background-color: #369;
+    color: white;
+    border: solid 1px #369;
+}
+
+.modal-footer {
+    background-color: #369;
+    border: solid 1px #369;
+}
+
+.calendar {
+    width: 574px;
+}
+
+.day {
+    float:left;
+    width:72px;
+    height:72px;
+    border: 1px solid black;
+    padding: 4px;
+    margin: 4px;
+    color: white;
+}
+
+.spaceholder {
+    background-color: transparent;
+    border: 0;
+}
+
+.dayhours {
+    float: right;
+    font-size: 2.5em;
+}
+
+.day .empty {
+    color: black;
+}
+
+.weekend {
+    background-color: red;
+}
+.future {
+    background-color: lightgray;
+}
+.empty {
+    background-color: white;
+}
+.workingday {
+    background-color: green;
+}
+.publicholiday {
+    background-color: darkred;
+}
+.otherabsence {
+    background-color: black;
+}
+.religiousday {
+    background-color: lightblue;
+}
+.sickleave {
+    background-color: darkgreen;
+}
+.vacation {
+    background-color: orange;
+}
+.businessabsence {
+    background-color: darkgray;
+}
+.table {
+    margin-top: 25px;
+}
+
+.src-add {
+    width: 96%;
+    margin-top: 25px;
+}
+
+.teaFrame {
+    display: table;
+    float: left;
+    margin: 6px;
+    padding: 8px;
+    border: solid blue 2px;
+    width: 300px;
+    height: 100px;
+}
+
+.teaImage {
+    max-width: 18%;
+    float: left;
+    margin-top: 10px;
+    margin-left: 10px;
+}
+
+.teaData {
+    float: left;
+    margin-top: 10px;
+    margin-left: 10px;
+}
+
+.teaTitle {
+    font-size: 1.2em;
+}
+
+.teaNav {
     float: right;
 }

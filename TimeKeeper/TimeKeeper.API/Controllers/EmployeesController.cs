@@ -12,11 +12,21 @@ using TimeKeeper.DAL.Entities;
 using TimeKeeper.API.Models;
 using System.Security.Claims;
 using Thinktecture.IdentityModel.WebApi;
+using System.Web.WebPages.Html;
 
 namespace TimeKeeper.API.Controllers
 {
     public class EmployeesController : BaseController
     {
+        public IHttpActionResult GetAll(string all)
+        {
+            var list = TimeKeeperUnit.Employees.Get().OrderBy(x=>x.FirstName)
+                .ToList()
+                .Select(x => new { x.Id, Name = x.FullName})
+                .ToList();
+            return Ok(list);
+        }
+
         /// <summary>
         /// Get all Employees
         /// </summary>

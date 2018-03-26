@@ -1,0 +1,60 @@
+<div class="row">
+    <div class="col-md-6"><h3>Employee profile</h3>
+        <h2>{{message}}</h2>
+    </div>
+</div>
+<br>
+<div class="container">
+    <div class="col-md-2">
+        <img src="images\EMP.jpg" alt="avatar"></div>
+</div>
+<br>
+<div class="container">
+    <div class="new-employee">
+        <div class="row">
+            <div class="col-md-2 label">First name</div>
+            <div class="col-md-4">{{employee.firstName}}</div>
+        </div>
+        <div class="row">
+            <div class="col-md-2 label">Last name</div>
+            <div class="col-md-4">{{employee.lastName}}</div>
+        </div>
+        <div class="row">
+            <div class="col-md-2 label">Email</div>
+            <div class="col-md-4"><input type="text" class="form-control" ng-model="employee.email"></div>
+        </div>
+        <div class="row">
+            <div class="col-md-2 label">Phone number</div>
+            <div class="col-md-4"><input type="text" class="form-control" ng-model="employee.phone"></div>
+        </div>
+        <div class="row">
+            <div class="col-md-2 label">Birth date</div>
+            <div class="col-md-4"><input type="text" class="form-control" ng-model="employee.birthDate"></div>
+        </div>
+        <div class="row">
+            <div class="col-md-2 label">Employment begin date</div>
+            <div class="col-md-4"><input type="text" class="form-control" ng-model="employee.BeginDate"></div>
+        </div>
+        <div class="row">
+            <div class="col-md-2 label">Status</div>
+            <div class="col-md-4"><input type="text" class="form-control" ng-model="employee.Status"></div>
+        </div>
+        <div class="row">
+            <div class="col-md-2 label">Job title</div>
+            <div class="col-md-4"><input type="text" class="form-control" ng-model="employee.jobTitle"></div>
+        </div>
+        <div class="row">
+            <div class="col-md-2 label">Contracted salary</div>
+            <div class="col-md-4"><input type="text" class="form-control" ng-model="employee.salary"></div>
+        </div>
+        <div class="row">
+            <div class="col-md-2 label">Employment end date</div>
+            <div class="col-md-4"><input type="text" class="form-control" ng-model="employee.EndDate"></div>
+        </div>
+        <div class="row">
+            <div class="col-md-2 label">
+                <button class="btn btn-warning" ng-click="cancel()">Close</button>
+            </div>
+        </div>
+    </div>
+</div>

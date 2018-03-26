@@ -4,7 +4,6 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
-using TimeKeeper.API.Helper;
 using TimeKeeper.API.Models;
 using TimeKeeper.Utility;
 using TimeKeeper.DAL.Entities;
@@ -13,21 +12,21 @@ namespace TimeKeeper.API.Controllers
 {
     public class DetailsController : BaseController
     {
-        /// <summary>
-        /// Get all Tasks
-        /// </summary>
-        /// <returns></returns>
-        public IHttpActionResult Get([FromUri] Header h)
-        {
-            var list = TimeKeeperUnit.Details
-                .Get(x => x.Description.Contains(h.filter))
-                .AsQueryable()
-                .Header(h)
-                .Select(x => TimeKeeperFactory.Create(x))
-                .ToList();
-            Logger.Log("Returned all tasks", "INFO");
-            return Ok(list);
-        }
+        ///// <summary>
+        ///// Get all Tasks
+        ///// </summary>
+        ///// <returns></returns>
+        //public IHttpActionResult Get([FromUri] Header h)
+        //{
+        //    var list = TimeKeeperUnit.Details
+        //        .Get(x => x.Description.Contains(h.filter))
+        //        .AsQueryable()
+        //        .Header(h)
+        //        .Select(x => TimeKeeperFactory.Create(x))
+        //        .ToList();
+        //    Logger.Log("Returned all tasks", "INFO");
+        //    return Ok(list);
+        //}
 
         /// <summary>
         /// Get specific Task

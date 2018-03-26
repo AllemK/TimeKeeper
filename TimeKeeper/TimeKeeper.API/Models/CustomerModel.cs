@@ -18,7 +18,7 @@ namespace TimeKeeper.API.Models
         public string Monogram { get; set; }
         [Required(AllowEmptyStrings = false, ErrorMessage = "Contact person is required")]
         [MaxLength(50, ErrorMessage = "Contact cannot be longer than 50 characters")]
-        [RegularExpression(@"^(\p{L}+)$", ErrorMessage = "Contact cannot contain numbers")]
+        [RegularExpression(@"^(\p{L}+[\s]\p{L}+)$", ErrorMessage = "Contact cannot contain numbers or extra white spaces")]
         public string Contact { get; set; }
         [Required(AllowEmptyStrings = false, ErrorMessage = "Email is required")]
         [EmailAddress(ErrorMessage = "Wrong email format")]
@@ -27,17 +27,16 @@ namespace TimeKeeper.API.Models
         [Phone(ErrorMessage = "Wrong phone format")]
         public string Phone { get; set; }
         [Required(AllowEmptyStrings = false, ErrorMessage = "Road is required")]
-        [RegularExpression(@"^(\p{L}+)[,][\s][0-9]+$", ErrorMessage = "Road is in wrong format, needs to be 'name, number'")]
+        //[RegularExpression(@"^(\p{L}+)[,][\s][0-9]+$", ErrorMessage = "Road is in wrong format, needs to be 'name, number'")]
         public string Address_Road { get; set; }
         [Required(AllowEmptyStrings = false, ErrorMessage = "Zip code is required")]
         [RegularExpression(@"[0-9]{4,16}$", ErrorMessage = "Zip code must only contain numbers")]
         public string Address_ZipCode { get; set; }
         [Required(AllowEmptyStrings = false, ErrorMessage = "City is required")]
-        [RegularExpression(@"^(\p{L})+[\s]{0,1}(\p{l})+$")]
+        //[RegularExpression(@"^(\p{L})+[\s]{0,1}(\p{L})*$")]
         public string Address_City { get; set; }
-        [Required(AllowEmptyStrings = false, ErrorMessage = "Customer status is required")]
-        [RegularExpression("^(Client|Prospect)$",ErrorMessage = "Customer status must be Client or Prospect")]
-        public string Status { get; set; }
+        [Required(ErrorMessage = "Customer status is required")]
+        public int Status { get; set; }
 
         public ICollection<ProjectModel> Projects { get; set; }
 

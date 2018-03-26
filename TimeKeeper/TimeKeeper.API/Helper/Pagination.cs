@@ -12,7 +12,8 @@ namespace TimeKeeper.API.Helper
         public static IEnumerable<Customer> Header(this IQueryable<Customer> list, Header h)
         {
             int totalPages = (int)Math.Ceiling((double)list.Count() / h.pageSize);
-            InsertHeader(h, totalPages);
+            int totalItems = list.Count();
+            InsertHeader(h, totalPages, totalItems);
 
             switch (h.sort)
             {
@@ -34,60 +35,61 @@ namespace TimeKeeper.API.Helper
             }
         }
 
-        public static IEnumerable<Day> Header(this IQueryable<Day> list, Header h)
-        {
-            int totalPages = (int)Math.Ceiling((double)list.Count() / h.pageSize);
-            InsertHeader(h, totalPages);
+        //public static IEnumerable<Day> Header(this IQueryable<Day> list, Header h)
+        //{
+        //    int totalPages = (int)Math.Ceiling((double)list.Count() / h.pageSize);
+        //    InsertHeader(h, totalPages);
 
-            switch (h.sort)
-            {
-                case 1:
-                    return list.OrderBy(x => x.Date)
-                    .Skip(h.pageSize * h.page)
-                    .Take(h.pageSize)
-                    .ToList();
-                case 2:
-                    return list.OrderBy(x => x.Type)
-                    .Skip(h.pageSize * h.page)
-                    .Take(h.pageSize)
-                    .ToList();
-                default:
-                    return list.OrderBy(x => x.Id)
-                   .Skip(h.pageSize * h.page)
-                   .Take(h.pageSize)
-                   .ToList();
-            }
-        }
+        //    switch (h.sort)
+        //    {
+        //        case 1:
+        //            return list.OrderBy(x => x.Date)
+        //            .Skip(h.pageSize * h.page)
+        //            .Take(h.pageSize)
+        //            .ToList();
+        //        case 2:
+        //            return list.OrderBy(x => x.Type)
+        //            .Skip(h.pageSize * h.page)
+        //            .Take(h.pageSize)
+        //            .ToList();
+        //        default:
+        //            return list.OrderBy(x => x.Id)
+        //           .Skip(h.pageSize * h.page)
+        //           .Take(h.pageSize)
+        //           .ToList();
+        //    }
+        //}
 
-        public static IEnumerable<Detail> Header(this IQueryable<Detail> list, Header h)
-        {
-            int totalPages = (int)Math.Ceiling((double)list.Count() / h.pageSize);
-            InsertHeader(h, totalPages);
+        //public static IEnumerable<Detail> Header(this IQueryable<Detail> list, Header h)
+        //{
+        //    int totalPages = (int)Math.Ceiling((double)list.Count() / h.pageSize);
+        //    InsertHeader(h, totalPages);
 
-            switch (h.sort)
-            {
-                case 1:
-                    return list.OrderBy(x => x.Day.Date)
-                    .Skip(h.pageSize * h.page)
-                    .Take(h.pageSize)
-                    .ToList();
-                case 2:
-                    return list.OrderBy(x => x.Project.Name)
-                    .Skip(h.pageSize * h.page)
-                    .Take(h.pageSize)
-                    .ToList();
-                default:
-                    return list.OrderBy(x => x.Id)
-                   .Skip(h.pageSize * h.page)
-                   .Take(h.pageSize)
-                   .ToList();
-            }
-        }
+        //    switch (h.sort)
+        //    {
+        //        case 1:
+        //            return list.OrderBy(x => x.Day.Date)
+        //            .Skip(h.pageSize * h.page)
+        //            .Take(h.pageSize)
+        //            .ToList();
+        //        case 2:
+        //            return list.OrderBy(x => x.Project.Name)
+        //            .Skip(h.pageSize * h.page)
+        //            .Take(h.pageSize)
+        //            .ToList();
+        //        default:
+        //            return list.OrderBy(x => x.Id)
+        //           .Skip(h.pageSize * h.page)
+        //           .Take(h.pageSize)
+        //           .ToList();
+        //    }
+        //}
 
         public static IEnumerable<Employee> Header(this IQueryable<Employee> list, Header h)
         {
             int totalPages = (int)Math.Ceiling((double)list.Count() / h.pageSize);
-            InsertHeader(h, totalPages);
+            int totalItems = list.Count();
+            InsertHeader(h, totalPages, totalItems);
 
             switch (h.sort)
             {
@@ -109,40 +111,41 @@ namespace TimeKeeper.API.Helper
             }
         }
 
-        public static IEnumerable<Engagement> Header(this IQueryable<Engagement> list, Header h)
-        {
-            int totalPages = (int)Math.Ceiling((double)list.Count() / h.pageSize);
-            InsertHeader(h, totalPages);
+        //public static IEnumerable<Engagement> Header(this IQueryable<Engagement> list, Header h)
+        //{
+        //    int totalPages = (int)Math.Ceiling((double)list.Count() / h.pageSize);
+        //    InsertHeader(h, totalPages);
 
-            switch (h.sort)
-            {
-                case 1:
-                    return list.OrderBy(x => x.Employee.LastName)
-                    .Skip(h.pageSize * h.page)
-                    .Take(h.pageSize)
-                    .ToList();
-                case 2:
-                    return list.OrderBy(x => x.Role.Name)
-                    .Skip(h.pageSize * h.page)
-                    .Take(h.pageSize)
-                    .ToList();
-                case 3:
-                    return list.OrderBy(x => x.Team.Name)
-                    .Skip(h.pageSize * h.page)
-                    .Take(h.pageSize)
-                    .ToList();
-                default:
-                    return list.OrderBy(x => x.Id)
-                   .Skip(h.pageSize * h.page)
-                   .Take(h.pageSize)
-                   .ToList();
-            }
-        }
+        //    switch (h.sort)
+        //    {
+        //        case 1:
+        //            return list.OrderBy(x => x.Employee.LastName)
+        //            .Skip(h.pageSize * h.page)
+        //            .Take(h.pageSize)
+        //            .ToList();
+        //        case 2:
+        //            return list.OrderBy(x => x.Role.Name)
+        //            .Skip(h.pageSize * h.page)
+        //            .Take(h.pageSize)
+        //            .ToList();
+        //        case 3:
+        //            return list.OrderBy(x => x.Team.Name)
+        //            .Skip(h.pageSize * h.page)
+        //            .Take(h.pageSize)
+        //            .ToList();
+        //        default:
+        //            return list.OrderBy(x => x.Id)
+        //           .Skip(h.pageSize * h.page)
+        //           .Take(h.pageSize)
+        //           .ToList();
+        //    }
+        //}
 
         public static IEnumerable<Project> Header(this IQueryable<Project> list, Header h)
         {
             int totalPages = (int)Math.Ceiling((double)list.Count() / h.pageSize);
-            InsertHeader(h, totalPages);
+            int totalItems = list.Count();
+            InsertHeader(h, totalPages, totalItems);
 
             switch (h.sort)
             {
@@ -164,36 +167,37 @@ namespace TimeKeeper.API.Helper
             }
         }
 
-        public static IEnumerable<Role> Header(this IQueryable<Role> list, Header h)
-        {
-            h.pageSize = list.Count();
-            int totalPages = (int)Math.Ceiling((double)list.Count() / h.pageSize);
-            InsertHeader(h, totalPages);
+        //public static IEnumerable<Role> Header(this IQueryable<Role> list, Header h)
+        //{
+        //    h.pageSize = list.Count();
+        //    int totalPages = (int)Math.Ceiling((double)list.Count() / h.pageSize);
+        //    InsertHeader(h, totalPages);
 
-            switch (h.sort)
-            {
-                case 1:
-                    return list.OrderBy(x => x.Name)
-                    .Skip(h.pageSize * h.page)
-                    .Take(h.pageSize)
-                    .ToList();
-                case 2:
-                    return list.OrderBy(x => x.Type)
-                    .Skip(h.pageSize * h.page)
-                    .Take(h.pageSize)
-                    .ToList();
-                default:
-                    return list.OrderBy(x => x.Id)
-                   .Skip(h.pageSize * h.page)
-                   .Take(h.pageSize)
-                   .ToList();
-            }
-        }
+        //    switch (h.sort)
+        //    {
+        //        case 1:
+        //            return list.OrderBy(x => x.Name)
+        //            .Skip(h.pageSize * h.page)
+        //            .Take(h.pageSize)
+        //            .ToList();
+        //        case 2:
+        //            return list.OrderBy(x => x.Type)
+        //            .Skip(h.pageSize * h.page)
+        //            .Take(h.pageSize)
+        //            .ToList();
+        //        default:
+        //            return list.OrderBy(x => x.Id)
+        //           .Skip(h.pageSize * h.page)
+        //           .Take(h.pageSize)
+        //           .ToList();
+        //    }
+        //}
 
         public static IEnumerable<Team> Header(this IQueryable<Team> list, Header h)
         {
             int totalPages = (int)Math.Ceiling((double)list.Count() / h.pageSize);
-            InsertHeader(h, totalPages);
+            int totalItems = list.Count();
+            InsertHeader(h, totalPages, totalItems);
 
             switch (h.sort)
             {
@@ -210,7 +214,7 @@ namespace TimeKeeper.API.Helper
             }
         }
 
-        public static void InsertHeader(Header h, int totalPages)
+        public static void InsertHeader(Header h, int totalPages, int totalItems)
         {
             var header = new
             {
@@ -220,7 +224,8 @@ namespace TimeKeeper.API.Helper
                 totalPages,
                 h.page,
                 h.sort,
-                h.filter
+                h.filter,
+                totalItems
             };
             HttpContext.Current.Response.AddHeader("Pagination", JsonConvert.SerializeObject(header));
         }
