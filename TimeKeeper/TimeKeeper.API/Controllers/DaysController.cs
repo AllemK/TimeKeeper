@@ -17,16 +17,35 @@ namespace TimeKeeper.API.Controllers
         /// Get all Days
         /// </summary>
         /// <returns></returns>
-        public IHttpActionResult Get([FromUri] Header h)
+        public IHttpActionResult Get(int id, int year = 0, int month = 0)
         {
-            var list = TimeKeeperUnit.Calendar
-                .Get(x => x.Date.ToString().Contains(h.filter))
-                .AsQueryable()
-                .Header(h)
-                .Select(x => TimeKeeperFactory.Create(x))
-                .ToList();
+            if (year == 0)
+            {
+                year = DateTime.Today.Year;
+            }
+            if (month == 0)
+            {
+                month = DateTime.Today.Month;
+            }
+
+            CalendarModel calendar = new CalendarModel(year, month);
+            Employee employee = TimeKeeperUnit.Employees.Get(employeeId);
+            if (employee != null)
+            {
+                calendar.Employee = employee.FullName;
+                calendar.EmployeeId = employee.Id;
+                var listOfDays = employee.Days.Where(x => x.Date.Year == year && x.Date.Month == month).ToList();
+                foreach( var day in listOfDays)
+                {
+                    calendar.Days[day.Date.Day - 1].Id = day.Id;
+                    calendar.Days[day.Date.Day - 1].TypeOfDay = day.Type.ToString().ToLower();
+                    calendar.Days[day.Date.Day - 1].Hours = day.Hours;
+                    calendar.Days[day.Date.Day - 1].Details = day.Details.Select
+                }
+            }
+
             Logger.Log("Returned all days", "INFO");
-            return Ok(list);
+            return Ok(calendar);
         }
 
         /// <summary>

@@ -22,3 +22,43 @@ header {
 footer {
     bottom: 0;
 }
+
+.grid {
+    background-color: #EEE;
+}
+
+.grid:nth-child(odd) {
+    background-color: #EFE;
+}
+
+.label {
+    text-align: right;
+    padding: 8px;
+    color: black;
+}
+
+.custFrame {
+    display: table;
+    float: left;
+    margin: 6px;
+    padding: 8px;
+    border: solid blue 2px;
+}
+
+.custImage {
+    width: 120px;
+    float: left;
+    margin: 0 12px;
+}
+
+.custData {
+    float: left;
+}
+
+.custTitle {
+    font-size: 1.2em;
+}
+
+.custNav {
+    float: right;
+}

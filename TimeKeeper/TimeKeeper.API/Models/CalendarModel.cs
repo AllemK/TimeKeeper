@@ -8,24 +8,38 @@ namespace TimeKeeper.API.Models
 {
     public class CalendarModel
     {
-        public int Id { get; set; }
-        [Required(ErrorMessage = "Date is required")]
-        [DataType(DataType.Date)]
-        public DateTime Date { get; set; }
-        [Required(AllowEmptyStrings = false, ErrorMessage = "Hours is required")]
-        [Range(0.5,24,ErrorMessage = "Hours must be between 0.5 and 24")]
-        [RegularExpression(@"^\d{1,2}(\.5)?$", ErrorMessage = "Hours must have whole number or .5")]
-        public decimal Hours { get; set; }
-        [Required(AllowEmptyStrings = false, ErrorMessage = "Type of day is required")]
-        public string Type { get; set; }
+        public int Year { get; set; }
+        public int Month { get; set; }
 
         public string Employee { get; set; }
         public int EmployeeId { get; set; }
         public ICollection<DetailModel> Details { get; set; }
+        public DayModel [] Days { get; set; }
 
-        public CalendarModel()
+        public CalendarModel(int year, int month)
         {
-            Details = new List<DetailModel>();
+            int daysInMonth = DateTime.DaysInMonth(year, month);
+            Days = new DayModel[daysInMonth];
+            for (int i = 0; i < daysInMonth; i++)
+            {
+                Days[i] = new DayModel()
+                {
+                    Date = new DateTime(year, month, i + 1),
+                    Ordinal = i + 1,
+                    Hours = 0,
+                    Id = 0,
+                };
+                Days[i].TypeOfDay = "empty";
+                if(Days[i].Date >= DateTime.Today)
+                {
+                    Days[i].TypeOfDay = "future";
+                }
+                if (Days[i].Date.DayOfWeek == DayOfWeek.Saturday || Days[i].Date.DayOfWeek == DayOfWeek.Sunday)
+                {
+                    Days[i].TypeOfDay = "weekend";
+                }
+            }
+            
         }
     }
 }
