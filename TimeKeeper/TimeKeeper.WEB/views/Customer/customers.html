@@ -1,7 +1,25 @@
-<h1>Customers</h1>
-<h2>{{message}}</h2>
-<div class="row"><button ng-click="new()" class="col-md-2" style="float: right">New Customer</button></div>
-<hr>
-<div ng-repeat="item in customers">
-    <customer data="item"></customer>
+<div class="col-md-5">
+    <h1>Customers</h1>
+    <h2>{{message}}</h2>
+</div>
+<div class="src-add">
+    <div class="col-md-4">
+        <div class="input-group">
+            <input type="text" class="form-control" placeholder="Search for...">
+            <span class="input-group-btn">
+        <button class="btn btn-default" type="button">Search</button>
+      </span>
+        </div>
+    </div>
+    <div class="col-md-1">
+        <a href="" ng-controller="custController" ng-click="new()"><button class="btn btn-default">Add new</button></a>
+    </div>
+</div>
+
+
+
+<div class="col-md-10">
+    <div ng-repeat="item in customers">
+        <customer data="item"></customer>
+    </div>
 </div>

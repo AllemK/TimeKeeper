@@ -1,6 +1,6 @@
-<div class="row">
-    <div class="col-md-4"><h1>Calendar</h1></div>
-    <div class="col-md-3">Employee:
+
+    <div class="col-md-3"><h1>Calendar</h1></div>
+    <div class="col-md-2">Employee:
         <select ng-model="employeeId" class="form-control"
                 ng-options="person.id as person.name for person in people"
                 ng-value="person.id">{{person.name}}</option>
@@ -15,9 +15,8 @@
                 ng-click="buildCalendar()">LIST!
         </button>
     </div>
-</div>
-<hr>
-<div>
+
+<div class="col-md-10">
     <div ng-show="calendar.employee"><h2>{{calendar.employee.name}}: {{calendar.year}}/{{calendar.month}}</h2></div>
     <div class="calendar">
         <div ng-repeat="i in num() track by $index" class="day spaceholder"></div>

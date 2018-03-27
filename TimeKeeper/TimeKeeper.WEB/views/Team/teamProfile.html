@@ -1,0 +1,33 @@
+<div class="modal-header">
+    <h3 class="modal-title" id="modal-title">{{team.name}}</h3>
+</div>
+
+<div class="modal-body" id="modal-body">
+    <input type="hidden" ng-model="team.id">
+
+
+        <div><img class="tmProfImg" ng-src="images/{{team.image}}.jpg"></div>
+
+    <br>
+    <div class="row">
+        <div class="col-md-4 label">Project:</div>
+        <div class="col-md-6" ng-repeat="project in projects">{{team.projects.name}}</div>
+    </div>
+    <br>
+    <div class="row">
+        <div class="col-md-4 label">Members:</div>
+        <div class="col-md-6" ng-controller="teamsController">
+            <div ng-repeat="people in team.engagements">{{people.employee.name}}</div>
+        </div>
+    </div>
+    <br>
+    <div class="row">
+        <div class="col-md-4 label">Description:</div>
+        <div class="col-md-6"><textarea rows="4" cols="40">{{team.description}}</textarea></div>
+    </div>
+
+</div>
+
+<div class="modal-footer">
+    <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
+</div>

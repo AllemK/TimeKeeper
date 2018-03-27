@@ -13,6 +13,8 @@
             console.log(data);
         });
 
+
+
         $scope.pageChanged = function() {
             dataService.list("teams?" +"page="+($scope.currentPage-1), function(data, headers){
                 $scope.projects = data;
@@ -21,7 +23,7 @@
         };
 
     }]);
-    app.controller("teaController", ["$scope", "$uibModal", "dataService" , function($scope, $uibModal, dataService) {
+    app.controller("teaController", ["$scope", "$uibModal", "dataService", "toaster" , function($scope, $uibModal, dataService, toaster) {
         var $tea = this;
 
         $scope.edit = function (data) {
@@ -56,11 +58,57 @@
             })
         };
 
+        $scope.view = function(data){
+            var modalInstance = $uibModal.open({
+                animation: true,
+                ariaLabelledBy: 'modal-title',
+                ariaDescribedBy: 'modal-body',
+                templateUrl: 'views/Team/teamProfile.html',
+                controller: 'tmModalCtrl',
+                controllerAs: '$tea',
+                resolve: {
+                    team: function () {
+                        return data;
+                    }
+                }
+            })
+        };
+
         $scope.delete = function(team){
             dataService.delete("teams", team.id, function(data){
                 window.alert("Data deleted!");
             })
         };
+
+
+
+        $scope.clickwar = function(team){
+            swal({
+                title: team.name,
+                text: "Are you sure you want to delete this team?",
+                type: "warning",
+                showCancelButton: true,
+                customClass: "sweetClass",
+                confirmButtonColor: "red",
+                confirmButtonText: "Yes, sure",
+                cancelButtonColor: "",
+                cancelButtonText: "No, not ever!",
+                closeOnConfirm: false,
+                closeOnCancel: true
+            },
+                function(isConfirm){
+                    if(isConfirm){
+                        dataService.delete("teams", team.id, function(){
+                            $scope.$emit("teamsUpdated");
+                        });
+                        console.log("Team deleted");
+                        swal.close();
+                    }
+                });
+        };
+
+
+
     }]);
 
     app.controller('tmModalCtrl', ['$uibModalInstance', '$scope', 'dataService', 'team', function ($uibModalInstance, $scope, dataService, team) {
@@ -80,8 +128,8 @@
                 window.alert("Data updated!");
             });
         };
-        $scope.saveNew = function (team) {
-            dataService.insert("teams", team, function(data){
+        $scope.saveNew = function(team){
+            dataService.insert("teams",team,function(data){
                 window.alert("Data updated!");
             });
         };

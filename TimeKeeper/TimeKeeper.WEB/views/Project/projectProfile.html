@@ -1,0 +1,65 @@
+<div class="modal-header">
+    <h3 class="modal-title" id="modal-title">{{project.name}}</h3>
+</div>
+
+<div class="modal-body" id="modal-body">
+    <input type="hidden" ng-model="project.id">
+    <div class="row">
+        <div class="col-md-4 label">Project Name:</div>
+        <div class="col-md-6">{{project.name}}</div>
+    </div>
+    <br>
+    <div class="row">
+        <div class="col-md-4 label">Project Monogram:</div>
+        <div class="col-md-6">{{project.monogram}}</div>
+    </div>
+    <br>
+    <div class="row">
+        <div class="col-md-4 label">Customer Name:</div>
+        <div class="col-md-6">{{project.customer.name}}</div>
+    </div>
+    <br>
+    <div class="row">
+        <div class="col-md-4 label">Team:</div>
+        <div class="col-md-6">{{project.team.name}}</div>
+    </div>
+    <br>
+    <div class="row">
+        <div class="col-md-4 label">Amount:</div>
+        <div class="col-md-6">{{project.amount}} &#36;</div>
+    </div>
+    <br>
+    <div class="row">
+        <div class="col-md-4 label">Start Date:</div>
+        <div class="col-md-6">{{project.startDate}}</div>
+    </div>
+    <br>
+    <div class="row">
+        <div class="col-md-4 label">End Date:</div>
+        <div class="col-md-6">{{project.endDate}}</div>
+    </div>
+    <br>
+    <div class="row">
+        <div class="col-md-4 label">Status:</div>
+        <div class="col-md-6">{{project.status}}</div>
+    </div>
+    <br>
+    <div class="row">
+        <div class="col-md-4 label">Pricing:</div>
+        <div class="col-md-6">{{project.pricing}}</div>
+    </div>
+    <br>
+    <div class="row">
+        <div class="col-md-4 label">Description:</div>
+        <div class="col-md-6"><textarea rows="4" cols="40">{{project.description}}</textarea></div>
+    </div>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
+</div>
+
+
+
+
+
+

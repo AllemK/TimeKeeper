@@ -39,7 +39,7 @@
                     }
                 }
             });
-        }
+        };
 
         $scope.new = function(data){
             var modalInstance = $uibModal.open({
@@ -55,7 +55,24 @@
                     }
                 }
             })
-        }
+        };
+
+        $scope.view = function(data){
+            var modalInstance = $uibModal.open({
+                animation: true,
+                ariaLabelledBy: 'modal-title',
+                ariaDescribedBy: 'modal-body',
+                templateUrl: 'views/Project/projectProfile.html',
+                controller: 'projModalCtrl',
+                controllerAs: '$proj',
+                resolve: {
+                    project: function () {
+                        return data;
+                    }
+                }
+            })
+        };
+
     }]);
 
     app.controller('projModalCtrl', ['$uibModalInstance', '$scope', 'dataService', 'project', function ($uibModalInstance, $scope, dataService, project) {
