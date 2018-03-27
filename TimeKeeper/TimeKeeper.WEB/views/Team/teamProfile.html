@@ -11,10 +11,12 @@
     <br>
     <div class="row">
         <div class="col-md-4 label">Project:</div>
-        <div class="col-md-6" ng-repeat="project in projects">{{team.projects.name}}</div>
+        <div class="col-md-6" ng-controller="teamsController">
+            <div ng-repeat="project in team.projects">{{project.name}}</div>
+        </div>
     </div>
     <br>
-    <div class="row">
+        <div class="row">
         <div class="col-md-4 label">Members:</div>
         <div class="col-md-6" ng-controller="teamsController">
             <div ng-repeat="people in team.engagements">{{people.employee.name}}</div>

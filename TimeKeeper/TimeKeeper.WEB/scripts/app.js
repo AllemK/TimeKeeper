@@ -1,5 +1,15 @@
 (function(){
     var app = angular.module("timeKeeper", ["ngRoute", "ui.bootstrap", "ngAnimate", "toaster"]);
+
+    currentUser = {
+        id: 0,
+        name: '',
+        role: '',
+        teams: [],
+        provider: '',
+        token: ''
+    }
+
     app.constant("timeConfig", {
         apiUrl:"http://localhost:54283/api/",
         idsUrl:"http://localhost:54283/connect/token",
@@ -12,15 +22,25 @@
     app.config(['$routeProvider', function($routeProvider) {
         $routeProvider
             .when('/teams',     { templateUrl: 'views/Team/teams.html',
-                controller: 'teamsController' })
+                controller: 'teamsController' , logReq:false})
             .when('/employees', { templateUrl: 'views/Employee/employees.html',
-                controller: 'employeesController' })
+                controller: 'employeesController' , logReq:false})
             .when('/customers', { templateUrl: 'views/Customer/customers.html',
-                controller: 'customersController' })
+                controller: 'customersController', logReq:false })
             .when('/projects',  { templateUrl: 'views/Project/projects.html',
-                controller: 'projectsController' })
+                controller: 'projectsController' , logReq:false})
             .when('/calendar', {templateUrl: 'views/Calendar/calendar.html',
-                controller: 'calendarController as $cal' })
+                controller: 'calendarController as $cal', logReq:false })
+            .when('/login', {templateUrl: 'views/Login/login.html',
+                controller: 'loginController' ,logReq:false })
+            .when('/logout', {templateUrl: 'views/Login/logout.html',
+                controller: 'logoutController' ,logReq:false })
             .otherwise({ redirectTo: '/calendar' });
+    }]).run(['$rootScope', '$location', function ($rootScope, $location){
+        $rootScope.$on('$routeChangeStart', function(event, next, current){
+            if(currentUser.id==0 && next.$$route.logReq){
+                $location.path("/login");
+            }
+        })
     }]);
 }());
