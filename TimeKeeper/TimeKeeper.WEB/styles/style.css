@@ -6,14 +6,13 @@ body {
     margin: 0;
     padding-top: 50px;
 
-/*
     background-image: url("img/Web 1920 – 1.jpg");
     background-size: cover;
     background-position: center;
     height: 100vh;
     background-attachment: fixed;
     position: relative;
-*/
+
 }
 
 header, footer {
@@ -277,6 +276,10 @@ h1{
     top: 0;
     border-width: 0 0 1px;
     background-color: #0063ad;
+}
+
+.navbar-header a {
+    color: #fff!important;
 }
 
 .navbar-default .navbar-nav #user-profile {
