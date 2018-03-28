@@ -132,7 +132,8 @@ namespace TimeKeeper.API.Controllers
                     Logger.Log($"No such team with id {id}");
                     return NotFound();
                 }
-
+                TimeKeeperUnit.Projects.Delete(team.Projects);
+                TimeKeeperUnit.Engagements.Delete(team.Engagements);
                 TimeKeeperUnit.Teams.Delete(team);
                 TimeKeeperUnit.Save();
                 Logger.Log($"Deleted team with id {id}", "INFO");

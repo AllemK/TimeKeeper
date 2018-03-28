@@ -241,5 +241,22 @@ namespace TimeKeeper.API.Models
                 Name = name
             };
         }
+
+        public UserModel Create(string email, string id_token, UnitOfWork unit)
+        {
+            Employee emp = unit.Employees.Get(x => x.Email == email).FirstOrDefault();
+            if (emp != null)
+            {
+                return new UserModel()
+                {
+                    Id = emp.Id,
+                    Name = emp.FullName,
+                    Role = "Admin",
+                    Teams = emp.Engagements.Select(x => x.Team.Name).ToList(),
+                    Token = id_token
+                };
+            }
+            return null;
+        }
     }
 }

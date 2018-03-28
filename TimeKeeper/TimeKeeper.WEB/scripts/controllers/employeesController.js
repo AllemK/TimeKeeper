@@ -6,7 +6,6 @@
         function listEmployees() {
             dataService.list("employees", function (data, headers) {
                 $scope.page = angular.fromJson(headers('Pagination'));
-                console.log($scope.page);
                 $scope.message = "";
                 $scope.people = data;
             });

@@ -7,10 +7,11 @@
         $scope.message = "Wait...";
 
         function listCustomers() {
-                dataService.list("customers", function (data) {
-                    $scope.message = "";
-                    $scope.customers = data;
-                });
+            dataService.list("customers", function (data, headers) {
+                $scope.page=angular.fromJson(headers("Pagination"));
+                $scope.message = "";
+                $scope.customers = data;
+            });
         }
 
         listCustomers();
@@ -33,12 +34,13 @@
                     }
                 }
             })
-        }
+        };
     }]);
-    app.controller("custController", ["$scope", "$uibModal", function($scope, $uibModal) {
+    app.controller("custController", ["$scope", "$uibModal", "dataService", function($scope, $uibModal, dataService) {
 
         var $cust = this;
         $scope.edit = function (data) {
+            console.log(data);
             var modalInstance = $uibModal.open({
                 animation: true,
                 ariaLabelledBy: 'modal-title',
@@ -54,25 +56,33 @@
             });
         };
 
-        $scope.delete = function (data){
-            var modalInstance = $uibModal.open({
-                animation: true,
-                ariaLabelledBy: 'modal-title',
-                ariaDescribedBy: 'modal-body',
-                templateUrl:'views/Customer/confirmCustDeleteModal.html',
-                controller:'ModalCtrl',
-                controllerAs:'$cust',
-                resolve:{
-                    customer:function(){
-                        return data;
-                    }
-                }
-            });
-        };
-
-        $scope.$on("customersUpdated", function(event){
+        $scope.$on("customerModalUpdated", function(event){
             $scope.$emit("customersUpdated");
-        })
+        });
+
+        $scope.clickwar = function(data) {
+            swal({
+                    title: data.name,
+                    text: "Are you sure you want to delete this customer?",
+                    type: "warning",
+                    showCancelButton: true,
+                    customClass: "sweetClass",
+                    confirmButtonText: "Yes, sure",
+                    cancelButtonText: "No, not ever!",
+                    closeOnConfirm: false,
+                    closeOnCancel: true
+                },
+
+                function (isConfirm) {
+                    if (isConfirm) {
+                        dataService.delete("customers",data.id,function(){
+                            $scope.$emit("customersUpdated");
+                        });
+                        console.log(data.name+": customer deleted");
+                        swal.close();
+                    }
+                });
+        }
     }]);
 
     app.controller('ModalCtrl', ["$uibModalInstance", "$scope", "dataService", "customer", function ($uibModalInstance, $scope, dataService, customer) {
@@ -81,9 +91,8 @@
 
         $scope.save = function(customer){
             dataService.update("customers", customer.id, customer, function(data){
-                window.alert("Data updated!");
+                $scope.$emit("customerModalUpdated");
             });
-            $scope.$emit("customersUpdated");
             $uibModalInstance.close();
         };
 
@@ -93,19 +102,10 @@
 
         $scope.saveNew = function(customer){
             dataService.insert("customers",customer,function(data){
-                window.alert("Data updated!");
+                $scope.$emit("customerModalUpdated");
             });
-            $scope.$emit("customersUpdated");
             $uibModalInstance.close();
         };
 
-        $scope.delete = function(customer){
-            console.log(customer);
-            dataService.delete("customers",customer.id,function(data){
-                window.alert("Data deleted!");
-            });
-            $scope.$emit("customersUpdated");
-            $uibModalInstance.close();
-        };
     }]);
 }());

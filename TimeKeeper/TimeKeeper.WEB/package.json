@@ -28,6 +28,7 @@
   "author": "Gigi School",
   "license": "ISC",
   "dependencies": {
+    "angularjs-toaster": "^2.2.0",
     "gulp-install": "^1.1.0"
   }
 }

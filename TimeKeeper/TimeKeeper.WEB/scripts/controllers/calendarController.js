@@ -37,7 +37,7 @@
                         return new Array(size);
                     }
                 });
-            };
+            }
 
             $scope.edit = function(day){
                 //if(day.typeOfDay!=='future') {
