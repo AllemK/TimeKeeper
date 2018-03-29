@@ -5,13 +5,18 @@
     <link href="styles/bootstrap.min.css" rel="stylesheet" />
     <link href="styles/style.css" rel="stylesheet" />
     <link rel="stylesheet" href="styles/fontawesome.min.css">
+    <link rel="stylesheet" href="styles/toaster.min.css">
+    <link rel="stylesheet" href="styles/sweetalert.min.css">
     <script src="library/angular.min.js"></script>
     <script src="library/angular-route.min.js"></script>
+    <script src="library/angular-animate.min.js"></script>
     <script src="library/ui-bootstrap-tpls.min.js"></script>
+    <script src="library/sweetalert.min.js"></script>
+    <script src="library/toaster.min.js"></script>
 
-    <script src="library/ui-bootstrap-tpls.min.js"></script>
     <script src="scripts/app.js"></script>
     <script src="scripts/services/dataService.js"></script>
+    <script src="scripts/services/infoService.js"></script>
     <script src="scripts/controllers/teamsController.js"></script>
     <script src="scripts/controllers/customersController.js"></script>
     <script src="scripts/controllers/projectsController.js"></script>
@@ -19,6 +24,9 @@
     <script src="scripts/controllers/calendarController.js"></script>
     <script src="scripts/directives/customerDirective.js"></script>
     <script src="scripts/directives/teamDirective.js"></script>
+
+    <script src="https://apis.google.com/js/platform.js"></script>
+    <meta name="google-signin-client_id" content="581026480250-gtepo3eggs5ljii1val9l0uh3jd61fo3.apps.googleusercontent.com">
 </head>
 
 <body>
@@ -40,5 +48,10 @@
 <footer>
     <div>Copyright &copy; by Gigi School</div>
 </footer>
+
+<toaster-container></toaster-container>
+
+<div id="loader" ng-show="waitForLoad"><div id="spinner"></div></div>
+
 </body>
 </html>
