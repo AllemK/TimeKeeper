@@ -1,4 +1,8 @@
+/* ------------------------------------------------------------ */
 
+/* BASIC */
+
+/* ------------------------------------------------------------ */
 
 body {
     font-family: Verdana, sans-serif;
@@ -37,34 +41,17 @@ hr {
     border: 0;
     margin: 12px 0;
     height: 3px;
-    background-color: #00C;
+    background-color: #eee;
     opacity: 0.5;
+}
+
+.hr-modal {
+    border-top: 2px solid #001F36;
 }
 
 h1{
     color: #fff!important;
 }
-
-/*///////////////////////////////
-        NAVBAR
-//////////////////////////////*/
-/*
-.navbar {
-    background-color: #001F36;
-}
-
-.navbar-header {
-    font-size: 30px;
-    color: #fff;
-}
-*/
-
-/*///////////////////////////////
-        NAVBAR LEFT
-//////////////////////////////*/
-
-
-/*********************************************/
 
 .grid {
     background-color: #001F36;
@@ -80,197 +67,11 @@ h1{
     color: black!important;
 }
 
-.custFrame {
-    display: table;
-    float: left;
-    margin: 6px;
-    padding: 8px;
-    border: solid #001F36 2px;
-    background-color: #fff;
-}
+/* ------------------------------------------------------------ */
 
-.custImage {
-    width: 120px;
-    float: left;
-    margin: 0 12px;
-}
+/* NAVIGATION */
 
-.custData {
-    float: left;
-}
-
-.custTitle {
-    font-size: 1.2em;
-}
-
-.custNav {
-    float: right;
-}
-
-.modal-header {
-    background-color: #001F36;
-    color: white;
-    border: solid 1px #001F36;
-}
-
-.modal-footer {
-    background-color: #001F36;
-    border: solid 1px #001F36;
-}
-
-.calendar {
-    width: 574px;
-}
-
-.day {
-    float:left;
-    width:72px;
-    height:72px;
-    border: 1px solid black;
-    padding: 4px;
-    margin: 4px;
-    color: white;
-}
-
-.spaceholder {
-    background-color: transparent;
-    border: 0;
-}
-
-.dayhours {
-    float: right;
-    font-size: 2.5em;
-}
-
-.day .empty {
-    color: black;
-}
-
-.weekend {
-    background-color: red;
-}
-.future {
-    background-color: lightgray;
-}
-.empty {
-    background-color: white;
-}
-.workingday {
-    background-color: green;
-}
-.publicholiday {
-    background-color: darkred;
-}
-.otherabsence {
-    background-color: black;
-}
-.religiousday {
-    background-color: lightblue;
-}
-.sickleave {
-    background-color: darkgreen;
-}
-.vacation {
-    background-color: orange;
-}
-.businessabsence {
-    background-color: darkgray;
-}
-.table {
-    margin-top: 25px;
-    background-color: #fff;
-}
-
-.src-add {
-    width: 96%;
-    margin-top: 25px;
-}
-
-.teaFrame {
-    display: table;
-    float: left;
-    margin: 6px;
-    padding: 8px;
-    border: solid #001F36 2px;
-    width: 300px;
-    height: 100px;
-    background-color: #fff;
-}
-
-.teaImage {
-    max-width: 18%;
-    float: left;
-    margin-top: 10px;
-    margin-left: 10px;
-}
-
-.teaData {
-    float: right;
-    margin-top: 10px;
-    margin-left: 10px;
-}
-
-.teaTitle {
-    font-size: 1.2em;
-}
-
-.teaNav {
-    float: right;
-}
-
-
-/*///////////////////////////////
-        LOADER
-//////////////////////////////*/
-
-#loader {
-    position: fixed;
-    top: 0%;
-    left: 0%;
-    width: 100%;
-    height: 100%;
-    z-index: 999;
-    background-color: #fff;
-    opacity: .75;
-}
-
-#spinner {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    margin-top: -50px;
-    margin-left: -50px;
-    border: 20px solid #f3f3f3;
-    border-top: 20px solid #001F36;
-    border-radius: 50%;
-    width: 100px;
-    height: 100px;
-    animation: spin 2s linear infinite;
-}
-
-@keyframes spin {
-    0% { transform: rotate(0deg);}
-    100% { transform: rotate(360deg);}
-}
-
-.tmProfImg {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    max-width: 15%;
-    opacity: .25;
-
-}
-
-
-
-/*****************************************************************/
-
-
-
-
-
-
+/* ------------------------------------------------------------ */
 
 .navbar-fixed-top {
     top: 0;
@@ -452,3 +253,239 @@ h1{
     background: #001525 !important;
     color: #fff !important;
 }
+
+
+/* ------------------------------------------------------------ */
+
+/* CUSTOMERS WIDGET */
+
+/* ------------------------------------------------------------ */
+
+.custFrame {
+    display: table;
+    float: left;
+    margin: 6px;
+    padding: 8px;
+    border: solid #001F36 2px;
+    background-color: #fff;
+}
+
+.custImage {
+    width: 120px;
+    float: left;
+    margin: 0 12px;
+}
+
+.custData {
+    float: left;
+}
+
+.custTitle {
+    font-size: 1.2em;
+}
+
+.custNav {
+    float: right;
+}
+
+/* ------------------------------------------------------------ */
+
+/* MODAL */
+
+/* ------------------------------------------------------------ */
+
+.modal-header {
+    background-color: #001F36;
+    color: white;
+    border: solid 1px #001F36;
+}
+
+.modal-footer {
+    background-color: #001F36;
+    border: solid 1px #001F36;
+}
+
+
+/* ------------------------------------------------------------ */
+
+/* CALENDAR */
+
+/* ------------------------------------------------------------ */
+
+.calendar {
+    width: 574px;
+}
+
+.day {
+    float:left;
+    width:72px;
+    height:72px;
+    border: 1px solid black;
+    padding: 4px;
+    margin: 4px;
+    color: white;
+}
+
+.spaceholder {
+    background-color: transparent;
+    border: 0;
+}
+
+.dayhours {
+    float: right;
+    font-size: 2.5em;
+}
+
+.day .empty {
+    color: black;
+}
+
+.weekend {
+    background-color: red;
+}
+.future {
+    background-color: lightgray;
+}
+.empty {
+    background-color: white;
+}
+.workingday {
+    background-color: green;
+}
+.publicholiday {
+    background-color: darkred;
+}
+.otherabsence {
+    background-color: black;
+}
+.religiousday {
+    background-color: lightblue;
+}
+.sickleave {
+    background-color: darkgreen;
+}
+.vacation {
+    background-color: orange;
+}
+.businessabsence {
+    background-color: darkgray;
+}
+
+
+/* ------------------------------------------------------------ */
+
+/* TABLE */
+
+/* ------------------------------------------------------------ */
+
+
+.table {
+    margin-top: 25px;
+    background-color: #fff;
+}
+
+/* ------------------------------------------------------------ */
+
+/* SEARCH AND ADD BUTTON */
+
+/* ------------------------------------------------------------ */
+
+.src-add {
+    width: 96%;
+    margin-top: 25px;
+}
+
+/* ------------------------------------------------------------ */
+
+/* TEAMS WIDGET AND MODAL PITURE*/
+
+/* ------------------------------------------------------------ */
+
+.teaFrame {
+    display: table;
+    float: left;
+    margin: 6px;
+    padding: 8px;
+    border: solid #001F36 2px;
+    width: 300px;
+    height: 100px;
+    background-color: #fff;
+}
+
+.teaImage {
+    max-width: 18%;
+    float: left;
+    margin-top: 10px;
+    margin-left: 10px;
+}
+
+.teaData {
+    float: right;
+    margin-top: 10px;
+    margin-left: 10px;
+}
+
+.teaTitle {
+    font-size: 1.2em;
+}
+
+.teaNav {
+    float: right;
+}
+
+.tmProfImg {
+    width: 75%;
+    margin-top: 25px;
+    margin-right: auto;
+    margin-left: auto;
+    display: block;
+}
+
+/*.tmProfImg {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    max-width: 15%;
+    opacity: .25;
+}*/
+
+/* ------------------------------------------------------------ */
+
+/* LOADER */
+
+/* ------------------------------------------------------------ */
+
+#loader {
+    position: fixed;
+    top: 0%;
+    left: 0%;
+    width: 100%;
+    height: 100%;
+    z-index: 999;
+    background-color: #fff;
+    opacity: .75;
+}
+
+#spinner {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-top: -50px;
+    margin-left: -50px;
+    border: 20px solid #f3f3f3;
+    border-top: 20px solid #001F36;
+    border-radius: 50%;
+    width: 100px;
+    height: 100px;
+    animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg);}
+    100% { transform: rotate(360deg);}
+}
+
+
+
+/*--------------------------------------------------------------------------------------*/
+

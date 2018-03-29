@@ -1,7 +1,7 @@
 (function(){
     var app = angular.module("timeKeeper");
 
-    app.controller("teamsController", ["$scope", "dataService", "timeConfig", "$location", function($scope, dataService, timeConfig, $location) {
+    app.controller("teamsController", ["$scope", "dataService", "timeConfig", "$uibModal","$location", function($scope, dataService, timeConfig, $uibModal, $location) {
 
         $scope.currentPage = 0;
         $scope.message = "Wait...";
@@ -21,6 +21,19 @@
             });
             $log.log('Page changed to: ' + $scope.currentPage);
         };
+
+        function listTeams() {
+            dataService.list("teamss", function (data) {
+                $scope.message = "";
+                $scope.teams = data;
+            });
+        }
+
+        listTeams();
+
+        $scope.$on("teamsUpdated", function(event){
+            listTeams();
+        });
 
     }]);
     app.controller("teaController", ["$scope", "$uibModal", "dataService", "toaster" , function($scope, $uibModal, dataService, toaster) {
@@ -106,7 +119,9 @@
                     }
                 });
         };
-
+        $scope.$on("teamsUpdated", function(event){
+            $scope.$emit("teamsUpdated");
+        })
 
 
     }]);
@@ -123,6 +138,8 @@
             $scope.projects = data;
         });
 
+
+
         $scope.save = function (team) {
             dataService.update("teams", team.id, team, function(data){
                 window.alert("Data updated!");
@@ -132,7 +149,22 @@
             dataService.insert("teams",team,function(data){
                 window.alert("Data updated!");
             });
+            $scope.$emit("teamsUpdated");
+            $uibModalInstance.close();
         };
+
+        /* delete employee in team */
+
+        /*$scope.delEmp = function(person){
+            dataService.delEmp("teams", person.id, function(data){
+                window.alert("Data deleted!");
+            })
+        };*/
+
+        /*$scope.delEmp = function(team) {
+            $scope.people.teams[team].deleted = true;
+        };*/
+
 
         $scope.cancel = function () {
             $uibModalInstance.dismiss();

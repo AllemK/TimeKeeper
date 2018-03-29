@@ -18,22 +18,47 @@
             </select>
         </div>
     </div>
+<br>
     <div class="row">
-        <div class="col-md-4 label">Members:</div>
-        <div class="col-md-6 ng-scope" ng-controller="teamsController">
+        <div class="col-md-4 label">Employees:</div>
+        <div class="col-md-6">
+            <select ng-model="team.engagements[0].id" class="form-control"
+                    ng-options="person.id as person.name for person in employees"
+                    ng-value="person.id">{{person.name}}</option>
+            </select>
+        </div>
+        <div class="col-md-1 text-center">
+            <i class="fa fa-user-plus fa-2x text-success" ng-click=""></i>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12 ng-scope" ng-controller="teamsController">
             <table class="table table-bordered">
+                <thead>
+                <tr >
+                    <th>Members</th>
+                    <th>Roles</th>
+                    <th>Action</th>
+                </tr>
+                </thead>
                 <tbody ng-repeat="people in team.engagements">
                 <tr>
                     <td>{{people.employee.name}}</td>
+                    <td>{{people.role.name}}</td>
+                    <td ng-controller="teaController">
+                        <a href="" pull-right ng-click="delEmp(data)"><i class="fa fa-trash fa-2x text-danger"></i></a>
+                    </td>
                 </tr>
                 </tbody>
             </table>
         </div>
     </div>
+
     <div class="row">
-        <div class="col-md-4 label">Description:</div>
-        <div class="col-md-6"><input type="text" class="form-control" ng-model="team.description"></div>
-    </div>
+       <div class="col-md-4 label">Description:</div>
+       <div class="col-md-6"><textarea rows="5" cols="35">{{team.description}}</textarea></div>
+   </div>
 
 </div>
 

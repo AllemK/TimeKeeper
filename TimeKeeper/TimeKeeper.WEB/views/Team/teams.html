@@ -23,4 +23,8 @@
 <div ng-repeat="item in teams">
     <team data="item"></team>
 </div>
+    <ul class="pagination pull-right" uib-pagination total-items="totalItems" ng-model="currentPage" ng-change="pageChanged()"></ul>
+
 </div>
+
+
