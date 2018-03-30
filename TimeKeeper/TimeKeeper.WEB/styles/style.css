@@ -9,8 +9,8 @@ body {
     /*height: 100%;*/
     width: 100%;
     overflow-x: hidden;
-    padding-top: 78px;
-    padding-bottom: 32px;
+    /*padding-top: 78px;*/
+    /*padding-bottom: 32px;*/
     background-image: url("../images/bg-main.jpg");
     background-size: cover;
     background-position: center center;
@@ -221,6 +221,7 @@ hr {
     top: 0;
     border-width: 0 0 1px;
     background-color: #0063ad;
+    margin-bottom: 0px;
 }
 
 .navbar-header a {
@@ -232,7 +233,8 @@ hr {
     100% {transform: rotate(360deg);}
 }
 
-#wrapper {
+.wrapper {
+    margin-top: 51px;
     padding-left: 0;
     -webkit-transition: all .5s ease;
     -moz-transition: all .5s ease;
@@ -383,4 +385,9 @@ hr {
 .sidebar-nav li:nth-child(8) a {
     background: #001525 !important;
     color: #fff !important;
+}
+
+.sidebar-nav li:last-child {
+    height: -webkit-fill-available;
+    background-color: black;
 }
