@@ -9,6 +9,7 @@ body {
     /*height: 100%;*/
     width: 100%;
     overflow-x: hidden;
+    /*overflow-y: hidden;*/
     /*padding-top: 78px;*/
     /*padding-bottom: 32px;*/
     background-image: url("../images/bg-main.jpg");
@@ -277,6 +278,11 @@ hr {
     margin: 0;
     padding: 0;
     list-style: none;
+
+    /* for flex display */
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
 }
 
 #sidebar-wrapper .sidebar-nav li {
@@ -388,6 +394,9 @@ hr {
 }
 
 .sidebar-nav li:last-child {
-    height: -webkit-fill-available;
+    width: 100%;
+    display: flex;
+    flex: 1;
+    flex-direction: column;
     background-color: black;
 }
