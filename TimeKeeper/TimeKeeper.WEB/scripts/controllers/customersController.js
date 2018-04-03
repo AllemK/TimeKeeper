@@ -102,6 +102,7 @@
         $scope.delete = function(customer){
             console.log(customer);
             dataService.delete("customers",customer.id,function(data){
+                window.location.reload();
                 window.alert("Data deleted!");
             });
             $scope.$emit("customersUpdated");

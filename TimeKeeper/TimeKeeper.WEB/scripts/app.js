@@ -1,5 +1,5 @@
 (function(){
-    var app = angular.module("timeKeeper", ["ngRoute", "ui.bootstrap"]);
+    var app = angular.module("timeKeeper", ["ngRoute", "ui.bootstrap", "toaster", "ngAnimate"]);
     app.constant("timeConfig", {
         apiUrl:"http://localhost:54283/api/",
         idsUrl:"http://localhost:59871/connect/token",

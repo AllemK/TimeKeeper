@@ -4,10 +4,10 @@
         <h1>Employees</h1>
     </div>
     <div class="col-md-4">
-        <input type="text" placeholder="Search for employee..">
-        <button ng-click="search(person)">Search</button>
+        <input type="text" placeholder="Search for employee.." ng-model="filter" />
+        <button ng-click="search(filter)"><span class="glyphicon glyphicon-search"></span></button>
     </div>
-    <div class="col-md-2">
+    <div class="col-md-4">
         <button type="button" class="btn btn-default" ng-click="add()">
             <span class="glyphicon glyphicon-plus"></span>
         </button>
@@ -30,29 +30,15 @@
                 <td>{{person.fullName}}</td>
                 <td>{{person.email}}</td>
                 <td>{{person.phone}}</td>
-                <td ><a href="" ng-click="edit(person)">Edit</a> | <a href="" ng-click="view(person)">View</a></td>
-            </tr>
+                <td><a href="" ng-click="view(person)"><spa class="glyphicon glyphicon-eye-open"></spa></a>
+                    | <a href="" ng-click="edit(person)"><spa class="glyphicon glyphicon-pencil"></spa></a>
+                    | <a href="" ng-click="clickwar(person)"><spa class="glyphicon glyphicon-trash"></spa></a></td>
             </tbody>
         </table>
     </div>
 </div>
 <div class="col-md-4" style="float: right">
-    <ul class="pagination">
-        <li>
-            <a href="#" aria-label="Previous">
-                <span aria-hidden="true">&laquo;</span>
-            </a>
-        </li>
-        <li><a href="#">1</a></li>
-        <li><a href="#">2</a></li>
-        <li><a href="#">3</a></li>
-        <li><a href="#">4</a></li>
-        <li><a href="#">5</a></li>
-        <li>
-            <a href="#" aria-label="Next">
-                <span aria-hidden="true">&raquo;</span>
-            </a>
-        </li>
-    </ul>
+    <ul uib-pagination total-items="totalItems" ng-model="currentPage" ng-change="pageChanged()"></ul>
+
 </div>
 

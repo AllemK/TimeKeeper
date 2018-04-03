@@ -58,6 +58,7 @@
 
         $scope.delete = function(team){
             dataService.delete("teams", team.id, function(data){
+                window.location.reload();
                 window.alert("Data deleted!");
             })
         };
