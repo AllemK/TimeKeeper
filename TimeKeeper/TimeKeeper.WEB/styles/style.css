@@ -155,27 +155,62 @@ hr {
     margin: 6px;
     padding: 8px;
     border: solid blue 2px;
-    width: 300px;
+    width: 250px;
     height: 100px;
 }
 
 .teaImage {
-    max-width: 18%;
+    height: 75px;
+    width: 100px;
     float: left;
     margin-top: 10px;
     margin-left: 10px;
 }
 
 .teaData {
-    float: left;
+    float: right;
     margin-top: 10px;
     margin-left: 10px;
 }
 
 .teaTitle {
-    font-size: 1.2em;
+    font-size: 1.4em;
 }
 
 .teaNav {
     float: right;
+}
+
+#loader{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 999;
+    background-color: white;
+    opacity: .75;
+}
+
+#spinner{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border: 16px solid #f3f3f3;
+    border-top: 16px solid #3498db;
+    border-radius: 50%;
+    width: 120px;
+    height: 120px;
+    animation: spin 2s linear infinite;
+}
+
+@keyframes spin{
+    0%   {transform: rotate(0deg);}
+    100% {transform: rotate(360deg);}
+}
+
+.teamPag{
+    font-size: 50px;
+    margin-top: 25px;
 }

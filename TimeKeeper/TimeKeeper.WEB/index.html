@@ -5,19 +5,30 @@
     <link href="styles/bootstrap.min.css" rel="stylesheet" />
     <link href="styles/style.css" rel="stylesheet" />
     <link rel="stylesheet" href="styles/fontawesome.min.css">
+    <link rel="stylesheet" href="styles/sweetalert.min.css">
+    <link rel="stylesheet" href="styles/toaster.min.css">
     <script src="library/angular.min.js"></script>
     <script src="library/angular-route.min.js"></script>
-
+    <script src="library/angular-animate.min.js"></script>
+    <script src="library/angular-local-storage.min.js"></script>
     <script src="library/ui-bootstrap-tpls.min.js"></script>
+    <script src="library/sweetalert.min.js"></script>
+    <script src="library/toaster.min.js"></script>
+    <script src="https://apis.google.com/js/platform.js"></script>
+
     <script src="scripts/app.js"></script>
     <script src="scripts/services/dataService.js"></script>
+    <script src="scripts/services/infoService.js"></script>
     <script src="scripts/controllers/teamsController.js"></script>
     <script src="scripts/controllers/customersController.js"></script>
     <script src="scripts/controllers/projectsController.js"></script>
     <script src="scripts/controllers/employeesController.js"></script>
     <script src="scripts/controllers/calendarController.js"></script>
+    <script src="scripts/controllers/loginController.js"></script>
     <script src="scripts/directives/customerDirective.js"></script>
     <script src="scripts/directives/teamDirective.js"></script>
+
+    <meta name="google-signin-client_id" content="53671047349-a7u8e0u88vdhqp10tb0833durqo9jdnt.apps.googleusercontent.com">
 </head>
 
 <body>
@@ -29,7 +40,10 @@
             <a href="#!/customers"><button class="btn btn-primary">Customers</button></a>
             <a href="#!/employees"><button class="btn btn-primary">Employees</button></a>
             <a href="#!/projects"><button class="btn btn-primary">Projects</button></a>
+            <a href="#!/roles"><button class="btn btn-primary">Roles</button></a>
             <a href="#!/teams"><button class="btn btn-primary">Teams</button></a>
+            <span ng-show="currentUser.id===0"><a href="#!/login"><button class="btn btn-warning">Login</button></a></span>
+            <span ng-show="currentUser.id!==0" ng-controller="logoutController"><a href=""><button class="btn btn-warning" ng-click="logout()">Logout</button></a></span>
         </div>
     </div>
 </header>
@@ -39,5 +53,7 @@
 <footer>
     <div>Copyright &copy; by Gigi School</div>
 </footer>
+<toaster-container></toaster-container>
+<div id="loader" ng-show="waitForLoad"><div id="spinner"></div></div>
 </body>
 </html>

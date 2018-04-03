@@ -19,17 +19,35 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-md-4 label">Members:</div>
-        <div class="col-md-6 ng-scope" ng-controller="teamsController">
+        <div class="col-md-2 label">Team Members:</div>
+        <div class="col-md-8">
             <table class="table table-bordered">
                 <tbody ng-repeat="people in team.engagements">
                 <tr>
                     <td>{{people.employee.name}}</td>
+                    <td>{{people.role.name}}</td>
+                    <td><a href="" ng-click="removeMember(people)"><i class="fa fa-minus-square" style="widht: 25px; height: 25px;"></i></a></td>
                 </tr>
                 </tbody>
             </table>
         </div>
     </div>
+    <!--<div class="row" ng-model="person">
+        <div class="col-md-2 label">Add Member:</div>
+        <div class="col-md-5">
+            <select ng-model="employee.id" class="form-control"
+                    ng-options="employee.id as employee.name for employee in employees"
+                    ng-value="employee.id">{{employee.name}}
+            </select>
+        </div>
+        <div class="col-md-5">
+            <select ng-model="role.id" class="form-control"
+                    ng-options="role.id as role.name for role in roles"
+                    ng-value="role.id">{{role.name}}
+            </select>
+        </div>
+        <a href="" ng-click="addMember(person)"><i class="fa fa-minus-square" style="widht: 25px; height: 25px;"></i></a>
+    </div>-->
     <div class="row">
         <div class="col-md-4 label">Description:</div>
         <div class="col-md-6"><input type="text" class="form-control" ng-model="team.description"></div>

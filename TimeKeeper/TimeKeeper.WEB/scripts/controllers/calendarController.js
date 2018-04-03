@@ -37,13 +37,13 @@
                         return new Array(size);
                     }
                 });
-            };
+            }
 
             $scope.edit = function(day){
                 //if(day.typeOfDay!=='future') {
                     var modalInstance = $uibModal.open({
                         animation: true,
-                        templateUrl: 'views/Calendar/calendarModal.html',
+                        templateUrl: 'views/calendar/calendarModal.html',
                         controller: 'ModalCalendarCtrl',
                         size: 'lg',
                         resolve: {
@@ -64,7 +64,9 @@
         dataService.list("projects/?all", function(data){
             $scope.projects = data;
         });
-        initNewTask();
+        if(sumHours()<12) {
+            initNewTask();
+        }
 
         $scope.add = function(task){
             $scope.day.details.push(task);
@@ -97,7 +99,7 @@
                 $scope.$emit("calendarUpdated");
             });
             $uibModalInstance.close();
-        }
+        };
 
         $scope.cancel = function () {
             $uibModalInstance.dismiss();
