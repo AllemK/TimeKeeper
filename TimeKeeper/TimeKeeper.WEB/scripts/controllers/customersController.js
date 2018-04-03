@@ -2,50 +2,61 @@
 
     var app = angular.module("timeKeeper");
 
-    app.controller("customersController", ["$scope", "dataService", "$uibModal", function($scope, dataService, $uibModal) {
-        var $cust = this;
-        $scope.message = "Wait...";
+    app.controller("customersController", ["$scope", "$route", "dataService", "$uibModal",
+        function( $scope, $route, dataService, $uibModal) {
+            $scope.currentPage = 0;
+            $scope.totalPages = 0;
+            function listCustomers() {
+                dataService.list("customers?page="+($scope.currentPage), function (data, headers) {
+                    $scope.page=angular.fromJson(headers("Pagination"));
+                    $scope.customers = data;
+                    $scope.totalPages = $scope.page.totalPages;
+                });
+            }
 
-        function listCustomers() {
-            dataService.list("customers", function (data, headers) {
-                $scope.page=angular.fromJson(headers("Pagination"));
-                $scope.message = "";
-                $scope.customers = data;
-            });
-        }
-
-        listCustomers();
-
-        $scope.$on("customersUpdated", function(event){
             listCustomers();
-        });
 
-        $scope.new = function (data){
-            var modalInstance = $uibModal.open({
-                animation: true,
-                ariaLabelledBy: 'modal-title',
-                ariaDescribedBy: 'modal-body',
-                templateUrl: 'views/Customer/newCustModal.html',
-                controller: 'ModalCtrl',
-                controllerAs: '$cust',
-                resolve: {
-                    customer: function () {
-                        return data;
+            $scope.nextPage = function() {
+                $scope.currentPage++;
+                listCustomers();
+            };
+
+            $scope.prevPage = function() {
+                $scope.currentPage--;
+                listCustomers();
+            };
+
+            $scope.$on("customersUpdated", function(event){
+                listCustomers();
+            });
+
+            $scope.new = function (data){
+                var modalInstance = $uibModal.open({
+                    animation: true,
+                    ariaLabelledBy: 'modal-title',
+                    ariaDescribedBy: 'modal-body',
+                    templateUrl: 'views/customer/newCustModal.html',
+                    controller: 'ModalCtrl',
+                    controllerAs: '$cust',
+                    resolve: {
+                        customer: function () {
+                            return data;
+                        }
                     }
-                }
-            })
-        };
-    }]);
-    app.controller("custController", ["$scope", "$uibModal", "dataService", function($scope, $uibModal, dataService) {
+                })
+            };
+        }]);
 
-        var $cust = this;
+    app.controller("custController", ["$scope", "$uibModal", "dataService",
+        function($scope, $uibModal, dataService) {
+
         $scope.edit = function (data) {
-            console.log(data);
+            data.status=data.status.toString();
             var modalInstance = $uibModal.open({
                 animation: true,
                 ariaLabelledBy: 'modal-title',
                 ariaDescribedBy: 'modal-body',
-                templateUrl: 'views/Customer/custModal.html',
+                templateUrl: 'views/customer/custModal.html',
                 controller: 'ModalCtrl',
                 controllerAs: '$cust',
                 resolve: {
@@ -55,10 +66,6 @@
                 }
             });
         };
-
-        $scope.$on("customerModalUpdated", function(event){
-            $scope.$emit("customersUpdated");
-        });
 
         $scope.clickwar = function(data) {
             swal({
@@ -85,13 +92,14 @@
         }
     }]);
 
-    app.controller('ModalCtrl', ["$uibModalInstance", "$scope", "dataService", "customer", function ($uibModalInstance, $scope, dataService, customer) {
-        var $cust = this;
+    app.controller('ModalCtrl', ["$uibModalInstance", "$scope", "dataService", "customer",
+        function ($uibModalInstance, $scope, dataService, customer) {
         $scope.customer = customer;
 
         $scope.save = function(customer){
+            customer.status=Number(customer.status);
             dataService.update("customers", customer.id, customer, function(data){
-                $scope.$emit("customerModalUpdated");
+                $scope.$emit("customersUpdated");
             });
             $uibModalInstance.close();
         };
@@ -102,10 +110,9 @@
 
         $scope.saveNew = function(customer){
             dataService.insert("customers",customer,function(data){
-                $scope.$emit("customerModalUpdated");
+                $scope.$emit("customersUpdated");
             });
             $uibModalInstance.close();
         };
-
     }]);
 }());

@@ -10,6 +10,7 @@
     <script src="library/angular.min.js"></script>
     <script src="library/angular-route.min.js"></script>
     <script src="library/angular-animate.min.js"></script>
+    <script src="library/angular-local-storage.min.js"></script>
     <script src="library/ui-bootstrap-tpls.min.js"></script>
     <script src="library/sweetalert.min.js"></script>
     <script src="library/toaster.min.js"></script>
@@ -39,9 +40,10 @@
             <a href="#!/customers"><button class="btn btn-primary">Customers</button></a>
             <a href="#!/employees"><button class="btn btn-primary">Employees</button></a>
             <a href="#!/projects"><button class="btn btn-primary">Projects</button></a>
+            <a href="#!/roles"><button class="btn btn-primary">Roles</button></a>
             <a href="#!/teams"><button class="btn btn-primary">Teams</button></a>
-            <span ng-show="currentUser.id!=0"><a href="#!/login"><button class="btn btn-warning">Login</button></a></span>
-            <span ng-show="currentUser.id==0"><a href="#!/logout"><button class="btn btn-warning">Logout</button></a></span>
+            <span ng-show="currentUser.id===0"><a href="#!/login"><button class="btn btn-warning">Login</button></a></span>
+            <span ng-show="currentUser.id!==0" ng-controller="logoutController"><a href=""><button class="btn btn-warning" ng-click="logout()">Logout</button></a></span>
         </div>
     </div>
 </header>

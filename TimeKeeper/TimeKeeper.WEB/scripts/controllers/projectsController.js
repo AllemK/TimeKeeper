@@ -1,9 +1,9 @@
 (function(){
     var app = angular.module("timeKeeper");
 
-    app.controller("projectsController", ["$scope", "dataService", "timeConfig", "$log", function($scope, dataService, timeConfig, $log) {
+    app.controller("projectsController", ["$scope", "dataService", "timeConfig", "$log",
+        function($scope, dataService, timeConfig, $log) {
         $scope.currentPage = 0;
-        $scope.message = "Wait...";
 
         function listProjects() {
             dataService.list("projects", function (data, headers) {
@@ -37,7 +37,7 @@
                 animation: true,
                 ariaLabelledBy: 'modal-title',
                 ariaDescribedBy: 'modal-body',
-                templateUrl: 'views/Project/projModal.html',
+                templateUrl: 'views/project/projModal.html',
                 controller: 'projModalCtrl',
                 controllerAs: '$proj',
                 resolve: {
@@ -48,16 +48,12 @@
             });
         };
 
-        $scope.$on("projectsUpdated",function(event){
-            $scope.$emit("projectsUpdated");
-        });
-
         $scope.new = function(data){
             var modalInstance = $uibModal.open({
                 animation: true,
                 ariaLabelledBy: 'modal-title',
                 ariaDescribedBy: 'modal-body',
-                templateUrl: 'views/Project/newProject.html',
+                templateUrl: 'views/project/newProject.html',
                 controller: 'projModalCtrl',
                 controllerAs: '$proj',
                 resolve: {
@@ -69,9 +65,9 @@
         }
     }]);
 
-    app.controller('projModalCtrl', ['$uibModalInstance', '$scope', 'dataService', 'project', function ($uibModalInstance, $scope, dataService, project) {
-        var $proj = this;
-        console.log(project);
+    app.controller('projModalCtrl', ['$uibModalInstance', '$scope', 'dataService', 'project',
+        function ($uibModalInstance, $scope, dataService, project) {
+
         $scope.project = project;
 
         dataService.list("teams?all", function(data){
@@ -99,25 +95,24 @@
 
         $scope.save = function (project) {
             dataService.update("projects", project.id, project, function(data){
-                window.alert("Data updated!");
-                $uibModalInstance.close();
+                $scope.$emit("projectsUpdated")
             });
+            $uibModalInstance.close();
             $scope.$emit("projectsUpdated");
         };
         $scope.saveNew = function (project) {
             dataService.insert("projects", project, function(data){
-                window.alert("Data updated!");
-                $uibModalInstance.close();
+                $scope.$emit("projectsUpdated");
             });
-            $scope.$emit("projectsUpdated");
+            $uibModalInstance.close();
         };
 
         $scope.delete = function(project){
             dataService.delete("projects", project.id, function(data){
-                window.alert("Data deleted!");
+                $scope.$emit("projectsUpdated");
             });
-            $scope.$emit("projectsUpdated");
         };
+
         $scope.cancel = function () {
             $uibModalInstance.dismiss();
         };

@@ -7,37 +7,31 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Web;
+using TimeKeeper.DAL.Repository;
 
 namespace TimeKeeper.OAuth
 {
     public class InMemoryManager
     {
+        private readonly UnitOfWork _unit = new UnitOfWork();
         public List<InMemoryUser> GetUsers()
         {
-            return new List<InMemoryUser>
+            List<InMemoryUser> users = new List<InMemoryUser>();
+            var employees = _unit.Employees.Get();
+            foreach(var employee in employees)
             {
-                new InMemoryUser
+                users.Add(new InMemoryUser
                 {
-                    Subject = "hhuskic@school.edu",
-                    Username = "hhuskic@school.edu",
-                    Password = "andromeda",
+                    Subject = employee.Email,
+                    Username = employee.Email,
+                    Password = employee.Password,
                     Claims = new[]
                     {
-                        new Claim(Constants.ClaimTypes.Name, "Husein Huskic")
+                        new Claim(Constants.ClaimTypes.Name, employee.FullName)
                     }
-                },
-
-                new InMemoryUser
-                {
-                    Subject = "adelic@school.edu",
-                    Username = "adelic@school.edu",
-                    Password = "andromeda",
-                    Claims = new[]
-                    {
-                        new Claim(Constants.ClaimTypes.Name, "Amel Delic")
-                    }
-                }
-            };
+                });
+            }
+            return users;
         }
 
         public IEnumerable<Scope> GetScopes()

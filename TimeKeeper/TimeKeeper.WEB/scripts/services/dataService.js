@@ -38,10 +38,11 @@
                 $http({ method: "post", url: source + dataSet, data: data })
                     .then(function success(response) {
                         setLoader(false);
+                        infoService.success(dataSet.charAt(0).toUpperCase()+dataSet.slice(1,dataSet.length-1), "data successfully inserted" );
                         return callback(response.data);
                     }, function error(error) {
                         setLoader(false);
-                        window.alert(error.data.message);
+                        infoService.error(dataSet, error.data.message);
                     });
             },
 
@@ -50,10 +51,11 @@
                 $http({ method: "put", url: source + dataSet + "/" + id, data: data })
                     .then(function success(response) {
                         setLoader(false);
+                        infoService.success(dataSet.charAt(0).toUpperCase()+dataSet.slice(1,dataSet.length-1), "data successfully updated" );
                         return callback(response.data);
                     }, function error(error) {
                         setLoader(false);
-                        window.alert(error.data.message);
+                        infoService.error(dataSet, error.data.message);
                     });
             },
 

@@ -1,14 +1,6 @@
 (function(){
-    var app = angular.module("timeKeeper", ["ngRoute", "ui.bootstrap", "toaster", "ngAnimate"]);
-
-    currentUser = {
-        id: 0,
-        name: '',
-        role: '',
-        teams:[],
-        provider:'',
-        token:''
-    };
+    var app = angular.module("timeKeeper", ["ngRoute", "ui.bootstrap", "toaster", "ngAnimate", "LocalStorageModule"]);
+    currentUser={};
 
     app.constant("timeConfig", {
         apiUrl:"http://localhost:54283/api/",
@@ -17,27 +9,31 @@
         dayDesc:[' ', 'Working Day', 'Public Holiday', 'Other Absence', 'Religious Day', 'Sick Leave', 'Vacation', 'Business Absence'],
         months:['--select month--', 'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
         projectStatus:['inProgress','onHold','finished','canceled'],
-        projectStatusDesc:['','In Progress', 'On Hold', 'Finished', 'Canceled']
+        projectStatusDesc:['--select status--','In Progress', 'On Hold', 'Finished', 'Canceled']
     });
-    app.config(['$routeProvider', function($routeProvider) {
+
+    app.config(['$routeProvider', "localStorageServiceProvider", function($routeProvider, localStorageServiceProvider) {
         $routeProvider
-            .when('/teams',     { templateUrl: 'views/Team/teams.html',
+            .when('/teams',     { templateUrl: 'views/team/teams.html',
                 controller: 'teamsController', loginRequired:true })
-            .when('/employees', { templateUrl: 'views/Employee/employees.html',
+            .when('/employees', { templateUrl: 'views/employee/employees.html',
                 controller: 'employeesController', loginRequired:true })
-            .when('/customers', { templateUrl: 'views/Customer/customers.html',
+            .when('/customers', { templateUrl: 'views/customer/customers.html',
                 controller: 'customersController', loginRequired:true })
-            .when('/projects',  { templateUrl: 'views/Project/projects.html',
+            .when('/projects',  { templateUrl: 'views/project/projects.html',
                 controller: 'projectsController', loginRequired:true })
-            .when('/calendar', {templateUrl: 'views/Calendar/calendar.html',
-                controller: 'calendarController as $cal', loginRequired:false })
+            .when('/roles', {templateUrl: 'views/roles.html',
+                controller: 'rolesController', loginRequired:true })
+            .when('/calendar', {templateUrl: 'views/calendar/calendar.html',
+                controller: 'calendarController as $cal', loginRequired:true })
             .when('/login', {templateUrl: 'views/login.html',
                 controller: 'loginController', loginRequired:false })
             .otherwise({ redirectTo: '/login' });
+        localStorageServiceProvider.setPrefix("timeKeeper").setStorageType("sessionStorage").setNotify(true,true)
     }])
         .run(['$rootScope', '$location', function($rootScope,$location){
         $rootScope.$on("$routeChangeStart", function(event, next, current){
-            if(currentUser.id==0&&next.$$route.loginRequired){
+            if(currentUser.id === 0 && next.$$route.loginRequired){
                 $location.path("/login");
             }
         })

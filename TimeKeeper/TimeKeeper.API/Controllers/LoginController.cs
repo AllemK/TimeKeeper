@@ -7,41 +7,42 @@ using System.Net.Http;
 using System.Text;
 using System.Web;
 using System.Web.Http;
+using TimeKeeper.API.Helper;
 using TimeKeeper.API.Models;
+using TimeKeeper.DAL.Entities;
 
 namespace TimeKeeper.API.Controllers
 {
     public class LoginController : BaseController
     {
-        public UserModel CurrentUser;
-        string id_token;
-        Dictionary<string, string> token = new Dictionary<string, string>();
 
         public IHttpActionResult Get()
         {
-            if (HttpContext.Current.Request.Headers["Authorization"] != null)
-            {
-                token = GenToken();
-                CurrentUser = TimeKeeperFactory.Create(token["sub"], id_token, TimeKeeperUnit);
-            }
+            UserModel CurrentUser = BuildUser("iserver", "sub");
             return Ok(CurrentUser);
         }
 
-        Dictionary<string, string> GenToken()
+        public IHttpActionResult Post()
         {
-            id_token = HttpContext.Current.Request.Headers.GetValues("Authorization").FirstOrDefault().Substring(7);
-            string[] jwt = id_token.Split('.');
-            string header = Encoding.UTF8.GetString(Convert.FromBase64String(FitToB64(jwt[0])));
-            string payload = Encoding.UTF8.GetString(Convert.FromBase64String(FitToB64(jwt[1])));
-            string signature = Encoding.UTF8.GetString(Convert.FromBase64String(FitToB64(jwt[2])));
-            payload = payload.Replace('[', ' ').Replace(']', ' ');
-            return JsonConvert.DeserializeObject<Dictionary<string, string>>(payload);
+            UserModel CurrentUser = BuildUser("google", "email");
+            return Ok(CurrentUser);
         }
 
-        string FitToB64(string X)
+        UserModel BuildUser(string provider, string field)
         {
-            while (X.Length % 4 != 0) X += "=";
-            return X.Replace('-', '+').Replace('_', '/');
+            Dictionary<string, string> token = new Dictionary<string, string>();
+            UserModel CurrentUser = new UserModel();
+            if (HttpContext.Current.Request.Headers["Authorization"] != null)
+            {
+                string id_token = HttpContext.Current.Request.Headers.GetValues("Authorization").FirstOrDefault().Substring(7);
+                string test = HttpContext.Current.Request.Headers.GetValues("Authorization").FirstOrDefault();
+                token = TokenUtility.GenToken(id_token);
+                DateTime expTime = new DateTime(1970, 1, 1)
+                    .AddSeconds(Convert.ToDouble(token["exp"]));
+                Employee emp = TimeKeeperUnit.Employees.Get(x => x.Email == token[field]).FirstOrDefault();
+                CurrentUser = TimeKeeperFactory.Create(emp, provider);
+            }
+            return CurrentUser;
         }
     }
 }
