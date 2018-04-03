@@ -18,10 +18,14 @@ body {
     background-attachment: fixed;
 }
 
+.turq {
+    color: #0487a5;
+}
+
 header, footer {
     position: fixed;
     color: white;
-    background-color: #036;
+    background-color: #0487a5;
     width: 100%;
     z-index: 999;
     text-align: center;
@@ -221,12 +225,15 @@ hr {
 .navbar-fixed-top {
     top: 0;
     border-width: 0 0 1px;
-    background-color: #0063ad;
+    background-color: rgba(0, 0, 0, 0.3);
     margin-bottom: 0px;
+    font-weight: 300;
+    border-bottom: 1px solid #0487a5;
 }
 
 .navbar-header a {
-    color: #fff !important;
+    color: #fff;
+    font-size: 25px;
 }
 
 @keyframes spin{
@@ -288,18 +295,40 @@ hr {
 #sidebar-wrapper .sidebar-nav li {
     clear: both;
     text-indent: 0;
-    line-height: 45px;
+    line-height: 55px;
+    background-color: rgba(0, 0, 0, 0.3);
+}
+
+.sidebar-nav li.active {
+    background-color: transparent !important;
+    border-left: 2px solid #0487a5;
+    /*padding-left: 45px;*/
+    -webkit-transition: all .8s ease;
+    -moz-transition: all .8s ease;
+    -o-transition: all .8s ease;
+    transition: all .8s ease;
+}
+
+.sidebar-nav li.active .sidebar-title {
+    color: #fff;
+}
+
+.real {
+    /*fake class used for transparent sidebar item effect*/
 }
 
 #sidebar-wrapper .sidebar-nav li a {
     display: block;
     text-decoration: none;
-    color: #428bca;
+    color: white;
+    font-weight: 300;
 }
 
-.sidebar-nav li:first-child a {
-    background: #92bce0 !important;
-    color: #fff !important;
+.sidebar-title {
+    font-size: 19px;
+    vertical-align: middle;
+    letter-spacing: 1px;
+    color: #a5a4bf;
 }
 
 #sidebar-wrapper .sidebar-nav li a .sidebar-icon {
@@ -312,6 +341,7 @@ hr {
     margin-right: 10px;
     color: #fff;
     float: left;
+    margin-left: 15px;
 }
 
 #sidebar-wrapper .sidebar-nav li a .caret {
@@ -353,50 +383,10 @@ hr {
     }
 }
 
-.sidebar-nav li:first-child a {
-    background: #00599c !important;
-    color: #fff !important;
-}
-
-.sidebar-nav li:nth-child(2) a {
-    background: #00508b !important;
-    color: #fff !important;
-}
-
-.sidebar-nav li:nth-child(3) a {
-    background: #00467a !important;
-    color: #fff !important;
-}
-
-.sidebar-nav li:nth-child(4) a {
-    background: #003c69 !important;
-    color: #fff !important;
-}
-
-.sidebar-nav li:nth-child(5) a {
-    background: #003258 !important;
-    color: #fff !important;
-}
-
-.sidebar-nav li:nth-child(6) a {
-    background: #002947 !important;
-    color: #fff !important;
-}
-
-.sidebar-nav li:nth-child(7) a {
-    background: #001f36 !important;
-    color: #fff !important;
-}
-
-.sidebar-nav li:nth-child(8) a {
-    background: #001525 !important;
-    color: #fff !important;
-}
-
 .sidebar-nav li:last-child {
     width: 100%;
     display: flex;
     flex: 1;
     flex-direction: column;
-    background-color: black;
+    background-color: rgba(0, 0, 0, 0.3);
 }

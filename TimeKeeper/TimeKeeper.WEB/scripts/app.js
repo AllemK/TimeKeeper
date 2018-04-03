@@ -11,6 +11,8 @@
     });
     app.config(['$routeProvider', function($routeProvider) {
         $routeProvider
+            .when('/adminDash', {templateUrl: 'views/Dashboard/adminDash.html',
+                controller: 'adminDashController' })
             .when('/teams',     { templateUrl: 'views/Team/teams.html',
                 controller: 'teamsController' })
             .when('/employees', { templateUrl: 'views/Employee/employees.html',
