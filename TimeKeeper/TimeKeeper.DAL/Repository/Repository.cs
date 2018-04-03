@@ -62,5 +62,11 @@ namespace TimeKeeper.DAL.Repository
             dbSet.Remove(entity);
             Logger.Log("REPOSITORY: record deleted", "INFO");
         }
+
+        public void Delete(IEnumerable<T> entities)
+        {
+            dbSet.RemoveRange(entities);
+            Logger.Log("REPOSITORY: records deleted", "INFO");
+        }
     }
 }

@@ -28,7 +28,7 @@
   "author": "Gigi School",
   "license": "ISC",
   "dependencies": {
-    "angular-base64-upload": "^0.1.23",
+    "angular-local-storage": "^0.7.1",
     "angularjs-toaster": "^2.2.0",
     "gulp-install": "^1.1.0"
   }

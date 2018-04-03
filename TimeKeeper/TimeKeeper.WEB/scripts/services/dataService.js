@@ -1,7 +1,7 @@
 (function () {
     var app = angular.module("timeKeeper");
 
-   app.factory("dataService", ['$rootScope', '$http', 'timeConfig', 'infoService', function ($rootScope, $http, timeConfig, infoService) {
+    app.factory("dataService", ['$rootScope', '$http', 'timeConfig', 'infoService', function ($rootScope, $http, timeConfig, infoService) {
         var source = timeConfig.apiUrl;
         function setLoader(flag){
             $rootScope.waitForLoad = flag;
@@ -11,27 +11,25 @@
             list: function (dataSet, callback) {
                 setLoader(true);
                 $http.get(source + dataSet).then(
-                    function(response) {
+                    function (response) {
                         setLoader(false);
-                        infoService.success(dataSet, "data successfully retrieved" );
                         return callback(response.data, response.headers);
                     },
-                    function(reason) {
+                    function (reason) {
                         setLoader(false);
-                        infoService.error(dataSet, message);
+                        window.alert(reason.data.message);
                     });
             },
 
-           read: function (dataSet, id, callback) {
+            read: function (dataSet, id, callback) {
                 setLoader(true);
                 $http.get(source + dataSet + "/" + id)
                     .then(function success(response) {
                         setLoader(false);
-                        infoService.success(dataSet, "data successfully retrieved" );
                         return callback(response.data);
                     }, function error(error) {
                         setLoader(false);
-                        infoService.error(dataSet, message);
+                        window.alert(error.data.message);
                     });
             },
 
@@ -39,12 +37,12 @@
                 setLoader(true);
                 $http({ method: "post", url: source + dataSet, data: data })
                     .then(function success(response) {
-                        infoService.success(dataSet, "data successfully inserted" );
                         setLoader(false);
+                        infoService.success(dataSet.charAt(0).toUpperCase()+dataSet.slice(1,dataSet.length-1), "data successfully inserted" );
                         return callback(response.data);
                     }, function error(error) {
                         setLoader(false);
-                        infoService.error(dataSet, message);
+                        infoService.error(dataSet, error.data.message);
                     });
             },
 
@@ -53,11 +51,11 @@
                 $http({ method: "put", url: source + dataSet + "/" + id, data: data })
                     .then(function success(response) {
                         setLoader(false);
-                        infoService.success(dataSet, "data successfully updated" );
+                        infoService.success(dataSet.charAt(0).toUpperCase()+dataSet.slice(1,dataSet.length-1), "data successfully updated" );
                         return callback(response.data);
                     }, function error(error) {
                         setLoader(false);
-                        infoService.error(dataSet, message);
+                        infoService.error(dataSet, error.data.message);
                     });
             },
 
@@ -66,11 +64,11 @@
                 $http({ method: "delete", url: source + dataSet + "/" + id })
                     .then(function success(response) {
                         setLoader(false);
-                        infoService.success(dataSet, "data successfully deleted" );
+                        infoService.success(dataSet.charAt(0).toUpperCase()+dataSet.slice(1,dataSet.length-1), "data successfully deleted" );
                         return callback(response.data);
                     }, function error(error) {
                         setLoader(false);
-                        infoService.error(dataSet, message);
+                        infoService.error(dataSet, message );
                     });
             }
         };

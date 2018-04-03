@@ -7,7 +7,6 @@
         function listEmployees() {
             dataService.list("employees", function (data, headers) {
                 $scope.page = angular.fromJson(headers('Pagination'));
-                console.log($scope.page);
                 $scope.message = "";
                 $scope.people = data;
             });
@@ -35,7 +34,7 @@
         $scope.edit = function (person) {
             var modalInstance = $uibModal.open({
                 animation: true,
-                templateUrl: 'views/Employee/empModal.html',
+                templateUrl: 'views/employee/empModal.html',
                 controller: 'empModalCtrl',
                 controllerAs: '$emp',
                 resolve: {
@@ -49,7 +48,7 @@
         $scope.add = function(data){
             var modalInstance = $uibModal.open({
                 animation: true,
-                templateUrl: 'views/Employee/newEmployeeModal.html',
+                templateUrl: 'views/employee/newEmployeeModal.html',
                 controller: 'empModalCtrl',
                 controllerAs: '$emp',
                 resolve:{
@@ -75,7 +74,7 @@
         $scope.view = function(person){
             var modalInstance = $uibModal.open({
                 animation: true,
-                templateUrl: 'views/Employee/viewModal.html',
+                templateUrl: 'views/employee/viewModal.html',
                 controller: 'empModalCtrl',
                 resolve:{
                     employee: function(){
@@ -104,31 +103,29 @@
             listEmployees();
         });
 
-        $scope.clickwar = function(employee){
+        $scope.delete = function(person){
             swal({
-                    title: employee.fullName,
+                    title: person.fullName,
                     text: "Are you sure you want to delete this employee?",
                     type: "warning",
                     showCancelButton: true,
-                    employeesClass: "sweetClass",
-                    cancelButtonColor: "darkyellow",
-                    cancelButtonText: "No, not this time.",
-                    confirmButtonColor: "darkgreen",
-                    confirmButtonText: "Yes, I want.",
+                    customClass: "sweetClass",
+                    confirmButtonText: "Yes, sure",
+                    cancelButtonText: "No, not ever!",
                     closeOnConfirm: false,
                     closeOnCancel: true
                 },
-                function(isConfirm){
-                    if(isConfirm){
-                        dataService.delete("employees", employee.id, function(){
+
+                function (isConfirm) {
+                    if (isConfirm) {
+                        dataService.delete("employees",person.id,function(){
+                            $scope.$emit("employeesUpdated");
                         });
-                        console.log("Employee deleted");
+                        console.log(person.fullName+": employee deleted");
                         swal.close();
-                        $scope.$emit("employeesUpdated");
                     }
                 });
-        };
-
+        }
     }]);
 
     app.controller("empModalCtrl", ["$scope", "$uibModalInstance", "dataService", "employee", function($scope, $uibModalInstance, dataService, employee) {

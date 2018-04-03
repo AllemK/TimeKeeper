@@ -99,7 +99,6 @@ namespace TimeKeeper.API.Controllers
                     Logger.Log($"No such customer with id {id}");
                     return NotFound();
                 }
-                customer.Id = id;
                 if (!ModelState.IsValid)
                 {
                     var message = $"Failed updating customer with id {id}, " + Environment.NewLine;

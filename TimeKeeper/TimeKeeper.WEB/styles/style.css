@@ -405,14 +405,15 @@ h1{
     float: left;
     margin: 6px;
     padding: 8px;
-    border: solid #001F36 2px;
-    width: 300px;
+    border: solid blue 2px;
+    width: 250px;
     height: 100px;
     background-color: #fff;
 }
 
 .teaImage {
-    max-width: 18%;
+    height: 75px;
+    width: 100px;
     float: left;
     margin-top: 10px;
     margin-left: 10px;
@@ -425,65 +426,44 @@ h1{
 }
 
 .teaTitle {
-    font-size: 1.2em;
+    font-size: 1.4em;
 }
 
 .teaNav {
     float: right;
 }
 
-.tmProfImg {
-    width: 75%;
-    margin-top: 25px;
-    margin-right: auto;
-    margin-left: auto;
-    display: block;
-}
-
-/*.tmProfImg {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    max-width: 15%;
-    opacity: .25;
-}*/
-
-/* ------------------------------------------------------------ */
-
-/* LOADER */
-
-/* ------------------------------------------------------------ */
-
-#loader {
+#loader{
     position: fixed;
-    top: 0%;
-    left: 0%;
+    top: 0;
+    left: 0;
     width: 100%;
     height: 100%;
     z-index: 999;
-    background-color: #fff;
+    background-color: white;
     opacity: .75;
 }
 
-#spinner {
+#spinner{
     position: absolute;
     top: 50%;
     left: 50%;
-    margin-top: -50px;
-    margin-left: -50px;
-    border: 20px solid #f3f3f3;
-    border-top: 20px solid #001F36;
+    transform: translate(-50%, -50%);
+    border: 16px solid #f3f3f3;
+    border-top: 16px solid #3498db;
     border-radius: 50%;
-    width: 100px;
-    height: 100px;
+    width: 120px;
+    height: 120px;
     animation: spin 2s linear infinite;
 }
 
-@keyframes spin {
-    0% { transform: rotate(0deg);}
-    100% { transform: rotate(360deg);}
+@keyframes spin{
+    0%   {transform: rotate(0deg);}
+    100% {transform: rotate(360deg);}
 }
 
+.teamPag{
+    font-size: 50px;
+    margin-top: 25px;
+}
 
-
-/*--------------------------------------------------------------------------------------*/

@@ -1,8 +1,8 @@
 <div class="teaFrame">
-    <div><img class="teaImage" ng-src="images/{{data.image}}"></div>
+    <div><img class="teaImage" ng-src="images/{{data.name.toUpperCase()}}.png"></div>
     <div class="teaData">
         <span class="teaTitle">{{data.name}}</span><br>
-        {{data.id}}<br>
+        <br>
     </div>
 
     <div class="clearfix"></div>
@@ -11,4 +11,3 @@
         <a href="" ng-click="delete(data)"><i class="glyphicon glyphicon-trash"></i></a>
     </div>
 </div>
-

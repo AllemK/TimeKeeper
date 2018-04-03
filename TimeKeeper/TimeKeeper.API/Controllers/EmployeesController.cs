@@ -140,7 +140,9 @@ namespace TimeKeeper.API.Controllers
                     Logger.Log($"No such employee with id {id}");
                     return NotFound();
                 }
-
+                TimeKeeperUnit.Details.Delete(emp.Days.SelectMany(x => x.Details));
+                
+                TimeKeeperUnit.Calendar.Delete(emp.Days);
                 TimeKeeperUnit.Employees.Delete(emp);
                 TimeKeeperUnit.Save();
                 Logger.Log($"Deleted employee with id {id}", "INFO");

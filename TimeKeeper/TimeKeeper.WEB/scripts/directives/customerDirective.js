@@ -9,7 +9,7 @@
                 data: '='
             },
             controller: 'custController as $cust',
-            templateUrl: 'views/Customer/customer-widget.html'
+            templateUrl: 'views/customer/customer-widget.html'
         }
     }]);
 }());
