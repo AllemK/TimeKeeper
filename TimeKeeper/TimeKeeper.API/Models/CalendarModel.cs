@@ -14,11 +14,12 @@ namespace TimeKeeper.API.Models
         public string Description { get; set; }
 
         [Required(AllowEmptyStrings = false, ErrorMessage = "Hours is required")]
-        [Range(0.5, 24, ErrorMessage = "Hours must be between 0.5 and 24")]
+        [Range(0.5, 24, ErrorMessage = "Hours must be between 0.5 and 12")]
         [RegularExpression(@"^\d{1,2}(\.5)?$", ErrorMessage = "Hours must be whole number or .5")]
         public decimal Hours { get; set; }
 
         public BaseModel<int> Project { get; set; }
+        public BaseModel<int> Day { get; set; }
         public bool Deleted { get; set; }
     }
 

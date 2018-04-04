@@ -35,11 +35,13 @@
     <script src="scripts/controllers/projectsController.js"></script>
     <script src="scripts/controllers/employeesController.js"></script>
     <script src="scripts/controllers/calendarController.js"></script>
+    <script src="scripts/controllers/loginController.js"></script>
     <script src="scripts/directives/customerDirective.js"></script>
     <script src="scripts/directives/teamDirective.js"></script>
 
     <script src="https://apis.google.com/js/platform.js"></script>
-    <meta name="google-signin-client_id" content="581026480250-gtepo3eggs5ljii1val9l0uh3jd61fo3.apps.googleusercontent.com">
+	<meta name="google-signin-client_id" content="53671047349-a7u8e0u88vdhqp10tb0833durqo9jdnt.apps.googleusercontent.com">
+    <!-- <meta name="google-signin-client_id" content="581026480250-gtepo3eggs5ljii1val9l0uh3jd61fo3.apps.googleusercontent.com"> -->
 </head>
 
 <body>
@@ -54,6 +56,8 @@
                 <span class="icon-bar"></span>
             </button>
             <a class="navbar-brand" href="#"><span class="turq">Time</span>Keeper</a>
+			<span ng-show="currentUser.id===0"><a href="#!/login"><button class="btn btn-warning">Login</button></a></span>
+            <span ng-show="currentUser.id!==0" ng-controller="logoutController"><a href=""><button class="btn btn-warning" ng-click="logout()">Logout</button></a></span>
         </div>
 
 

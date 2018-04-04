@@ -47,18 +47,6 @@ namespace TimeKeeper.API.Models
             };
         }
 
-        public DetailModel Create(Detail x)
-        {
-            return new DetailModel()
-            {
-                Id=x.Id,
-                Deleted=x.Deleted,
-                Description=x.Description,
-                Hours=x.Hours,
-                Project=Create(x.Project.Id,x.Project.Name)
-            };
-        }
-
         public Role Create(RoleModel rm, UnitOfWork unit)
         {
             return new Role()
@@ -68,6 +56,19 @@ namespace TimeKeeper.API.Models
                 Type = (RoleType)rm.Type,
                 HourlyRate = rm.HourlyRate,
                 MonthlyRate = rm.MonthlyRate,
+            };
+        }
+
+        public DetailModel Create(Detail x)
+        {
+            return new DetailModel()
+            {
+                Id = x.Id,
+                Deleted = x.Deleted,
+                Description = x.Description,
+                Hours = x.Hours,
+                Project = Create(x.Project.Id, x.Project.Name),
+                Day = Create(x.Day.Id)
             };
         }
 
@@ -240,6 +241,22 @@ namespace TimeKeeper.API.Models
                 Id = id,
                 Name = name
             };
+        }
+
+        public UserModel Create(Employee emp, string provider)
+        {
+            if (emp != null)
+            {
+                return new UserModel()
+                {
+                    Id = emp.Id,
+                    Name = emp.FullName,
+                    Role = emp.Role.Name,
+                    Teams = emp.Engagements.Select(x => x.Team.Name).ToList(),
+                    Provider = provider
+                };
+            }
+            return null;
         }
     }
 }

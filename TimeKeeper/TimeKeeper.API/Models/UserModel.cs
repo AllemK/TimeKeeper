@@ -10,7 +10,7 @@ namespace TimeKeeper.API.Models
         public int Id { get; set; }
         public string Name { get; set; }
         public string Role { get; set; }
-        //public List<> Teams { get; set; }
-        public string Token { get; set; }
+        public List<string> Teams { get; set; }
+        public string Provider { get; set; }
     }
 }

@@ -14,5 +14,6 @@ namespace TimeKeeper.DAL.Repository
         void Insert(T entity);
         void Update(T entity, I id);
         void Delete(T entity);
+        void Delete(IEnumerable<T> entities);
     }
 }

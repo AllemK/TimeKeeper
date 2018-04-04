@@ -9,7 +9,7 @@
                 data: '='
             },
             controller: 'teaController as $tea',
-            templateUrl: 'views/Team/team-widget.html'
+            templateUrl: 'views/team/team-widget.html'
         }
     }]);
 
