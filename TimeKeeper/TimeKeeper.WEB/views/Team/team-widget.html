@@ -1,4 +1,25 @@
-<a href="" ng-click="view(data)">
+<div class="teaFrame">
+    <div><img class="teaImage" ng-src="images/{{data.name.toUpperCase()}}.png"></div>
+    <div class="teaData">
+        <span class="teaTitle">{{data.name}}</span><br>
+        <br>
+    </div>
+
+    <div class="clearfix"></div>
+    <div class="teaNav">
+        <a href="" ng-click="edit(data)"><i class="glyphicon glyphicon-pencil"></i></a>
+        <a href="" ng-click="delete(data)"><i class="glyphicon glyphicon-trash"></i></a>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+<!--<a href="" ng-click="view(data)">
 <div class="col-md-4">
 <div class="teaFrame">
     <div><img class="teaImage" ng-src="images/{{data.image}}.jpg"></div>
@@ -16,5 +37,5 @@
     </div>
 </div>
 </div>
-</a>
+</a>-->
 

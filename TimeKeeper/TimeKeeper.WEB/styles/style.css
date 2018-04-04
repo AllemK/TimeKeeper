@@ -441,6 +441,11 @@ h1{
     display: block;
 }
 
+.teamPag{
+    font-size: 50px;
+    margin-top: 25px;
+}
+
 /*.tmProfImg {
     position: absolute;
     top: 10px;
