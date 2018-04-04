@@ -1,12 +1,16 @@
+
 <div class="modal-header">
     <h3 class="modal-title" id="modal-title">{{team.name}}</h3>
 </div>
-
+<form name="teamForm" novalidate>
 <div class="modal-body" id="modal-body">
     <input type="hidden" ng-model="team.id">
     <div class="row">
         <div class="col-md-4 label">Team Name:</div>
-        <div class="col-md-6"><input type="text" class="form-control" ng-model="team.name"></div>
+        <div class="col-md-6"><input type="text" class="form-control" name="teamName" ng-model="team.name" required></div>
+        <span style="color:red" ng-show="teamForm.teamName.$dirty && teamForm.teamName.$invalid">
+            <span ng-show="teamForm.teamName.$error.required" style="font-size: 30px;">*</span>
+  </span>
     </div>
     <br>
     <div class="row">
@@ -63,6 +67,7 @@
 </div>
 
 <div class="modal-footer">
-    <button class="btn btn-success" type="button" ng-click="save(team)">SAVE</button>
+    <button class="btn btn-success" type="button" ng-click="teamForm.$valid &&  save(team)">SAVE</button>
     <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
 </div>
+</form>
