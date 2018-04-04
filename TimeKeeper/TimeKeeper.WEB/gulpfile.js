@@ -54,14 +54,6 @@ gulp.task('html', function () {
 gulp.task('browse', function(){
     browserSync.init({
         server: {
-            baseDir: "dist"
-        }
-    });
-});
-
-gulp.task('browse', function(){
-    browserSync.init({
-        server: {
             baseDir: "dist",
             index: "index.html"
         },

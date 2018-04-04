@@ -94,49 +94,49 @@
 
     app.controller('tmModalCtrl', ['$uibModalInstance', '$scope', 'dataService', 'team',
         function ($uibModalInstance, $scope, dataService, team) {
-            $scope.team = team;
+        $scope.team = team;
 
-            dataService.list("roles",function(data){
-                $scope.roles = data;
+        dataService.list("roles",function(data){
+           $scope.roles = data;
+        });
+
+        dataService.list("employees?all", function(data){
+            $scope.employees = data;
+        });
+
+        dataService.list("projects?all", function(data){
+            $scope.projects = data;
+        });
+
+        $scope.save = function (team) {
+            dataService.update("teams", team.id, team, function(data){
+                $scope.$emit("teamsUpdated");
             });
-
-            dataService.list("employees?all", function(data){
-                $scope.employees = data;
+        };
+        $scope.saveNew = function (team) {
+            dataService.insert("teams", team, function(data){
+                $scope.$emit("teamsUpdated");
             });
+        };
 
-            dataService.list("projects?all", function(data){
-                $scope.projects = data;
-            });
-
-            $scope.save = function (team) {
-                dataService.update("teams", team.id, team, function(data){
-                    $scope.$emit("teamsUpdated");
-                });
+        $scope.saveMember = function(team){
+            console.log()
+            var m = {
+                id:0,
+                hours:team.engagements.member.hours,
+                team:{id:team.id},
+                employee:member.employee,
+                role:member.role
             };
-            $scope.saveNew = function (team) {
-                dataService.insert("teams", team, function(data){
-                    $scope.$emit("teamsUpdated");
-                });
-            };
-
-            $scope.saveMember = function(team){
-                console.log()
-                var m = {
-                    id:0,
-                    hours:team.engagements.member.hours,
-                    team:{id:team.id},
-                    employee:member.employee,
-                    role:member.role
-                };
-                //dataService.insert("members",member,function(data){
+            //dataService.insert("members",member,function(data){
                 console.log($scope.team.engagements);
-                //});
+            //});
 
-                $uibModalInstance.close();
-            };
+            $uibModalInstance.close();
+        };
 
-            $scope.cancel = function () {
-                $uibModalInstance.dismiss();
-            };
-        }]);
+        $scope.cancel = function () {
+            $uibModalInstance.dismiss();
+        };
+    }]);
 }());

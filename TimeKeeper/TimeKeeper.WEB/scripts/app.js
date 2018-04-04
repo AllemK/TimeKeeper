@@ -32,10 +32,10 @@
         localStorageServiceProvider.setPrefix("timeKeeper").setStorageType("sessionStorage").setNotify(true,true)
     }])
         .run(['$rootScope', '$location', function($rootScope,$location){
-            $rootScope.$on("$routeChangeStart", function(event, next, current){
-                if(currentUser.id === 0 && next.$$route.loginRequired){
-                    $location.path("/login");
-                }
-            })
-        }]);
+        $rootScope.$on("$routeChangeStart", function(event, next, current){
+            if(currentUser.id === 0 && next.$$route.loginRequired){
+                $location.path("/login");
+            }
+        })
+    }]);
 }());

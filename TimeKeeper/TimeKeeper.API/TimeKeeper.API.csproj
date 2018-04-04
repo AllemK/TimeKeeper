@@ -196,6 +196,7 @@
     <Compile Include="Controllers\CalendarController.cs" />
     <Compile Include="Controllers\EmployeesController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
+    <Compile Include="Controllers\MembersController.cs" />
     <Compile Include="Controllers\MonthlyReportController.cs" />
     <Compile Include="Controllers\PersonalReportController.cs" />
     <Compile Include="Controllers\ProjectsController.cs" />
@@ -206,6 +207,8 @@
     </Compile>
     <Compile Include="Helper\Header.cs" />
     <Compile Include="Helper\Pagination.cs" />
+    <Compile Include="Helper\TimeKeeperAuthAttribute.cs" />
+    <Compile Include="Helper\TokenUtility.cs" />
     <Compile Include="Models\BaseModel.cs" />
     <Compile Include="Models\CalendarModel.cs" />
     <Compile Include="Models\CustomerModel.cs" />

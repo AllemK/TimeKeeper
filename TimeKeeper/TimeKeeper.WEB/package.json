@@ -28,7 +28,8 @@
   "author": "Gigi School",
   "license": "ISC",
   "dependencies": {
-    "angular-animate": "^1.6.9",
+    "angular-local-storage": "^0.7.1",
+    "angularjs-toaster": "^2.2.0",
     "gulp-install": "^1.1.0"
   }
 }

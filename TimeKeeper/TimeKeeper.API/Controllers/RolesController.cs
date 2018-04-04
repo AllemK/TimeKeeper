@@ -17,13 +17,11 @@ namespace TimeKeeper.API.Controllers
         /// Get all Roles
         /// </summary>
         /// <returns></returns>
-        public IHttpActionResult Get(/*[FromUri] Header h*/)
+        public IHttpActionResult Get()
         {
             var list = TimeKeeperUnit.Roles
-                .Get(/*x => x.Name.Contains(h.filter)*/)
-                //.AsQueryable()
-                //.Header(h)
-                .ToList()
+                .Get()
+                .AsEnumerable()
                 .Select(r => TimeKeeperFactory.Create(r))
                 .ToList();
             Logger.Log("Returned all roles", "INFO");
