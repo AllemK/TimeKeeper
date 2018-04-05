@@ -1,16 +1,22 @@
 <div class="modal-header">
     <h3 class="modal-title" id="modal-title">New Project</h3>
 </div>
-
+<form name="projForm" novalidate>
 <div class="modal-body" id="modal-body">
     <input type="hidden" ng-model="project.id">
     <div class="row">
         <div class="col-md-4 label">Project Name:</div>
-        <div class="col-md-6"><input type="text" class="form-control" ng-model="project.name"></div>
+        <div class="col-md-6"><input type="text" class="form-control" name="projName" ng-model="project.name" required></div>
+        <span style="color:red" ng-show="projForm.projName.$dirty && projForm.projName.$invalid">
+            <span ng-show="projForm.projName.$error.required" style="font-size: 30px;">*</span>
+  </span>
     </div>
     <div class="row">
         <div class="col-md-4 label">Project Monogram:</div>
-        <div class="col-md-6"><input type="text" class="form-control" ng-model="project.monogram"></div>
+        <div class="col-md-6"><input type="text" class="form-control" name="projMonogram" ng-model="project.monogram" required></div>
+    <span style="color:red" ng-show="projForm.projMonogram.$dirty && projForm.projMonogram.$invalid">
+            <span ng-show="projForm.projMonogram.$error.required" style="font-size: 30px;">*</span>
+  </span>
     </div>
     <div class="row">
         <div class="col-md-4 label">Customer Name:</div>
@@ -20,6 +26,7 @@
                     ng-value="customer.id">{{customer.name}}</option>
             </select>
         </div>
+
     </div>
     <div class="row">
         <div class="col-md-4 label">Team:</div>
@@ -32,11 +39,17 @@
     </div>
     <div class="row">
         <div class="col-md-4 label">Amount:</div>
-        <div class="col-md-6"><input type="text" class="form-control" ng-model="project.amount"></div>
+        <div class="col-md-6"><input type="text" class="form-control" name="projAmount" ng-model="project.amount" required></div>
+        <span style="color:red" ng-show="projForm.projAmount.$dirty && projForm.projAmount.$invalid">
+            <span ng-show="projForm.projAmount.$error.required" style="font-size: 30px;">*</span>
+  </span>
     </div>
     <div class="row">
         <div class="col-md-4 label">Description:</div>
-        <div class="col-md-6"><input type="text" class="form-control" ng-model="project.description"></div>
+        <div class="col-md-6"><input type="text" class="form-control" name="projDesc" ng-model="project.description" required></div>
+        <span style="color:red" ng-show="projForm.projDesc.$dirty && projForm.projDesc.$invalid">
+            <span ng-show="projForm.projDesc.$error.required" style="font-size: 30px;">*</span>
+  </span>
     </div>
     <div class="row">
         <div class="col-md-4 label">Status:</div>
@@ -61,7 +74,7 @@
     <button class="btn btn-success" type="button" ng-click="saveNew(project)">Save</button>
     <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
 </div>
-
+</form>
 
 
 
