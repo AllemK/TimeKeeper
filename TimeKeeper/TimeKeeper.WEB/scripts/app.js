@@ -1,11 +1,7 @@
 (function(){
-<<<<<<< HEAD
-    var app = angular.module("timeKeeper", ["ngRoute", "ui.bootstrap", "toaster", "ngAnimate"]);
-=======
+
     var app = angular.module("timeKeeper", ["ngRoute", "ui.bootstrap", "toaster", "ngAnimate", "LocalStorageModule"]);
     currentUser={};
-
->>>>>>> 18fb302492478e9107453675d93ec8b863dc823a
     app.constant("timeConfig", {
         apiUrl:"http://localhost:54283/api/",
         idsUrl:"http://localhost:59871/connect/token",
@@ -32,7 +28,14 @@
                 controller: 'calendarController as $cal', loginRequired:true })
             .when('/login', {templateUrl: 'views/login.html',
                 controller: 'loginController', loginRequired:false })
-            .otherwise({ redirectTo: '/login' });
+            .otherwise({ redirectTo: '/login' })
+            .when('/report', {templateUrl: 'views/report/monthlyReport.html',
+                controller: 'monthlyReportController as $monrep', loginRequired:true })
+            .when('/report', {templateUrl: 'views/report/annualReport.html',
+                controller: 'annualReportController as $annrep', loginRequired:true })
+            .when('/report', {templateUrl: 'views/report/projectHistory.html',
+                controller: 'projectHistoryController as $prohi', loginRequired:true });
+
         localStorageServiceProvider.setPrefix("timeKeeper").setStorageType("sessionStorage").setNotify(true,true)
     }])
         .run(['$rootScope', '$location', function($rootScope,$location){

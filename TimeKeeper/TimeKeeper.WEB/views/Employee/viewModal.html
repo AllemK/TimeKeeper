@@ -7,11 +7,7 @@
 <div class="container">
     <div class="col-md-2">
         <img src="images\EMP.jpg" alt="avatar"></div>
-    <div class="col-md-5 custom-file">
-        <input id="inputImage" type="file" data-classButton="btn btn-primary" ng-model="imagefile" base-sixty-four-input accept="image/*">
-        <label class="custom-file-label" for="inputImage">Choose profile image</label>
-    </div>
-
+</div>
 </div>
 <br>
 <div class="container">
@@ -53,7 +49,7 @@
         <br>
         <div class="row">
             <div class="col-md-2 label">Job title</div>
-            <div class="col-md-4">{{employee.position}}</div>
+            <div class="col-md-4">{{employee.position.name}}</div>
         </div>
         <br>
         <div class="row">

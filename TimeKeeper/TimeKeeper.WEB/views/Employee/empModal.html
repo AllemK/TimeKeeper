@@ -6,8 +6,13 @@
     <div class="new-employee">
         <input type="hidden" ng-model="employee.id">
         <div class="row">
-            <div class="col-md-5">
-                <img ng-src="images/{{person.image}}">
+            <div class="container">
+                <div class="col-md-2">
+                    <img src="images\EMP.jpg" alt="avatar"></div>
+                <div class="col-md-5 custom-file">
+                    <input id="inputImage" type="file" data-classButton="btn btn-primary" ng-model="imagefile" base-sixty-four-input accept="image/*">
+                    <label class="custom-file-label" for="inputImage">Choose profile image</label>
+                </div>
             </div>
         </div>
 

@@ -3,15 +3,19 @@
 
     app.controller("employeesController", ['$scope', 'dataService', "$uibModal", "timeConfig", function ($scope, dataService, $uibModal, timeConfig) {
 
-        $scope.message = "Wait...";
         function listEmployees() {
             dataService.list("employees", function (data, headers) {
                 $scope.page = angular.fromJson(headers('Pagination'));
-                $scope.message = "";
+                $scope.totalItems = $scope.page.totalItems;
                 $scope.people = data;
+
             });
         }
         listEmployees();
+
+        $scope.$on("employeesUpdated", function(event){
+            listEmployees();
+        });
 
         $scope.currentPage = 0;
         $scope.message = "Wait...";
@@ -28,7 +32,7 @@
             dataService.list("employees?" +"page="+($scope.currentPage-1), function(data, headers){
                 $scope.employees = data;
             });
-            $log.log('Page changed to: ' + $scope.currentPage);
+            //$log.log('Page changed to: ' + $scope.currentPage);
         };
         $scope.employeesStatusDesc = timeConfig.employeesStatusDesc;
         $scope.edit = function (person) {

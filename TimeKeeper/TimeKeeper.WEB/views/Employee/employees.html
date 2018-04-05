@@ -30,14 +30,14 @@
                 <td>{{person.fullName}}</td>
                 <td>{{person.email}}</td>
                 <td>{{person.phone}}</td>
-                <td ><a href="" ng-click="edit(person)">Edit</a> | <a href="" ng-click="view(person)">View</a> | <a href="" ng-click="delete(person)">Delete</a></td>
+                <td > <a href="" ng-click="view(person)"><i class="glyphicon glyphicon-eye-open"></i></a> | <a href="" ng-click="edit(person)"><i class="glyphicon glyphicon-pencil"></i></a> |<a href="" ng-click="delete(person)"><i class="glyphicon glyphicon-trash"></i></a></td>
             </tr>
             </tbody>
         </table>
+        <div class="col-md-4" style="float: right">
+            <ul uib-pagination total-items="totalItems" ng-model="currentPage" ng-change="pageChanged()"></ul>
+        </div>
     </div>
 </div>
-<div class="col-md-4" style="float: right">
-    <ul uib-pagination total-items="totalItems" ng-model="currentPage" ng-change="pageChanged()"></ul>
 
-</div>
 
