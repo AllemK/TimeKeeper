@@ -1,5 +1,5 @@
-
-    <div class="col-md-5">
+<div class="row">
+<div class="col-md-5">
         <h1>Projects</h1>
         <h2>{{message}}</h2>
     </div>
@@ -16,7 +16,8 @@
             <a href="" ng-controller="projController" ng-click="new()"><button class="btn btn-default">Add new</button></a>
         </div>
     </div>
-
+</div>
+<hr>
 
 <!--<div class="row">-->
     <div class="col-md-10 ng-scope" ng-controller="projectsController">
@@ -36,10 +37,10 @@
                 <td>{{project.customer.name}}</td>
                 <td>{{project.team.name}}</td>
                 <td>{{projectStatusDesc[project.status]}}</td>
-                <td ng-controller="projController">
-                    <a href="" ng-click="view(project)"><i class="glyphicon glyphicon-eye-open"></i></a>
-                    <a href="" ng-click="edit(project)"><i class="glyphicon glyphicon-pencil"></i></a>
-                    <a href="" ng-click="delete(project)"><i class="glyphicon glyphicon-trash"></i></a>
+                <td ng-controller="projController" style="font-size: 20px;">
+                    <a href="" ng-click="view(project)"><i class="fa fa-eye"></i></a>
+                    <a href="" ng-click="edit(project)"><i class="fa fa-pencil"></i></a>
+                    <a href="" ng-click="delete(project)"><i class="fa fa-trash"></i></a>
                 </td>
             </tr>
             </tbody>

@@ -21,6 +21,7 @@
     <script src="library/angular.min.js"></script>
     <script src="library/angular-route.min.js"></script>
     <script src="library/angular-animate.min.js"></script>
+    <script src="library/angular-local-storage.min.js"></script>
     <script src="library/sweetalert.min.js"></script>
     <script src="library/toaster.min.js"></script>
 
@@ -51,7 +52,6 @@
 
 <nav class="navbar navbar-fixed-top">
     <div class="container-fluid">
-        <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
                 <span class="sr-only">Toggle navigation</span>
@@ -59,8 +59,9 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#">Time Keeper</a>
+            <a class="navbar-brand" href="#"><span class="turq">Time</span>Keeper</a>
         </div>
+
 
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -72,9 +73,9 @@
                     </div>
                     <button type="submit" class="btn btn-default">Search</button>
                 </form>
-                </li>-->
-                <span ng-show="currentUser.id==0"><li><a href="#!/login">Login</a></li></span>
-                <span ng-show="currentUser.id!=0"><li><a href="#!/logout">Logout</a></li></span>
+            </li>-->
+                <!--<span ng-show="currentUser.id==0"><li><a href="#!/login">Login</a></li></span>-->
+                <!--<span ng-show="currentUser.id!=0"><li><a href="#!/logout">Logout</a></li></span>-->
                 <!--<li><a href="#"><i class="glyphicon glyphicon-bell"></i></a></li>
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">John Doe <span class="caret"></span></a>
@@ -87,80 +88,94 @@
                 </li>-->
             </ul>
         </div><!-- /.navbar-collapse -->
-    </div><!-- /.container-fluid -->
+    </div>
 </nav>
 
-
-<div id="wrapper">
+<div class="wrapper">
     <div class="row">
         <div class="col-md-2">
-    <div id="sidebar-wrapper">
-        <aside id="sidebar">
-            <ul id="sidemenu" class="sidebar-nav">
-                <li>
-                    <a href="#!/">
-                        <span class="sidebar-icon"><i class="glyphicon glyphicon-th-list"></i></span>
-                        <span class="sidebar-title">Dashboard</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="#!/calendar">
-                        <span class="sidebar-icon"><i class="glyphicon glyphicon-calendar"></i></span>
-                        <span class="sidebar-title">Calendar</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="#!/customers">
-                        <span class="sidebar-icon"><i class="fa fa-dashboard"></i></span>
-                        <span class="sidebar-title">Customers</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="#!/projects">
-                        <span class="sidebar-icon"><i class="fa fa-dashboard"></i></span>
-                        <span class="sidebar-title">Projects</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="#!/employees">
-                        <span class="sidebar-icon"><i class="glyphicon glyphicon-user"></i></span>
-                        <span class="sidebar-title">Employees</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="#!/teams">
-                        <span class="sidebar-icon"><i class="fa fa-dashboard"></i></span>
-                        <span class="sidebar-title">Teams</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="#!/">
-                        <span class="sidebar-icon"><i class="fa fa-dashboard"></i></span>
-                        <span class="sidebar-title">Invoices</span>
-                    </a>
-                </li>
-                <li>
-                    <a class="accordion-toggle collapsed toggle-switch" data-toggle="collapse" href="#submenu-5">
-                        <span class="sidebar-icon"><i class="fa fa-users"></i></span>
-                        <span class="sidebar-title">Reports</span>
-                        <b class="caret"></b>
-                    </a>
-                    <ul id="submenu-5" class="panel-collapse collapse panel-switch" role="menu">
-                        <li><a href="#!/"><i class="fa fa-caret-right"></i>Monthly report</a></li>
-                        <li><a href="#!/"><i class="fa fa-caret-right"></i>Annual report</a></li>
-                        <li><a href="#!/"><i class="fa fa-caret-right"></i>Project history</a></li>
+            <div id="sidebar-wrapper">
+                <div id="sidebar">
+                    <ul id="sidemenu" class="sidebar-nav">
+                        <li><br></li>
+                        <li><br></li>
+                        <li class="active real">
+                            <a href="#!/adminDash">
+                                <!--<span class="sidebar-icon"><i class="glyphicon glyphicon-th-list"></i></span>-->
+                                <span class="sidebar-icon"><img src="images/icons/1-dashboard.png" alt=""></span>
+                                <span class="sidebar-title">Dashboard</span>
+                            </a>
+                        </li>
+                        <li class="real">
+                            <a href="#!/calendar">
+                                <!--<span class="sidebar-icon"><i class="glyphicon glyphicon-calendar"></i></span>-->
+                                <span class="sidebar-icon"><img src="images/icons/2-calendar.png" alt=""></span>
+                                <span class="sidebar-title">Calendar</span>
+                            </a>
+                        </li>
+                        <li class="real">
+                            <a href="#!/customers">
+                                <!--<span class="sidebar-icon"><i class="fa fa-dashboard"></i></span>-->
+                                <span class="sidebar-icon"><img src="images/icons/3-customers.png" alt=""></span>
+                                <span class="sidebar-title">Customers</span>
+                            </a>
+                        </li>
+                        <li class="real">
+                            <a href="#!/projects">
+                                <!--<span class="sidebar-icon"><i class="fa fa-dashboard"></i></span>-->
+                                <span class="sidebar-icon"><img src="images/icons/5-projects.png" alt=""></span>
+                                <span class="sidebar-title">Projects</span>
+                            </a>
+                        </li>
+                        <li class="real">
+                            <a href="#!/employees">
+                                <!--<span class="sidebar-icon"><i class="glyphicon glyphicon-user"></i></span>-->
+                                <span class="sidebar-icon"><img src="images/icons/2-employees.png" alt=""></span>
+                                <span class="sidebar-title">Employees</span>
+                            </a>
+                        </li>
+                        <li class="real">
+                            <a href="#!/teams">
+                                <!--<span class="sidebar-icon"><i class="fa fa-dashboard"></i></span>-->
+                                <span class="sidebar-icon"><img src="images/icons/3-teams.png" alt=""></span>
+                                <span class="sidebar-title">Teams</span>
+                            </a>
+                        </li>
+                        <li class="real">
+                            <a href="#!/">
+                                <!--<span class="sidebar-icon"><i class="fa fa-dashboard"></i></span>-->
+                                <span class="sidebar-icon"><img src="images/icons/7-invoice.png" alt=""></span>
+                                <span class="sidebar-title">Invoices</span>
+                            </a>
+                        </li>
+                        <li class="real">
+                            <a class="accordion-toggle collapsed toggle-switch" data-toggle="collapse" href="#submenu-5">
+                                <!--<span class="sidebar-icon"><i class="fa fa-users"></i></span>-->
+                                <span class="sidebar-icon"><img src="images/icons/8-reports.png" alt=""></span>
+                                <span class="sidebar-title">Reports</span>
+                                <b class="caret"></b>
+                            </a>
+                            <ul id="submenu-5" class="panel-collapse collapse panel-switch" role="menu">
+                                <li><a href="#!/"><i class="fa fa-caret-right"></i>Monthly report</a></li>
+                                <li><a href="#!/"><i class="fa fa-caret-right"></i>Annual report</a></li>
+                                <li><a href="#!/"><i class="fa fa-caret-right"></i>Project history</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <!-- Fake list item used for filling the gap -->
+                        </li>
                     </ul>
-                </li>
-            </ul>
-        </aside>
+                </div>
+            </div>
+            <main id="page-content-wrapper" role="main"></main>
+        </div>
+        <div class="col-md-10">
+            <div class="container"><div ng-view></div></div>
+        </div>
     </div>
-    <main id="page-content-wrapper" role="main">
-    </main>
 </div>
 
-        <div class="container"><div ng-view></div></div>
-    </div>
-</div>
+
 
 
 
@@ -173,6 +188,16 @@
 <div id="loader" ng-show="waitForLoad"><div id="spinner"></div></div>
 
 <toaster-container></toaster-container>
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#sidebar-wrapper .sidebar-nav li.real').on('click', function () {
+            $('#sidebar-wrapper .sidebar-nav li').removeClass('active');
+            $(this).toggleClass('active');
+        });
+    });
+</script>
 
 </body>
 </html>

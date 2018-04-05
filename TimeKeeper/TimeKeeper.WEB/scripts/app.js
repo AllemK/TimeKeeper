@@ -4,7 +4,7 @@
 
     app.constant("timeConfig", {
         apiUrl:"http://localhost:54283/api/",
-        idsUrl:"http://localhost:59871/connect/token",
+        idsUrl:"http://localhost:54283/connect/token",
         dayType:['empty','workingday', 'publicholiday', 'otherabsence', 'religiousday', 'sickleave', 'vacation', 'businessabsence', 'weekend', 'future'],
         dayDesc:[' ', 'Working Day', 'Public Holiday', 'Other Absence', 'Religious Day', 'Sick Leave', 'Vacation', 'Business Absence'],
         months:['--select month--', 'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],

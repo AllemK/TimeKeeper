@@ -1,10 +1,10 @@
 <div class="row">
-    <div class="col-md-6">
+    <div class="col-md-5">
         <h1>Teams</h1>
         <h2>{{message}}</h2>
     </div>
     <div class="src-add">
-        <div class="col-md-5">
+        <div class="col-md-4">
             <div class="input-group">
                 <input type="text" class="form-control" placeholder="Search for...">
                 <span class="input-group-btn">
@@ -19,23 +19,44 @@
 </div>
 <hr>
 <div class="row">
+    <div class="col-md-1">
     <a href="" class="pull-left teamPag" ng-click="previousPage()" ><i class="fa fa-arrow-circle-left"></i></a>
+    </div>
+    <div class="col-md-8">
     <div ng-repeat="data in teams">
         <a href="" ng-click="select(data)">
             <team data="data"></team>
         </a>
     </div>
+    </div>
+    <div class="col-md-1">
     <a href="" class="pull-right teamPag" ng-click="nextPage()" ><i class="fa fa-arrow-circle-right"></i></a>
 </div>
-<br>
-<div ng-show="clicked">
-    {{team.name}}
-    {{team.description}}
 </div>
+<br>
+<div class="row">
+    <div class="col-md-1">
+        <div ng-show="clicked">
+        <a href="" class="pull-left teamPag" ng-click="previousPage()" ><i class="fa fa-arrow-circle-left"></i></a>
+        </div>
+    </div>
+    <div class="col-md-8">
 <div ng-show="clicked">
-    <div ng-repeat="member in team.engagements | limitTo : 4">
+    <div class="tmProfHead">
+        <div class="tmNameWhenClicked">
+    {{team.name}}
+        </div>
+        <hr>
+        <div class="tmDescWhenClicked">
+    {{team.description}}
+        </div>
+    </div>
+</div>
+        <br>
+<div ng-show="clicked">
+    <div ng-repeat="member in team.engagements | limitTo : 3">
         <div class="teaFrame">
-            <div><img class="teaImage" ng-src="images/{{member.employee.name}}.png"></div>
+            <div><img class="teaImage" ng-src="images/{{member.employee.image}}.jpg"></div>
             <div class="teaData">
                 <span class="teaTitle">{{member.employee.name}}</span><br>
                 <span class="teaTitle">{{member.role.name}}</span><br>
@@ -43,10 +64,19 @@
 
             <div class="clearfix"></div>
             <div class="teaNav">
-                <a href="" ng-click="edit(data)"><i class="glyphicon glyphicon-pencil"></i></a>
-                <a href="" ng-click="delete(data)"><i class="glyphicon glyphicon-trash"></i></a>
+                <a href="" ng-click="edit(data)"><i class="fa fa-pencil"></i></a>
+                <a href="" ng-click="delete(data)"><i class="fa fa-trash"></i></a>
             </div>
         </div>
     </div>
-    <a href="" class="pull-right" ng-click="addMember(team)" ng-controller="teaController"><i class="fa fa-plus-circle"></i></a>
+</div>
+</div>
+    <div class="col-md-1">
+        <div ng-show="clicked">
+        <a href="" class="pull-right teamPag" ng-click="nextPage()" ><i class="fa fa-arrow-circle-right"></i></a>
+        </div>
+        <div ng-show="clicked">
+            <a href="" class="addEmpBtn" ng-click="addMember(team)" ng-controller="teaController"><i class="fa fa-plus-circle"></i></a>
+    </div>
+    </div>
 </div>
