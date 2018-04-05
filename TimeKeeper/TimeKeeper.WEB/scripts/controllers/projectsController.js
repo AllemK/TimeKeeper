@@ -80,6 +80,30 @@
             })
         };
 
+        $scope.clickwar = function(project){
+            swal({
+                    title: project.name,
+                    text: "Are you sure you want to delete this project?",
+                    type: "warning",
+                    //imageUrl: 'images/hhasic.jpg',
+                    //imageSize: '240x100',
+                    showCancelButton: true,
+                    customClass: "sweetClass",
+                    confirmButtonColor: "red",
+                    confirmButtonText: "Yes, sure",
+                    cancelButtonColor: "darkred",
+                    cancelButtonText: "No, not ever!",
+                    closeOnConfirm: false,
+                    closeOnCancel: true
+                },
+                function(isConfirm){
+                    if(isConfirm){
+                        console.log("project deleted");
+                        swal.close();
+                    }
+                });
+        };
+
     }]);
 
     app.controller('projModalCtrl', ['$uibModalInstance', '$scope', 'dataService', 'project',
