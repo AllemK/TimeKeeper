@@ -1,16 +1,16 @@
 <div class="modal-header">
-    <h3 class="pull-left modal-title">{{day.employee.name}} : {{day.id}}</h3>
+    <h3 class="pull-left modal-title tk-m-title">{{day.employee.name}} : {{day.id}}</h3>
     <input type="hidden" ng-model="day.id">
     <input type="hidden" ng-model="day.employee.id">
     <div class="pull-right" style="margin-left:18px;">
-        <select class="btn btn-default"
+        <select class="btn btn-default tk-control"
                 ng-model="day.type"
                 ng-options="dayType.indexOf(ind) as ind for ind in dayType"
                 ng-change="typeChanged()">
 
         </select>
     </div>
-    <h3 class="pull-right modal-title">{{day.date.substring(0,10)}}</h3>
+    <h3 class="pull-right modal-title tk-m-title">{{day.date.substring(0,10)}}</h3>
 </div>
 
 <div class="modal-body" id="modal-body" ng-show="day.type==1">
@@ -25,15 +25,15 @@
         <div ng-hide="task.deleted">
             <input type="hidden" ng-model="task.id">
             <div class="col-md-4">
-                <select ng-model="task.project.id" class="form-control"
+                <select ng-model="task.project.id" class="form-control tk-control"
                         ng-options="project.id as project.name for project in projects"
                         ng-value="project.id">{{project.name}}></select>
             </div>
             <div class="col-md-4">
-                <input type="text" class="form-control" ng-model="task.description">
+                <input type="text" class="form-control tk-control" ng-model="task.description">
             </div>
             <div class="col-md-1">
-                <input type="text" class="form-control" ng-model="task.hours">
+                <input type="text" class="form-control tk-control" ng-model="task.hours">
             </div>
             <div class="col-md-1 text-center">
                 <i class="fa fa-save fa-2x text-success" ng-click="upd(task, $index)"></i>
@@ -47,15 +47,15 @@
     <div class="row" style="padding:2px;">
         <input type="hidden" ng-model="newTask.id">
         <div class="col-md-4">
-            <select ng-model="newTask.project.id" class="form-control"
+            <select ng-model="newTask.project.id" class="form-control tk-control"
                     ng-options="project.id as project.name for project in projects"
                     ng-value="project.id">{{project.name}}></select>
         </div>
         <div class="col-md-4">
-            <input type="text" class="form-control" ng-model="newTask.description">
+            <input type="text" class="form-control tk-control" ng-model="newTask.description">
         </div>
         <div class="col-md-1">
-            <input type="text" class="form-control" ng-model="newTask.hours">
+            <input type="text" class="form-control tk-control" ng-model="newTask.hours">
         </div>
         <div class="col-md-1 text-center">
             <i class="fa fa-save fa-2x text-success" ng-click="add(newTask)"></i>
@@ -63,7 +63,7 @@
     </div>
 </div>
 <div class="modal-footer">
-    <h3 class="pull-left modal-title">Total: {{day.hours}}<sup>h</sup></h3>
-    <button class="btn btn-primary" type="button" ng-click="ok()"><i class="fa fa-save fa-2x"></i>&nbsp;Save</button>
-    <button class="btn btn-warning" type="button" ng-click="cancel()"><i class="fa fa-close fa-2x"></i>&nbsp;Close</button>
+    <h3 class="pull-left modal-title"><span class="white">Total: </span>{{day.hours}}<sup><span class="white">h</span></sup></h3>
+    <button class="btn btn-primary tk-button-green" type="button" ng-click="ok()"><i class="fa fa-save fa-1x"></i>&nbsp;Save</button>
+    <button class="btn btn-warning tk-button-red" type="button" ng-click="cancel()"><i class="fa fa-close fa-1x"></i>&nbsp;Close</button>
 </div>

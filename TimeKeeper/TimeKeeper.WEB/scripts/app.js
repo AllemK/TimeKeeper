@@ -1,5 +1,5 @@
 (function(){
-    var app = angular.module("timeKeeper", ["ngRoute", "ui.bootstrap", "toaster", "ngAnimate", "LocalStorageModule"]);
+    var app = angular.module("timeKeeper", ["ngRoute", "ui.bootstrap", "toaster", "ngAnimate", "LocalStorageModule", 'chart.js']);
     currentUser={};
 
     app.constant("timeConfig", {
@@ -35,6 +35,8 @@
     }])
         .run(['$rootScope', '$location', function($rootScope,$location){
         $rootScope.$on("$routeChangeStart", function(event, next, current){
+            console.log(currentUser.id);
+            // if(currentUser===undefined)
             if(currentUser.id === 0 && next.$$route.loginRequired){
                 $location.path("/login");
             }
