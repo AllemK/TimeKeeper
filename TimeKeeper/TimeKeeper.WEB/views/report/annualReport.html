@@ -1,12 +1,20 @@
-
 <div class="row">
     <div class="col-md-6">
         <h1>Annual Overview</h1>
+        <h2>{{message}}</h2>
     </div>
-    <div class="col-md-4">
-        <input type="text" placeholder="Search..." ng-model="filter" />
-        <button ng-click="search(filter)"><span class="glyphicon glyphicon-search"></span></button>
+    <div class="src-add">
+        <div class="col-md-5">
+            <div class="input-group">
+                <input type="text" class="form-control" placeholder="Search for...">
+                <span class="input-group-btn">
+                <button class="btn btn-default" type="button">Search</button>
+                </span>
+            </div>
+        </div>
     </div>
+</div>
+<div class=""></div>
     <ul class="pagination">
         <li class="page-item disabled">
             <a class="page-link" href="#" tabindex="-1">Previous</a>

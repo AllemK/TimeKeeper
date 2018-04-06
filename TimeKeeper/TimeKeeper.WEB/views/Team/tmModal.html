@@ -41,9 +41,9 @@
             </select>
         </div>
         <div class="col-md-5">
-            <select ng-model="role.id" class="form-control"
-                    ng-options="role.id as role.name for role in roles"
-                    ng-value="role.id">{{role.name}}
+            <select ng-model="roles.id" class="form-control"
+                    ng-options="roles.id as roles.name for roles in roles"
+                    ng-value="roles.id">{{roles.name}}
             </select>
         </div>
         <a href="" ng-click="addMember(person)"><i class="fa fa-minus-square" style="widht: 25px; height: 25px;"></i></a>

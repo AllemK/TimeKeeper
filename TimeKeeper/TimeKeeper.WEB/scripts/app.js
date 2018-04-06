@@ -22,7 +22,7 @@
                 controller: 'customersController', loginRequired:true })
             .when('/projects',  { templateUrl: 'views/project/projects.html',
                 controller: 'projectsController', loginRequired:true })
-            .when('/roles', {templateUrl: 'views/roles.html',
+            .when('/roles', {templateUrl: 'views/roles/roles.html',
                 controller: 'rolesController', loginRequired:true })
             .when('/calendar', {templateUrl: 'views/calendar/calendar.html',
                 controller: 'calendarController as $cal', loginRequired:true })

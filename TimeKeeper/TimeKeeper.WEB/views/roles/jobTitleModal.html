@@ -1,0 +1,28 @@
+<div class="modal-header">
+    <h3 class="modal-title" id="modal-title">New Job Title</h3>
+</div>
+<form name="jobTitleForm" novalidate>
+    <div class="modal-body">
+        <div class="new-jobTitle">
+            <div class="row">
+                <div class="col-md-3 label">Id</div>
+                <div class="col-md-6"><input type="text" name="jobTitleId" class="form-control" ng-model=".jobTitle" required></div>
+                <span style="color:red" ng-show="jobTitleForm.jobTitleId.$dirty && jobTitleForm.jobTitleId.$invalid">
+                <span ng-show="jobTitleForm.jobTitleId.$error.required" style="font-size:30px;"> * </span>
+            </span>
+            </div>
+            <br>
+            <div class="row">
+                <div class="col-md-3 label">Name</div>
+                <div class="col-md-6"><input type="text" name="jobTitleName" class="form-control" ng-model=".jobName" required></div>
+                <span style="color:red" ng-show="jobTitleForm.jobTitleId.$dirty && jobTitleForm.jobTitleId.$invalid">
+                <span ng-show="jobTitleForm.jobTitleId.$error.required" style="font-size:30px;"> * </span>
+            </span>
+            </div>
+            <div class="modal-footer">
+                <div class="col-md-5 label"><button class="btn btn-success" type="button" ng-click="jobTitleForm.$valid && saveNew(jobTitle)">Save</button></div>
+                <div class="col-md-1 label"><button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button></div>
+            </div>
+        </div>
+    </div>
+</form>
