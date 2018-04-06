@@ -1,12 +1,8 @@
 ﻿using IdentityServer3.Core;
 using IdentityServer3.Core.Models;
 using IdentityServer3.Core.Services.InMemory;
-using IdentityServer3.EntityFramework;
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Security.Claims;
-using System.Web;
 using TimeKeeper.DAL.Repository;
 
 namespace TimeKeeper.OAuth
@@ -27,7 +23,7 @@ namespace TimeKeeper.OAuth
                     Password = employee.Password,
                     Claims = new[]
                     {
-                        new Claim(Constants.ClaimTypes.Name, employee.FullName)
+                        new Claim(Constants.ClaimTypes.Name, employee.FullName),
                     }
                 });
             }

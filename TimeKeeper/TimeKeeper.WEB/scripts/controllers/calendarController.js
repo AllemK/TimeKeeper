@@ -1,11 +1,12 @@
 (function(){
     var app = angular.module("timeKeeper");
 
-    app.controller("calendarController", ["$scope", "$uibModal", "dataService", "timeConfig",
-        function($scope, $uibModal, dataService, timeConfig){
+    app.controller("calendarController", ["$rootScope","$scope", "$uibModal", "dataService", "timeConfig",
+        function($rootScope, $scope, $uibModal, dataService, timeConfig){
             $scope.dayType = timeConfig.dayType;
             $scope.months = timeConfig.months;
 
+            listCalendar($rootScope.currentUser.id,0,0);
             dataService.list("employees?all",function(data){
                 $scope.people=data;
             });
@@ -23,9 +24,9 @@
 
             function listCalendar(empId,year,month){
                 //validate employee, year and month
-                var url="calendar/"+$scope.employeeId;
-                if($scope.year !== 'undefined') url += "/" + $scope.year;
-                if($scope.month !== 'undefined') url += "/" + $scope.month;
+                var url="calendar/"+empId;
+                if(year !== 'undefined') url += "/" + year;
+                if(month !== 'undefined') url += "/" + month;
                 dataService.list(url,function(data){
                     $scope.calendar=data;
                     $scope.employeeId = data.employee.id;

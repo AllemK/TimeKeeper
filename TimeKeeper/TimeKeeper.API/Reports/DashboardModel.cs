@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-
-namespace TimeKeeper.API.Reports
+﻿namespace TimeKeeper.API.Reports
 {
     public class DashboardModel
     {
@@ -16,21 +11,20 @@ namespace TimeKeeper.API.Reports
         public decimal[] MissingEntries { get; set; }
         public decimal[] Utilization { get; set; }
 
-        public DashboardModel(int numberOfTeams, int numberOfProjects, int numberOfMissingEntries)
+        public DashboardModel(int numberOfTeams, int numberOfProjects)
         {
             PTOHours = new decimal[numberOfTeams];
             OvertimeHours = new decimal[numberOfTeams];
             Revenue = new decimal[numberOfProjects];
-            MissingEntries = new decimal[numberOfMissingEntries];
             Utilization = new decimal[4];
         }
 
-        public DashboardModel(int numberOfEmployees, int numberOfMissingEntries)
+        public DashboardModel(int numberOfEmployees)
         {
+            NumberOfEmployees = numberOfEmployees;
             PTOHours = new decimal[numberOfEmployees];
             OvertimeHours = new decimal[numberOfEmployees];
             Revenue = null;
-            MissingEntries = new decimal[numberOfMissingEntries];
             Utilization = new decimal[numberOfEmployees];
         }
     }

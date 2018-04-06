@@ -4,10 +4,13 @@
 
     app.controller("loginController", ["$scope", "$rootScope", "$http", "$location", "timeConfig", "localStorageService",
         function($scope, $rootScope, $http, $location, timeConfig, localStorageService) {
-            $rootScope.currentUser = localStorageService.cookie.get("currentUser");
-            //$rootScope.currentUser = localStorageService.cookie.get("currentUser");
-            if(localStorageService.cookie.get("currentUser")===null){
-                console.log(localStorageService.cookie.get("currentUser"));
+            $rootScope.currentUser = localStorageService.get("currentUser");
+            $rootScope.token = localStorageService.get("access_token");
+            if($rootScope.token!==null){
+                $http.defaults.headers.common.Authorization = "Bearer " + $rootScope.token;
+                $http.defaults.headers.common.Provider = "iserver";
+            }
+            if(localStorageService.get("currentUser")===null){
                 $rootScope.currentUser = {
                     id: 0,
                     name: '',
@@ -36,8 +39,7 @@
                     $http.defaults.headers.common.Provider = "google";
                     $http({method: "post", url: timeConfig.apiUrl + 'login'})
                         .then(function (response) {
-                            currentUser = response.data;
-                            $rootScope.currentUser = currentUser;
+                            $rootScope.currentUser = response.data;
                         }, function (error) {
                             window.alert(error.message);
                         });
@@ -55,17 +57,6 @@
                     'Content-Type': 'application/x-www-form-urlencoded',
                     'Authorization': 'Basic dGltZWtlZXBlcjokY2gwMGw='
                 };
-                /*
-                function submit(key, val){
-                    return sessionStorageService.set(key,val);
-                }
-                function getItem(key){
-                    return sessionStorageService.get(key);
-                }
-                if(sessionStorageService.length()>0){
-                    userData = getItem("currentUser");
-                }*/
-                localStorageService.cookie.set("currentUser", userData);
 
                 $http({
                     method: 'POST',
@@ -81,16 +72,16 @@
                     }
                 }).then(function (data, status, headers, config) {
                     var authToken = data.data.access_token;
-                    localStorageService.cookie.set("access_token",authToken);
+                    localStorageService.set("access_token",authToken);
                     $http.defaults.headers.common.Authorization = 'Bearer ' + authToken;
                     $http.defaults.headers.common.Provider = "iserver";
                     $http({
                         method: 'GET',
                         url: timeConfig.apiUrl + 'login'
                     }).then(function(data, status, headers, config){
-                        currentUser = data;
-                        $rootScope.currentUser = currentUser;
-                        //submit("currentUser", currentUser);
+                        $rootScope.currentUser = data.data;
+                        console.log(status);
+                        localStorageService.set("currentUser", data.data);
                         $location.path("/calendar");
                     });
                 })/*.otherwise(function (data, status, headers, config) {
@@ -102,11 +93,9 @@
     app.controller("logoutController", ["$rootScope", "$scope", "$location", "localStorageService",
         function($rootScope, $scope, $location, localStorageService) {
         $scope.logout = function() {
-            currentUser = {id: 0};
-            $rootScope.currentUser = currentUser;
-            localStorageService.cookie.clearAll();
-            console.log(localStorageService.get("currentUser"));
-            //window.location.reload();
+            $rootScope.currentUser = {id: 0};
+            $rootScope.token = null;
+            localStorageService.clearAll();
             $location.path("/login");
         }
     }]);

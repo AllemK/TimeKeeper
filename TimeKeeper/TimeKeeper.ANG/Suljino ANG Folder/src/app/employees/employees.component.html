@@ -1,0 +1,30 @@
+<div class='container'>
+  <div class='panel panel-primary'>
+    <div class='panel-heading'>{{pageTitle}}
+      <div class='pull-right'>
+        <span *ngFor='let i of pages()'>
+          <button [class]='btnClass(i)' (click)='goto(i)'>{{i}}</button></span>
+      </div>
+    </div>
+    <div class='panel-body'>
+      <table class='table' border='1'>
+        <tr>
+          <th>First Name</th>
+          <th>Last Name</th>
+          <th>Position</th>
+          <th>E-mail</th>
+          <th>Hired on</th>
+          <th>Time in company</th>
+        </tr>
+        <tr *ngFor='let employee of employees'>
+          <td><a [routerLink]="['/empl',employee.id]">{{employee.firstName}}</a></td>
+          <td>{{employee.lastName}}</td>
+          <td>{{employee.position.name}}</td>
+          <td>{{employee.email}}</td>
+          <td>{{employee.beginDate | date:'dd.MM.yyyy' }}</td>
+          <td><ages [period]='Age(employee.beginDate)'></ages></td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</div>

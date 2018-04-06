@@ -3,10 +3,11 @@
 </div>
 
 <div class="modal-body" id="modal-body">
+    <input type="hidden" ng-model="team.id">
     <div class="row">
         <div class="col-md-4 label">Employee:</div>
         <div class="col-md-6">
-            <select ng-model="member.employee.id" class="form-control"
+            <select ng-model="team.employee.id" class="form-control"
                     ng-options="employee.id as employee.name for employee in employees"
                     ng-value="employee.id">{{employee.name}}
             </select>
@@ -16,7 +17,7 @@
     <div class="row">
         <div class="col-md-4 label">Roles:</div>
         <div class="col-md-6">
-            <select ng-model="member.role.id" class="form-control"
+            <select ng-model="team.role.id" class="form-control"
                     ng-options="role.id as role.name for role in roles"
                     ng-value="role.id">{{role.name}}</option>
             </select>
@@ -24,13 +25,13 @@
     </div>
     <br>
     <div class="row">
-        <div class="col-md-2 label">Weekly Hours:</div>
-        <div class="col-md-8">
-            <input type="number" maxlength="40" minlength="0" value="0" ng-model="member.hours">
+        <div class="col-md-4 label">Weekly Hours:</div>
+        <div class="col-md-6">
+            <input type="number" maxlength="40" minlength="0" ng-model="team.hours">
         </div>
     </div>
 </div>
 <div class="modal-footer">
-    <button class="btn btn-success" type="button" ng-click="saveMember(member)">SAVE</button>
+    <button class="btn btn-success" type="button" ng-click="saveMember(team)">SAVE</button>
     <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
 </div>

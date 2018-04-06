@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -14,10 +13,10 @@ namespace TimeKeeper.API.Helper
 {
     public class TimeKeeperAuthAttribute:AuthorizationFilterAttribute
     {
-        private string Roles;
-        public TimeKeeperAuthAttribute(string _roles = "")
+        private string _roles;
+        public TimeKeeperAuthAttribute(string Roles = "")
         {
-            Roles = _roles == "" ? "Admin,Lead,User" : _roles;
+            _roles = Roles == "" ? "Admin,Lead,User" : Roles;
         }
         public override void OnAuthorization(HttpActionContext actionContext)
         {
@@ -36,7 +35,7 @@ namespace TimeKeeper.API.Helper
                 string field = provider == "iserver" ? "sub" : "email";
                 emp = timeUnit.Employees.Get(x => x.Email == token[field]).FirstOrDefault();
                 if (emp != null) CurrentUser = factory.Create(emp, provider);
-                if (Roles.Contains(CurrentUser.Role)) return;
+                if (_roles.Contains(CurrentUser.Role)) return;
                 actionContext.Response = actionContext.Request
                     .CreateResponse(HttpStatusCode.Unauthorized);
             }

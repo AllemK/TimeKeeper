@@ -8,6 +8,7 @@
     <div class="col-md-2">
         <img src="images\EMP.jpg" alt="avatar"></div>
 </div>
+</div>
 <br>
 <div class="container">
     <div class="new-employee">
@@ -15,42 +16,74 @@
             <div class="col-md-2 label">First name</div>
             <div class="col-md-4">{{employee.firstName}}</div>
         </div>
+        <br>
         <div class="row">
             <div class="col-md-2 label">Last name</div>
             <div class="col-md-4">{{employee.lastName}}</div>
         </div>
+        <br>
         <div class="row">
             <div class="col-md-2 label">Email</div>
-            <div class="col-md-4"><input type="text" class="form-control" ng-model="employee.email"></div>
+            <div class="col-md-4">{{employee.email}}</div>
         </div>
+        <br>
         <div class="row">
             <div class="col-md-2 label">Phone number</div>
-            <div class="col-md-4"><input type="text" class="form-control" ng-model="employee.phone"></div>
+            <div class="col-md-4">{{employee.phone}}</div>
         </div>
+        <br>
         <div class="row">
             <div class="col-md-2 label">Birth date</div>
-            <div class="col-md-4"><input type="text" class="form-control" ng-model="employee.birthDate"></div>
+            <div class="col-md-4">{{employee.birthDate}}</div>
         </div>
+        <br>
         <div class="row">
             <div class="col-md-2 label">Employment begin date</div>
-            <div class="col-md-4"><input type="text" class="form-control" ng-model="employee.BeginDate"></div>
+            <div class="col-md-4">{{employee.beginDate}}</div>
         </div>
+        <br>
         <div class="row">
             <div class="col-md-2 label">Status</div>
-            <div class="col-md-4"><input type="text" class="form-control" ng-model="employee.Status"></div>
+            <div class="col-md-4" ng-if="employee.status===0">Trial</div>
+            <div class="col-md-4" ng-if="employee.status===1">Active</div>
+            <div class="col-md-4" ng-if="employee.status===2">Leaver</div>
         </div>
+        <br>
         <div class="row">
             <div class="col-md-2 label">Job title</div>
-            <div class="col-md-4"><input type="text" class="form-control" ng-model="employee.jobTitle"></div>
+            <div class="col-md-4">{{employee.position.name}}</div>
         </div>
+        <br>
         <div class="row">
             <div class="col-md-2 label">Contracted salary</div>
-            <div class="col-md-4"><input type="text" class="form-control" ng-model="employee.salary"></div>
+            <div class="col-md-4" ng-if="currentUser.role=='Admin'">{{employee.salary}}</div>
         </div>
-        <div class="row">
+        <br>
+        <div class="row" ng-show="employee.endDate!==null">
             <div class="col-md-2 label">Employment end date</div>
-            <div class="col-md-4"><input type="text" class="form-control" ng-model="employee.EndDate"></div>
+            <div class="col-md-4">{{employee.endDate}}</div>
         </div>
+        <!--
+        <div class="row">
+            <div class="col-md-5">
+                <table class="table table-bordered" >
+                    <thead>
+                    <tr >
+                        <th>Team</th>
+                        <th>Position</th>
+                        <th>Description</th>
+                    </tr>
+                    </thead>
+                    <tbody ng-repeat="engagement in employee.engagements">
+                    <tr>
+                        <td>{{engagement.team.name}}</td>
+                        <td>{{engagement.role.name}}</td>
+                        <td>{{engagement.hours}}</td>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        -->
         <div class="row">
             <div class="col-md-2 label">
                 <button class="btn btn-warning" ng-click="cancel()">Close</button>

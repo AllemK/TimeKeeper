@@ -1,62 +1,39 @@
 <div class="modal-header">
-        <div class="col-md-6"><h1>New Team</h1></div>
-    </div>
+    <div class="col-md-6"><h1>New Team</h1></div>
 </div>
 <br>
-<div class="modal-body">
-    <div class="new-team">
-        <div class="row">
-            <div class="col-md-4 label">Team ID:</div>
-            <div class="col-md-4"><input type="text" class="form-control" ng-model="team.id"></div>
-        </div>
-        <br>
-        <div class="row">
-            <div class="col-md-4 label">Team name:</div>
-            <div class="col-md-4"><input type="text" class="form-control" ng-model="team.name"></div>
-        </div>
-        <br>
-        <div class="row">
-            <div class="col-md-4 label">Team image:</div>
-            <div class="col-md-4"><input type="text" class="form-control" ng-model="team.image"></div>
-        </div>
-        <div class="row">
-            <div class="col-md-4 label">Project:</div>
-            <div class="col-md-4">
-                <select ng-model="team.projects[0].id" class="form-control"
-                        ng-options="project.id as project.name for project in projects"
-                        ng-value="project.id">{{project.name}}</option>
-                </select>
+<form name="teamForm" novalidate>
+    <div class="modal-body">
+        <div class="new-team">
+            <div class="row">
+                <div class="col-md-4 label">Team ID:</div>
+                <div class="col-md-6"><input type="text" class="form-control" name="teamId" ng-model="team.id" required></div>
+                <span style="color:red" ng-show="teamForm.teamId.$dirty && teamForm.teamId.$invalid">
+                    <span ng-show="teamForm.teamId.$error.required" style="font-size: 30px;">*</span>
+                </span>
             </div>
-        </div>
-        <br>
-        <div class="row">
-            <div class="col-md-4 label">Employees:</div>
-            <div class="col-md-4">
-                <select ng-model="team.engagements[0].id" class="form-control"
-                        ng-options="person.id as person.name for person in employees"
-                        ng-value="person.id">{{person.name}}</option>
-                </select>
+            <div class="row">
+                <div class="col-md-4 label">Team name:</div>
+                <div class="col-md-6"><input type="text" class="form-control" name="teamName" ng-model="team.name" required></div>
+                <span style="color:red" ng-show="teamForm.teamName.$dirty && teamForm.teamName.$invalid">
+                    <span ng-show="teamForm.teamName.$error.required" style="font-size: 30px;">*</span>
+                </span>
             </div>
-        </div>
-        <div class="row">
-            <div class="col-md-4 label">Members:</div>
-            <div class="col-md-4 ng-scope" ng-controller="teamsController">
-                <table class="table table-bordered">
-                    <tbody ng-repeat="engagements in teams">
-                    <tr>
-                        <td>{{team.engagements.employee.name}}</td>
-                    </tr>
-                    </tbody>
-                </table>
+            <div class="row">
+                <div class="col-md-4 label">Team image:</div>
+                <div class="col-md-6"><input type="text" class="form-control" ng-model="team.image"></div>
             </div>
-        </div>
-        <div class="row">
-            <div class="col-md-4 label">Description:</div>
-            <div class="col-md-4"><input type="text" class="form-control" ng-model="team.description"></div>
+            <div class="row">
+                <div class="col-md-4 label">Description:</div>
+                <div class="col-md-6"><input type="text" class="form-control" name="teamDesc" ng-model="team.description" required></div>
+                <span style="color:red" ng-show="teamForm.teamDesc.$dirty && teamForm.teamDesc.$invalid">
+                    <span ng-show="teamForm.teamDesc.$error.required" style="font-size: 30px;">*</span>
+                </span>
+            </div>
         </div>
     </div>
-</div>
-<div class="modal-footer">
-    <button class="btn btn-success" type="button" ng-click="saveNew(team)">SAVE</button>
-    <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
-</div>
+    <div class="modal-footer">
+        <button class="btn btn-success" type="button" ng-click="teamForm.$valid && saveNew(team)">Save</button>
+        <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
+    </div>
+</form>
