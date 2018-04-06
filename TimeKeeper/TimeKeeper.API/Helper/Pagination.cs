@@ -116,7 +116,7 @@ namespace TimeKeeper.API.Helper
 
         public static IEnumerable<Team> Header(this IQueryable<Team> list, Header h)
         {
-            h.pageSize = 4;
+            h.pageSize = 3;
             int totalPages = (int)Math.Ceiling((double)list.Count() / h.pageSize);
             int totalItems = list.Count();
             InsertHeader(h, totalPages, totalItems);

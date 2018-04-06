@@ -2,11 +2,20 @@
 <html ng-app="timeKeeper">
 
 <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="google-signin-client_id" content="53671047349-a7u8e0u88vdhqp10tb0833durqo9jdnt.apps.googleusercontent.com">
+
+    <title>TimeKeeper</title>
+
     <link href="styles/bootstrap.min.css" rel="stylesheet" />
     <link href="styles/style.css" rel="stylesheet" />
     <link rel="stylesheet" href="styles/fontawesome.min.css">
     <link rel="stylesheet" href="styles/sweetalert.min.css">
     <link rel="stylesheet" href="styles/toaster.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Work+Sans:100,200,300,400" rel="stylesheet">
+
     <script src="library/angular.min.js"></script>
     <script src="library/angular-route.min.js"></script>
     <script src="library/angular-animate.min.js"></script>
@@ -14,7 +23,11 @@
     <script src="library/ui-bootstrap-tpls.min.js"></script>
     <script src="library/sweetalert.min.js"></script>
     <script src="library/toaster.min.js"></script>
+    <script src="node_modules/chart.js/dist/Chart.min.js"></script>
+    <script src="node_modules/angular-chart.js/dist/angular-chart.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="https://apis.google.com/js/platform.js"></script>
+    <script src="library/landing-bootstrap.min.js"></script>
 
     <script src="scripts/app.js"></script>
     <script src="scripts/services/dataService.js"></script>
@@ -26,34 +39,167 @@
     <script src="scripts/controllers/calendarController.js"></script>
     <script src="scripts/controllers/loginController.js"></script>
     <script src="scripts/directives/customerDirective.js"></script>
-    <script src="scripts/directives/teamDirective.js"></script>
-
-    <meta name="google-signin-client_id" content="53671047349-a7u8e0u88vdhqp10tb0833durqo9jdnt.apps.googleusercontent.com">
+    <script src="scripts/controllers/reportsController.js"></script>
 </head>
 
 <body>
+<!--
 <header>
     <div class="container">
         <div class="pull-left"><h2>Time Keeper</h2></div>
         <div class="pull-right" style="margin-top:24px">
-            <a href="#!/calendar"><button class="btn btn-primary">Calendar</button></a>
-            <a href="#!/customers"><button class="btn btn-primary">Customers</button></a>
-            <a href="#!/employees"><button class="btn btn-primary">Employees</button></a>
-            <a href="#!/projects"><button class="btn btn-primary">Projects</button></a>
-            <a href="#!/roles"><button class="btn btn-primary">Roles</button></a>
-            <a href="#!/teams"><button class="btn btn-primary">Teams</button></a>
+            <a href="#!/calendar" ng-hide="currentUser.role.include('Admin,Lead,User')"><button class="btn btn-primary">About</button></a>
+            <a href="#!/calendar" ng-show="currentUser.role.include('Admin,Lead,User')"><button class="btn btn-primary">Calendar</button></a>
+            <a href="#!/customers" ng-show="currentUser.role==='Admin'"><button class="btn btn-primary">Customers</button></a>
+            <a href="#!/employees" ng-show="currentUser.role==='Admin'"><button class="btn btn-primary">Employees</button></a>
+            <a href="#!/projects" ng-show="currentUser.role==='Admin'"><button class="btn btn-primary">Projects</button></a>
+            <a href="#!/roles" ng-show="currentUser.role==='Admin'"><button class="btn btn-primary">Roles</button></a>
+            <a href="#!/teams" ng-show="currentUser.role==='Admin'"><button class="btn btn-primary">Teams</button></a>
             <span ng-show="currentUser.id===0"><a href="#!/login"><button class="btn btn-warning">Login</button></a></span>
             <span ng-show="currentUser.id!==0" ng-controller="logoutController"><a href=""><button class="btn btn-warning" ng-click="logout()">Logout</button></a></span>
         </div>
     </div>
 </header>
+-->
+<nav class="navbar navbar-fixed-top" ng-show="currentUser.id!==0">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#"><span class="turq">Time</span>Keeper</a>
+            <span ng-show="currentUser.id===0"><a href="#!/login"><button class="btn btn-warning">Login</button></a></span>
+            <span ng-show="currentUser.id!==0" ng-controller="logoutController"><a href=""><button class="btn btn-warning" ng-click="logout()">Logout</button></a></span>
+        </div>
 
-<div class="container"><div ng-view></div></div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                <!--<li>
+                    <form class="navbar-form navbar-left">
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Search">
+                    </div>
+                    <button type="submit" class="btn btn-default">Search</button>
+                </form>
+            </li>-->
+                <!--<span ng-show="currentUser.id==0"><li><a href="#!/login">Login</a></li></span>-->
+                <!--<span ng-show="currentUser.id!=0"><li><a href="#!/logout">Logout</a></li></span>-->
+                <!--<li><a href="#"><i class="glyphicon glyphicon-bell"></i></a></li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">John Doe <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">Profile</a></li>
+                        <li><a href="#">Settings</a></li>
+                        <li role="separator" class="divider"></li>
+                        <li><a href="#">Logout</a></li>
+                    </ul>
+                </li>-->
+            </ul>
+        </div><!-- /.navbar-collapse -->
+    </div>
+</nav>
+
+<div class="wrapper">
+    <div class="row">
+        <div class="col-md-2"  ng-show="currentUser.id!==0">
+            <div id="sidebar-wrapper">
+                <div id="sidebar">
+                    <ul id="sidemenu" class="sidebar-nav">
+                        <li><br></li>
+                        <li><br></li>
+                        <li class="active real">
+                            <a href="#!/adminDash">
+                                <!--<span class="sidebar-icon"><i class="glyphicon glyphicon-th-list"></i></span>-->
+                                <span class="sidebar-icon"><img src="images/icons/1-dashboard.png" alt=""></span>
+                                <span class="sidebar-title">Dashboard</span>
+                            </a>
+                        </li>
+                        <li class="real">
+                            <a href="#!/calendar">
+                                <!--<span class="sidebar-icon"><i class="glyphicon glyphicon-calendar"></i></span>-->
+                                <span class="sidebar-icon"><img src="images/icons/2-calendar.png" alt=""></span>
+                                <span class="sidebar-title">Calendar</span>
+                            </a>
+                        </li>
+                        <li class="real">
+                            <a href="#!/customers">
+                                <!--<span class="sidebar-icon"><i class="fa fa-dashboard"></i></span>-->
+                                <span class="sidebar-icon"><img src="images/icons/3-customers.png" alt=""></span>
+                                <span class="sidebar-title">Customers</span>
+                            </a>
+                        </li>
+                        <li class="real">
+                            <a href="#!/projects">
+                                <!--<span class="sidebar-icon"><i class="fa fa-dashboard"></i></span>-->
+                                <span class="sidebar-icon"><img src="images/icons/5-projects.png" alt=""></span>
+                                <span class="sidebar-title">Projects</span>
+                            </a>
+                        </li>
+                        <li class="real">
+                            <a href="#!/employees">
+                                <!--<span class="sidebar-icon"><i class="glyphicon glyphicon-user"></i></span>-->
+                                <span class="sidebar-icon"><img src="images/icons/2-employees.png" alt=""></span>
+                                <span class="sidebar-title">Employees</span>
+                            </a>
+                        </li>
+                        <li class="real">
+                            <a href="#!/teams">
+                                <!--<span class="sidebar-icon"><i class="fa fa-dashboard"></i></span>-->
+                                <span class="sidebar-icon"><img src="images/icons/3-teams.png" alt=""></span>
+                                <span class="sidebar-title">Teams</span>
+                            </a>
+                        </li>
+                        <li class="real">
+                            <a href="#!/">
+                                <!--<span class="sidebar-icon"><i class="fa fa-dashboard"></i></span>-->
+                                <span class="sidebar-icon"><img src="images/icons/7-invoice.png" alt=""></span>
+                                <span class="sidebar-title">Invoices</span>
+                            </a>
+                        </li>
+                        <li class="real">
+                            <a class="accordion-toggle collapsed toggle-switch" data-toggle="collapse" href="#submenu-5">
+                                <!--<span class="sidebar-icon"><i class="fa fa-users"></i></span>-->
+                                <span class="sidebar-icon"><img src="images/icons/8-reports.png" alt=""></span>
+                                <span class="sidebar-title">Reports</span>
+                                <b class="caret"></b>
+                            </a>
+                            <ul id="submenu-5" class="panel-collapse collapse panel-switch" role="menu">
+                                <li><a href="#!/"><i class="fa fa-caret-right"></i>Monthly report</a></li>
+                                <li><a href="#!/"><i class="fa fa-caret-right"></i>Annual report</a></li>
+                                <li><a href="#!/projectHistory"><i class="fa fa-caret-right"></i>Project history</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <!-- Fake list item used for filling the gap -->
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <main id="page-content-wrapper" role="main"></main>
+        </div>
+        <div class="col-md-10">
+            <div class="container"><div ng-view></div></div>
+        </div>
+    </div>
+</div>
 
 <footer>
     <div>Copyright &copy; by Gigi School</div>
 </footer>
 <toaster-container></toaster-container>
 <div id="loader" ng-show="waitForLoad"><div id="spinner"></div></div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#sidebar-wrapper .sidebar-nav li.real').on('click', function () {
+            $('#sidebar-wrapper .sidebar-nav li').removeClass('active');
+            $(this).toggleClass('active');
+        });
+    });
+</script>
 </body>
 </html>

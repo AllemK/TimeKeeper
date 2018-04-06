@@ -1,14 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Web.Http;
+using TimeKeeper.API.Helper;
 using TimeKeeper.API.Models;
 using TimeKeeper.Utility;
 
 namespace TimeKeeper.API.Controllers
 {
+    [TimeKeeperAuth(Roles: "Admin")]
     public class MembersController : BaseController
     {
         public IHttpActionResult Post(EngagementModel e)
@@ -24,7 +23,7 @@ namespace TimeKeeper.API.Controllers
                 TimeKeeperUnit.Engagements.Insert(TimeKeeperFactory.Create(e, TimeKeeperUnit));
                 TimeKeeperUnit.Save();
                 Logger.Log($"Inserted new member {e.Employee.Name}", "INFO");
-                return Ok(e);
+                return Ok(new { e, memberId = TimeKeeperUnit.Engagements.Get().Count() });
             }
             catch (Exception ex)
             {

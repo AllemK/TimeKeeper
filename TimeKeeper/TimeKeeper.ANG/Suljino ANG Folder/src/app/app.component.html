@@ -1,0 +1,21 @@
+<header>
+  <div class='container'>
+      <div class='pull-left'><h1>{{title}}</h1></div>
+      <ul class="nav navbar-nav">
+        <li><a [routerLink]="['/home']">Home</a></li>
+        <li><a [routerLink]="['/team']">Team</a></li>
+        <li><a [routerLink]="['/empl']">Employees</a></li>
+        <li><a [routerLink]="['/cust']">Customers</a></li>
+      </ul>
+  </div>
+</header>
+
+<div class='container'>
+    <router-outlet></router-outlet>
+</div>
+
+<!-- <welcome></welcome>
+<formex></formex>
+<teams></teams>
+<customers></customers>
+<employees></employees> -->
