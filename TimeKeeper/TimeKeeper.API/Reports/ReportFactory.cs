@@ -169,17 +169,24 @@ namespace TimeKeeper.API.Reports
 
             pm.TotalHours = query.Days.Where(x => x.Date.Month == month && x.Date.Year == year && x.Type==DayType.WorkingDay).Sum(x => x.Hours);
             pm.Utilization = (pm.TotalHours / (daysInCurrentMonth*8)) * 100;
-            //pm.BradfordFactor = 
-
+            
             var days = query.Days.Where(x => x.Date.Month == month && x.Date.Year == year).OrderBy(x => x.Type).ToList();
-            days.Where(x => x.Type == DayType.WorkingDay).ToList().ForEach(x => pm.Days[x.Date.Day - 1] = "8");
+            days.Where(x => x.Type == DayType.WorkingDay).ToList().ForEach(x => pm.Days[x.Date.Day - 1] = x.Hours.ToString());
             days.Where(x => x.Type == DayType.PublicHoliday).ToList().ForEach(x => pm.Days[x.Date.Day - 1] = "PH");
             days.Where(x => x.Type == DayType.OtherAbsence).ToList().ForEach(x => pm.Days[x.Date.Day - 1] = "OA");
             days.Where(x => x.Type == DayType.ReligiousDay).ToList().ForEach(x => pm.Days[x.Date.Day - 1] = "RD");
             days.Where(x => x.Type == DayType.SickLeave).ToList().ForEach(x => pm.Days[x.Date.Day - 1] = "SL");
             days.Where(x => x.Type == DayType.Vacation).ToList().ForEach(x => pm.Days[x.Date.Day - 1] = "V");
             days.Where(x => x.Type == DayType.BusinessAbsence).ToList().ForEach(x => pm.Days[x.Date.Day - 1] = "BA");
-            
+            for(int i = 0; i<pm.Days.Length; i++)
+            {
+                if (pm.Days[i] == null)
+                {
+                    pm.Days[i] = "ME";
+                }
+            }
+            pm.BradfordFactor = (int)Math.Pow(pm.Days.Where(x => x == "ME").Count(),2) * GetWorkingDays(month,year,query);
+
             return pm;
         }
 
@@ -192,6 +199,9 @@ namespace TimeKeeper.API.Reports
             foreach (var emp in query.Team.Engagements.Select(x => new { x.Employee.Id, x.Employee.FullName, x.Employee.Days }))
             {
                 ProjectHistory ph = new ProjectHistory(lastYear - query.StartDate.Year + 1);
+                ph.FirstYear = query.StartDate.Year;
+                ph.LastYear = lastYear;
+                if (query.EndDate.HasValue) ph.LastYear = query.EndDate.Value.Year;
                 ph.Employee = emp.FullName;
                 ph.TotalHours = (int)emp.Days
                     .SelectMany(x => x.Details)

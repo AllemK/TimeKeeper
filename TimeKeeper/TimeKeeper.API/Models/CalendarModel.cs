@@ -62,7 +62,7 @@ namespace TimeKeeper.API.Models
                 {
                     Days[i].Type = 8;
                 }
-                if (Days[i].Date >= DateTime.Today)
+                if (Days[i].Date > DateTime.Today)
                 {
                     Days[i].Type = 9;
                 }

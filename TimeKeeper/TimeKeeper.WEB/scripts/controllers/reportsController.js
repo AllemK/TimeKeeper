@@ -12,6 +12,8 @@
                 })
             }
 
-            listProjectHistory(1);
+            $scope.getReport = function() {
+                listProjectHistory($scope.projectId);
+            }
         }])
 }());

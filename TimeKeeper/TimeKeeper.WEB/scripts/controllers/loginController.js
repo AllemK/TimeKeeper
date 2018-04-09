@@ -20,6 +20,9 @@
                     token:''
                 }
             }
+            function setLoader(flag){
+                $rootScope.waitForLoad = flag;
+            }
 
             startApp("loginBtn");
             function startApp(actionButton) {
@@ -57,7 +60,7 @@
                     'Content-Type': 'application/x-www-form-urlencoded',
                     'Authorization': 'Basic dGltZWtlZXBlcjokY2gwMGw='
                 };
-
+                setLoader(true);
                 $http({
                     method: 'POST',
                     url: timeConfig.idsUrl,
@@ -82,6 +85,7 @@
                         $rootScope.currentUser = data.data;
                         console.log(status);
                         localStorageService.set("currentUser", data.data);
+                        setLoader(false);
                         $location.path("/calendar");
                     });
                 })/*.otherwise(function (data, status, headers, config) {

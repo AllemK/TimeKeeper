@@ -11,7 +11,7 @@ namespace TimeKeeper.API.Controllers
     {
         public IHttpActionResult Get(int projectId)
         {
-            return Ok(new { list = TimeKeeperReports.ProjectHistory(projectId) });
+            return Ok(TimeKeeperReports.ProjectHistory(projectId));
         }
     }
 }

@@ -5,11 +5,20 @@
         function($rootScope, $scope, $uibModal, dataService, timeConfig){
             $scope.dayType = timeConfig.dayType;
             $scope.months = timeConfig.months;
-
             listCalendar($rootScope.currentUser.id,0,0);
-            dataService.list("employees?all",function(data){
-                $scope.people=data;
-            });
+            if($rootScope.currentUser.role.search("Lead")>=0 || $rootScope.currentUser.role.search("User")>=0){
+                for(i = 0; i<$rootScope.currentUser.teams.length; i++){
+                    dataService.list("employees?role="+$rootScope.currentUser.role+"&teamId="+$rootScope.currentUser.teams[i],function(data){
+                        console.log(data);
+                        $scope.people=data;
+                    });
+                }
+            }
+            else{
+                dataService.list("employees?role="+$rootScope.currentUser.role,function(data){
+                    $scope.people=data;
+                });
+            }
 
             $scope.buildCalendar = function(){
                 if($scope.employeeId === undefined)
