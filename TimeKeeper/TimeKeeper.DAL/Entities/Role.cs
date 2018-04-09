@@ -8,7 +8,13 @@ namespace TimeKeeper.DAL.Entities
     {
         Position,
         TeamRole,
-        AppRole
+    }
+
+    public enum AppRole
+    {
+        Admin,
+        Lead,
+        User
     }
 
     public class Role : BaseClass<string>
@@ -30,6 +36,8 @@ namespace TimeKeeper.DAL.Entities
         public decimal MonthlyRate { get; set; }
         [Required]
         public RoleType Type { get; set; }
+        [Required]
+        public AppRole AppRole { get; set; }
 
         public virtual ICollection<Employee> Employees { get; set; }
         public virtual ICollection<Engagement> Engagements { get; set; }

@@ -6,14 +6,10 @@
                 ng-value="person.id">{{person.name}}</option>
         </select>
     </div>
-    <div class="col-md-2">Year: <input type="number" class="form-control" ng-model="year" size="5" min="2016" max="2018"></div>
-    <div class="col-md-2">Month: <select class="form-control" ng-model="month"
-                                         ng-options="months.indexOf(ind) as ind for ind in months"></select></div>
-    <div class="col-md-1" style="margin-top:18px">
-        <button type="button"
-                class="btn btn-primary"
-                ng-click="buildCalendar()">LIST!
-        </button>
+    <div class="col-md-2">Year: <input type="number" class="form-control" ng-model="year" size="5" min="2016" max="2018" ng-change="buildCalendar()"></div>
+    <div class="col-md-2">Month: <select class="form-control" ng-model="month" ng-change="buildCalendar()"
+                                         ng-options="months.indexOf(ind) as ind for ind in months">
+                                </select>
     </div>
 </div>
 <hr>

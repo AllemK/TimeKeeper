@@ -248,8 +248,8 @@ namespace TimeKeeper.API.Models
                 {
                     Id = emp.Id,
                     Name = emp.FullName,
-                    Role = emp.Role.Name,
-                    Teams = emp.Engagements.Select(x => x.Team.Name).ToList(),
+                    Role = emp.Role.AppRole.ToString(),
+                    Teams = emp.Engagements.Select(x => x.Team.Id).ToList(),
                     Provider = provider
                 };
             }
