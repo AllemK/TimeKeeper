@@ -1,21 +1,36 @@
-<div class="col-md-4">
-    <div class="panel panel-primary">
-        <div class="panel-heading" ng-click="setcr()"><h4>Login</h4></div>
-        <div class="panel-body">
-            <div class="row" style="margin:12px 0">
-                <div class="col-md-4" style="text-align:right">Username: </div>
-                <div class="col-md-8"><input type="text" class="form-control" ng-model="user.name"></div>
+<div class="container">
+    <div class="row">
+        <div class="col-md-5"></div>
+        <div class="col-md-5">
+            <div class="panel panel-primary login-body">
+                <!--<div class="panel-heading no-display" ng-click="setcr()"><h4>Login</h4></div>-->
+                <div class="panel-body">
+                    <div style="position: relative">
+
+
+                        <div><img src="landing-page/images/logo-login.png" alt="" class="img-center"></div>
+                        <h1 class="login-title"><span style="color: #0487a5">Time</span>Keeper</h1>
+                        <div class="row" style="margin-top: 100px">
+                            <!--<div class="col-md-3" style="text-align:right">Username: </div>-->
+                            <div class="col-md-2"></div>
+                            <div class="col-md-9"><input type="text" class="form-control tk-control" ng-model="user.name" placeholder="Username"></div>
+                        </div>
+                        <div class="row" style="margin-top: 20px">
+                            <!--<div class="col-md-4" style="text-align:right">Password: </div>-->
+                            <div class="col-md-2"></div>
+                            <div class="col-md-9"><input type="password" class="form-control tk-control" ng-model="user.pass" placeholder="Password"></div>
+                        </div>
+                        <div style="margin-top: 70px; text-align: center">
+                            <button type="button" class="btn btn-primary tk-button"><a href="#!/adminDash" style="color: white">Sign in</a></button>
+                            <button type="button" class="btn btn-primary tk-button" id="googleLoginBtn">
+                                Google account
+                            </button>&nbsp;&nbsp;&nbsp;
+                        </div>
+
+                    </div>
+                </div>
+                <!--<div class="panel-footer"></div>-->
             </div>
-            <div class="row" style="margin:12px 0">
-                <div class="col-md-4" style="text-align:right">Password: </div>
-                <div class="col-md-8"><input type="password" class="form-control" ng-model="user.pass"></div>
-            </div>
-        </div>
-        <div class="panel-footer">
-            <button type="button" class="btn btn-primary" ng-click="login()">Sign in</button>&nbsp;&nbsp;&nbsp;
-            <button type="button" class="btn btn-primary" id="googleLoginBtn">
-                Sign in with Google
-            </button>&nbsp;&nbsp;&nbsp;
         </div>
     </div>
 </div>

@@ -28,6 +28,12 @@
                 controller: 'rolesController', loginRequired:true })
             .when('/calendar', {templateUrl: 'views/calendar/calendar.html',
                 controller: 'calendarController as $cal', loginRequired:true })
+
+            .when('/monthlyReport', {templateUrl: 'views/Reports/monthlyReport.html',
+                controller: 'monthlyReportController', loginRequired:false })
+            .when('/annualReport', {templateUrl: 'views/Reports/annualReport.html',
+                controller: 'annualReportController', loginRequired:false })
+
             .when('/login', {templateUrl: 'views/login.html',
                 controller: 'loginController', loginRequired:false })
             .otherwise({ redirectTo: '/login' });

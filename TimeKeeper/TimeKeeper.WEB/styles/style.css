@@ -181,6 +181,8 @@ hr {
 }
 .table {
     margin-top: 25px;
+    border-collapse: separate;
+    border: none;
 }
 
 .src-add {
@@ -252,6 +254,59 @@ hr {
     border-radius: 0px;
     border: 1px solid #0487a5;
 }
+
+.float-right {
+    float: right;
+}
+
+.chevron-margin-left {
+    margin-top: 23px;
+    margin-right: 10px;
+}
+
+.chevron-margin-right {
+    margin-top: 23px;
+    margin-left: 10px;
+}
+
+#tk-table tbody tr:nth-child(even) {background-color: rgba(0, 0, 0, 0.3);}
+
+#tk-table thead tr th:not(:first-child) {text-align: center;}
+#tk-table tbody tr td:not(:first-child) {text-align: center;}
+
+#tk-table thead#left tr th {text-align: left;}
+#tk-table tbody#left tr td {text-align: left;}
+
+
+#tk-table tbody tr:hover {
+    background-color: rgba(0, 0, 0, 0.6);
+    -webkit-transition: all .5s ease;
+    -moz-transition: all .5s ease;
+    -o-transition: all .5s ease;
+    transition: all .5s ease;
+}
+#tk-table th {background-color: rgba(255, 255, 255, 0.3);}
+
+#tk-table tbody td {
+    border: none;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+#tk-table th, #tk-table tfoot tr td {
+    border: none;
+}
+
+#tk-table tbody td {
+    color: white;
+    font-weight: 200;
+    font-size: 15px;
+}
+
+#tk-table tfoot {
+    background-color: rgba(255, 255, 255, 0.3);
+    text-align: center;
+}
+
 
 .view-title {
     font-weight: 200;
@@ -325,6 +380,53 @@ hr {
     -moz-transition: all .5s ease;
     -o-transition: all .5s ease;
     transition: all .5s ease;
+}
+
+/* ******************* Login ****************** */
+
+.login-body {
+    border: none;
+    border-radius: 0px;
+    background-color: rgba(0, 0, 0, 0.3);
+}
+
+.no-display {
+    display: none;
+}
+
+.img-center {
+    /*position: absolute;*/
+    /*left: 50%;*/
+    /*top: 20%;*/
+    margin-left: 50%;
+    margin-top: 30%;
+    transform: translate(-50%, -50%);
+}
+
+.login-title {
+    color: white;
+    font-size: 50px;
+    font-weight: 200;
+    text-align: center;
+    margin-top: -40px;
+}
+
+body > div.wrapper > div > div.col-md-10 > div > div > div > div > div:nth-child(2) > div > div > div > div:nth-child(3) > div.col-md-9 > input::-webkit-input-placeholder {
+    color: #0487a5;
+}
+
+body > div.wrapper > div > div.col-md-10 > div > div > div > div > div:nth-child(2) > div > div > div > div:nth-child(3) > div.col-md-9 > input {
+    background-color: rgba(255, 255, 255, 0.5);
+    border: none;
+}
+
+body > div.wrapper > div > div.col-md-10 > div > div > div > div > div:nth-child(2) > div > div > div > div:nth-child(4) > div.col-md-9 > input::-webkit-input-placeholder {
+    color: #0487a5;
+}
+
+body > div.wrapper > div > div.col-md-10 > div > div > div > div > div:nth-child(2) > div > div > div > div:nth-child(4) > div.col-md-9 > input {
+    background-color: rgba(255, 255, 255, 0.5);
+    border: none;
 }
 
 /* ******************** Navigation ******************** */
