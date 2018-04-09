@@ -1,0 +1,23 @@
+@import "~bootstrap/dist/css/bootstrap.css";
+@import '~font-awesome/css/font-awesome.css';
+
+li {
+    font-size: large;
+}
+
+div.panel-heading {
+   font-size: x-large;
+}
+
+header {
+    background-color: lightgray;
+    color: darkblue;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    z-index: 999;
+}
+
+body {
+    padding-top: 82px;
+}

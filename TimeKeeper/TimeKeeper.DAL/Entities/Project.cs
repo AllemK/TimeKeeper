@@ -1,14 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using TimeKeeper.Utility;
 
 namespace TimeKeeper.DAL.Entities
 {
-	public enum Pricing
+    public enum Pricing
 	{
 		HourlyRate = 1,
 		PerCapitaRate,

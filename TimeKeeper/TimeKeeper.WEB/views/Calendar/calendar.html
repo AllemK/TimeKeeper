@@ -1,4 +1,4 @@
- <div class="row">
+<div class="row">
         <div class="col-md-4"><h1 class="view-title">Calendar</h1></div>
             <div class="col-md-3 margin-top-20">
                 <select ng-model="employeeId" class="form-control tk-control"
@@ -9,10 +9,10 @@
                 </select>
             </div>
             <div class="col-md-2 margin-top-20">
-                <input type="number" placeholder="Year" class="form-control tk-control" ng-model="year" size="5" min="2016" max="2018">
+                <input type="number" placeholder="Year" class="form-control tk-control" ng-model="year" size="5" min="2016" max="2018" ng-change="buildCalendar()">
             </div>
             <div class="col-md-2 margin-top-20">
-                <select class="form-control tk-control" ng-model="month" ng-options="months.indexOf(ind) as ind for ind in months">
+                <select class="form-control tk-control" ng-model="month" ng-change="buildCalendar()" ng-options="months.indexOf(ind) as ind for ind in months">
                     <option value="" disabled selected hidden>Month</option>
                 </select>
             </div>

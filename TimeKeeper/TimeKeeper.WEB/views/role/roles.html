@@ -1,0 +1,62 @@
+<div class="row">
+    <div class="col-md-6">
+        <h1>Roles</h1>
+    </div>
+    <div class="src-add">
+        <div class="col-md-5">
+            <div class="input-group">
+                <input type="text" class="form-control" placeholder="Search for...">
+                <span class="input-group-btn">
+        <button class="btn btn-default" type="button">Search</button>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+        <h1>Roles</h1>
+    <div class="col-md-5">
+        <h2>Job title</h2>
+        <button type="button" class="btn btn-default pull-right" ng-click="add()">
+            <span class="glyphicon glyphicon-plus"></span></button>
+        <table class="table table-bordered">
+            <thead>
+            <tr>
+                <th>Code</th>
+                <th>Name</th>
+            </tr>
+            </thead>
+            <tbody ng-repeat="person in people">
+            <tr>
+                <td>{{person.code}}</td>
+                <td>{{person.name}}</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+        <div class="col-md-5">
+        <h2>Role in the team</h2>
+        <button type="button" class="btn btn-default pull-right" ng-click="add()">
+            <span class="glyphicon glyphicon-plus"></span></button>
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th>Code</th>
+                    <th>Name</th>
+                    <th>Hourly rate</th>
+                    <th>Monthly rate</th>
+                </tr>
+                </thead>
+                <tbody ng-repeat="person in people">
+                <tr>
+                    <td>{{person.code}}</td>
+                    <td>{{person.name}}</td>
+                    <td>{{person.hourlyRate}}</td>
+                    <td>{{person.monthlyRate}}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+</div>
+
+

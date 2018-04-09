@@ -1,6 +1,5 @@
 (function(){
-    var app = angular.module("timeKeeper", ["ngRoute", "ui.bootstrap", "toaster", "ngAnimate", "LocalStorageModule", 'chart.js']);
-    currentUser={};
+    var app = angular.module("timeKeeper", ["ngRoute", "ui.bootstrap", "toaster", "ngAnimate", "LocalStorageModule", "chart.js"]);
 
     app.constant("timeConfig", {
         apiUrl:"http://localhost:54283/api/",
@@ -36,14 +35,21 @@
 
             .when('/login', {templateUrl: 'views/login.html',
                 controller: 'loginController', loginRequired:false })
+            .when('/home',{templateUrl:'views/home.html',
+                controller: 'homeController', loginRequired:false })
+            .when('/adminDash',{templateUrl:'views/home.html',
+                controller: 'reportController', loginRequired:true })
+            .when('/projectHistory',{templateUrl:'views/reports/projectHistory.html',
+                controller: 'projectHistoryController', loginRequired:true })
             .otherwise({ redirectTo: '/login' });
         localStorageServiceProvider.setPrefix("timeKeeper").setStorageType("sessionStorage").setNotify(true,true)
     }])
         .run(['$rootScope', '$location', function($rootScope,$location){
         $rootScope.$on("$routeChangeStart", function(event, next, current){
-            console.log(currentUser.id);
-            // if(currentUser===undefined)
-            if(currentUser.id === 0 && next.$$route.loginRequired){
+            if($rootScope.currentUser===undefined){
+                $location.path("/login");
+            }
+            else if( $rootScope.currentUser.id===0 && next.$$route.loginRequired){
                 $location.path("/login");
             }
         })

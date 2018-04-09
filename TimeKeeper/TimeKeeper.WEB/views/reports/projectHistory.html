@@ -1,0 +1,35 @@
+<div class="row">
+    <div class="col-md-6">
+        <h1>Project history</h1>
+    </div>
+    <div class="col-md-4">
+        <select ng-model="projectId" class="form-control" ng-change="getReport()"
+                ng-options="project.id as project.name for project in projects"
+                ng-value="project.id">{{project.name}}
+        </select>
+    </div>
+</div>
+<div class="row" ng-show="projectId>0">
+    <div class="col-md-12">
+        <table class="table table-bordered" >
+            <thead>
+            <tr>
+                <th>Employee</th>
+                <th>Total hours</th>
+                <th ng-repeat="item in projectHistory | limitTo:projectHistory[0].lastYear-projectHistory[0].firstYear+1">{{item.firstYear+$index}}</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="item in projectHistory">
+                <td>{{item.employee}}</td>
+                <td>{{item.totalHours}}</td>
+                <td ng-repeat="year in item.yearlyHours track by $index">{{year}}</td>
+                <td > <a href="" ng-click="view()"><i class="glyphicon glyphicon-eye-open"></i></a></td>
+            </tr>
+            </tbody>
+        </table>
+        <div class="col-md-4" style="float: right">
+            <ul uib-pagination total-items="totalItems" ng-model="currentPage" ng-change="pageChanged()"></ul>
+        </div>
+    </div>
+</div>

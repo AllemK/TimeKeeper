@@ -199,6 +199,7 @@
     <Compile Include="Controllers\MembersController.cs" />
     <Compile Include="Controllers\MonthlyReportController.cs" />
     <Compile Include="Controllers\PersonalReportController.cs" />
+    <Compile Include="Controllers\ProjectHistoryController.cs" />
     <Compile Include="Controllers\ProjectsController.cs" />
     <Compile Include="Controllers\RolesController.cs" />
     <Compile Include="Controllers\TeamsController.cs" />
@@ -224,6 +225,7 @@
     <Compile Include="Reports\DashboardModel.cs" />
     <Compile Include="Reports\MonthlyModel.cs" />
     <Compile Include="Reports\PersonalModel.cs" />
+    <Compile Include="Reports\ProjectHistoryModel.cs" />
     <Compile Include="Reports\ReportFactory.cs" />
   </ItemGroup>
   <ItemGroup>

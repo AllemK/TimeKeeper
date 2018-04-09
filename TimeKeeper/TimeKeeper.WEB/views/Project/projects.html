@@ -1,15 +1,14 @@
 <div class="row">
     <div class="col-md-6">
-        <h1 class="view-title">Projects</h1>
-        <h2>{{message}}</h2>
+        <h1>Projects</h1>
     </div>
     <div class="src-add">
         <div class="col-md-5">
             <div class="input-group">
-                <input type="text" class="form-control" placeholder="Search for...">
+                <input type="text" class="form-control" placeholder="Search for..." ng-model="filter">
                 <span class="input-group-btn">
-        <button class="btn btn-default" type="button">Search</button>
-      </span>
+                    <button class="btn btn-default" type="button" ng-click="search(filter)">Search</button>
+                </span>
             </div>
         </div>
 

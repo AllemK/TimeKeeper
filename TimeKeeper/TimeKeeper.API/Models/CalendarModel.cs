@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Web;
-using System.Web.WebPages.Html;
 
 namespace TimeKeeper.API.Models
 {
@@ -66,7 +62,7 @@ namespace TimeKeeper.API.Models
                 {
                     Days[i].Type = 8;
                 }
-                if (Days[i].Date >= DateTime.Today)
+                if (Days[i].Date > DateTime.Today)
                 {
                     Days[i].Type = 9;
                 }
