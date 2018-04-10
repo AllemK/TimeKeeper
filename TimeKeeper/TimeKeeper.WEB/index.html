@@ -12,55 +12,54 @@
     <link href="styles/bootstrap.min.css" rel="stylesheet" />
     <link href="styles/style.css" rel="stylesheet" />
     <link rel="stylesheet" href="styles/fontawesome.min.css">
-    <link rel="stylesheet" href="styles/sweetalert.min.css">
     <link rel="stylesheet" href="styles/toaster.min.css">
+    <link rel="stylesheet" href="styles/sweetalert.min.css">
     <link href="https://fonts.googleapis.com/css?family=Work+Sans:100,200,300,400" rel="stylesheet">
+
+    <!-- Latest compiled and minified CSS -->
+    <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">-->
+    <!-- Optional theme -->
+    <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">-->
+    <!--<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>-->
+    <!--&lt;!&ndash; Latest compiled and minified JavaScript &ndash;&gt;-->
+    <!--<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>-->
 
     <script src="library/angular.min.js"></script>
     <script src="library/angular-route.min.js"></script>
     <script src="library/angular-animate.min.js"></script>
-    <script src="library/angular-local-storage.min.js"></script>
     <script src="library/ui-bootstrap-tpls.min.js"></script>
     <script src="library/sweetalert.min.js"></script>
     <script src="library/toaster.min.js"></script>
+	<script src="library/angular-local-storage.min.js"></script>
+
+
     <script src="node_modules/chart.js/dist/Chart.min.js"></script>
     <script src="node_modules/angular-chart.js/dist/angular-chart.min.js"></script>
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-    <script src="https://apis.google.com/js/platform.js"></script>
-    <script src="library/landing-bootstrap.min.js"></script>
+    <script src="landing-page/landing-bootstrap.min.js"></script>
+    
 
     <script src="scripts/app.js"></script>
     <script src="scripts/services/dataService.js"></script>
     <script src="scripts/services/infoService.js"></script>
+    <script src="scripts/controllers/adminDashController.js"></script>
     <script src="scripts/controllers/teamsController.js"></script>
     <script src="scripts/controllers/customersController.js"></script>
     <script src="scripts/controllers/projectsController.js"></script>
     <script src="scripts/controllers/employeesController.js"></script>
     <script src="scripts/controllers/calendarController.js"></script>
     <script src="scripts/controllers/loginController.js"></script>
+	<script src="scripts/controllers/reportsController.js"></script>
     <script src="scripts/directives/customerDirective.js"></script>
-    <script src="scripts/controllers/reportsController.js"></script>
+
+    <script src="https://apis.google.com/js/platform.js"></script>
+	<meta name="google-signin-client_id" content="53671047349-a7u8e0u88vdhqp10tb0833durqo9jdnt.apps.googleusercontent.com">
+    <!-- <meta name="google-signin-client_id" content="581026480250-gtepo3eggs5ljii1val9l0uh3jd61fo3.apps.googleusercontent.com"> -->
 </head>
 
 <body>
-<!--
-<header>
-    <div class="container">
-        <div class="pull-left"><h2>Time Keeper</h2></div>
-        <div class="pull-right" style="margin-top:24px">
-            <a href="#!/calendar" ng-hide="currentUser.role.include('Admin,Lead,User')"><button class="btn btn-primary">About</button></a>
-            <a href="#!/calendar" ng-show="currentUser.role.include('Admin,Lead,User')"><button class="btn btn-primary">Calendar</button></a>
-            <a href="#!/customers" ng-show="currentUser.role==='Admin'"><button class="btn btn-primary">Customers</button></a>
-            <a href="#!/employees" ng-show="currentUser.role==='Admin'"><button class="btn btn-primary">Employees</button></a>
-            <a href="#!/projects" ng-show="currentUser.role==='Admin'"><button class="btn btn-primary">Projects</button></a>
-            <a href="#!/roles" ng-show="currentUser.role==='Admin'"><button class="btn btn-primary">Roles</button></a>
-            <a href="#!/teams" ng-show="currentUser.role==='Admin'"><button class="btn btn-primary">Teams</button></a>
-            <span ng-show="currentUser.id===0"><a href="#!/login"><button class="btn btn-warning">Login</button></a></span>
-            <span ng-show="currentUser.id!==0" ng-controller="logoutController"><a href=""><button class="btn btn-warning" ng-click="logout()">Logout</button></a></span>
-        </div>
-    </div>
-</header>
--->
+
 <nav class="navbar navbar-fixed-top" ng-show="currentUser.id!==0">
     <div class="container-fluid">
         <div class="navbar-header">
@@ -71,7 +70,7 @@
                 <span class="icon-bar"></span>
             </button>
             <a class="navbar-brand" href="#"><span class="turq">Time</span>Keeper</a>
-            <span ng-show="currentUser.id===0"><a href="#!/login"><button class="btn btn-warning">Login</button></a></span>
+			<span ng-show="currentUser.id===0"><a href="#!/login"><button class="btn btn-warning">Login</button></a></span>
             <span ng-show="currentUser.id!==0" ng-controller="logoutController"><a href=""><button class="btn btn-warning" ng-click="logout()">Logout</button></a></span>
         </div>
 
@@ -106,7 +105,7 @@
 
 <div class="wrapper">
     <div class="row">
-        <div class="col-md-2"  ng-show="currentUser.id!==0">
+        <div class="col-md-2" ng-if="currentUser.id!==0">
             <div id="sidebar-wrapper">
                 <div id="sidebar">
                     <ul id="sidemenu" class="sidebar-nav">
@@ -127,35 +126,35 @@
                             </a>
                         </li>
                         <li class="real">
-                            <a href="#!/customers" ng-show="currentUser.role==='Admin'">
+                            <a href="#!/customers">
                                 <!--<span class="sidebar-icon"><i class="fa fa-dashboard"></i></span>-->
                                 <span class="sidebar-icon"><img src="images/icons/3-customers.png" alt=""></span>
                                 <span class="sidebar-title">Customers</span>
                             </a>
                         </li>
                         <li class="real">
-                            <a href="#!/projects" ng-show="currentUser.role==='Admin'">
+                            <a href="#!/projects">
                                 <!--<span class="sidebar-icon"><i class="fa fa-dashboard"></i></span>-->
                                 <span class="sidebar-icon"><img src="images/icons/5-projects.png" alt=""></span>
                                 <span class="sidebar-title">Projects</span>
                             </a>
                         </li>
                         <li class="real">
-                            <a href="#!/employees" ng-show="currentUser.role==='Admin'">
+                            <a href="#!/employees">
                                 <!--<span class="sidebar-icon"><i class="glyphicon glyphicon-user"></i></span>-->
                                 <span class="sidebar-icon"><img src="images/icons/2-employees.png" alt=""></span>
                                 <span class="sidebar-title">Employees</span>
                             </a>
                         </li>
                         <li class="real">
-                            <a href="#!/teams" ng-show="currentUser.role==='Admin'">
+                            <a href="#!/teams">
                                 <!--<span class="sidebar-icon"><i class="fa fa-dashboard"></i></span>-->
                                 <span class="sidebar-icon"><img src="images/icons/3-teams.png" alt=""></span>
                                 <span class="sidebar-title">Teams</span>
                             </a>
                         </li>
                         <li class="real">
-                            <a href="#!/" ng-show="currentUser.role==='Admin'">
+                            <a href="#!/">
                                 <!--<span class="sidebar-icon"><i class="fa fa-dashboard"></i></span>-->
                                 <span class="sidebar-icon"><img src="images/icons/7-invoice.png" alt=""></span>
                                 <span class="sidebar-title">Invoices</span>
@@ -169,8 +168,8 @@
                                 <b class="caret"></b>
                             </a>
                             <ul id="submenu-5" class="panel-collapse collapse panel-switch" role="menu">
-                                <li><a href="#!/"><i class="fa fa-caret-right"></i>Monthly report</a></li>
-                                <li><a href="#!/"><i class="fa fa-caret-right"></i>Annual report</a></li>
+                                <li><a href="#!/monthlyReport"><i class="fa fa-caret-right"></i>Monthly report</a></li>
+                                <li><a href="#!/annualReport"><i class="fa fa-caret-right"></i>Annual report</a></li>
                                 <li><a href="#!/projectHistory"><i class="fa fa-caret-right"></i>Project history</a></li>
                             </ul>
                         </li>
@@ -191,8 +190,11 @@
 <footer>
     <div>Copyright &copy; by Gigi School</div>
 </footer>
+
 <toaster-container></toaster-container>
+
 <div id="loader" ng-show="waitForLoad"><div id="spinner"></div></div>
+
 <script type="text/javascript">
     $(document).ready(function () {
         $('#sidebar-wrapper .sidebar-nav li.real').on('click', function () {
@@ -201,5 +203,6 @@
         });
     });
 </script>
+
 </body>
 </html>

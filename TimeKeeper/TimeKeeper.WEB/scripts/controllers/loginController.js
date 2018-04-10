@@ -86,7 +86,7 @@
                         console.log(status);
                         localStorageService.set("currentUser", data.data);
                         setLoader(false);
-                        $location.path("/calendar");
+                        $location.path("/adminDash");
                     });
                 })/*.otherwise(function (data, status, headers, config) {
                     console.log('ERROR: ' + status);
