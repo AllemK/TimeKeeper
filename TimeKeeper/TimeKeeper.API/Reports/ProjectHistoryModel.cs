@@ -9,13 +9,23 @@ namespace TimeKeeper.API.Reports
     {
         public int FirstYear { get; set; }
         public int LastYear { get; set; }
+        public ICollection<YearlyHours> YearlyHours { get; set; }
+
+        public ProjectHistory()
+        {
+            YearlyHours = new List<YearlyHours>();
+        }
+    }
+
+    public class YearlyHours
+    {
         public int TotalHours { get; set; }
         public string Employee { get; set; }
-        public int[] YearlyHours { get; set; }
+        public int[] Hours { get; set; }
 
-        public ProjectHistory(int years)
+        public YearlyHours(int years)
         {
-            YearlyHours = new int[years];
+            Hours = new int[years];
         }
     }
 }

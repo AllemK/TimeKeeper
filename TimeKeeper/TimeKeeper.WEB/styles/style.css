@@ -104,7 +104,8 @@ hr {
 }
 
 .custImage {
-    width: 120px;
+    width: 75px;
+    height: 75px;
     float: left;
     margin: 0 12px;
 }
@@ -187,6 +188,8 @@ hr {
 }
 .table {
     margin-top: 25px;
+    border-collapse: separate;
+    border: none;
 }
 /*------------------------*/
 
@@ -531,7 +534,7 @@ hr {
     height: 100%;
     z-index: 999;
     background-color: white;
-    opacity: .75;
+    opacity: .15;
 }
 
 #spinner{
@@ -552,3 +555,51 @@ hr {
     100% {transform: rotate(360deg);}
 }
 /*-------------------*/
+
+/* ******************* Login ****************** */
+
+.login-body {
+    border: none;
+    border-radius: 0px;
+    background-color: rgba(0, 0, 0, 0.3);
+}
+
+.no-display {
+    display: none;
+}
+
+.img-center {
+    /*position: absolute;*/
+    /*left: 50%;*/
+    /*top: 20%;*/
+    margin-left: 50%;
+    margin-top: 30%;
+    transform: translate(-50%, -50%);
+}
+
+.login-title {
+    color: white;
+    font-size: 50px;
+    font-weight: 200;
+    text-align: center;
+    margin-top: -40px;
+}
+
+body > div.wrapper > div > div.col-md-10 > div > div > div > div > div:nth-child(2) > div > div > div > div:nth-child(3) > div.col-md-9 > input::-webkit-input-placeholder {
+    color: #0487a5;
+}
+
+body > div.wrapper > div > div.col-md-10 > div > div > div > div > div:nth-child(2) > div > div > div > div:nth-child(3) > div.col-md-9 > input {
+    background-color: rgba(255, 255, 255, 0.5);
+    border: none;
+}
+
+body > div.wrapper > div > div.col-md-10 > div > div > div > div > div:nth-child(2) > div > div > div > div:nth-child(4) > div.col-md-9 > input::-webkit-input-placeholder {
+    color: #0487a5;
+}
+
+body > div.wrapper > div > div.col-md-10 > div > div > div > div > div:nth-child(2) > div > div > div > div:nth-child(4) > div.col-md-9 > input {
+    background-color: rgba(255, 255, 255, 0.5);
+    border: none;
+}
+/*------------------------------------*/

@@ -8,6 +8,7 @@
             });
             function listProjectHistory(projectId){
                 dataService.list("projectHistory?projectId="+projectId,function(data){
+                    console.log(data);
                     $scope.projectHistory = data;
                 })
             }

@@ -43,24 +43,6 @@
 </head>
 
 <body>
-<!--
-<header>
-    <div class="container">
-        <div class="pull-left"><h2>Time Keeper</h2></div>
-        <div class="pull-right" style="margin-top:24px">
-            <a href="#!/calendar" ng-hide="currentUser.role.include('Admin,Lead,User')"><button class="btn btn-primary">About</button></a>
-            <a href="#!/calendar" ng-show="currentUser.role.include('Admin,Lead,User')"><button class="btn btn-primary">Calendar</button></a>
-            <a href="#!/customers" ng-show="currentUser.role==='Admin'"><button class="btn btn-primary">Customers</button></a>
-            <a href="#!/employees" ng-show="currentUser.role==='Admin'"><button class="btn btn-primary">Employees</button></a>
-            <a href="#!/projects" ng-show="currentUser.role==='Admin'"><button class="btn btn-primary">Projects</button></a>
-            <a href="#!/roles" ng-show="currentUser.role==='Admin'"><button class="btn btn-primary">Roles</button></a>
-            <a href="#!/teams" ng-show="currentUser.role==='Admin'"><button class="btn btn-primary">Teams</button></a>
-            <span ng-show="currentUser.id===0"><a href="#!/login"><button class="btn btn-warning">Login</button></a></span>
-            <span ng-show="currentUser.id!==0" ng-controller="logoutController"><a href=""><button class="btn btn-warning" ng-click="logout()">Logout</button></a></span>
-        </div>
-    </div>
-</header>
--->
 <nav class="navbar navbar-fixed-top" ng-show="currentUser.id!==0">
     <div class="container-fluid">
         <div class="navbar-header">

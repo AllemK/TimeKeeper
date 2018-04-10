@@ -2,11 +2,8 @@
     <h1 class="tk-m-title col-md-6">Customers</h1>
     <div class="src-add">
         <div class="col-md-5">
-            <div class="input-group">
-                <input type="text" class="form-control" placeholder="Search for..." ng-model="filter">
-                <span class="input-group-btn">
-                    <button class="btn btn-default" type="button" ng-click="search(filter)">Search</button>
-                </span>
+            <div class="input-group" style="width: 100%">
+                <input type="text" class="form-control" placeholder="Search for..." ng-model="filter" ng-change="search(filter)">
             </div>
         </div>
     </div>
