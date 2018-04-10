@@ -89,7 +89,7 @@
                         $rootScope.currentUser = data.data;
                         localStorageService.set("currentUser", data.data);
                         setLoader(false);
-                        $location.path("/calendar");
+                        $location.path("/adminDash");
                     });
                 }, function(error){
                     console.log(error);

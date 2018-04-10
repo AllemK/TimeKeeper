@@ -1,6 +1,5 @@
 (function(){
     var app = angular.module("timeKeeper", ["ngRoute", "ui.bootstrap", "toaster", "ngAnimate", "LocalStorageModule", "chart.js"]);
-    //currentUser = {};
 
     app.constant("timeConfig", {
         apiUrl:"http://localhost:54283/api/",
@@ -14,6 +13,8 @@
 
     app.config(['$routeProvider', "localStorageServiceProvider", function($routeProvider, localStorageServiceProvider) {
         $routeProvider
+			.when('/adminDash', {templateUrl: 'views/dashboard/adminDash.html',
+                controller: 'adminDashController', loginRequired:true })
             .when('/teams',     { templateUrl: 'views/team/teams.html',
                 controller: 'teamsController', loginRequired:true })
             .when('/employees', { templateUrl: 'views/employee/employees.html',
@@ -26,12 +27,18 @@
                 controller: 'rolesController', loginRequired:true })
             .when('/calendar', {templateUrl: 'views/calendar/calendar.html',
                 controller: 'calendarController as $cal', loginRequired:true })
+
+            .when('/monthlyReport', {templateUrl: 'views/Reports/monthlyReport.html',
+                controller: 'monthlyReportController', loginRequired:false })
+            .when('/annualReport', {templateUrl: 'views/Reports/annualReport.html',
+                controller: 'annualReportController', loginRequired:false })
+
             .when('/login', {templateUrl: 'views/login.html',
                 controller: 'loginController', loginRequired:false })
-            .when('/home',{templateUrl:'views/home.html',
-                controller: 'homeController', loginRequired:false })
-            .when('/adminDash',{templateUrl:'views/home.html',
-                controller: 'reportController', loginRequired:true })
+            // .when('/home',{templateUrl:'views/home.html',
+            //     controller: 'homeController', loginRequired:false })
+            // .when('/adminDash',{templateUrl:'views/home.html',
+            //     controller: 'reportController', loginRequired:true })
             .when('/projectHistory',{templateUrl:'views/reports/projectHistory.html',
                 controller: 'projectHistoryController', loginRequired:true })
             .otherwise({ redirectTo: '/login' });

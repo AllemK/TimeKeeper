@@ -70,6 +70,30 @@
                 }
             })
         }
+
+        $scope.clickwar = function(data) {
+            swal({
+                    title: data.name,
+                    text: "Are you sure you want to delete " + data.name + " project?",
+                    type: "warning",
+                    showCancelButton: true,
+                    customClass: "sweetClass",
+                    confirmButtonText: "Yes, sure",
+                    cancelButtonText: "No, not ever!",
+                    closeOnConfirm: false,
+                    closeOnCancel: true
+                },
+
+                function (isConfirm) {
+                    if (isConfirm) {
+                        dataService.delete("projects",data.id,function () {
+                        });
+                        console.log(data.name + ": project deleted.");
+                        swal.close();
+                        //$scope.$emit("Projectsupdated");  - live update
+                    }
+                });
+        }
     }]);
 
     app.controller('projModalCtrl', ['$uibModalInstance', '$scope', 'dataService', 'project',
