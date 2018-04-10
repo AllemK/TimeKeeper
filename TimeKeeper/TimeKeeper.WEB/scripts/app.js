@@ -35,10 +35,10 @@
 
             .when('/login', {templateUrl: 'views/login.html',
                 controller: 'loginController', loginRequired:false })
-            .when('/home',{templateUrl:'views/home.html',
-                controller: 'homeController', loginRequired:false })
-            .when('/adminDash',{templateUrl:'views/home.html',
-                controller: 'reportController', loginRequired:true })
+            // .when('/home',{templateUrl:'views/home.html',
+            //     controller: 'homeController', loginRequired:false })
+            // .when('/adminDash',{templateUrl:'views/home.html',
+            //     controller: 'reportController', loginRequired:true })
             .when('/projectHistory',{templateUrl:'views/reports/projectHistory.html',
                 controller: 'projectHistoryController', loginRequired:true })
             .otherwise({ redirectTo: '/login' });
