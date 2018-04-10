@@ -23,11 +23,12 @@ namespace TimeKeeper.API.Controllers
                     .ToList();
                 return Ok(list);
             }
-            if(role.Contains("Lead,User"))
+            if(role.Contains("User")||role.Contains("Lead"))
             {
                 var list = TimeKeeperUnit.Engagements.Get()
                     .Where(x=>x.Team.Id==teamId)
                     .OrderBy(x => x.Employee.FirstName)
+                    .ToList()
                     .Select(x => new { x.Employee.Id, Name = x.Employee.FullName })
                     .ToList();
                 return Ok(list);

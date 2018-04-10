@@ -248,7 +248,7 @@ namespace TimeKeeper.API.Models
                 {
                     Id = emp.Id,
                     Name = emp.FullName,
-                    Role = emp.Role.AppRole.ToString(),
+                    Role = emp.Engagements.Where(x=>x.Role.Id=="TL").Count()>1 ? "Lead":emp.Role.AppRole.ToString(),
                     Teams = emp.Engagements.Select(x => x.Team.Id).ToList(),
                     Provider = provider
                 };

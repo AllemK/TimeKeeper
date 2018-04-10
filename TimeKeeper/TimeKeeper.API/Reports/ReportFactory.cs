@@ -190,32 +190,27 @@ namespace TimeKeeper.API.Reports
             return pm;
         }
 
-        public List<ProjectHistory> ProjectHistory(int projectId)
+        public ProjectHistory ProjectHistory(int projectId)
         {
-            List<ProjectHistory> list = new List<ProjectHistory>();
             var query = TimeKeeperUnit.Projects.Get(projectId);
             int lastYear = DateTime.Today.Year;
             if (query.EndDate.HasValue) lastYear = query.EndDate.Value.Year;
-            foreach (var emp in query.Team.Engagements.Select(x => new { x.Employee.Id, x.Employee.FullName, x.Employee.Days }))
-            {
-                ProjectHistory ph = new ProjectHistory(lastYear - query.StartDate.Year + 1);
-                ph.FirstYear = query.StartDate.Year;
-                ph.LastYear = lastYear;
-                if (query.EndDate.HasValue) ph.LastYear = query.EndDate.Value.Year;
-                ph.Employee = emp.FullName;
-                ph.TotalHours = (int)emp.Days
-                    .SelectMany(x => x.Details)
-                    .Where(x => x.Project.Id == projectId)
-                    .Sum(x => x.Hours);
 
-                for (int i = 0; i < ph.YearlyHours.Length; i++)
+            ProjectHistory ph = new ProjectHistory();
+            ph.FirstYear = query.StartDate.Year;
+            ph.LastYear = lastYear;
+            foreach(var emp in query.Details.GroupBy(x => x.Day.Employee))
+            {
+                YearlyHours item = new YearlyHours(lastYear - query.StartDate.Year + 1);
+                item.Employee = emp.Key.FullName;
+                item.TotalHours = (int)emp.Sum(x => x.Hours);
+                for(int i = 0;i<item.Hours.Length; i++)
                 {
-                    ph.YearlyHours[i] = (int)emp.Days.Where(x => x.Date.Year == (query.StartDate.Year + i))
-                        .SelectMany(x => x.Details).Where(x => x.Project.Id == projectId).Sum(x=>x.Hours);
+                    item.Hours[i] = (int)emp.Where(x => x.Day.Date.Year == ph.FirstYear + i).Sum(x => x.Hours);
                 }
-                list.Add(ph);
+                ph.YearlyHours.Add(item);
             }
-            return list;
+            return ph;
         }
 
         public int GetWorkingDays(int year, int month, Employee query)

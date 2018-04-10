@@ -5,10 +5,10 @@
     app.controller("loginController", ["$scope", "$rootScope", "$http", "$location", "timeConfig", "localStorageService",
         function($scope, $rootScope, $http, $location, timeConfig, localStorageService) {
             $rootScope.currentUser = localStorageService.get("currentUser");
-            $rootScope.token = localStorageService.get("access_token");
-            if($rootScope.token!==null){
-                $http.defaults.headers.common.Authorization = "Bearer " + $rootScope.token;
-                $http.defaults.headers.common.Provider = "iserver";
+            var token = localStorageService.get("access_token");
+            if(token!==null){
+                $http.defaults.headers.common.Authorization = "Bearer " + token;
+                $http.defaults.headers.common.Provider = localStorageService.get("Provider");
             }
             if(localStorageService.get("currentUser")===null){
                 $rootScope.currentUser = {
@@ -38,11 +38,13 @@
                 auth2.attachClickHandler(element, {}, function (googleUser) {
 
                     var authToken = googleUser.getAuthResponse().id_token;
+                    localStorageService.set("access_token",authToken);
+                    localStorageService.set("Provider","google");
                     $http.defaults.headers.common.Authorization = "Bearer " + authToken;
                     $http.defaults.headers.common.Provider = "google";
                     $http({method: "post", url: timeConfig.apiUrl + 'login'})
                         .then(function (response) {
-                            $rootScope.currentUser = response.data;
+                            localStorageService.set("currentUser",response.data);
                         }, function (error) {
                             window.alert(error.message);
                         });
@@ -74,8 +76,10 @@
                         return str.join("&");
                     }
                 }).then(function (data, status, headers, config) {
+                    console.log(status,headers,config);
                     var authToken = data.data.access_token;
                     localStorageService.set("access_token",authToken);
+                    localStorageService.set("Provider","iserver");
                     $http.defaults.headers.common.Authorization = 'Bearer ' + authToken;
                     $http.defaults.headers.common.Provider = "iserver";
                     $http({
@@ -83,14 +87,26 @@
                         url: timeConfig.apiUrl + 'login'
                     }).then(function(data, status, headers, config){
                         $rootScope.currentUser = data.data;
-                        console.log(status);
                         localStorageService.set("currentUser", data.data);
                         setLoader(false);
                         $location.path("/adminDash");
                     });
-                })/*.otherwise(function (data, status, headers, config) {
-                    console.log('ERROR: ' + status);
-                });*/
+                }, function(error){
+                    console.log(error);
+                    swal({
+                        title: "Error logining in",
+                        text: error.data.error_description,
+                        type: "warning",
+                        customClass: "sweetClass",
+                        confirmButtonText: "Ok",
+                        closeOnConfirm: false
+                    }, function (isConfirm) {
+                        if (isConfirm) {
+                            swal.close();
+                        }
+                    });
+                    setLoader(false);
+                })
             };
         }]);
 
