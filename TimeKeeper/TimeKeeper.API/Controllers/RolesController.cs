@@ -1,16 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Web.Http;
 using TimeKeeper.API.Helper;
-using TimeKeeper.Utility;
-using TimeKeeper.DAL.Entities;
 using TimeKeeper.API.Models;
+using TimeKeeper.DAL.Entities;
+using TimeKeeper.Utility;
 
 namespace TimeKeeper.API.Controllers
 {
+    [TimeKeeperAuth(Roles: "Admin")]
     public class RolesController : BaseController
     {
         /// <summary>

@@ -1,9 +1,3 @@
-/* ------------------------------------------------------------ */
-
-/* BASIC */
-
-/* ------------------------------------------------------------ */
-
 html {
     min-height: 100%;
 }
@@ -18,7 +12,7 @@ body {
     /*overflow-y: hidden;*/
     /*padding-top: 78px;*/
     /*padding-bottom: 32px;*/
-    background-image: url("img/Web 1920 – 1.jpg");
+    background-image: url("../images/bg-main.jpg");
     background-size: cover;
     background-position: center center;
     background-attachment: fixed;
@@ -26,6 +20,10 @@ body {
 
 .turq {
     color: #0487a5;
+}
+
+.white {
+    color: white;
 }
 
 header, footer {
@@ -48,13 +46,17 @@ footer {
 hr {
     border: 0;
     margin: 12px 0;
-    height: 3px;
-    background-color: #00C;
+    height: 2px;
+    background-color: #045fa5;
     opacity: 0.5;
 }
 
-h1 {
-    color: #fff!important;
+.turq {
+    color: #0487a5;
+}
+
+.white {
+    color: white;
 }
 
 .grid {
@@ -68,15 +70,332 @@ h1 {
 .label {
     text-align: right;
     padding: 8px;
-    color: black!important;
+    color: black;
+}
+
+.modal-header {
+    background-color: #0487a5;
+    color: white;
+    border: solid 1px #369;
+}
+
+.tk-m-title {
+    font-weight: 200;
+    color: white;
+}
+
+.modal-footer {
+    background-color: #0487a5;
+}
+
+@media (min-width: 992px) {
+    .modal-lg {
+        width: 900px;
+        border: 1px solid #0487a5;
+    }
+}
+
+.modal-dialog {
+    width: 900px;
+}
+
+/*CUSTOMER STYLE*/
+.custFrame {
+    display: table;
+    float: left;
+    margin: 6px;
+    padding: 8px;
+    border: solid blue 2px;
+    background-color: white;
+    width:235px;
+    height: 150px
+}
+
+.custImage {
+    width: 75px;
+    height: 75px;
+    float: left;
+    margin: 0 12px;
+}
+
+.custData {
+    float: left;
+}
+
+.custTitle {
+    font-size: 1.2em;
+}
+
+.custNav {
+    float: right;
+}
+/*----------------------*/
+
+.modal-header {
+    background-color: #0487a5;
+    color: white;
+    border: solid 1px #369;
+}
+
+.tk-m-title {
+    font-weight: 200;
+    color: white;
+}
+
+.modal-footer {
+    background-color: #0487a5;
+}
+
+@media (min-width: 992px) {
+    .modal-lg {
+        width: 900px;
+        border: 1px solid #0487a5;
+    }
+}
+
+.modal-dialog {
+    width: 900px;
 }
 
 
-/* ------------------------------------------------------------ */
+/*CALENDAR STYLE*/
 
-/* NAVIGATION */
+.calendar {
+    width: 574px;
+    height: 502px;
+    background-color: rgba(255, 255, 255, 0.2);
+    margin-left: auto;
+    margin-right: auto;
+}
 
-/* ------------------------------------------------------------ */
+.day {
+    float:left;
+    width:72px;
+    height:72px;
+    border: 1px solid black;
+    padding: 4px;
+    margin: 4px;
+    color: white;
+}
+
+.spaceholder {
+    background-color: transparent;
+    border: 0;
+}
+
+.dayhours {
+    float: right;
+    font-size: 2.5em;
+}
+
+.day .empty {
+    color: black;
+}
+
+.weekend {
+    background-color: red;
+}
+.future {
+    background-color: lightgray;
+}
+.empty {
+    background-color: white;
+}
+.workingday {
+    background-color: green;
+}
+.publicholiday {
+    background-color: darkred;
+}
+.otherabsence {
+    background-color: black;
+}
+.religiousday {
+    background-color: lightblue;
+}
+.sickleave {
+    background-color: darkgreen;
+}
+.vacation {
+    background-color: orange;
+}
+.businessabsence {
+    background-color: darkgray;
+}
+.table {
+    margin-top: 25px;
+    border-collapse: separate;
+    border: none;
+}
+/*------------------------*/
+
+.src-add {
+    width: 96%;
+    margin-top: 25px;
+}
+
+/* TEAMS STYLE */
+.teaFrame {
+    display: table;
+    float: left;
+    margin: 6px;
+    padding: 8px;
+    border: solid #003454 2px;
+    width: 235px;
+    height: 150px;
+    background-color: #fff;
+    position: relative;
+}
+
+.teaFrame i {
+    font-size: 20px;
+}
+
+.teaImage {
+    max-width: 30%;
+    float: left;
+    margin-top: 10px;
+    margin-left: 10px;
+}
+
+.teaData {
+    float: right;
+    margin-top: 10px;
+    margin-left: 10px;
+}
+
+.teaTitle {
+    font-size: 1.2em;
+}
+
+.teaNav  {
+    position: absolute;
+    top: 125px;
+    right: 5px;
+    height: 100px;
+
+}
+
+.tmProfImg {
+    width: 75%;
+    margin-top: 25px;
+    margin-right: auto;
+    margin-left: auto;
+    display: block;
+}
+
+.teamPag{
+    font-size: 50px;
+    margin-top: 25px;
+}
+
+.tmProfHead {
+    background-color: #003454;
+    opacity: .50;
+    color: #a5a4bf;
+    padding: 10px 30px;
+}
+
+.tmNameWhenClicked {
+    font-size: 25px;
+    text-align: center;
+}
+
+.tmDescWhenClicked {
+    padding: 10px;
+}
+
+.addEmpBtn {
+    float: right;
+    font-size: 50px;
+    margin-top: 170px;
+}
+/*--------------*/
+
+.margin-top-20 {
+    margin-top: 20px;
+}
+
+.no-radius {
+    border-radius: 0px;
+    border: 1px solid #0487a5;
+}
+
+.view-title {
+    font-weight: 200;
+    color: white;
+}
+
+.tk-control {
+    border-radius: 0px;
+    border-color: #0487a5;
+    /*color: #0487a5;*/
+    height: 40px;
+}
+
+.tk-button {
+    background-color: rgba(0, 0, 0, 0.2);
+    color: white;
+    font-weight: 300;
+    font-size: 18px;
+    letter-spacing: 1px;
+    border: 1px solid white;
+    border-radius: 0px;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.tk-button:hover {
+    background-color: #0487a5;
+    -webkit-transition: all .5s ease;
+    -moz-transition: all .5s ease;
+    -o-transition: all .5s ease;
+    transition: all .5s ease;
+}
+
+.tk-button-red {
+    background-color: rgba(0, 0, 0, 0.2);
+    color: white;
+    font-weight: 300;
+    font-size: 18px;
+    letter-spacing: 1px;
+    border: 1px solid white;
+    border-radius: 0px;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.tk-button-red:hover {
+    background-color: #0487a5;
+    border: 1px solid red;
+    -webkit-transition: all .5s ease;
+    -moz-transition: all .5s ease;
+    -o-transition: all .5s ease;
+    transition: all .5s ease;
+}
+
+.tk-button-green {
+    background-color: rgba(0, 0, 0, 0.2);
+    color: white;
+    font-weight: 300;
+    font-size: 18px;
+    letter-spacing: 1px;
+    border: 1px solid white;
+    border-radius: 0px;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.tk-button-green:hover {
+    background-color: #0487a5;
+    border: 1px solid green;
+    -webkit-transition: all .5s ease;
+    -moz-transition: all .5s ease;
+    -o-transition: all .5s ease;
+    transition: all .5s ease;
+}
+
+/* ******************** Navigation ******************** */
 
 .navbar-fixed-top {
     top: 0;
@@ -92,20 +411,12 @@ h1 {
     font-size: 25px;
 }
 
-@-webkit-keyframes spin{
-    0%   {-webkit-transform: rotate(0deg);transform: rotate(0deg);}
-    100% {-webkit-transform: rotate(360deg);transform: rotate(360deg);}
-}
-
-@keyframes spin{
-    0%   {-webkit-transform: rotate(0deg);transform: rotate(0deg);}
-    100% {-webkit-transform: rotate(360deg);transform: rotate(360deg);}
-}
-
 .wrapper {
     margin-top: 51px;
     padding-left: 0;
     -webkit-transition: all .5s ease;
+    -moz-transition: all .5s ease;
+    -o-transition: all .5s ease;
     transition: all .5s ease;
 }
 
@@ -131,6 +442,8 @@ h1 {
     /*overflow-y: auto;*/
     background: #001525;
     -webkit-transition: all .5s ease;
+    -moz-transition: all .5s ease;
+    -o-transition: all .5s ease;
     transition: all .5s ease;
 }
 
@@ -145,12 +458,7 @@ h1 {
 
     /* for flex display */
     height: 100vh;
-    display: -webkit-box;
-    display: -ms-flexbox;
     display: flex;
-    -webkit-box-orient: vertical;
-    -webkit-box-direction: normal;
-    -ms-flex-direction: column;
     flex-direction: column;
 }
 
@@ -166,6 +474,8 @@ h1 {
     border-left: 2px solid #0487a5;
     /*padding-left: 45px;*/
     -webkit-transition: all .8s ease;
+    -moz-transition: all .8s ease;
+    -o-transition: all .8s ease;
     transition: all .8s ease;
 }
 
@@ -245,326 +555,39 @@ h1 {
 
 .sidebar-nav li:last-child {
     width: 100%;
-    display: -webkit-box;
-    display: -ms-flexbox;
     display: flex;
-    -webkit-box-flex: 1;
-    -ms-flex: 1;
     flex: 1;
-    -webkit-box-orient: vertical;
-    -webkit-box-direction: normal;
-    -ms-flex-direction: column;
     flex-direction: column;
     background-color: rgba(0, 0, 0, 0.3);
 }
 
-
-/* ------------------------------------------------------------ */
-
-/* CUSTOMERS WIDGET */
-
-/* ------------------------------------------------------------ */
-
-.custFrame {
-    display: table;
-    float: left;
-    margin: 6px;
-    padding: 8px;
-    border: solid #001F36 2px;
-    background-color: #fff;
-}
-
-.custImage {
-    width: 120px;
-    float: left;
-    margin: 0 12px;
-}
-
-.custData {
-    float: left;
-}
-
-.custTitle {
-    font-size: 1.2em;
-}
-
-.custNav {
-    float: right;
-}
-
-/* ------------------------------------------------------------ */
-
-/* MODAL */
-
-/* ------------------------------------------------------------ */
-
-.modal-header {
-    background-color: #003347;
-    color: white;
-    border: solid 1px #369;
-}
-
-.modal-footer {
-    background-color: #003347;
-}
-
-/* ------------------------------------------------------------ */
-
-/* CALENDAR */
-
-/* ------------------------------------------------------------ */
-
-.calendar {
-    width: 574px;
-}
-
-.day {
-    float:left;
-    width:72px;
-    height:72px;
-    border: 1px solid black;
-    padding: 4px;
-    margin: 4px;
-    color: white;
-}
-
-.spaceholder {
-    background-color: transparent;
-    border: 0;
-}
-
-.dayhours {
-    float: right;
-    font-size: 2.5em;
-}
-
-.day .empty {
-    color: black;
-}
-
-.weekend {
-    background-color: red;
-}
-.future {
-    background-color: lightgray;
-}
-.empty {
-    background-color: white;
-}
-.workingday {
-    background-color: green;
-}
-.publicholiday {
-    background-color: darkred;
-}
-.otherabsence {
-    background-color: black;
-}
-.religiousday {
-    background-color: lightblue;
-}
-.sickleave {
-    background-color: darkgreen;
-}
-.vacation {
-    background-color: orange;
-}
-.businessabsence {
-    background-color: darkgray;
-}
-
-
-/* ------------------------------------------------------------ */
-
-/* TABLE */
-
-/* ------------------------------------------------------------ */
-
-
-/*.table {
-    margin-top: 25px;
-    background-color: #fff;
-}*/
-
-/* ------------------------------------------------------------ */
-
-/* SEARCH & ADD BUTTON */
-
-/* ------------------------------------------------------------ */
-
-.src-add {
-    width: 96%;
-    margin-top: 25px;
-}
-
-.inputSrc, .addBtn {
-    background-color: rgba(0, 0, 0, 0.2)!important;
-    border-color: #0487a5!important;
-    color: #fff!important;
-    border-radius: 0!important;
-}
-
-/* ------------------------------------------------------------ */
-
-/* PAGINATION */
-
-/* ------------------------------------------------------------ */
-
-.pagination>li>a {
-    background-color: rgba(0, 0, 0, 0.2)!important;
-    border-color: #0487a5!important;
-    border-radius: 0!important;
-}
-
-/* ------------------------------------------------------------ */
-
-/* TEAMS SCREAN , WIDGET , MODAL & PICTURES */
-
-/* ------------------------------------------------------------ */
-
-.teaFrame {
-    display: table;
-    float: left;
-    margin: 6px;
-    padding: 8px;
-    border: solid #003454 2px;
-    width: 235px;
-    height: 150px;
-    background-color: #fff;
-    position: relative;
-}
-
-.teaFrame i {
-    font-size: 20px;
-}
-
-.teaImage {
-    max-width: 30%;
-    float: left;
-    margin-top: 10px;
-    margin-left: 10px;
-}
-
-.teaData {
-    float: right;
-    margin-top: 10px;
-    margin-left: 10px;
-}
-
-.teaTitle {
-    font-size: 1.2em;
-}
-
-.teaNav  {
-    position: absolute;
-    top: 125px;
-    right: 5px;
-    height: 100px;
-
-}
-
-
-.tmProfImg {
-    width: 75%;
-    margin-top: 25px;
-    margin-right: auto;
-    margin-left: auto;
-    display: block;
-}
-
-.teamPag{
-    font-size: 50px;
-    margin-top: 25px;
-}
-
-.tmProfHead {
-    background-color: #003454;
-    opacity: .50;
-    color: #a5a4bf;
-    padding: 10px 30px;
-}
-
-.tmNameWhenClicked {
-    font-size: 25px;
-    text-align: center;
-}
-
-.tmDescWhenClicked {
-    padding: 10px;
-}
-
-.addEmpBtn {
-    float: right;
-    font-size: 50px;
-    margin-top: 170px;
-}
-
-/*.tmProfImg {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    max-width: 15%;
-    opacity: .25;
-}*/
-
-/* ------------------------------------------------------------ */
-
-/* LOADER */
-
-/* ------------------------------------------------------------ */
-
-#loader {
+/*LOADER*/
+#loader{
     position: fixed;
-    top: 0%;
-    left: 0%;
+    top: 0;
+    left: 0;
     width: 100%;
     height: 100%;
     z-index: 999;
-    background-color: #fff;
-    opacity: .75;
+    background-color: white;
+    opacity: .15;
 }
 
-#spinner {
+#spinner{
     position: absolute;
     top: 50%;
     left: 50%;
-    margin-top: -50px;
-    margin-left: -50px;
-    border: 20px solid #f3f3f3;
-    border-top: 20px solid #001F36;
+    transform: translate(-50%, -50%);
+    border: 16px solid #f3f3f3;
+    border-top: 16px solid #3498db;
     border-radius: 50%;
-    width: 100px;
-    height: 100px;
-    -webkit-animation: spin 2s linear infinite;
+    width: 120px;
+    height: 120px;
     animation: spin 2s linear infinite;
 }
 
-@keyframes spin {
-    0% { -webkit-transform: rotate(0deg); transform: rotate(0deg);}
-    100% { -webkit-transform: rotate(360deg); transform: rotate(360deg);}
-}
-
-
-
-/*--------------------------------------------------------------------------------------*/
-
-
-
-.tk-m-title {
-    font-weight: 200;
-    color: white;
-}
-
-
-@media (min-width: 992px) {
-    .modal-lg {
-        width: 900px;
-        border: 1px solid #0487a5;
-    }
-}
-
-.modal-dialog {
-    width: 900px;
+.margin-top-20 {
+    margin-top: 20px;
 }
 
 .no-radius {
@@ -699,6 +722,226 @@ h1 {
     transition: all .5s ease;
 }
 
+/* ******************* Login ****************** */
 
+.login-body {
+    border: none;
+    border-radius: 0px;
+    background-color: rgba(0, 0, 0, 0.3);
+}
 
+.no-display {
+    display: none;
+}
 
+.img-center {
+    /*position: absolute;*/
+    /*left: 50%;*/
+    /*top: 20%;*/
+    margin-left: 50%;
+    margin-top: 30%;
+    transform: translate(-50%, -50%);
+}
+
+.login-title {
+    color: white;
+    font-size: 50px;
+    font-weight: 200;
+    text-align: center;
+    margin-top: -40px;
+}
+
+body > div.wrapper > div > div.col-md-10 > div > div > div > div > div:nth-child(2) > div > div > div > div:nth-child(3) > div.col-md-9 > input::-webkit-input-placeholder {
+    color: #0487a5;
+}
+
+body > div.wrapper > div > div.col-md-10 > div > div > div > div > div:nth-child(2) > div > div > div > div:nth-child(3) > div.col-md-9 > input {
+    background-color: rgba(255, 255, 255, 0.5);
+    border: none;
+}
+
+body > div.wrapper > div > div.col-md-10 > div > div > div > div > div:nth-child(2) > div > div > div > div:nth-child(4) > div.col-md-9 > input::-webkit-input-placeholder {
+    color: #0487a5;
+}
+
+body > div.wrapper > div > div.col-md-10 > div > div > div > div > div:nth-child(2) > div > div > div > div:nth-child(4) > div.col-md-9 > input {
+    background-color: rgba(255, 255, 255, 0.5);
+    border: none;
+}
+
+/* ******************** Navigation ******************** */
+
+.navbar-fixed-top {
+    top: 0;
+    border-width: 0 0 1px;
+    background-color: rgba(0, 0, 0, 0.3);
+    margin-bottom: 0px;
+    font-weight: 300;
+    border-bottom: 1px solid #0487a5;
+}
+
+.navbar-header a {
+    color: #fff;
+    font-size: 25px;
+}
+
+@keyframes spin{
+    0%   {transform: rotate(0deg);}
+    100% {transform: rotate(360deg);}
+}
+
+.wrapper {
+    margin-top: 51px;
+    padding-left: 0;
+    -webkit-transition: all .5s ease;
+    -moz-transition: all .5s ease;
+    -o-transition: all .5s ease;
+    transition: all .5s ease;
+}
+
+@media (min-width: 992px) {
+    #wrapper {
+        padding-left: 225px;
+    }
+}
+
+@media (min-width: 992px) {
+    #wrapper #sidebar-wrapper {
+        width: 225px;
+    }
+}
+
+#sidebar-wrapper {
+    z-index: 1000;
+    /*position: fixed;*/
+    /*left: 225px;*/
+    /*width: 0;*/
+    height: 100%;
+    /*margin-left: -225px;*/
+    /*overflow-y: auto;*/
+    background: #001525;
+    -webkit-transition: all .5s ease;
+    -moz-transition: all .5s ease;
+    -o-transition: all .5s ease;
+    transition: all .5s ease;
+}
+
+#sidebar-wrapper .sidebar-nav {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    font-size: 14px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+
+    /* for flex display */
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+#sidebar-wrapper .sidebar-nav li {
+    clear: both;
+    text-indent: 0;
+    line-height: 55px;
+    background-color: rgba(0, 0, 0, 0.3);
+}
+
+.sidebar-nav li.active {
+    background-color: transparent !important;
+    border-left: 2px solid #0487a5;
+    /*padding-left: 45px;*/
+    -webkit-transition: all .8s ease;
+    -moz-transition: all .8s ease;
+    -o-transition: all .8s ease;
+    transition: all .8s ease;
+}
+
+.sidebar-nav li.active .sidebar-title {
+    color: #fff;
+}
+
+.real {
+    /*fake class used for transparent sidebar item effect*/
+}
+
+#sidebar-wrapper .sidebar-nav li a {
+    display: block;
+    text-decoration: none;
+    color: white;
+    font-weight: 300;
+}
+
+.sidebar-title {
+    font-size: 19px;
+    vertical-align: middle;
+    letter-spacing: 1px;
+    color: #a5a4bf;
+}
+
+#sidebar-wrapper .sidebar-nav li a .sidebar-icon {
+    width: 45px;
+    height: 45px;
+    font-size: 14px;
+    padding: 0 2px;
+    display: inline-block;
+    text-indent: 7px;
+    margin-right: 10px;
+    color: #fff;
+    float: left;
+    margin-left: 15px;
+}
+
+#sidebar-wrapper .sidebar-nav li a .caret {
+    position: absolute;
+    right: 23px;
+    top: auto;
+    margin-top: 20px;
+}
+
+#sidebar-wrapper .sidebar-nav li ul.panel-collapse {
+    list-style: none;
+    -moz-padding-start: 0;
+    -webkit-padding-start: 0;
+    -khtml-padding-start: 0;
+    -o-padding-start: 0;
+    padding-start: 0;
+    padding: 0;
+}
+
+#sidebar-wrapper .sidebar-nav li ul.panel-collapse li i {
+    margin-right: 10px;
+}
+
+#sidebar-wrapper .sidebar-nav li ul.panel-collapse li {
+    text-indent: 15px;
+}
+
+@media (max-width: 992px) {
+    #wrapper #sidebar-wrapper {
+        width: 45px;
+    }
+    #wrapper #sidebar-wrapper #sidebar #sidemenu li ul {
+        position: fixed;
+        left: 45px;
+        margin-top: -45px;
+        z-index: 1000;
+        width: 200px;
+        height: 0;
+    }
+}
+
+.sidebar-nav li:last-child {
+    width: 100%;
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    background-color: rgba(0, 0, 0, 0.3);
+}
+
+.teamPag {
+    font-size: 50px;
+    margin-top: 25px;
+}
+/*-------------------*/

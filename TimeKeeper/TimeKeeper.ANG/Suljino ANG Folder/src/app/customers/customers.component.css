@@ -1,0 +1,21 @@
+tr {
+    background-color: whitesmoke;
+}
+
+tr:nth-child(even) {
+    background-color: lightgray;
+}
+
+th {
+    color: white;
+    background-color: #369;
+}
+
+td {
+    text-align: left;
+}
+
+.imgFrame {
+    width: 72px;
+    border: 2px solid lightgray;
+}

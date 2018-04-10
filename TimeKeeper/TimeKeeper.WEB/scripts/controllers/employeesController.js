@@ -2,17 +2,27 @@
     var app = angular.module("timeKeeper");
     app.controller("employeesController", ['$scope', 'dataService', "$uibModal", function ($scope, dataService, $uibModal) {
 
-        $scope.message = "Wait...";
+        $scope.currentPage=0;
+
         function listEmployees() {
             dataService.list("employees", function (data, headers) {
                 $scope.page = angular.fromJson(headers('Pagination'));
-                $scope.message = "";
+                $scope.totalItems = $scope.page.totalItems;
                 $scope.people = data;
             });
         }
         listEmployees();
 
+        $scope.pageChanged = function() {
+            dataService.list("employees?" +"page="+($scope.currentPage-1), function(data, headers){
+                $scope.people = data;
+            });
+            //$log.log('Page changed to: ' + $scope.currentPage);
+        };
+
         $scope.edit = function (person) {
+            console.log(person);
+            person.status=person.status.toString();
             var modalInstance = $uibModal.open({
                 animation: true,
                 templateUrl: 'views/employee/empModal.html',
@@ -79,19 +89,28 @@
                         swal.close();
                     }
                 });
+        };
+
+        $scope.search = function(filter){
+            if(filter===undefined)
+                listEmployees();
+            dataService.list("employees?filter="+filter,function(data){
+                $scope.people=data;
+            })
         }
     }]);
-    app.controller("empModalCtrl", ["$scope", "$uibModalInstance", "dataService", "employee", function($scope, $uibModalInstance, dataService, employee) {
-        var $emp = this;
+    app.controller("empModalCtrl", ["$scope", "$uibModalInstance", "dataService", "employee",
+        function($scope, $uibModalInstance, dataService, employee) {
 
         $scope.employee = employee;
-        console.log(employee);
+
         dataService.list("roles", function(data){
             $scope.roles = data;
         });
 
         $scope.save = function(employee){
             console.log(employee);
+            employee.status=Number(employee.status);
             dataService.update("employees", employee.id, employee, function(data){
                 window.alert("Data updated!");
             });

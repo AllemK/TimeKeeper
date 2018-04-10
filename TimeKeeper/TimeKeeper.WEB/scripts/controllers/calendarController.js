@@ -1,14 +1,24 @@
 (function(){
     var app = angular.module("timeKeeper");
 
-    app.controller("calendarController", ["$scope", "$uibModal", "dataService", "timeConfig",
-        function($scope, $uibModal, dataService, timeConfig){
+    app.controller("calendarController", ["$rootScope","$scope", "$uibModal", "dataService", "timeConfig",
+        function($rootScope, $scope, $uibModal, dataService, timeConfig){
             $scope.dayType = timeConfig.dayType;
             $scope.months = timeConfig.months;
-
-            dataService.list("employees?all",function(data){
-                $scope.people=data;
-            });
+            listCalendar($rootScope.currentUser.id,0,0);
+            if($rootScope.currentUser.role.search("Lead")>=0 || $rootScope.currentUser.role.search("User")>=0){
+                for(i = 0; i<$rootScope.currentUser.teams.length; i++){
+                    dataService.list("employees?role="+$rootScope.currentUser.role+"&teamId="+$rootScope.currentUser.teams[i],function(data){
+                        console.log(data);
+                        $scope.people=data;
+                    });
+                }
+            }
+            else{
+                dataService.list("employees?role="+$rootScope.currentUser.role,function(data){
+                    $scope.people=data;
+                });
+            }
 
             $scope.buildCalendar = function(){
                 if($scope.employeeId === undefined)
@@ -23,9 +33,9 @@
 
             function listCalendar(empId,year,month){
                 //validate employee, year and month
-                var url="calendar/"+$scope.employeeId;
-                if($scope.year !== 'undefined') url += "/" + $scope.year;
-                if($scope.month !== 'undefined') url += "/" + $scope.month;
+                var url="calendar/"+empId;
+                if(year !== 'undefined') url += "/" + year;
+                if(month !== 'undefined') url += "/" + month;
                 dataService.list(url,function(data){
                     $scope.calendar=data;
                     $scope.employeeId = data.employee.id;

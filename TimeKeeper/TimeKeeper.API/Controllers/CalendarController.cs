@@ -1,12 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Web.Http;
 using TimeKeeper.API.Models;
-using TimeKeeper.Utility;
 using TimeKeeper.DAL.Entities;
+using TimeKeeper.Utility;
 
 namespace TimeKeeper.API.Controllers
 {
@@ -18,6 +15,7 @@ namespace TimeKeeper.API.Controllers
         /// <returns></returns>
         [HttpGet]
         [Route("api/calendar/{employeeId}/{year?}/{month?}")]
+        [Authorize]
         public IHttpActionResult Get(int employeeId, int year = 0, int month = 0)
         {
             if (year == 0) year = DateTime.Today.Year;
@@ -44,6 +42,7 @@ namespace TimeKeeper.API.Controllers
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
+        [Authorize]
         public IHttpActionResult Post([FromBody] DayModel model)
         {
             try

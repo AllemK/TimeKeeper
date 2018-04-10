@@ -1,0 +1,51 @@
+<div class='container'>
+  <div class='panel panel-primary'>
+    <div class='panel-heading'>{{pageTitle}}</div>
+    <div class='panel-body'>
+      <div class='row'>
+          <div class='col-md-1'></div>
+          <div class='col-md-3'>
+            <div class='panel panel-success'>
+              <div class='panel-heading'>Month: {{monty}}</div>
+              <div class='panel-body'>
+                <span *ngFor='let month of year'>
+                  <label style='width:24%; margin:4px; padding:4px;'>
+                    <input type='radio' name='month' [value]='month' [(ngModel)]='monty'>{{month}}
+                  </label>
+                </span>
+              </div>
+            </div>
+          </div>
+          <div class='col-md-1'></div>
+          <div class='col-md-3'>
+            <div class='panel panel-success'>
+              <div class='panel-heading'>Month {{year.indexOf(monty)}}: {{monty}}</div>
+              <div class='panel-body'>
+                <select class='form-control' [(ngModel)]='monty'>
+                  <option *ngFor='let month of year'>{{month}}</option>
+                </select>
+                <hr>
+                <label>Month:</label>
+                <input type='text' class='form-control' [(ngModel)]='monty'>
+              </div>
+            </div>
+          </div>
+          <div class='col-md-1'></div>
+          <div class='col-md-3'>    
+            <div class='panel panel-success'>
+              <div class='panel-heading'>{{choice}}</div>
+              <div class='panel-body'>
+                <span *ngFor='let month of year'>
+                  <label style='width:24%; margin:4px; padding:4px'>
+                      <input type='checkbox' name='choice' [value]='month' (click)='updateChecked(month, $event)'> {{month}}
+                  </label>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+    </div>
+  </div>
+</div>
+
+  

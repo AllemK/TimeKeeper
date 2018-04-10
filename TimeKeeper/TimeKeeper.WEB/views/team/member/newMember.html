@@ -6,8 +6,8 @@
     <div class="row">
         <div class="col-md-4 label">Employee:</div>
         <div class="col-md-6">
-            <select ng-model="member.employee.id" class="form-control"
-                    ng-options="employee.id as employee.name for employee in employees"
+            <select ng-model="member.employee" class="form-control"
+                    ng-options="employee as employee.name for employee in employees"
                     ng-value="employee.id">{{employee.name}}
             </select>
         </div>
@@ -16,8 +16,8 @@
     <div class="row">
         <div class="col-md-4 label">Roles:</div>
         <div class="col-md-6">
-            <select ng-model="member.role.id" class="form-control"
-                    ng-options="role.id as role.name for role in roles"
+            <select ng-model="member.role" class="form-control"
+                    ng-options="role as role.name for role in roles"
                     ng-value="role.id">{{role.name}}</option>
             </select>
         </div>
@@ -26,7 +26,7 @@
     <div class="row">
         <div class="col-md-4 label">Weekly Hours:</div>
         <div class="col-md-6">
-            <input style="width: 100%;" type="number" maxlength="40" minlength="0" value="0" ng-model="member.hours">
+            <input type="number" maxlength="40" minlength="0" value="0" ng-model="member.hours">
         </div>
     </div>
 </div>
