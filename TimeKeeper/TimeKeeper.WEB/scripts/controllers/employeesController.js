@@ -126,14 +126,9 @@
             })
         }
     }]);
-<<<<<<< HEAD
 
-    app.controller("empModalCtrl", ["$scope", "$uibModalInstance", "dataService", "employee", function($scope, $uibModalInstance, dataService, employee) {
-        var $emp = this;
-=======
     app.controller("empModalCtrl", ["$scope", "$uibModalInstance", "dataService", "employee",
         function($scope, $uibModalInstance, dataService, employee) {
->>>>>>> 961a4c83444f803cb0888d478145b9f4ea4c7218
 
         $scope.employee = employee;
 
@@ -164,7 +159,6 @@
             })
         };
 
-<<<<<<< HEAD
         $scope.cancel = function(){
             $uibModalInstance.dismiss();
         };
@@ -192,20 +186,5 @@
 
         $scope.$emit("employeesUpdated");
         $uibModalInstance.close();
-=======
-        $scope.save = function(person){
-            console.log(person);
-            if(person.id === undefined){
-                dataService.insert("employees", person, function(data){
-                    window.alert("Data inserted!");
-                });
-            }
-            else{
-                dataService.update("employees", person.id, person, function(data){
-                    window.alert("Data updated!");
-                });
-            }
-        }
->>>>>>> 961a4c83444f803cb0888d478145b9f4ea4c7218
     }]);
 }());

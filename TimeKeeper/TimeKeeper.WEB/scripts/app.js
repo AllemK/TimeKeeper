@@ -35,16 +35,6 @@
 
             .when('/login', {templateUrl: 'views/login.html',
                 controller: 'loginController', loginRequired:false })
-<<<<<<< HEAD
-            .otherwise({ redirectTo: '/login' })
-            .when('/report', {templateUrl: 'views/report/monthlyReport.html',
-                controller: 'monthlyReportController as $monrep', loginRequired:true })
-            .when('/report', {templateUrl: 'views/report/annualReport.html',
-                controller: 'annualReportController as $annrep', loginRequired:true })
-            .when('/report', {templateUrl: 'views/report/projectHistory.html',
-                controller: 'projectHistoryController as $prohi', loginRequired:true });
-
-=======
             // .when('/home',{templateUrl:'views/home.html',
             //     controller: 'homeController', loginRequired:false })
             // .when('/adminDash',{templateUrl:'views/home.html',
@@ -52,7 +42,6 @@
             .when('/projectHistory',{templateUrl:'views/reports/projectHistory.html',
                 controller: 'projectHistoryController', loginRequired:true })
             .otherwise({ redirectTo: '/login' });
->>>>>>> 961a4c83444f803cb0888d478145b9f4ea4c7218
         localStorageServiceProvider.setPrefix("timeKeeper").setStorageType("sessionStorage").setNotify(true,true)
     }])
         .run(['$rootScope', '$location', function($rootScope,$location){
