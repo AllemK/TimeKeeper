@@ -86,6 +86,31 @@
             })
         };
 
+        $scope.clickwar = function(team){
+            swal({
+                    title: team.name,
+                    text: "Are you sure you want to delete this team?",
+                    type: "warning",
+                    //imageUrl: 'images/hhasic.jpg',
+                    //imageSize: '240x100',
+                    showCancelButton: true,
+                    customClass: "sweetClass",
+                    confirmButtonColor: "red",
+                    confirmButtonText: "Yes, sure",
+                    cancelButtonColor: "darkred",
+                    cancelButtonText: "No, not ever!",
+                    closeOnConfirm: false,
+                    closeOnCancel: true
+                },
+                function(isConfirm){
+                    if(isConfirm){
+                        console.log("team deleted");
+                        swal.close();
+                    }
+                });
+        };
+
+
         $scope.delete = function(team){
             dataService.delete("teams", team.id, function(data){
             })

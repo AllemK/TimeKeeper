@@ -11,6 +11,7 @@
                 $scope.totalItems = $scope.page.totalItems;
                 $scope.message = "";
                 $scope.projects = data;
+
             });
         }
 

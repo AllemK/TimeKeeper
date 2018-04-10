@@ -1,5 +1,5 @@
 
-    <div class="col-md-3"><h1>Calendar</h1></div>
+    <div class="col-md-2"><h1>Calendar</h1></div>
     <div class="col-md-2">Employee:
         <select ng-model="employeeId" class="form-control"
                 ng-options="person.id as person.name for person in people"
@@ -13,6 +13,12 @@
         <button type="button"
                 class="btn btn-primary"
                 ng-click="buildCalendar()">LIST!
+        </button>
+    </div>
+    <div class="col-md-1" style="margin-top:18px">
+        <button type="button"
+                class="btn btn-default"
+                ng-click="missEnt()">Missing Entries
         </button>
     </div>
 

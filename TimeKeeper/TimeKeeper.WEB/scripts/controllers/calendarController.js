@@ -37,13 +37,13 @@
                         return new Array(size);
                     }
                 });
-            }
+            };
 
             $scope.edit = function(day){
                 //if(day.typeOfDay!=='future') {
                     var modalInstance = $uibModal.open({
                         animation: true,
-                        templateUrl: 'views/calendar/calendarModal.html',
+                        templateUrl: 'views/Calendar/calendarModal.html',
                         controller: 'ModalCalendarCtrl',
                         size: 'lg',
                         resolve: {
@@ -53,10 +53,29 @@
                         }
                     });
                 //}
-            }
+            };
+
+
+            $scope.missEnt = function(day){
+                var modalInstance = $uibModal.open({
+                    animation: true,
+                    ariaLabelledBy: 'modal-title',
+                    ariaDescribedBy: 'modal-body',
+                    templateUrl: 'views/Calendar/missingEntries.html',
+                    controller: 'ModalCalendarCtrl',
+                    /*controllerAs: '$cal',*/
+                    size: 'lg',
+                    resolve: {
+                        day: function () {
+                            return day;
+                        }
+                    }
+                })
+            };
+
         }]);
 
-    app.controller('ModalCalendarCtrl', function ($uibModalInstance, $scope, dataService, timeConfig, day) {
+    app.controller('ModalCalendarCtrl', [ '$uibModalInstance', '$scope', 'dataService','timeConfig', 'day', function ($uibModalInstance, $scope, dataService, timeConfig, day) {
 
         $scope.day = day;
         $scope.dayType = timeConfig.dayDesc;
@@ -110,5 +129,5 @@
                 $scope.day.hours = 8;
             }
         };
-    });
+    }]);
 }());

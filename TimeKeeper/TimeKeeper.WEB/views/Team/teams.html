@@ -5,16 +5,16 @@
     </div>
     <div class="src-add">
         <div class="col-md-4">
-            <div class="input-group">
-                <input type="text" class="form-control" placeholder="Search for...">
-                <span class="input-group-btn">
+            <div class="input" style="width: 100%;">
+                <input type="text" class="form-control inputSrc" placeholder="Search for...">
+                <!--<span class="input-group-btn">
         <button class="btn btn-default" type="button">Search</button>
-      </span>
+      </span>-->
             </div>
         </div>
     </div>
     <div class="col-md-1">
-        <a href="" ng-controller="teaController" ng-click="new()"><button class="btn btn-default">Add new</button></a>
+        <a href="" ng-controller="teaController" ng-click="new()"><button class="btn addBtn">Add new</button></a>
     </div>
 </div>
 <hr>
@@ -65,7 +65,7 @@
             <div class="clearfix"></div>
             <div class="teaNav">
                 <a href="" ng-click="edit(data)"><i class="fa fa-pencil"></i></a>
-                <a href="" ng-click="delete(data)"><i class="fa fa-trash"></i></a>
+                <a href="" ng-click="clickdel(data)"><i class="fa fa-trash"></i></a>
             </div>
         </div>
     </div>

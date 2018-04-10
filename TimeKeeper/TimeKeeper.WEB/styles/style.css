@@ -299,16 +299,14 @@ h1 {
 /* ------------------------------------------------------------ */
 
 .modal-header {
-    background-color: #001F36;
+    background-color: #003347;
     color: white;
-    border: solid 1px #001F36;
+    border: solid 1px #369;
 }
 
 .modal-footer {
-    background-color: #001F36;
-    border: solid 1px #001F36;
+    background-color: #003347;
 }
-
 
 /* ------------------------------------------------------------ */
 
@@ -383,10 +381,10 @@ h1 {
 /* ------------------------------------------------------------ */
 
 
-.table {
+/*.table {
     margin-top: 25px;
     background-color: #fff;
-}
+}*/
 
 /* ------------------------------------------------------------ */
 
@@ -397,6 +395,25 @@ h1 {
 .src-add {
     width: 96%;
     margin-top: 25px;
+}
+
+.inputSrc, .addBtn {
+    background-color: rgba(0, 0, 0, 0.2)!important;
+    border-color: #0487a5!important;
+    color: #fff!important;
+    border-radius: 0!important;
+}
+
+/* ------------------------------------------------------------ */
+
+/* PAGINATION */
+
+/* ------------------------------------------------------------ */
+
+.pagination>li>a {
+    background-color: rgba(0, 0, 0, 0.2)!important;
+    border-color: #0487a5!important;
+    border-radius: 0!important;
 }
 
 /* ------------------------------------------------------------ */
@@ -530,3 +547,158 @@ h1 {
 
 
 /*--------------------------------------------------------------------------------------*/
+
+
+
+.tk-m-title {
+    font-weight: 200;
+    color: white;
+}
+
+
+@media (min-width: 992px) {
+    .modal-lg {
+        width: 900px;
+        border: 1px solid #0487a5;
+    }
+}
+
+.modal-dialog {
+    width: 900px;
+}
+
+.no-radius {
+    border-radius: 0px;
+    border: 1px solid #0487a5;
+}
+
+.float-right {
+    float: right;
+}
+
+.chevron-margin-left {
+    margin-top: 23px;
+    margin-right: 10px;
+}
+
+.chevron-margin-right {
+    margin-top: 23px;
+    margin-left: 10px;
+}
+
+#tk-table tbody tr:nth-child(even) {background-color: rgba(0, 0, 0, 0.3);}
+
+#tk-table thead tr th:not(:first-child) {text-align: center;}
+#tk-table tbody tr td:not(:first-child) {text-align: center;}
+
+#tk-table thead#left tr th {text-align: left;}
+#tk-table tbody#left tr td {text-align: left;}
+
+
+#tk-table tbody tr:hover {
+    background-color: rgba(0, 0, 0, 0.6);
+    -webkit-transition: all .5s ease;
+    -moz-transition: all .5s ease;
+    -o-transition: all .5s ease;
+    transition: all .5s ease;
+}
+#tk-table th {background-color: rgba(255, 255, 255, 0.3);}
+
+#tk-table tbody td {
+    border: none;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+#tk-table th, #tk-table tfoot tr td {
+    border: none;
+}
+
+#tk-table tbody td {
+    color: white;
+    font-weight: 200;
+    font-size: 15px;
+}
+
+#tk-table tfoot {
+    background-color: rgba(255, 255, 255, 0.3);
+    text-align: center;
+}
+
+
+.view-title {
+    font-weight: 200;
+    color: white;
+}
+
+.tk-control {
+    border-radius: 0px;
+    border-color: #0487a5;
+    /*color: #0487a5;*/
+    height: 40px;
+}
+
+.tk-button {
+    background-color: rgba(0, 0, 0, 0.2);
+    color: white;
+    font-weight: 300;
+    font-size: 18px;
+    letter-spacing: 1px;
+    border: 1px solid white;
+    border-radius: 0px;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.tk-button:hover {
+    background-color: #0487a5;
+    -webkit-transition: all .5s ease;
+    -moz-transition: all .5s ease;
+    -o-transition: all .5s ease;
+    transition: all .5s ease;
+}
+
+.tk-button-red {
+    background-color: rgba(0, 0, 0, 0.2);
+    color: white;
+    font-weight: 300;
+    font-size: 18px;
+    letter-spacing: 1px;
+    border: 1px solid white;
+    border-radius: 0px;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.tk-button-red:hover {
+    background-color: #0487a5;
+    border: 1px solid red;
+    -webkit-transition: all .5s ease;
+    -moz-transition: all .5s ease;
+    -o-transition: all .5s ease;
+    transition: all .5s ease;
+}
+
+.tk-button-green {
+    background-color: rgba(0, 0, 0, 0.2);
+    color: white;
+    font-weight: 300;
+    font-size: 18px;
+    letter-spacing: 1px;
+    border: 1px solid white;
+    border-radius: 0px;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.tk-button-green:hover {
+    background-color: #0487a5;
+    border: 1px solid green;
+    -webkit-transition: all .5s ease;
+    -moz-transition: all .5s ease;
+    -o-transition: all .5s ease;
+    transition: all .5s ease;
+}
+
+
+
+
