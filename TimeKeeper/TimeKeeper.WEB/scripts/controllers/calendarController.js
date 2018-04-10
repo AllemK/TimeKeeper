@@ -55,7 +55,7 @@
             }
 
             $scope.edit = function(day){
-                if(day.typeOfDay!=='future' || $rootScope.currentUser.role=="Admin" ) {
+                if(day.typeOfDay!=='future' || $rootScope.currentUser.role.search("Admin")>-1 ) {
                     var modalInstance = $uibModal.open({
                         animation: true,
                         templateUrl: 'views/calendar/calendarModal.html',

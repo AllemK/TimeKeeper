@@ -112,7 +112,7 @@
                         <li><br></li>
                         <li><br></li>
                         <li class="active real">
-                            <a href="#!/adminDash">
+                            <a href="#!/adminDash" ng-show="currentUser.role==='Admin'">
                                 <!--<span class="sidebar-icon"><i class="glyphicon glyphicon-th-list"></i></span>-->
                                 <span class="sidebar-icon"><img src="images/icons/1-dashboard.png" alt=""></span>
                                 <span class="sidebar-title">Dashboard</span>
@@ -126,34 +126,34 @@
                             </a>
                         </li>
                         <li class="real">
-                            <a href="#!/customers">
+                            <a href="#!/customers" ng-show="currentUser.role==='Admin'">
                                 <!--<span class="sidebar-icon"><i class="fa fa-dashboard"></i></span>-->
                                 <span class="sidebar-icon"><img src="images/icons/3-customers.png" alt=""></span>
                                 <span class="sidebar-title">Customers</span>
                             </a>
                         </li>
                         <li class="real">
-                            <a href="#!/projects">
+                            <a href="#!/projects" ng-show="currentUser.role==='Admin'">
                                 <!--<span class="sidebar-icon"><i class="fa fa-dashboard"></i></span>-->
                                 <span class="sidebar-icon"><img src="images/icons/5-projects.png" alt=""></span>
                                 <span class="sidebar-title">Projects</span>
                             </a>
                         </li>
-                        <li class="real">
+                        <li class="real" ng-show="currentUser.role==='Admin'">
                             <a href="#!/employees">
                                 <!--<span class="sidebar-icon"><i class="glyphicon glyphicon-user"></i></span>-->
                                 <span class="sidebar-icon"><img src="images/icons/2-employees.png" alt=""></span>
                                 <span class="sidebar-title">Employees</span>
                             </a>
                         </li>
-                        <li class="real">
+                        <li class="real" ng-show="currentUser.role==='Admin'">
                             <a href="#!/teams">
                                 <!--<span class="sidebar-icon"><i class="fa fa-dashboard"></i></span>-->
                                 <span class="sidebar-icon"><img src="images/icons/3-teams.png" alt=""></span>
                                 <span class="sidebar-title">Teams</span>
                             </a>
                         </li>
-                        <li class="real">
+                        <li class="real" ng-show="currentUser.role==='Admin'">
                             <a href="#!/">
                                 <!--<span class="sidebar-icon"><i class="fa fa-dashboard"></i></span>-->
                                 <span class="sidebar-icon"><img src="images/icons/7-invoice.png" alt=""></span>
