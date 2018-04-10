@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Web;
 
 namespace TimeKeeper.API.Models
 {
@@ -16,7 +13,6 @@ namespace TimeKeeper.API.Models
         public string Monogram { get; set; }
         [Required(AllowEmptyStrings = false, ErrorMessage = "Description is required")]
         public string Description { get; set; }
-        [Required(ErrorMessage = "Start date is required")]
         [DataType(DataType.Date)]
         public DateTime StartDate { get; set; }
         [DataType(DataType.Date)]

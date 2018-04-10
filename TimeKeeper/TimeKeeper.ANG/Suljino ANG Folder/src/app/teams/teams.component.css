@@ -1,0 +1,22 @@
+.team-panel {
+    width: 340px;
+    margin: 12px;
+    float:left;
+}
+
+tr {
+    background-color: whitesmoke;
+}
+
+tr:nth-child(even) {
+    background-color: lightgray;
+}
+
+th {
+    color: white;
+    background-color: #369;
+}
+
+td {
+    text-align: left;
+}

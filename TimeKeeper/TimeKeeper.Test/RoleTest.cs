@@ -47,7 +47,7 @@ namespace TimeKeeper.Test
                 HourlyRate = 30m,
                 MonthlyRate = 4000m,
                 Name = "Admin",
-                Type = RoleType.AppRole
+                Type = RoleType.Position
             };
 
             unit.Roles.Insert(r);
@@ -134,7 +134,7 @@ namespace TimeKeeper.Test
                 Name = "Admin",
                 HourlyRate = 30m,
                 MonthlyRate = 4000m,
-                Type = RoleType.AppRole
+                Type = RoleType.Position
             };
 
             var response = controller.Post(mf.Create(r));

@@ -1,16 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Web.Http;
 using TimeKeeper.API.Helper;
 using TimeKeeper.API.Models;
-using TimeKeeper.Utility;
 using TimeKeeper.DAL.Entities;
+using TimeKeeper.Utility;
 
 namespace TimeKeeper.API.Controllers
 {
+    [TimeKeeperAuth(Roles: "Admin")]
     public class TeamsController : BaseController
     {
         public IHttpActionResult GetAll(string all)
@@ -21,6 +19,7 @@ namespace TimeKeeper.API.Controllers
                     .ToList();
             return Ok(list);
         }
+
         /// <summary>
         /// Get all Teams
         /// </summary>
@@ -132,7 +131,8 @@ namespace TimeKeeper.API.Controllers
                     Logger.Log($"No such team with id {id}");
                     return NotFound();
                 }
-
+                TimeKeeperUnit.Projects.Delete(team.Projects);
+                TimeKeeperUnit.Engagements.Delete(team.Engagements);
                 TimeKeeperUnit.Teams.Delete(team);
                 TimeKeeperUnit.Save();
                 Logger.Log($"Deleted team with id {id}", "INFO");

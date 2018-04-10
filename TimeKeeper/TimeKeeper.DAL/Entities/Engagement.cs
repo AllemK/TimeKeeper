@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
 using TimeKeeper.Utility;
 
 namespace TimeKeeper.DAL.Entities
@@ -14,11 +9,11 @@ namespace TimeKeeper.DAL.Entities
         [Precision(3,1)]
         public decimal Hours { get; set; }
 
-        //[Required]
+        [Required]
         public virtual Team Team { get; set; }
-        //[Required]
+        [Required]
         public virtual Employee Employee { get; set; }
-        //[Required]
+        [Required]
         public virtual Role Role { get; set; }
     }
 }

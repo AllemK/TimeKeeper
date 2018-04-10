@@ -198,7 +198,7 @@ header .intro-text .intro-heading {
 }
 
 #page-top > header > div {
-    min-height: 960px;
+    min-height: 870px;
 }
 
 #page-top > header > div > div > div.intro-heading {
@@ -208,7 +208,7 @@ header .intro-text .intro-heading {
     right: 1%;
     font-family: 'Work Sans', sans-serif;
     font-weight: 200;
-    margin-right: -20%;
+    margin-right: -15%;
 }
 
 #page-top > header > div > div > div.intro-lead-in {
@@ -218,7 +218,7 @@ header .intro-text .intro-heading {
     left: 1%;
     font-family: 'Work Sans', sans-serif;
     font-weight: 200;
-    margin-left: -20%;
+    margin-left: -15%;
 }
 
 #page-top > header > div > div > img {
@@ -228,7 +228,7 @@ header .intro-text .intro-heading {
     right: 1%;
     font-family: 'Work Sans', sans-serif;
     font-weight: 200;
-    margin-right: -20%;
+    margin-right: -15%;
 }
 
 /* ******************** About ******************** */

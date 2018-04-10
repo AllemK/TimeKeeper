@@ -6,7 +6,7 @@
     <input type="hidden" ng-model="project.id">
     <div class="row">
         <div class="col-md-4 label">Project Name:</div>
-        <div class="col-md-6"><input type="text" class="form-control" ng-model="project.name"></div>
+        <div class="col-md-6"><input type="text" class="form-control" ng-model="project.name" required></div>
     </div>
     <div class="row">
         <div class="col-md-4 label">Project Monogram:</div>
@@ -17,7 +17,7 @@
         <div class="col-md-6">
             <select ng-model="project.customer.id" class="form-control"
                     ng-options="customer.id as customer.name for customer in customers"
-                    ng-value="customer.id">{{customer.name}}</option>
+                    ng-value="customer.id">{{customer.name}}
             </select>
         </div>
     </div>
@@ -26,7 +26,7 @@
         <div class="col-md-6">
             <select ng-model="project.team.id" class="form-control"
                     ng-options="team.id as team.name for team in teams"
-                    ng-value="team.id">{{team.name}}</option>
+                    ng-value="team.id">{{team.name}}
             </select>
         </div>
     </div>
@@ -39,33 +39,33 @@
         <div class="col-md-6"><input type="text" class="form-control" ng-model="project.startDate"></div>
     </div>
     <div class="row">
-        <div class="col-md-4 label">End Date:</div>
-        <div class="col-md-6"><input type="text" class="form-control" ng-model="project.endDate"></div>
+        <div class="col-md-4 label" ng-if="project.status >= 3">End Date:</div>
+        <div class="col-md-6"><input type="text" class="form-control" ng-model="project.endDate" ng-if="project.status >= 3"></div>
     </div>
     <div class="row">
         <div class="col-md-4 label">Description:</div>
         <div class="col-md-6"><input type="text" class="form-control" ng-model="project.description"></div>
     </div>
     <div class="row">
-        <div class="col-md-1 label">Status:</div>
-        <div class="col-md-11">
-            <label class="radio-inline"><input type="radio" ng-model="project.status" value=1>In Progress</label>
-            <label class="radio-inline"><input type="radio" ng-model="project.status" value=2>On Hold</label>
-            <label class="radio-inline"><input type="radio" ng-model="project.status" value=3>Finished</label>
-            <label class="radio-inline"><input type="radio" ng-model="project.status" value=4>Canceled</label>
+        <div class="col-md-4 label">Status:</div>
+        <div class="col-md-6">
+            <select class="form-control" ng-model="project.status"
+                    ng-options="item.value as item.text for item in projectStatus"
+                    ng-value="item.value">{{item.text}}
+            </select>
         </div>
     </div>
     <div class="row">
-        <div class="col-md-1 label">Pricing:</div>
-        <div class="col-md-11">
-            <label class="radio-inline"><input type="radio" ng-model="project.pricing" value=1>Hourly Rate</label>
-            <label class="radio-inline"><input type="radio" ng-model="project.pricing" value=2>Per Capita Rate</label>
-            <label class="radio-inline"><input type="radio" ng-model="project.pricing" value=3>Fixed Price</label>
-            <label class="radio-inline"><input type="radio" ng-model="project.pricing" value=4>Not Billable</label>
+        <div class="col-md-4 label">Pricing:</div>
+        <div class="col-md-6">
+            <select ng-model="project.pricing" class="form-control"
+                    ng-options="item.value as item.text for item in projectPricing"
+                    ng-value="item.value">{{item.text}}</option>
+            </select>
         </div>
     </div>
 </div>
 <div class="modal-footer">
-    <button class="btn btn-success" type="button" ng-click="save(project)">SAVE</button>
+    <button class="btn btn-success" type="button" ng-click="save(project)">Save</button>
     <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
 </div>

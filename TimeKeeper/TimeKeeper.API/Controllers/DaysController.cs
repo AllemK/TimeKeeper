@@ -8,7 +8,6 @@ using TimeKeeper.API.Helper;
 using TimeKeeper.API.Models;
 using TimeKeeper.Utility;
 using TimeKeeper.DAL.Entities;
-using System.Web.WebPages.Html;
 
 namespace TimeKeeper.API.Controllers
 {
@@ -18,28 +17,34 @@ namespace TimeKeeper.API.Controllers
         /// Get all Days
         /// </summary>
         /// <returns></returns>
-        [HttpGet]
-        [Route("api/calendar/{employeeId}/{year?}/{month?}")]
-        public IHttpActionResult Get(int employeeId, int year = 0, int month = 0)
+        public IHttpActionResult Get(int id, int year = 0, int month = 0)
         {
-            if (year == 0) year = DateTime.Today.Year;
-            if (month == 0) month = DateTime.Today.Month;
+            if (year == 0)
+            {
+                year = DateTime.Today.Year;
+            }
+            if (month == 0)
+            {
+                month = DateTime.Today.Month;
+            }
+
             CalendarModel calendar = new CalendarModel(year, month);
             Employee employee = TimeKeeperUnit.Employees.Get(employeeId);
             if (employee != null)
             {
-                var listOfDays = employee.Days.Where(x => x.Date.Month == month && x.Date.Year == year).ToList();
-                foreach (var day in listOfDays)
+                calendar.Employee = employee.FullName;
+                calendar.EmployeeId = employee.Id;
+                var listOfDays = employee.Days.Where(x => x.Date.Year == year && x.Date.Month == month).ToList();
+                foreach( var day in listOfDays)
                 {
                     calendar.Days[day.Date.Day - 1].Id = day.Id;
                     calendar.Days[day.Date.Day - 1].TypeOfDay = day.Type.ToString().ToLower();
                     calendar.Days[day.Date.Day - 1].Hours = day.Hours;
-                    calendar.Days[day.Date.Day - 1].Details = day.Details.Select(x => TimeKeeperFactory.Create(x)).ToList();
-                    calendar.Days[day.Date.Day - 1].Employee = employee.FullName;
-                    calendar.Days[day.Date.Day - 1].EmployeeId = employee.Id;
+                    calendar.Days[day.Date.Day - 1].Details = day.Details.Select
                 }
             }
-            Logger.Log("Returned calendar", "INFO");
+
+            Logger.Log("Returned all days", "INFO");
             return Ok(calendar);
         }
 
@@ -68,7 +73,7 @@ namespace TimeKeeper.API.Controllers
         /// </summary>
         /// <param name="day"></param>
         /// <returns></returns>
-        public IHttpActionResult Post([FromBody] DayModel day)
+        public IHttpActionResult Post([FromBody] CalendarModel day)
         {
             try
             {
@@ -96,7 +101,7 @@ namespace TimeKeeper.API.Controllers
         /// <param name="day"></param>
         /// <param name="id"></param>
         /// <returns></returns>
-        public IHttpActionResult Put([FromBody] DayModel day, int id)
+        public IHttpActionResult Put([FromBody] CalendarModel day, int id)
         {
             try
             {
@@ -137,7 +142,7 @@ namespace TimeKeeper.API.Controllers
                 {
                     Logger.Log($"No such day with id {id}");
                     return NotFound();
-                }
+                }                
 
                 TimeKeeperUnit.Calendar.Delete(day);
                 TimeKeeperUnit.Save();

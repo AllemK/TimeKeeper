@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Linq;
 using TimeKeeper.DAL.Entities;
 using TimeKeeper.DAL.Repository;
 
@@ -47,18 +44,6 @@ namespace TimeKeeper.API.Models
             };
         }
 
-        public DetailModel Create(Detail x)
-        {
-            return new DetailModel()
-            {
-                Id=x.Id,
-                Deleted=x.Deleted,
-                Description=x.Description,
-                Hours=x.Hours,
-                Project=Create(x.Project.Id,x.Project.Name)
-            };
-        }
-
         public Role Create(RoleModel rm, UnitOfWork unit)
         {
             return new Role()
@@ -68,6 +53,19 @@ namespace TimeKeeper.API.Models
                 Type = (RoleType)rm.Type,
                 HourlyRate = rm.HourlyRate,
                 MonthlyRate = rm.MonthlyRate,
+            };
+        }
+
+        public DetailModel Create(Detail x)
+        {
+            return new DetailModel()
+            {
+                Id = x.Id,
+                Deleted = x.Deleted,
+                Description = x.Description,
+                Hours = x.Hours,
+                Project = Create(x.Project.Id, x.Project.Name),
+                Day = Create(x.Day.Id)
             };
         }
 
@@ -240,6 +238,22 @@ namespace TimeKeeper.API.Models
                 Id = id,
                 Name = name
             };
+        }
+
+        public UserModel Create(Employee emp, string provider)
+        {
+            if (emp != null)
+            {
+                return new UserModel()
+                {
+                    Id = emp.Id,
+                    Name = emp.FullName,
+                    Role = emp.Engagements.Where(x=>x.Role.Id=="TL").Count()>1 ? "Lead":emp.Role.AppRole.ToString(),
+                    Teams = emp.Engagements.Select(x => x.Team.Id).ToList(),
+                    Provider = provider
+                };
+            }
+            return null;
         }
     }
 }

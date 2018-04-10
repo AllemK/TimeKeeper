@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Web;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace TimeKeeper.API.Models
 {
@@ -16,6 +12,8 @@ namespace TimeKeeper.API.Models
         public string Name { get; set; }
         [Required(ErrorMessage = "Type of Role is required")]
         public int Type { get; set; }
+        [Required(ErrorMessage = "App Role is required")]
+        public int AppRole { get; set; }
         [Required(ErrorMessage = "Hourly rate is required")]
         [Range(0,100,ErrorMessage = "Hourly rate must be between 0 and 100")]
         [RegularExpression(@"^\d+(\.\d{1,2})?$")]

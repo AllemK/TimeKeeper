@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Web;
-using System.Web.WebPages.Html;
 
 namespace TimeKeeper.API.Models
 {
@@ -14,11 +10,12 @@ namespace TimeKeeper.API.Models
         public string Description { get; set; }
 
         [Required(AllowEmptyStrings = false, ErrorMessage = "Hours is required")]
-        [Range(0.5, 24, ErrorMessage = "Hours must be between 0.5 and 24")]
+        [Range(0.5, 24, ErrorMessage = "Hours must be between 0.5 and 12")]
         [RegularExpression(@"^\d{1,2}(\.5)?$", ErrorMessage = "Hours must be whole number or .5")]
         public decimal Hours { get; set; }
 
         public BaseModel<int> Project { get; set; }
+        public BaseModel<int> Day { get; set; }
         public bool Deleted { get; set; }
     }
 
@@ -65,7 +62,7 @@ namespace TimeKeeper.API.Models
                 {
                     Days[i].Type = 8;
                 }
-                if (Days[i].Date >= DateTime.Today)
+                if (Days[i].Date > DateTime.Today)
                 {
                     Days[i].Type = 9;
                 }

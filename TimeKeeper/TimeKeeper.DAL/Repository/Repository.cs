@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using TimeKeeper.Utility;
 
 namespace TimeKeeper.DAL.Repository
@@ -61,6 +59,12 @@ namespace TimeKeeper.DAL.Repository
         {
             dbSet.Remove(entity);
             Logger.Log("REPOSITORY: record deleted", "INFO");
+        }
+
+        public void Delete(IEnumerable<T> entities)
+        {
+            dbSet.RemoveRange(entities);
+            Logger.Log("REPOSITORY: records deleted", "INFO");
         }
     }
 }

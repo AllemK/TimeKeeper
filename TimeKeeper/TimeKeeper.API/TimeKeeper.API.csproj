@@ -195,8 +195,11 @@
     <Compile Include="Controllers\DashboardController.cs" />
     <Compile Include="Controllers\CalendarController.cs" />
     <Compile Include="Controllers\EmployeesController.cs" />
+    <Compile Include="Controllers\LoginController.cs" />
+    <Compile Include="Controllers\MembersController.cs" />
     <Compile Include="Controllers\MonthlyReportController.cs" />
     <Compile Include="Controllers\PersonalReportController.cs" />
+    <Compile Include="Controllers\ProjectHistoryController.cs" />
     <Compile Include="Controllers\ProjectsController.cs" />
     <Compile Include="Controllers\RolesController.cs" />
     <Compile Include="Controllers\TeamsController.cs" />
@@ -205,6 +208,8 @@
     </Compile>
     <Compile Include="Helper\Header.cs" />
     <Compile Include="Helper\Pagination.cs" />
+    <Compile Include="Helper\TimeKeeperAuthAttribute.cs" />
+    <Compile Include="Helper\TokenUtility.cs" />
     <Compile Include="Models\BaseModel.cs" />
     <Compile Include="Models\CalendarModel.cs" />
     <Compile Include="Models\CustomerModel.cs" />
@@ -214,11 +219,13 @@
     <Compile Include="Models\ProjectModel.cs" />
     <Compile Include="Models\RoleModel.cs" />
     <Compile Include="Models\TeamModel.cs" />
+    <Compile Include="Models\UserModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Reports\AnnualModel.cs" />
     <Compile Include="Reports\DashboardModel.cs" />
     <Compile Include="Reports\MonthlyModel.cs" />
     <Compile Include="Reports\PersonalModel.cs" />
+    <Compile Include="Reports\ProjectHistoryModel.cs" />
     <Compile Include="Reports\ReportFactory.cs" />
   </ItemGroup>
   <ItemGroup>

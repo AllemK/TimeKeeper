@@ -1,10 +1,6 @@
 ﻿using IdentityServer3.AccessTokenValidation;
 using Microsoft.Owin;
-using Microsoft.Owin.Security.Jwt;
 using Owin;
-using System;
-using System.IdentityModel.Tokens;
-using System.Security.Cryptography.X509Certificates;
 
 [assembly: OwinStartup(typeof(TimeKeeper.API.App_Start.Startup))]
 

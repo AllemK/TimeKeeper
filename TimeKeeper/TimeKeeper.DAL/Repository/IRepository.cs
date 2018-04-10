@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace TimeKeeper.DAL.Repository
 {
@@ -14,5 +12,6 @@ namespace TimeKeeper.DAL.Repository
         void Insert(T entity);
         void Update(T entity, I id);
         void Delete(T entity);
+        void Delete(IEnumerable<T> entities);
     }
 }

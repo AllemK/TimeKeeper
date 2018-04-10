@@ -1,7 +1,26 @@
-<h1>Customers</h1>
-<h2>{{message}}</h2>
-<div class="row"><button ng-click="new()" class="col-md-2" style="float: right">New Customer</button></div>
+<div class="row">
+    <h1 class="tk-m-title col-md-6">Customers</h1>
+    <div class="src-add">
+        <div class="col-md-5">
+            <div class="input-group" style="width: 100%">
+                <input type="text" class="form-control" placeholder="Search for..." ng-model="filter" ng-change="search(filter)">
+            </div>
+        </div>
+    </div>
+
+    <button ng-click="new()" class="col-md-1 btn btn-default" style="float: right">Add New</button>
+</div>
 <hr>
-<div ng-repeat="item in customers">
-    <customer data="item"></customer>
+<div class="row">
+        <div class="col-md-1" style="float: left">
+            <a href="" class="teamPag" ng-model="currentPage" ng-click="prevPage()" ng-show="currentPage>=1"><i class="fa fa-arrow-circle-left"></i></a>
+        </div>
+        <div class="col-md-10">
+            <div ng-repeat="item in customers">
+                <customer data="item"></customer>
+            </div>
+        </div>
+        <div class="col-md-1" style="float: right">
+            <a href="" class="teamPag" ng-model="currentPage" ng-click="nextPage()" ng-show="currentPage<(totalPages-1)"><i class="fa fa-arrow-circle-right"></i></a>
+        </div>
 </div>

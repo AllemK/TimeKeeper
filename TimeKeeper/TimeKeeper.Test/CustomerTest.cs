@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Web;
@@ -139,7 +138,7 @@ namespace TimeKeeper.Test
                 Address_Road = "Test road, 1",
                 Address_ZipCode = "1000",
                 Address_City = "Test city",
-                Status = CustomerStatus.Prospect.ToString()
+                Status = (int)CustomerStatus.Prospect
             };
 
             var response = controller.Post(c);

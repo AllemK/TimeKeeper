@@ -12,12 +12,7 @@ namespace TimeKeeper.API.Models
         public int Ordinal { get; set; }
         public string TypeOfDay { get; set; }
         public decimal Hours { get; set; }
-
-
-        public string Employee { get; set; }
-        public int EmployeeId { get; set; }
-        public ICollection<DetailModel> Details { get; set; }
-
+        public ICollection <DetailModel> Details { get; set; }
 
         public DayModel()
         {

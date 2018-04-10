@@ -1,26 +1,90 @@
 <div class="row">
-    <div class="col-md-6">
+    <div class="col-md-5">
         <h1>Teams</h1>
-        <h2>{{message}}</h2>
     </div>
     <div class="src-add">
-        <div class="col-md-5">
+        <div class="col-md-4">
             <div class="input-group">
-                <input type="text" class="form-control" placeholder="Search for...">
+                <input type="text" class="form-control" placeholder="Search for..." ng-model="filter">
                 <span class="input-group-btn">
-        <button class="btn btn-default" type="button">Search</button>
-      </span>
+                    <button class="btn btn-default" type="button" ng-click="search(filter)">Search</button>
+                </span>
             </div>
         </div>
-
     </div>
-
     <div class="col-md-1">
-        <a href="" ng-controller="teaController" ng-click="new()"><button class="btn btn-default">Add new</button></a>
+        <a href="" ng-click="new()"><button class="btn btn-default">Add new</button></a>
     </div>
 </div>
-
-<div ng-repeat="item in teams">
-    <team data="item"></team>
+<hr>
+<div class="row">
+    <div class="col-md-1">
+        <a href="" class="pull-left teamPag" ng-click="previousPage()" ng-show="currentPage>=1" ><i class="fa fa-arrow-circle-left"></i></a>
+    </div>
+    <div class="col-md-8">
+        <div ng-repeat="data in teams">
+            <a href="" ng-click="select(data)">
+                <div class="teaFrame">
+                    <div><img class="teaImage" ng-src="images/{{data.name.toUpperCase()}}.png"></div>
+                    <div class="teaData">
+                        <span class="teaTitle">{{data.name}}</span><br>
+                        <br>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="teaNav">
+                        <a href="" ng-click="edit(data)"><i class="fa fa-pencil"></i></a>
+                        <a href="" ng-click="delete(data)"><i class="fa fa-trash"></i></a>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </div>
+    <div class="col-md-1">
+        <a href="" class="pull-right teamPag" ng-click="nextPage()" ng-show="currentPage<(totalPages-1)" ><i class="fa fa-arrow-circle-right"></i></a>
+    </div>
 </div>
+<br>
+<div class="row">
+    <div class="col-md-10">
+        <div ng-show="clicked">
+            <div class="tmProfHead">
+                <div class="tmNameWhenClicked">
+                    {{team.name}}
+                </div>
+                <br>
+                <div class="tmDescWhenClicked">
+                    {{team.description}}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div ng-show="clicked">
+        <div class="col-md-1">
+            <a href="" class="pull-left teamPag" ng-click="previousPageMember()" ng-show="currentPageMember>=1" ><i class="fa fa-arrow-circle-left"></i></a>
+        </div>
+        <br>
+        <div ng-repeat="member in team.engagements | limitTo:3:currentPageMember*3">
+            <div class="teaFrame">
+                <div><img class="teaImage" ng-src="images/{{member.employee.name}}.png"></div>
+                <div class="teaData">
+                    <span class="teaTitle">{{member.employee.name}}</span><br>
+                    <span class="teaTitle">{{member.role.name}}</span><br>
+                </div>
 
+                <div class="clearfix"></div>
+                <div class="teaNav">
+                    <a href="" ng-click="editMember(member)"><i class="fa fa-pencil"></i></a>
+                    <a href="" ng-click="deleteMember(member)"><i class="fa fa-trash"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="teaFrame" ng-show="currentPageMember==(totalPagesMember-1)">
+            <a href="" class="pull-right" ng-click="addMember(team)"><i class="fa fa-plus-circle" style="font-size:50px; margin-top: 25px;"></i></a>
+        </div>
+        <div class="col-md-1">
+            <a href="" class="pull-right teamPag" ng-click="nextPageMember()" ng-show="currentPageMember<(totalPagesMember-1)" ><i class="fa fa-arrow-circle-right"></i></a>
+        </div>
+    </div>
+</div>
