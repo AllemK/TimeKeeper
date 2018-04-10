@@ -31,12 +31,13 @@
     <script src="library/sweetalert.min.js"></script>
     <script src="library/toaster.min.js"></script>
 	<script src="library/angular-local-storage.min.js"></script>
-	<script src="landing-page/landing-bootstrap.min.js"></script>
+
 
     <script src="node_modules/chart.js/dist/Chart.min.js"></script>
     <script src="node_modules/angular-chart.js/dist/angular-chart.min.js"></script>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="landing-page/landing-bootstrap.min.js"></script>
     
 
     <script src="scripts/app.js"></script>
@@ -51,7 +52,6 @@
     <script src="scripts/controllers/loginController.js"></script>
 	<script src="scripts/controllers/reportsController.js"></script>
     <script src="scripts/directives/customerDirective.js"></script>
-    <script src="scripts/directives/teamDirective.js"></script>
 
     <script src="https://apis.google.com/js/platform.js"></script>
 	<meta name="google-signin-client_id" content="53671047349-a7u8e0u88vdhqp10tb0833durqo9jdnt.apps.googleusercontent.com">
@@ -105,7 +105,7 @@
 
 <div class="wrapper">
     <div class="row">
-        <div class="col-md-2" ng-show="currentUser.id!==0">
+        <div class="col-md-2" ng-if="currentUser.id!==0">
             <div id="sidebar-wrapper">
                 <div id="sidebar">
                     <ul id="sidemenu" class="sidebar-nav">
