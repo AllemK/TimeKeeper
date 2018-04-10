@@ -13,29 +13,16 @@
         }
         listEmployees();
 
-        $scope.$on("employeesUpdated", function(event){
-            listEmployees();
-        });
-
-        $scope.currentPage = 0;
-        $scope.message = "Wait...";
-        dataService.list("employees", function(data, headers){
-            $scope.page = angular.fromJson(headers('Pagination'));
-            console.log($scope);
-            $scope.totalItems = $scope.page.totalItems;
-            $scope.message = "";
-            $scope.projects = data;
-            console.log(data);
-        });
-
         $scope.pageChanged = function() {
             dataService.list("employees?" +"page="+($scope.currentPage-1), function(data, headers){
-                $scope.employees = data;
+                $scope.people = data;
             });
             //$log.log('Page changed to: ' + $scope.currentPage);
         };
-        $scope.employeesStatusDesc = timeConfig.employeesStatusDesc;
+
         $scope.edit = function (person) {
+            console.log(person);
+            person.status=person.status.toString();
             var modalInstance = $uibModal.open({
                 animation: true,
                 templateUrl: 'views/employee/empModal.html',
@@ -129,20 +116,41 @@
                         swal.close();
                     }
                 });
+        };
+
+        $scope.search = function(filter){
+            if(filter===undefined)
+                listEmployees();
+            dataService.list("employees?filter="+filter,function(data){
+                $scope.people=data;
+            })
         }
     }]);
+<<<<<<< HEAD
 
     app.controller("empModalCtrl", ["$scope", "$uibModalInstance", "dataService", "employee", function($scope, $uibModalInstance, dataService, employee) {
         var $emp = this;
+=======
+    app.controller("empModalCtrl", ["$scope", "$uibModalInstance", "dataService", "employee",
+        function($scope, $uibModalInstance, dataService, employee) {
+>>>>>>> 961a4c83444f803cb0888d478145b9f4ea4c7218
 
         $scope.employee = employee;
-        console.log(employee);
+
         dataService.list("roles", function(data){
             $scope.roles = data;
+        });
+        $scope.message = "Wait...";
+        dataService.list("employees", function (data, headers) {
+            $scope.page = angular.fromJson(headers('Pagination'));
+            console.log($scope.page);
+            $scope.message = "";
+            $scope.people = data;
         });
 
         $scope.save = function(employee){
             console.log(employee);
+            employee.status=Number(employee.status);
             dataService.update("employees", employee.id, employee, function(data){
                 window.alert("Data updated!");
             });
@@ -156,6 +164,7 @@
             })
         };
 
+<<<<<<< HEAD
         $scope.cancel = function(){
             $uibModalInstance.dismiss();
         };
@@ -183,5 +192,20 @@
 
         $scope.$emit("employeesUpdated");
         $uibModalInstance.close();
+=======
+        $scope.save = function(person){
+            console.log(person);
+            if(person.id === undefined){
+                dataService.insert("employees", person, function(data){
+                    window.alert("Data inserted!");
+                });
+            }
+            else{
+                dataService.update("employees", person.id, person, function(data){
+                    window.alert("Data updated!");
+                });
+            }
+        }
+>>>>>>> 961a4c83444f803cb0888d478145b9f4ea4c7218
     }]);
 }());

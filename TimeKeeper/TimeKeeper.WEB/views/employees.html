@@ -1,0 +1,67 @@
+<h1>Employees</h1>
+<h2>{{message}}</h2>
+
+<div class="row">
+    <div class="col-md-5" style="background-color: #666666">
+        <input type="hidden" ng-model="person.id">
+        <div class="row">
+            <div class="col-md-4 label">First name:</div>
+            <div class="col-md-6"><input type="text" class="form-control" ng-model="person.firstName"></div>
+        </div>
+        <div class="row">
+            <div class="col-md-4 label">Last name:</div>
+            <div class="col-md-6"><input type="text" class="form-control" ng-model="person.lastName"></div>
+        </div>
+        <div class="row">
+            <div class="col-md-4 label">Email:</div>
+            <div class="col-md-6"><input type="text" class="form-control" ng-model="person.email"></div>
+        </div>
+        <div class="row">
+            <div class="col-md-4 label">Phone:</div>
+            <div class="col-md-6"><input type="text" class="form-control" ng-model="person.phone"></div>
+        </div>
+        <div class="row">
+            <div class="col-md-4 label">Birth date:</div>
+            <div class="col-md-6"><input type="text" class="form-control" ng-model="person.birthDate"></div>
+        </div>
+        <div class="row">
+            <div class="col-md-4 label">Employment date:</div>
+            <div class="col-md-6"><input type="text" class="form-control" ng-model="person.beginDate"></div>
+        </div>
+        <div class="row">
+            <div class="col-md-4 label">Salary:</div>
+            <div class="col-md-6"><input type="text" class="form-control" ng-model="person.salary"></div>
+        </div>
+        <div class="row">
+            <div class="col-md-4 label">Image:</div>
+            <div class="col-md-6"><input type="text" class="form-control" ng-model="person.image"></div>
+        </div>
+        <div class="row">
+            <div class="col-md-4 label">Status:</div>
+            <div class="col-md-7">
+                <label class="radio-inline"><input type="radio" ng-model="person.status" value="Active">Aktivan</label>
+                <label class="radio-inline"><input type="radio" ng-model="person.status" value="Trial">Trial</label>
+                <label class="radio-inline"><input type="radio" ng-model="person.status" value="Leaver">Leaver</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4 label">Position:</div>
+            <div class="col-md-6"><select ng-model="person.role" class="form-control"
+                                          ng-options="role.id as role.name for role in roles" ng-value="role.id">{{role.name}}</option>
+            </select></div>
+        </div>
+        <div class="row">
+            <div class="col-md-8"></div>
+            <div class="col-md-4"><button class="btn btn-success" ng-click="save(person)">S A V E</button></div>
+        </div>
+    </div>
+    <div class="col-md-7">
+        <div class="row grid" style="padding:6px" ng-repeat="person in people">
+            <div class="col-md-2">{{person.firstName}}</div>
+            <div class="col-md-2">{{person.lastName}}</div>
+            <div class="col-md-4">{{person.email}}</div>
+            <div class="col-md-3">{{person.phone}}</div>
+            <div class="col-md-1"><a href="" ng-click="edit(person)">edit</a></div>
+        </div>
+    </div>
+</div>

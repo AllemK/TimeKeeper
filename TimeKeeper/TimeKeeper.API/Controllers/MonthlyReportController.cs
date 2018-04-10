@@ -1,12 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Web.Http;
-using TimeKeeper.API.Models;
-using TimeKeeper.DAL;
+using TimeKeeper.API.Helper;
 
 namespace TimeKeeper.API.Controllers
 {
+    [TimeKeeperAuth(Roles: "Admin")]
     public class MonthlyReportController : BaseController
     {
         public IHttpActionResult Get(int year = 0, int month = 0)

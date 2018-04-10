@@ -1,7 +1,7 @@
 
 <div class="row">
     <div class="col-md-6">
-        <h1>Employees</h1>
+        <h1 class="view-title">Employees</h1>
     </div>
     <div class="col-md-4">
         <input type="text" placeholder="Search for employee.." ng-model="filter" />
@@ -16,17 +16,17 @@
 <hr>
 <div class="row">
     <div class="col-md-12">
-        <table class="table table-bordered" >
-            <thead>
-            <tr >
+        <table id="tk-table" class="table">
+            <thead id="left">
+            <tr>
                 <th>Employee Name</th>
                 <th>Email</th>
                 <th>Phone</th>
                 <th>Action</th>
             </tr>
             </thead>
-            <tbody ng-repeat="person in people">
-            <tr>
+            <tbody id="left">
+            <tr ng-repeat="person in people">
                 <td>{{person.fullName}}</td>
                 <td>{{person.email}}</td>
                 <td>{{person.phone}}</td>
@@ -38,6 +38,8 @@
             <ul uib-pagination total-items="totalItems" ng-model="currentPage" ng-change="pageChanged()"></ul>
         </div>
     </div>
+    <div class="col-md-4" style="float: right">
+        <ul uib-pagination total-items="totalItems" ng-model="currentPage" ng-change="pageChanged()"></ul>
+    </div>
 </div>
-
 

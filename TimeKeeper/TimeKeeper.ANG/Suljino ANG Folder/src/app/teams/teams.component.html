@@ -1,0 +1,19 @@
+<div class='container'>
+  <div class='panel panel-primary'>
+      <div class='panel-heading'>{{pageTitle}}</div>
+      <div class='panel-body'>
+        <div class='panel panel-success team-panel' *ngFor='let team of teams'>
+          <div class='panel-heading'>{{team.name}}</div>
+          <div class='panel-body'>
+            <table class='table'>
+                <tr *ngFor='let member of team.members'>
+                  <td>{{member.employee.name}}</td>
+                  <td>{{member.role.id}}</td>
+                  <td>{{member.hours}}</td>
+                </tr>
+            </table>
+          </div>
+        </div>
+      </div>
+  </div>
+</div>

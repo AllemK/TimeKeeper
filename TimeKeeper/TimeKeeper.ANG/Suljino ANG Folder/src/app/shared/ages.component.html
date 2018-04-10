@@ -1,0 +1,10 @@
+<div class="crop" (click)='onClick()'
+    [style.width.px]="agesWidth"
+    [title]="period"
+    (click)="onClick()">
+    <div style="width: 85px">
+        <span style='width:17px' *ngFor="let i of [1,2,3,4,5]">
+            <i class='fa fa-calendar'></i>
+        </span>
+    </div>
+</div>

@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-
-namespace TimeKeeper.API.Helper
+﻿namespace TimeKeeper.API.Helper
 {
     public class Header
     {

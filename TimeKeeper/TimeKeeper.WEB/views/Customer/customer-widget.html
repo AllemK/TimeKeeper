@@ -1,5 +1,5 @@
 <div class="custFrame">
-    <img class="custImage" ng-src="images/{{data.monogram}}.jpg">
+    <img class="custImage" ng-src="images/{{data.image || 'default_customer.png'}}">
     <div class="custData">
         <span class="custTitle">{{data.name}}</span><br>
         {{data.contact}}<br>

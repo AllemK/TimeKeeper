@@ -1,61 +1,33 @@
 <div class="modal-header">
-    <h3 class="modal-title" id="modal-title">{{team.name}}</h3>
+    <div class="col-md-6"><h1>New Team</h1></div>
 </div>
-
-<div class="modal-body" id="modal-body">
-    <input type="hidden" ng-model="team.id">
-    <div class="row">
-        <div class="col-md-4 label">Team Name:</div>
-        <div class="col-md-6"><input type="text" class="form-control" ng-model="team.name"></div>
-    </div>
-    <br>
-    <div class="row">
-        <div class="col-md-4 label">Project:</div>
-        <div class="col-md-6">
-            <select ng-model="team.projects[0].id" class="form-control"
-                    ng-options="project.id as project.name for project in projects"
-                    ng-value="project.id">{{project.name}}</option>
-            </select>
+<br>
+<form name="teamForm" novalidate>
+    <div class="modal-body">
+        <input type="hidden" ng-model="team.id">
+        <div class="new-team">
+            <div class="row">
+                <div class="col-md-4 label">Team Name:</div>
+                <div class="col-md-6"><input type="text" class="form-control" ng-model="team.name"></div>
+            </div>
+            <div class="row">
+                <div class="col-md-4 label">Team image:</div>
+                <div class="col-md-6"><input type="text" class="form-control" ng-model="team.image"></div>
+            </div>
+            <div class="row">
+                <div class="col-md-4 label">Description:</div>
+                <div class="col-md-6"><input type="text" class="form-control" name="teamDesc" ng-model="team.description" required></div>
+                <span style="color:red" ng-show="teamForm.teamDesc.$dirty && teamForm.teamDesc.$invalid">
+                    <span ng-show="teamForm.teamDesc.$error.required" style="font-size: 30px;">*</span>
+                </span>
+            </div>
         </div>
     </div>
-    <div class="row">
-        <div class="col-md-2 label">Team Members:</div>
-        <div class="col-md-8">
-            <table class="table table-bordered">
-                <tbody ng-repeat="people in team.engagements">
-                <tr>
-                    <td>{{people.employee.name}}</td>
-                    <td>{{people.role.name}}</td>
-                    <td><a href="" ng-click="removeMember(people)"><i class="fa fa-minus-square" style="widht: 25px; height: 25px;"></i></a></td>
-                </tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
-    <!--<div class="row" ng-model="person">
-        <div class="col-md-2 label">Add Member:</div>
-        <div class="col-md-5">
-            <select ng-model="employee.id" class="form-control"
-                    ng-options="employee.id as employee.name for employee in employees"
-                    ng-value="employee.id">{{employee.name}}
-            </select>
-        </div>
-        <div class="col-md-5">
-            <select ng-model="roles.id" class="form-control"
-                    ng-options="roles.id as roles.name for roles in roles"
-                    ng-value="roles.id">{{roles.name}}
-            </select>
-        </div>
-        <a href="" ng-click="addMember(person)"><i class="fa fa-minus-square" style="widht: 25px; height: 25px;"></i></a>
-    </div>-->
     <div class="row">
         <div class="col-md-4 label">Description:</div>
         <div class="col-md-6"><input type="text" class="form-control" ng-model="team.description"></div>
+    <div class="modal-footer">
+        <button class="btn btn-success" type="button" ng-click="teamForm.$valid && saveNew(team)">Save</button>
+        <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
     </div>
-
-</div>
-
-<div class="modal-footer">
-    <button class="btn btn-success" type="button" ng-click="save(team)">SAVE</button>
-    <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
-</div>
+</form>

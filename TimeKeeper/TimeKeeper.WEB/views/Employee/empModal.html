@@ -2,106 +2,94 @@
     <h3 class="modal-title" id="modal-title">{{employee.fullName}}</h3>
 </div>
 <form name="employeeForm" novalidate>
-<div class="modal-body">
-    <div class="new-employee">
-        <input type="hidden" ng-model="employee.id">
-        <div class="row">
-            <div class="container">
-                <div class="col-md-2">
-                    <img src="images\EMP.jpg" alt="avatar"></div>
-                <div class="col-md-5 custom-file">
-                    <input id="inputImage" type="file" data-classButton="btn btn-primary" ng-model="imagefile" base-sixty-four-input accept="image/*">
-                    <label class="custom-file-label" for="inputImage">Choose profile image</label>
+    <div class="modal-body">
+        <div class="new-employee">
+            <input type="hidden" ng-model="employee.id">
+            <div class="row">
+                <div class="container">
+                    <div class="col-md-2">
+                        <img src="images\EMP.jpg" alt="avatar"></div>
+                    <div class="col-md-5 custom-file">
+                        <input id="inputImage" type="file" data-classButton="btn btn-primary" ng-model="imagefile" base-sixty-four-input accept="image/*">
+                        <label class="custom-file-label" for="inputImage">Choose profile image</label>
+                    </div>
+                </div>
+            </div>
+            <br>
+            <div class="row">
+                <div class="col-md-3 label">First name</div>
+                <div class="col-md-6"><input type="text" class="form-control" ng-model="employee.firstName"></div>
+                <span style="color:red" ng-show="employeeForm.employeeFirstName.$dirty && employeeForm.employeeFirstName.$invalid">
+                    <span ng-show="employeeForm.employeeFirstName.$error.required" style="font-size:30px;"> * </span>
+                </span>
+            </div>
+            <br>
+            <div class="row">
+                <div class="col-md-3 label">Last name</div>
+                <div class="col-md-6"><input type="text" class="form-control" ng-model="employee.lastName"></div>
+                <span style="color:red" ng-show="employeeForm.employeeLastName.$dirty && employeeForm.employeeLastName.$invalid">
+                    <span ng-show="employeeForm.employeeLastName.$error.required" style="font-size:30px;"> * </span>
+                </span>
+            </div>
+            <br>
+            <div class="row">
+                <div class="col-md-3 label">Email</div>
+                <div class="col-md-6"><input type="text" class="form-control" ng-model="employee.email"></div>
+                <span style="color:red" ng-show="employeeForm.employeeEmail.$dirty && employeeForm.employeeEmail.$invalid">
+                    <span ng-show="employeeForm.employeeEmail.$error.required" style="font-size:30px;"> * </span>
+                </span>
+            </div>
+            <br>
+            <div class="row">
+                <div class="col-md-3 label">Phone number</div>
+                <div class="col-md-6"><input type="text" class="form-control" ng-model="employee.phone"></div>
+                <span style="color:red" ng-show="employeeForm.employeePhoneNumber.$dirty && employeeForm.employeePhoneNumber.$invalid">
+                    <span ng-show="employeeForm.employeePhoneNumber.$error.required" style="font-size:30px;"> * </span>
+                </span>
+            </div>
+            <br>
+            <div class="row">
+                <div class="col-md-3 label">Birth date</div>
+                <div class="col-md-6"><input type="text" class="form-control" ng-model="employee.birthDate"></div>
+                <span style="color:red" ng-show="employeeForm.employeeBirthDate.$dirty && employeeForm.employeeBirthDate.$invalid">
+                    <span ng-show="employeeForm.employeeBirthDate.$error.required" style="font-size:30px;"> * </span>
+                </span>
+            </div>
+            <br>
+            <div class="row">
+                <div class="col-md-3 label">Employment begin date</div>
+                <div class="col-md-6"><input type="text" class="form-control" ng-model="employee.beginDate"></div>
+                <span style="color:red" ng-show="employeeForm.employeeSalary.$dirty && employeeForm.employeeSalary.$invalid">
+                        <span ng-show="employeeForm.employeeSalary.$error.required" style="font-size:30px;"> * </span>
+                </span>
+            </div>
+            <br>
+            <div class="row" ng-show="employee.endDate!==null">
+                <div class="col-md-3 label">Employment end date</div>
+                <div class="col-md-6"><input type="text" class="form-control" ng-model="employee.endDate"></div>
+            </div>
+            <div class="row">
+                <div class="col-md-3 label">Position:</div>
+                <div class="col-md-6">
+                    <select ng-model="employee.position.id" class="form-control"
+                            ng-options="role.id as role.name for role in roles"
+                            ng-value="role.id">{{role.name}}></select>
+                </div>
+            </div>
+            <br>
+            <div class="row">
+                <div class="col-md-3 label">Status:</div>
+                <div class="col-md-6">
+                    <label class="radio-inline"><input type="radio" ng-model="employee.status" value="1">Active</label>
+                    <label class="radio-inline"><input type="radio" ng-model="employee.status" value="0">Trial</label>
+                    <label class="radio-inline"><input type="radio" ng-model="employee.status" value="2">Leaver</label>
                 </div>
             </div>
         </div>
-
-        <div class="row">
-            <div class="col-md-3 label">First name</div>
-            <div class="col-md-6"><input type="text" name="employeeFirstName" class="form-control" ng-model="employee.firstName" required></div>
-            <span style="color:red" ng-show="employeeForm.employeeFirstName.$dirty && employeeForm.employeeFirstName.$invalid">
-                <span ng-show="employeeForm.employeeFirstName.$error.required" style="font-size:30px;"> * </span>
-            </span>
-        </div>
         <br>
-        <div class="row">
-            <div class="col-md-3 label">Last name</div>
-            <div class="col-md-6"><input type="text" name="employeeLastName" class="form-control" ng-model="employee.lastName" required></div>
-            <span style="color:red" ng-show="employeeForm.employeeLastName.$dirty && employeeForm.employeeLastName.$invalid">
-                <span ng-show="employeeForm.employeeLastName.$error.required" style="font-size:30px;"> * </span>
-            </span>
-        </div>
-        <br>
-        <div class="row">
-            <div class="col-md-3 label">Email</div>
-            <div class="col-md-6"><input type="text" name="employeeEmail" class="form-control" ng-model="person.email" required></div>
-            <span style="color:red" ng-show="employeeForm.employeeEmail.$dirty && employeeForm.employeeEmail.$invalid">
-                <span ng-show="employeeForm.employeeEmail.$error.required" style="font-size:30px;"> * </span>
-            </span>
-        </div>
-        <br>
-        <div class="row">
-            <div class="col-md-3 label">Phone number</div>
-            <div class="col-md-6"><input type="text" name="employeePhoneNumber" class="form-control" ng-model="person.phone" required></div>
-            <span style="color:red" ng-show="employeeForm.employeePhoneNumber.$dirty && employeeForm.employeePhoneNumber.$invalid">
-                <span ng-show="employeeForm.employeePhoneNumber.$error.required" style="font-size:30px;"> * </span>
-            </span>
-        </div>
-        <br>
-        <div class="row">
-            <div class="col-md-3 label">Birth date</div>
-            <div class="col-md-6"><input type="text" name="employeeBirthDate" class="form-control" ng-model="person.birthDate" required></div>
-            <span style="color:red" ng-show="employeeForm.employeeBirthDate.$dirty && employeeForm.employeeBirthDate.$invalid">
-                <span ng-show="employeeForm.employeeBirthDate.$error.required" style="font-size:30px;"> * </span>
-            </span>
-        </div>
-        <br>
-        <div class="row">
-            <div class="col-md-3 label">Salary</div>
-            <div class="col-md-6"><input type="text" name="employeeSalary" class="form-control" ng-model="person.salary" required></div>
-            <span style="color:red" ng-show="employeeForm.employeeSalary.$dirty && employeeForm.employeeSalary.$invalid">
-                <span ng-show="employeeForm.employeeSalary.$error.required" style="font-size:30px;"> * </span>
-            </span>
-        </div>
-        <br>
-        <div class="row">
-            <div class="col-md-3 label">Employment begin date</div>
-            <div class="col-md-6"><input type="text" name="employeeEmploymentBeginDate" class="form-control" ng-model="person.beginDate" required></div>
-            <span style="color:red" ng-show="employeeForm.employeeEmploymentBeginDate.$dirty && employeeForm.employeeEmploymentBeginDate.$invalid">
-                <span ng-show="employeeForm.employeeEmploymentBeginDate.$error.required" style="font-size:30px;"> * </span>
-            </span>
-        </div>
-        <br>
-        <div class="row">
-            <div class="col-md-3 label">Employment end date</div>
-            <div class="col-md-6"><input type="text" class="form-control" ng-model="employee.endDate"></div>
-        </div>
-        <br>
-        <div class="row">
-            <div class="col-md-3 label">Position</div>
-            <div class="col-md-6">
-                <select ng-model="employee.position" class="form-control"
-                        ng-options="role.id as role.name for role in roles"
-                        ng-value="role.id">{{role.name}}></select>
-            </div>
-        </div>
-        <br>
-        <div class="row">
-            <div class="col-md-3 label">Status:</div>
-            <div class="col-md-3"><input type="text" name="employeeStatus" class="form-control" ng-model="person.status" required></div>
-            <span style="color:red" ng-show="employeeForm.employeeStatus.$dirty && employeeForm.employeeStatus.$invalid">
-                <span ng-show="employeeForm.employeeStatus.$error.required" style="font-size:30px;"> * </span>
-            </span>
-                <label class="radio-inline"><input type="radio" ng-model="employee.status" value="1">Active</label>
-                <label class="radio-inline"><input type="radio" ng-model="employee.status" value="0">Trial</label>
-                <label class="radio-inline"><input type="radio" ng-model="employee.status" value="2">Leaver</label>
-            </div>
-        </div>
     </div>
-    <br>
-</div>
-<div class="modal-footer">
-    <div class="col-md-5 label"><button class="btn btn-success" type="button" ng-click="saveNew(employee)">Save</button></div>
-    <div class="col-md-1 label"><button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button></div>
-</div>
-
+    <div class="modal-footer">
+        <div class="col-md-5 label"><button class="btn btn-success" type="button" ng-click="saveNew(employee)">Save</button></div>
+        <div class="col-md-1 label"><button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button></div>
+    </div>
+</form>

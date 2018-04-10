@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Linq;
 using TimeKeeper.DAL.Entities;
 using TimeKeeper.DAL.Repository;
 
@@ -251,8 +248,8 @@ namespace TimeKeeper.API.Models
                 {
                     Id = emp.Id,
                     Name = emp.FullName,
-                    Role = emp.Role.Name,
-                    Teams = emp.Engagements.Select(x => x.Team.Name).ToList(),
+                    Role = emp.Engagements.Where(x=>x.Role.Id=="TL").Count()>1 ? "Lead":emp.Role.AppRole.ToString(),
+                    Teams = emp.Engagements.Select(x => x.Team.Id).ToList(),
                     Provider = provider
                 };
             }

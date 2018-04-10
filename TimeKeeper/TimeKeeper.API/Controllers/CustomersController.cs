@@ -1,16 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Web.Http;
 using TimeKeeper.API.Helper;
 using TimeKeeper.API.Models;
-using TimeKeeper.Utility;
 using TimeKeeper.DAL.Entities;
+using TimeKeeper.Utility;
 
 namespace TimeKeeper.API.Controllers
 {
+    [TimeKeeperAuth(Roles: "Admin")]
     public class CustomersController : BaseController
     {
         public IHttpActionResult GetAll(string all)
@@ -27,6 +25,10 @@ namespace TimeKeeper.API.Controllers
         ///<returns>All Customers</returns>
         public IHttpActionResult Get([FromUri] Header h)
         {
+            if (h.filter == null)
+            {
+                h.filter = "";
+            }
             var list = TimeKeeperUnit.Customers
                 .Get(x => x.Name.Contains(h.filter))
                 .AsQueryable()
@@ -64,6 +66,22 @@ namespace TimeKeeper.API.Controllers
         /// <returns>A new Customer</returns>
         public IHttpActionResult Post([FromBody] CustomerModel customer)
         {
+            if (customer.Monogram == null)
+            {
+                customer.Monogram = "";
+                foreach(var item in customer.Name)
+                {
+                    if (customer.Monogram.Length > 3)
+                    {
+                        break;
+                    }
+
+                    if (char.IsUpper(item))
+                    {
+                        customer.Monogram += item;
+                    }
+                }               
+            }
             try
             {
                 if (!ModelState.IsValid)

@@ -24,7 +24,7 @@
         <br>
         <div class="row">
             <div class="col-md-2 label">Email</div>
-            <div class="col-md-4"><{{employee.email}}</div>
+            <div class="col-md-4">{{employee.email}}</div>
         </div>
         <br>
         <div class="row">
@@ -44,7 +44,9 @@
         <br>
         <div class="row">
             <div class="col-md-2 label">Status</div>
-            <div class="col-md-4">{{employee.status}}</div>
+            <div class="col-md-4" ng-if="employee.status===0">Trial</div>
+            <div class="col-md-4" ng-if="employee.status===1">Active</div>
+            <div class="col-md-4" ng-if="employee.status===2">Leaver</div>
         </div>
         <br>
         <div class="row">
@@ -54,13 +56,14 @@
         <br>
         <div class="row">
             <div class="col-md-2 label">Contracted salary</div>
-            <div class="col-md-4">{{employee.salary}}</div>
+            <div class="col-md-4" ng-if="currentUser.role=='Admin'">{{employee.salary}}</div>
         </div>
         <br>
-        <div class="row">
+        <div class="row" ng-show="employee.endDate!==null">
             <div class="col-md-2 label">Employment end date</div>
-            <div class="col-md-4"><input type="text" class="form-control" ng-model="employee.endDate"></div>
+            <div class="col-md-4">{{employee.endDate}}</div>
         </div>
+        <!--
         <div class="row">
             <div class="col-md-5">
                 <table class="table table-bordered" >
@@ -80,6 +83,7 @@
                 </table>
             </div>
         </div>
+        -->
         <div class="row">
             <div class="col-md-2 label">
                 <button class="btn btn-warning" ng-click="cancel()">Close</button>

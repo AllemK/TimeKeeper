@@ -1,15 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Web.Http;
 using TimeKeeper.API.Models;
-using TimeKeeper.Utility;
 using TimeKeeper.DAL.Entities;
+using TimeKeeper.Utility;
+using TimeKeeper.API.Helper;
 
 namespace TimeKeeper.API.Controllers
 {
+    [TimeKeeperAuth]
     public class CalendarController : BaseController
     {
         /// <summary>

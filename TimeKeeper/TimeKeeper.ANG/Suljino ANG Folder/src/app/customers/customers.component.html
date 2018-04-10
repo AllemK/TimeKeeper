@@ -1,0 +1,33 @@
+<div class='container'>
+    <div class='panel panel-primary'>
+        <div class='panel-heading'>{{pageTitle}}</div>
+        <div class='panel-body'>        
+            <div class='table-responsive'>
+                <table class='table' *ngIf='customers && customers.length>0' border='1'>
+                    <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Name</th>
+                            <th>Image</th>
+                            <th>Contact</th>
+                            <th>E-mail</th>
+                            <th>Address</th>
+                            <th>City</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor='let customer of customers'>
+                            <td>{{ customer.id }}</td>
+                            <td>{{ customer.name }}</td>
+                            <td>{{ customer.monogram }}</td>
+                            <td>{{ customer.contact }}</td>
+                            <td>{{ customer.email }}</td>
+                            <td>{{ customer.address.road }}</td>
+                            <td>{{ customer.address.city }} {{ customer.address.zipCode }}</td>
+                        </tr>                
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
