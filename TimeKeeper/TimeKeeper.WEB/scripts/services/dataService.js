@@ -38,7 +38,7 @@
                 $http({ method: "post", url: source + dataSet, data: data })
                     .then(function success(response) {
                         setLoader(false);
-                        infoService.success(dataSet.charAt(0).toUpperCase()+dataSet.slice(1,dataSet.length-1), "data successfully inserted" );
+                        infoService.success(dataSet.charAt(0).toUpperCase()+dataSet.slice(1,dataSet.length), "data successfully inserted" );
                         return callback(response.data);
                     }, function error(error) {
                         setLoader(false);
@@ -51,7 +51,7 @@
                 $http({ method: "put", url: source + dataSet + "/" + id, data: data })
                     .then(function success(response) {
                         setLoader(false);
-                        infoService.success(dataSet.charAt(0).toUpperCase()+dataSet.slice(1,dataSet.length-1), "data successfully updated" );
+                        infoService.success(dataSet.charAt(0).toUpperCase()+dataSet.slice(1,dataSet.length), "data successfully updated" );
                         return callback(response.data);
                     }, function error(error) {
                         setLoader(false);
@@ -64,7 +64,7 @@
                 $http({ method: "delete", url: source + dataSet + "/" + id })
                     .then(function success(response) {
                         setLoader(false);
-                        infoService.success(dataSet.charAt(0).toUpperCase()+dataSet.slice(1,dataSet.length-1), "data successfully deleted" );
+                        infoService.success(dataSet.charAt(0).toUpperCase()+dataSet.slice(1,dataSet.length), "data successfully deleted" );
                         return callback(response.data);
                     }, function error(error) {
                         setLoader(false);

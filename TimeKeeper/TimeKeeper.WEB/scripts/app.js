@@ -6,7 +6,7 @@
         idsUrl:"http://localhost:59871/connect/token",
         dayType:['empty','workingday', 'publicholiday', 'otherabsence', 'religiousday', 'sickleave', 'vacation', 'businessabsence', 'weekend', 'future'],
         dayDesc:[' ', 'Working Day', 'Public Holiday', 'Other Absence', 'Religious Day', 'Sick Leave', 'Vacation', 'Business Absence'],
-        months:['--select month--', 'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+        months:['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
         projectStatus:['inProgress','onHold','finished','canceled'],
         projectStatusDesc:['--select status--','In Progress', 'On Hold', 'Finished', 'Canceled']
     });

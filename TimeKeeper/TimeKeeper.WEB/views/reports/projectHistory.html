@@ -16,14 +16,14 @@
             <tr>
                 <th>Employee</th>
                 <th>Total hours</th>
-                <th ng-repeat="item in projectHistory | limitTo:projectHistory[0].lastYear-projectHistory[0].firstYear+1">{{item.firstYear+$index}}</th>
+                <th ng-repeat="item in projectHistory.yearlyHours[0].hours">{{projectHistory.firstYear+$index}}</th>
             </tr>
             </thead>
             <tbody>
-            <tr ng-repeat="item in projectHistory">
+            <tr ng-repeat="item in projectHistory.yearlyHours">
                 <td>{{item.employee}}</td>
                 <td>{{item.totalHours}}</td>
-                <td ng-repeat="year in item.yearlyHours track by $index">{{year}}</td>
+                <td ng-repeat="year in item.hours track by $index">{{year}}</td>
                 <td > <a href="" ng-click="view()"><i class="glyphicon glyphicon-eye-open"></i></a></td>
             </tr>
             </tbody>

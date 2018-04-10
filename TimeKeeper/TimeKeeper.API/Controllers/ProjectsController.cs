@@ -8,21 +8,38 @@ using TimeKeeper.Utility;
 
 namespace TimeKeeper.API.Controllers
 {
-    [TimeKeeperAuth(Roles: "Admin")]
+    [TimeKeeperAuth]
     public class ProjectsController : BaseController
     {
-        public IHttpActionResult GetAll(string all)
+        [TimeKeeperAuth]
+        public IHttpActionResult GetAll(string role, string teamId="")
         {
-            var list = TimeKeeperUnit.Projects.Get().OrderBy(x => x.Name).ToList()
-                .Select(x => new { x.Id, x.Name })
-                .ToList();
-            return Ok(list);
+            if (role == "Admin")
+            {
+                var list = TimeKeeperUnit.Projects.Get().OrderBy(x => x.Name).ToList()
+                            .Select(x => new { x.Id, x.Name })
+                            .ToList();
+                return Ok(list);
+            }
+            if (role.Contains("User") || role.Contains("Lead"))
+            {
+                var list = TimeKeeperUnit.Engagements.Get()
+                    .Where(x => x.Team.Id == teamId)
+                    .ToList()
+                    .GroupBy(x=>x.Team.Projects)
+                    .SelectMany(x=>x.Key)
+                    .Select(y => new { y.Id, y.Name })
+                    .ToList();
+                return Ok(list);
+            }
+            return Ok();
         }
 
         /// <summary>
         /// Get all Projects
         /// </summary>
         /// <returns></returns>
+        [TimeKeeperAuth(Roles: "Admin")]
         public IHttpActionResult Get([FromUri] Header h)
         {
             var list = TimeKeeperUnit.Projects
@@ -36,6 +53,7 @@ namespace TimeKeeper.API.Controllers
             return Ok(list);
         }
 
+        [TimeKeeperAuth(Roles: "Admin")]
         public IHttpActionResult Get(int id)
         {
             Project project = TimeKeeperUnit.Projects.Get(id);
@@ -56,6 +74,7 @@ namespace TimeKeeper.API.Controllers
         /// </summary>
         /// <param name="project"></param>
         /// <returns></returns>
+        [TimeKeeperAuth(Roles: "Admin")]
         public IHttpActionResult Post([FromBody] ProjectModel project)
         {
             try
@@ -85,6 +104,7 @@ namespace TimeKeeper.API.Controllers
         /// <param name="project"></param>
         /// <param name="id"></param>
         /// <returns></returns>
+        [TimeKeeperAuth(Roles: "Admin")]
         public IHttpActionResult Put([FromBody] ProjectModel project, int id)
         {
             try
@@ -117,6 +137,7 @@ namespace TimeKeeper.API.Controllers
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
+        [TimeKeeperAuth(Roles: "Admin")]
         public IHttpActionResult Delete(int id)
         {
             try
